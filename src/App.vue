@@ -12,7 +12,7 @@ export default {
   name: 'App',
   components: {
     Header,
-  }
+  },
 }
 
 </script>
@@ -23,6 +23,7 @@ export default {
 
 body {
   overflow: overlay;
+  margin-bottom: 300px;
 }
 
 * {

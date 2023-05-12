@@ -7,7 +7,7 @@
 
         <div class="links">
             <button><router-link to="/">Início</router-link></button>
-            <button><router-link to="Portfolio">Portfólio</router-link></button>
+            <button><router-link to="portfolio">Portfólio</router-link></button>
             <button>contato</button>
         </div>
     </nav>

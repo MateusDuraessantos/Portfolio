@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+
 import Portfolio from '../views/Portfolio.vue'
 import Inicio from '../views/Inicio.vue'
 
@@ -9,12 +10,10 @@ const routes = [
     component: Inicio
   },
   {
-    path: '/Portfolio',
+    path: '/portfolio',
     name: 'Portfolio',
     component: Portfolio
   },
-
-
 ]
 
 const router = createRouter({

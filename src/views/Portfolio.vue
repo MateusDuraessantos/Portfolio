@@ -1,38 +1,27 @@
 <template>
     <div>
         <div class="grid">
-            <div class="cards" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
-                <div class="cards__name">{{ img.name }}</div>
+            <div class="cards anime_scrollReveal" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
+                <div class="cards__name anime_scrollReveal third_el">{{ img.name }}</div>
                 <img class="cards__imagens" :src="img.paths[0]">
             </div>
         </div>
 
-        <div class="popup__background" v-if="popup" @click="upPopup">
+        <div class="popup__background popup__background--animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <button class="popup__close">✕</button>
 
                 <div class="popup__content">
-
-                    <span>
-
-                        <img class="popup__img" v-for="coisas in imgs[indexImg].paths" :src="coisas">
-
-                    </span>
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" :src="coisas">
                 </div>
             </div>
         </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        {{ imgs }}
-
     </div>
 </template>
 
 <script>
 import { imagens } from './imagensDados.js'
+import ScrollReveal from 'scrollreveal';
 
 export default {
     name: 'Portfolio',
@@ -43,6 +32,31 @@ export default {
             indexImg: null,
         }
     },
+    mounted() {
+        setTimeout(() => {
+            const sr = ScrollReveal();
+            window.sr = ScrollReveal({ reset: true })
+            sr.reveal('.anime_scrollReveal', {
+                duration: 1000,
+                rotate: {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                },
+                scale: 0.9
+            });
+            sr.reveal('.first_el', {
+                delay: 0,
+            });
+            sr.reveal('.second_el', {
+                delay: 150,
+            });
+            sr.reveal('.third_el', {
+                delay: 300,
+            });
+        }, 1000);
+    },
+
     methods: {
         upPopup(event, index) {
             const clicked = event.target.classList[0]
@@ -55,12 +69,17 @@ export default {
                 document.body.removeAttribute('style')
                 this.popup = !this.popup
             }
+
         },
     }
 }
 
 </script>
-<style>
+<style scoped>
+.anime_scrollReveal {
+    visibility: hidden;
+}
+
 .grid {
     width: calc(100% - 40px);
     display: grid;
@@ -76,8 +95,9 @@ export default {
     color: white;
     width: 100%;
     height: 300px;
-
+    overflow: hidden;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .cards__name {
@@ -107,19 +127,41 @@ export default {
 }
 
 .cards:hover .cards__imagens {
-    transform: scale(1.02);
-    transition: .3s;
+    transform: scale(1.05);
+    transition: .6s;
 }
 
 .popup__background {
     position: fixed;
-    top: 0;
+    top: 30px;
     left: 0;
     z-index: 10;
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.8);
+    animation-name: popup__background--animation;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
+
+@keyframes popup__background--animation {
+
+    from {
+        opacity: 0;
+        top: -30px;
+    }
+
+
+    to {
+
+        opacity: 1;
+        top: 0;
+
+    }
+
+}
+
+
 
 .popup__content {
     margin: auto;

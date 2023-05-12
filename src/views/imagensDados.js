@@ -106,7 +106,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'Fotografia',
+        name: 'Fotografias',
         paths:
             [
                 'projetos/fotografia/1.jpg',
@@ -118,7 +118,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'Fotografia',
+        name: 'Fotografia | Preto e Branco',
         paths:
             [
                 'projetos/fotografia_01/1.jpg',
