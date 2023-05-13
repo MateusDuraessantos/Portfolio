@@ -35,25 +35,12 @@ export default {
     mounted() {
         setTimeout(() => {
             const sr = ScrollReveal();
-            window.sr = ScrollReveal({ reset: true })
+            window.sr = ScrollReveal({ reset: false })
             sr.reveal('.anime_scrollReveal', {
                 duration: 1000,
-                rotate: {
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                },
-                scale: 0.9
+                scale: 0.8
             });
-            sr.reveal('.first_el', {
-                delay: 0,
-            });
-            sr.reveal('.second_el', {
-                delay: 150,
-            });
-            sr.reveal('.third_el', {
-                delay: 300,
-            });
+
         }, 1000);
     },
 
@@ -69,23 +56,51 @@ export default {
                 document.body.removeAttribute('style')
                 this.popup = !this.popup
             }
-
         },
     }
 }
 
 </script>
 <style scoped>
-.anime_scrollReveal {
-    visibility: hidden;
-}
-
 .grid {
     width: calc(100% - 40px);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px;
     margin: auto;
+}
+
+@media only screen and (min-width: 1601px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+
+@media only screen and (max-width: 1280px) {
+    .grid {
+
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .grid {
+
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .grid {
+
+        grid-template-columns: 1fr;
+    }
 }
 
 .cards {
@@ -103,16 +118,18 @@ export default {
 .cards__name {
     display: flex;
     align-items: center;
-    height: 40px;
     background: rgb(255, 255, 255, 0.05);
     backdrop-filter: blur(6px);
-    z-index: 1;
     position: absolute;
     border-radius: 50px;
-    padding-left: 20px;
+    padding: 10px 20px;
+    line-height: 18px;
+    font-size: 14px;
+    min-height: 40px;
     width: calc(100% - 20px);
     margin: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .cards__imagens {
@@ -151,21 +168,17 @@ export default {
         top: -30px;
     }
 
-
     to {
-
         opacity: 1;
         top: 0;
-
     }
-
 }
 
-
-
 .popup__content {
+    column-count: 2;
+    gap: 10px;
     margin: auto;
-    background: gray;
+    background: #1f1f1f;
     width: 80vw;
     margin-bottom: 100px;
 }

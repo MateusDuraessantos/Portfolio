@@ -1,14 +1,15 @@
 <template>
     <nav>
 
-        <button>
-            something
-        </button>
+        <div class="eu">
+            <img src="eu.png" alt="Mateus Durães dos Santos">
+            <p>Mateus Durães dos Santos</p>
+        </div>
 
         <div class="links">
-            <button><router-link to="/">Início</router-link></button>
-            <button><router-link to="portfolio">Portfólio</router-link></button>
-            <button>contato</button>
+            <router-link to="/">Início</router-link>
+            <router-link to="portfolio">Portfólio</router-link>
+            <router-link to="/contato">Contato</router-link>
         </div>
     </nav>
 </template>
@@ -27,12 +28,24 @@ nav {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-    padding: 0 30px;
-
+    padding: 34px 40px 0 40px;
+    font-size: 18px;
     z-index: 3;
+}
+
+a {
+    line-height: 0;
+    text-decoration: none;
+    transition: .2s;
+}
+
+a:hover {
+    color: rgb(175, 175, 175);
+    transition: .2s;
+}
+
+.router-link-active {
+    color: rgb(234, 69, 69);
 }
 
 button {
@@ -42,9 +55,20 @@ button {
     border: none;
 }
 
-
 .links {
     display: flex;
     gap: 30px;
+}
+
+.eu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 28px;
+    font-weight: 200;
+}
+
+.eu img {
+    width: 62px;
 }
 </style>

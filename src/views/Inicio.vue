@@ -8,8 +8,8 @@
 
         <div class="bubble__container">
             <div class="bubble" id="bubble">
-                <img src="bubble.svg" class="left">
-                <img src="bubble.svg" class="right">
+                <img src="bubble1.svg" class="left">
+                <img src="bubble0.svg" class="right">
             </div>
         </div>
 
@@ -136,16 +136,13 @@
                         </td>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
-        <div style="margin-top: 200px;">
+        <div style="margin-top: 200px; position: relative;">
             <div class="square__container">
                 <div class="square" id="square">
-                    <img src="square1.svg" class="left--square">
+                    <img src="square1.svg" class="left--square" />
+                    <div class="middle--square"></div>
                     <img src="square.svg" class="right--square">
                 </div>
             </div>
@@ -162,10 +159,8 @@
                     <br>
                     <p class="mim__description">
                         Tenho 22 anos, atualmente, cursando o 8° semestre de design na Universidade Presbiteriana Mackenzie.
-                        Já
-                        trabalho na área de webdesigner e desenvoldedor frontend a cerca de 2 anos, atualmente exercendo a
-                        profissão
-                        na empresa Data Machina.
+                        Já trabalho na área de webdesigner e desenvoldedor frontend a cerca de 2 anos, atualmente exercendo
+                        a profissão na empresa Data Machina.
                         <br>
                         <br>
                         Tenho uma boa experiência com softwares de edição de imagem e criação de objetos 3D para criação de
@@ -173,8 +168,7 @@
                         <br>
                         <br>
                         Também trabalho profissionalmente no desenvolvimento de códigos HTML, CSS e Javascript avançados na
-                        criação
-                        de layouts, atualmente, buscando mais experiência na área de back-end, meta: Fullstack.
+                        criação de layouts, atualmente, buscando mais experiência na área de back-end, meta: Fullstack.
                     </p>
                 </div>
             </div>
@@ -197,7 +191,6 @@ export default {
                         'Mesa gamer | Modelagem 3d',
                         '12/02/2023'
                     ],
-                    class: 'first_el'
                 },
                 {
                     obj: [
@@ -223,7 +216,6 @@ export default {
                         'Data Machina | Website',
                         '12/02/2023'
                     ],
-                    class: 'third_el'
                 },
                 {
                     obj: [
@@ -239,31 +231,26 @@ export default {
                         'Mun | Arandela',
                         '24/06/2020'
                     ],
-                    class: 'first_el'
+                    class: 'third_el'
                 },
             ],
-            scrollScroll: 1400
         }
     },
+    /*  */
+    /*  */
+    /*  */
+    /*  */
+    /*  */
+    /*  */
+    /*  */
     mounted() {
-        this.niceScroll()
-        this.niceSquere()
-
         setTimeout(() => {
             const sr = ScrollReveal();
 
             window.sr = ScrollReveal({ reset: true })
             sr.reveal('.anime_scrollReveal', {
                 duration: 1000,
-                rotate: {
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                },
-                scale: 0.9
-            });
-            sr.reveal('.first_el', {
-                delay: 0,
+                /* scale: 0.9 */
             });
             sr.reveal('.second_el', {
                 delay: 150,
@@ -276,45 +263,28 @@ export default {
         /*  */
 
         window.addEventListener('scroll', this.niceScroll);
-        window.addEventListener('scroll', this.niceSquere);
-
-
+        this.niceScroll()
     },
+
     methods: {
         niceScroll() {
-            let bubble = document.getElementById('bubble');
-
             window.addEventListener('scroll', function () {
-                let value = window.scrollY;
-                bubble.style.top = value * 0.4 - 180 + 'px';
+                document.getElementById('bubble').style.top = window.scrollY * 0.4 + 'px';
+                document.getElementById('square').style.top = (window.scrollY - 3280) * 0.4 + 'px';
             });
         },
-
-        niceSquere() {
-            let square = document.getElementById('square');
-
-            window.addEventListener('scroll', function () {
-                let value = window.scrollY;
-                square.style.top = (value - 3386) * 0.5 + 50 + 'px';
-            });
-        }
     }
 }
 </script>
 
-
 <style>
 :root {
     --border-color: #474747;
-    --bubble-position: -280px;
+
 }
 </style>
 
 <style scoped>
-.anime_scrollReveal {
-    visibility: hidden;
-}
-
 .body__container {
     display: flex;
     flex-direction: column;
@@ -324,11 +294,10 @@ export default {
     gap: 40px;
     position: relative;
     z-index: 1;
-
 }
 
 .ola {
-    height: 300px;
+    height: 242px;
     font-weight: 300;
 }
 
@@ -341,10 +310,8 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
-    top: -180px;
     width: 100%;
     height: 560px;
-    overflow: hidden;
 }
 
 .right,
@@ -355,12 +322,12 @@ export default {
 }
 
 .right {
-    right: var(--bubble-position);
-    transform: rotate(-65deg);
+    right: 0;
 }
 
 .left {
-    left: var(--bubble-position);
+    left: 0;
+
 }
 
 .container-table {
@@ -426,7 +393,7 @@ td {
     display: flex;
     justify-content: center;
     position: relative;
-    height: 342px;
+    height: 382px;
     width: 100%;
     border-radius: 37px;
     overflow: hidden;
@@ -526,31 +493,37 @@ td {
     display: flex;
     align-items: center;
     position: relative;
-    width: 100%;
     height: 560px;
-    overflow: hidden;
-    top: -100px;
-
 }
 
 .right--square,
 .left--square {
     position: absolute;
-    height: 100%;
+    height: 560px;
 }
 
 .right--square {
-    right: var(--bubble-position);
+    right: 0;
+}
+
+.middle--square {
+    margin: auto;
+    background: chocolate;
+    transform: translate(140px, -24px);
+    border-radius: 50%;
+    filter: blur(16px);
+    border: 4px solid white;
+    padding: 100px;
 }
 
 .left--square {
-    left: var(--bubble-position);
+    left: 0;
 }
 
 .mim {
     border-radius: 37px;
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(62px);
+    backdrop-filter: blur(82px);
     width: calc(100% - 200px);
     margin: auto;
     padding: 54px 60px 60px 60px;
