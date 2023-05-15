@@ -16,7 +16,7 @@
         <div class="body__container">
             <div class="card__grid">
                 <div :class="'card anime_scrollReveal ' + img.class" v-for="img in cardDesign">
-                    <img class="card__img" :src="'projetos/' + img.obj[0]">
+                    <img class="card__img" :src="'inicio/' + img.obj[0]">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
@@ -76,7 +76,7 @@
 
             <div class="card__grid ">
                 <div :class="'card anime_scrollReveal ' + img.class" v-for="img in cardFront" data-sr-delay="100">
-                    <img class="card__img" :src="'projetos/' + img.obj[0]">
+                    <img class="card__img" :src="'inicio/' + img.obj[0]">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
@@ -143,7 +143,7 @@
                 <div class="square" id="square">
                     <img src="square1.svg" class="left--square" />
                     <div class="middle--square"></div>
-                    <img src="square.svg" class="right--square">
+                    <img src="square0.svg" class="right--square">
                 </div>
             </div>
             <div class="body__container" style="margin-top: 26px;">
@@ -187,14 +187,14 @@ export default {
             cardDesign: [
                 {
                     obj: [
-                        'mesa/2.jpg',
+                        'mesa_gamer.jpg',
                         'Mesa gamer | Modelagem 3d',
                         '12/02/2023'
                     ],
                 },
                 {
                     obj: [
-                        'butterfly/1.jpg',
+                        'pingente_butterfly.jpg',
                         'Pingente Butterfly | Modelagem 3d',
                         '10/03/2022'
                     ],
@@ -202,7 +202,7 @@ export default {
                 },
                 {
                     obj: [
-                        'mun/3.jpg',
+                        'mun_arandela_escamoteavel.jpg',
                         'Mun | Arandela',
                         '24/06/2020'
                     ],
@@ -212,14 +212,14 @@ export default {
             cardFront: [
                 {
                     obj: [
-                        'datamachina/datamachina.jpg',
+                        'datamachina_website.jpg',
                         'Data Machina | Website',
                         '12/02/2023'
                     ],
                 },
                 {
                     obj: [
-                        'teclakey/4.gif',
+                        'teclakey_website.gif',
                         'TeclaKey | Website',
                         '10/03/2022'
                     ],
@@ -227,7 +227,7 @@ export default {
                 },
                 {
                     obj: [
-                        'tre/2.jpg',
+                        'tre_design_website.jpg',
                         'Mun | Arandela',
                         '24/06/2020'
                     ],
@@ -236,13 +236,6 @@ export default {
             ],
         }
     },
-    /*  */
-    /*  */
-    /*  */
-    /*  */
-    /*  */
-    /*  */
-    /*  */
     mounted() {
         setTimeout(() => {
             const sr = ScrollReveal();
@@ -285,6 +278,10 @@ export default {
 </style>
 
 <style scoped>
+.anime_scrollReveal {
+  visibility: hidden;
+}
+
 .body__container {
     display: flex;
     flex-direction: column;

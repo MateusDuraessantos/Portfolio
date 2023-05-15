@@ -2,18 +2,24 @@
     <div>
         <div class="grid">
             <div class="cards anime_scrollReveal" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
-                <div class="cards__name anime_scrollReveal third_el">{{ img.name }}</div>
+                <div class="cards__name">{{ img.name }}</div>
                 <img class="cards__imagens" :src="img.paths[0]">
             </div>
         </div>
 
-        <div class="popup__background popup__background--animation" v-if="popup" @click="upPopup">
+        <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
-                <button class="popup__close">✕</button>
 
-                <div class="popup__content">
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" :src="coisas">
+                <div class="container-loading" v-if="loading">
+                    <span>loading...</span>
+                    <div class="loading"></div>
                 </div>
+
+                <div class="popup__content" id="img_port" style="opacity: 0;">
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
+                </div>
+
+                <button class="popup__close">✕</button>
             </div>
         </div>
     </div>
@@ -30,20 +36,20 @@ export default {
             imgs: imagens,
             popup: false,
             indexImg: null,
+            loading: true,
+            number: 0,
         }
     },
     mounted() {
-        setTimeout(() => {
-            const sr = ScrollReveal();
-            window.sr = ScrollReveal({ reset: false })
-            sr.reveal('.anime_scrollReveal', {
-                duration: 1000,
-                scale: 0.8
-            });
-
-        }, 1000);
+        const sr = ScrollReveal();
+        window.sr = ScrollReveal({ reset: false })
+        sr.reveal('.anime_scrollReveal', {
+            duration: 2000,
+            opacity: 0,
+            scale: 0.9,
+            delay: 500
+        });
     },
-
     methods: {
         upPopup(event, index) {
             const clicked = event.target.classList[0]
@@ -55,13 +61,29 @@ export default {
             else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow') {
                 document.body.removeAttribute('style')
                 this.popup = !this.popup
+                /* Loading */
+                this.loading = true
+                this.number = 0
+                document.getElementById('img_port').setAttribute('style', 'opacity: 1;')
             }
         },
+        loadingImg() {
+            this.number = this.number + 1
+            if (this.number == this.imgs[this.indexImg].paths.length) {
+                this.loading = false
+                document.getElementById('img_port').removeAttribute('style')
+                document.getElementById('animation').classList.add('popup__animation')
+            }
+        }
     }
 }
 
 </script>
 <style scoped>
+.anime_scrollReveal {
+    visibility: hidden;
+}
+
 .grid {
     width: calc(100% - 40px);
     display: grid;
@@ -156,6 +178,24 @@ export default {
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.8);
+    animation-name: animation_opacity;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes animation_opacity {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.popup__animation .popup__overflow {
     animation-name: popup__background--animation;
     animation-duration: 1s;
     animation-fill-mode: forwards;
@@ -165,12 +205,12 @@ export default {
 
     from {
         opacity: 0;
-        top: -30px;
+        margin-top: -50px;
     }
 
     to {
         opacity: 1;
-        top: 0;
+        margin-top: 0;
     }
 }
 
@@ -184,9 +224,58 @@ export default {
 }
 
 .popup__overflow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow-y: scroll;
     height: 100%;
     padding-top: 100px;
+}
+
+.container-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.container-loading span {
+    font-size: 15px;
+    font-weight: 300;
+    color: #b5b5b5;
+}
+
+.loading {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 9px dotted rgb(183 183 183);
+    z-index: 1;
+    animation-name: loading-2357e87e;
+    animation-duration: 12s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    border-spacing: 17px;
+}
+
+@keyframes loading {
+
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+
+        transform: rotate(360deg);
+    }
 }
 
 .popup__img {
