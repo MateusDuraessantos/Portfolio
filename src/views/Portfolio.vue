@@ -172,7 +172,7 @@ export default {
 
 .popup__background {
     position: fixed;
-    top: 30px;
+    top: 0;
     left: 0;
     z-index: 10;
     width: 100%;
