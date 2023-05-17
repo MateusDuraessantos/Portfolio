@@ -66,7 +66,26 @@
             </div>
         </div>
 
-        <div class="something_I_dont_know">
+
+        <br v-for="coisa in 10">
+        <div class="sky">
+            <div class="sky__shadows"></div>
+            <img src="inicio/sky/sky1.jpg" alt="planet" class="sky__background">
+
+            <img src="inicio/sky/01.png" alt="planet" class="sky__planet--01 sky__planet">
+            <img src="inicio/sky/02.png" alt="planet" class="sky__planet--02 sky__planet">
+            <img src="inicio/sky/03.png" alt="planet" class="sky__planet--03 sky__planet">
+            <img src="inicio/sky/star.png" alt="star" class="sky__star" id="sky__star">
+            <img src="inicio/sky/05.png" alt="planet" class="sky__planet--05 sky__planet" id="planet_05">
+            <img src="inicio/sky/06.png" alt="planet" class="sky__planet--06 sky__planet">
+            <img src="inicio/sky/07.png" alt="planet" class="sky__planet--07 sky__planet">
+            <img src="inicio/sky/08.png" alt="planet" class="sky__planet--08 sky__planet">
+            <img src="inicio/sky/09.png" alt="planet" class="sky__planet--09 sky__planet">
+            <img src="inicio/sky/10.png" alt="planet" class="sky__planet--10 sky__planet">
+            <img src="inicio/sky/11.png" alt="planet" class="sky__planet--11 sky__planet" id="planet_11">
+            <img src="inicio/sky/12.png" alt="planet" class="sky__planet--12 sky__planet" id="planet_12">
+            <img src="inicio/sky/13.png" alt="planet" class="sky__planet--13 sky__planet" id="planet_13">
+            <img src="inicio/sky/14.png" alt="planet" class="sky__planet--14 sky__planet" id="planet_14">
 
         </div>
 
@@ -142,17 +161,17 @@
             <div class="square__container">
                 <div class="square" id="square">
                     <img src="square1.svg" class="left--square" />
-                    <div class="middle--square"></div>
                     <img src="square0.svg" class="right--square">
                 </div>
             </div>
             <div class="body__container" style="margin-top: 26px;">
                 <div class="mim">
                     <div class="mim__name">
-                        <img class="mim__img" src="eu.png" alt="Foto de perfil do Mateus Durães">
+                        <!-- <img class="mim__img" src="eu.png" alt="Foto de perfil do Mateus Durães"> -->
                         <span>
-                            <strong>Mateus Durães dos Santos</strong>
-                            <p>Designer e desenvolvedor frontend</p>
+                            <p>Olá,</p>
+                            <strong>Meu nome é Mateus Durães,</strong>
+                            <p>Eu projeto coisas.</p>
                         </span>
                     </div>
                     <br>
@@ -171,6 +190,7 @@
                         criação de layouts, atualmente, buscando mais experiência na área de back-end, meta: Fullstack.
                     </p>
                 </div>
+                <button class="ver">Ver portfólio completo</button>
             </div>
         </div>
 
@@ -255,16 +275,22 @@ export default {
 
         /*  */
 
+
         window.addEventListener('scroll', this.niceScroll);
         this.niceScroll()
     },
 
     methods: {
         niceScroll() {
-            window.addEventListener('scroll', function () {
-                document.getElementById('bubble').style.top = window.scrollY * 0.4 + 'px';
-                document.getElementById('square').style.top = (window.scrollY - 3280) * 0.4 + 'px';
-            });
+            document.getElementById('bubble').style.top = window.scrollY * 0.4 + 'px';
+            document.getElementById('square').style.top = (window.scrollY - 3580) * 0.4 + 'px';
+            document.getElementById('planet_05').style.right = (window.scrollY + 4500) * 0.006 + 'vw';
+            document.getElementById('planet_11').style.bottom = (window.scrollY - 700) * 0.2 + 'px';
+            document.getElementById('planet_12').style.top = (window.scrollY - 1100) * 0.25 + 'px';
+            document.getElementById('planet_12').style.right = (window.scrollY - 180) * 0.05 + 'px';
+            document.getElementById('planet_13').style.top = window.scrollY * 0.2 + 'px';
+            document.getElementById('planet_14').style.top = (window.scrollY - 4800) * -0.1 + 'px';
+            document.getElementById('sky__star').style.right = (window.scrollY - 1300) * 7 + 'px';
         },
     }
 }
@@ -279,7 +305,7 @@ export default {
 
 <style scoped>
 .anime_scrollReveal {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .body__container {
@@ -457,12 +483,186 @@ td {
     object-fit: contain;
 }
 
-/* something_I_dont_know */
+/* sky */
 
-.something_I_dont_know {
+.sky {
+    position: relative;
     height: 100vh;
     background: #101010;
     margin: 100px 0;
+    overflow: hidden;
+}
+
+.sky__shadows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(#000, transparent, #000);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.sky__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.sky__planet {
+    position: absolute;
+    z-index: 2;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes sky_01 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-30px, -40px);
+    }
+    
+    75% {
+        transform: translate(10px, -60px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+
+    }
+}
+@keyframes sky_04 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(30px, 40px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+
+    }
+}
+
+@keyframes sky_08 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    35% {
+        transform: translate(20px, 50px);
+    }
+
+    70% {
+        transform: translate(-35px, 60px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes sky_11 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-30px, 30px);
+    }
+
+    60% {
+        transform: translate(20px, 40px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+
+.sky__planet--01 {
+    left: 10vw;
+    top: 20vh;
+    animation-name: sky_04;
+}
+
+.sky__planet--02 {
+    bottom: 10vh;
+    right: 35vw;
+}
+
+.sky__planet--03 {
+    top: 20vh;
+    left: 30vw;
+}
+
+.sky__star {
+    position: absolute;
+    z-index: 2;
+    top: 40vh;
+}
+
+.sky__planet--05 {
+    top: 40vh;
+}
+
+.sky__planet--06 {
+    top: 50vh;
+    right: 16vw;
+    animation-name: sky_08;
+}
+
+.sky__planet--07 {
+    top: 16vh;
+    right: 40vw;
+}
+
+.sky__planet--08 {
+    top: 24vh;
+    left: 33vw;
+    animation-name: sky_08;
+}
+
+.sky__planet--09 {
+    animation-name: sky_01;
+    top: 40vh;
+    left: 20vw;
+}
+
+.sky__planet--10 {
+    bottom: 26vh;
+    left: 30vw;
+    z-index: 2;
+}
+
+.sky__planet--11 {
+    left: 22vw;
+    z-index: 1;
+    animation-name: sky_11;
+}
+
+.sky__planet--12 {
+    top: 20vh;
+    right: 22vw;
+    z-index: 1;
+    animation-name: sky_08;
+}
+
+
+.sky__planet--13 {
+    left: 0;
+}
+
+.sky__planet--14 {
+    right: 0;
 }
 
 /* Front end */
@@ -503,23 +703,12 @@ td {
     right: 0;
 }
 
-.middle--square {
-    margin: auto;
-    background: chocolate;
-    transform: translate(140px, -24px);
-    border-radius: 50%;
-    filter: blur(16px);
-    border: 4px solid white;
-    padding: 100px;
-}
-
 .left--square {
     left: 0;
 }
 
 .mim {
     border-radius: 37px;
-    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(82px);
     width: calc(100% - 200px);
     margin: auto;
@@ -532,11 +721,27 @@ td {
     align-items: center;
 }
 
+.mim__name span {
+    font-size: 30px;
+    line-height: 40px;
+
+}
+
 .mim__img {
     width: 140px;
 }
 
 .mim__description {
     font-weight: 300;
+}
+
+.ver {
+    width: max-content;
+    border-radius: 50px;
+    height: 44px;
+    padding: 0 30px;
+    margin: auto;
+    background-image: linear-gradient(-90deg, #1F234D, #034553);
+    margin-top: 50px;
 }
 </style>
