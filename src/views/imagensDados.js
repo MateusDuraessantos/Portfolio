@@ -1,18 +1,5 @@
 export const imagens = [
     {
-        name: 'Banners para o Youtube',
-        paths:
-            [
-                'projetos/banners/henrique.png',
-                'projetos/banners/1.png',
-                'projetos/banners/2.png',
-                'projetos/banners/3.png',
-                'projetos/banners/4.png',
-                'projetos/banners/5.png',
-                'projetos/banners/6.png',
-            ],
-    },
-    {
         name: 'BlvckFinance | Identidade de marca',
         paths:
             [
@@ -25,30 +12,6 @@ export const imagens = [
             ],
     },
     {
-        name: 'Pingente Butterfly',
-        paths:
-            [
-                'projetos/butterfly/1.jpg',
-                'projetos/butterfly/modelo_com_pingente_butterfly.jpg',
-                'projetos/butterfly/3.jpg',
-                'projetos/butterfly/2.jpg',
-                'projetos/butterfly/4.png',
-            ],
-    },
-    {
-        name: 'Mun | Arandela escamoteável',
-        paths:
-            [
-                'projetos/mun/mun_arandela_escamoteavel.jpg',
-                'projetos/mun/mun_arandela.jpg',
-                'projetos/mun/mun_Iluminacao.jpg',
-                'projetos/mun/mun_visao_interna.jpg',
-                'projetos/mun/mun_visao_interna_escamoteavel.jpg',
-                'projetos/mun/mun_tag.jpg',
-                'projetos/mun/mun_area_de_iluminacao.jpg',
-            ],
-    },
-    {
         name: 'Chimarrão',
         paths:
             [
@@ -57,7 +20,6 @@ export const imagens = [
                 'projetos/chimarrao/3.jpg',
                 'projetos/chimarrao/4.jpg',
                 'projetos/chimarrao/5.jpg',
-
             ],
     },
     {
@@ -68,7 +30,6 @@ export const imagens = [
                 'projetos/cobogo/2.jpg',
                 'projetos/cobogo/3.jpg',
                 'projetos/cobogo/4.jpg',
-
             ],
     },
     {
@@ -93,9 +54,21 @@ export const imagens = [
                 'projetos/desenhos/4.jpg',
                 'projetos/desenhos/5.jpg',
                 'projetos/desenhos/7.jpg',
-
             ],
     },
+
+    {
+        name: 'Pingente Butterfly',
+        paths:
+            [
+                'projetos/butterfly/1.jpg',
+                'projetos/butterfly/modelo_com_pingente_butterfly.jpg',
+                'projetos/butterfly/3.jpg',
+                'projetos/butterfly/2.jpg',
+                'projetos/butterfly/4.png',
+            ],
+    },
+
     {
         name: 'Desenhos coloridos',
         paths:
@@ -120,6 +93,18 @@ export const imagens = [
                 'projetos/editorial/4.png',
                 'projetos/editorial/trunfo_mackenzie_proposta.png',
 
+            ],
+    },
+    {
+        name: 'Mesa Gamer | Modelagem',
+        paths:
+            [
+                'projetos/mesa/1.jpg',
+                'projetos/mesa/3.jpg',
+                'projetos/mesa/4.jpg',
+                'projetos/mesa/2.jpg',
+                'projetos/mesa/6.jpg',
+                'projetos/mesa/5.jpg',
             ],
     },
     {
@@ -159,18 +144,7 @@ export const imagens = [
                 'projetos/merchandising/merchandising.jpg',
             ],
     },
-    {
-        name: 'Mesa Gamer | Modelagem',
-        paths:
-            [
-                'projetos/mesa/1.jpg',
-                'projetos/mesa/3.jpg',
-                'projetos/mesa/4.jpg',
-                'projetos/mesa/2.jpg',
-                'projetos/mesa/6.jpg',
-                'projetos/mesa/5.jpg',
-            ],
-    },
+
     {
         name: 'Ascensão dos deuses | Tabuleiro',
         paths:
@@ -194,6 +168,19 @@ export const imagens = [
                 'projetos/teclakey/2.jpg',
                 'projetos/teclakey/3.jpg',
 
+            ],
+    },
+    {
+        name: 'Mun | Arandela escamoteável',
+        paths:
+            [
+                'projetos/mun/mun_arandela_escamoteavel.jpg',
+                'projetos/mun/mun_arandela.jpg',
+                'projetos/mun/mun_Iluminacao.jpg',
+                'projetos/mun/mun_visao_interna.jpg',
+                'projetos/mun/mun_visao_interna_escamoteavel.jpg',
+                'projetos/mun/mun_tag.jpg',
+                'projetos/mun/mun_area_de_iluminacao.jpg',
             ],
     },
     {

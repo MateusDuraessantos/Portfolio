@@ -1,14 +1,20 @@
 <template>
-    <div>
+    <section>
         <div class="grid">
-            <div class="cards anime_scrollReveal" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
-                <div class="cards__name">{{ img.name }}</div>
+            <div class="cards" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
+                <div class="cards__container_name">
+                    <p class="card__text">{{ img.name }}</p>
+                </div>
                 <img class="cards__imagens" :src="img.paths[0]">
             </div>
         </div>
 
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
+                <div class="container-button">
+                    <button class="changeProject back" @click="changeProject('back')">←</button>
+                    <button class="changeProject next" @click="changeProject('next')">→</button>
+                </div>
 
                 <div class="container-loading" v-if="loading">
                     <span>loading...</span>
@@ -22,15 +28,15 @@
                 <button class="popup__close">✕</button>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
 import { imagens } from './imagensDados.js'
-import ScrollReveal from 'scrollreveal';
 
 export default {
     name: 'Portfolio',
+
     data() {
         return {
             imgs: imagens,
@@ -41,16 +47,14 @@ export default {
         }
     },
     mounted() {
-        const sr = ScrollReveal();
-        window.sr = ScrollReveal({ reset: false })
-        sr.reveal('.anime_scrollReveal', {
-            duration: 2000,
-            opacity: 0,
-            scale: 0.9,
-            delay: 500
-        });
+        this.scrolltoTop()
     },
     methods: {
+        scrolltoTop() {
+            this.$nextTick(() => {
+                window.scrollTo(0, 0);
+            });
+        },
         upPopup(event, index) {
             const clicked = event.target.classList[0]
             if (event.currentTarget.classList[0] == 'cards') {
@@ -58,7 +62,7 @@ export default {
                 document.body.style.overflow = 'hidden'
                 this.popup = !this.popup
             }
-            else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow') {
+            else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
                 document.body.removeAttribute('style')
                 this.popup = !this.popup
                 /* Loading */
@@ -70,59 +74,51 @@ export default {
         loadingImg() {
             this.number = this.number + 1
             if (this.number == this.imgs[this.indexImg].paths.length) {
-                this.loading = false
-                document.getElementById('img_port').removeAttribute('style')
+                
+                //O setTimeout ajuda a evitar pulos de imagens enquanto estão carregando no browser
+                setTimeout(() => {
+                    this.loading = false
+                    document.getElementById('img_port').removeAttribute('style')
+                }, 100)
+
                 document.getElementById('animation').classList.add('popup__animation')
             }
-        }
+        },
+        changeProject(value) {
+
+            this.number = 0
+            document.getElementById('img_port').setAttribute('style', 'opacity: 0;')
+
+            this.loading = true
+            if (value == 'back') {
+                if (this.indexImg == 0) {
+                    this.indexImg = this.imgs.length - 1
+                } else {
+                    this.indexImg--
+                }
+            }
+            if (value == 'next') {
+                if (this.indexImg == this.imgs.length - 1) {
+                    this.indexImg = 0
+                } else {
+                    this.indexImg++
+                }
+            }
+        },
     }
 }
 
 </script>
 <style scoped>
-.anime_scrollReveal {
-    visibility: hidden;
+section {
+    margin-bottom: 100px;
 }
 
 .grid {
-    width: calc(100% - 40px);
+    width: 100%;
     display: grid;
-    gap: 30px;
+    gap: 10px;
     margin: auto;
-}
-
-@media only screen and (min-width: 1601px) {
-    .grid {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-}
-
-@media only screen and (max-width: 1600px) {
-    .grid {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-}
-
-
-@media only screen and (max-width: 1280px) {
-    .grid {
-
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-@media only screen and (max-width: 1000px) {
-    .grid {
-
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media only screen and (max-width: 700px) {
-    .grid {
-
-        grid-template-columns: 1fr;
-    }
 }
 
 .cards {
@@ -131,27 +127,37 @@ export default {
     position: relative;
     color: white;
     width: 100%;
-    height: 300px;
+    height: 20vw;
     overflow: hidden;
     cursor: pointer;
     border-radius: 10px;
 }
 
-.cards__name {
+.cards__container_name {
     display: flex;
     align-items: center;
     background: rgb(255, 255, 255, 0.05);
     backdrop-filter: blur(6px);
     position: absolute;
     border-radius: 50px;
-    padding: 10px 20px;
-    line-height: 18px;
-    font-size: 14px;
-    min-height: 40px;
+    padding: 14px 20px;
+    padding-left: 1.6vw;
+    height: 2.6vw;
+    min-height: 44px;
+    height: max-content;
     width: calc(100% - 20px);
     margin: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
+}
+
+.card__text {
+    font-weight: 300;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    line-height: 1.1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: rgb(192, 192, 192);
 }
 
 .cards__imagens {
@@ -170,129 +176,57 @@ export default {
     transition: .6s;
 }
 
-.popup__background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    animation-name: animation_opacity;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-
-}
-
-@keyframes animation_opacity {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
+@media only screen and (min-width: 1601px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }
 
-.popup__animation .popup__overflow {
-    animation-name: popup__background--animation;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes popup__background--animation {
-
-    from {
-        opacity: 0;
-        margin-top: -50px;
-    }
-
-    to {
-        opacity: 1;
-        margin-top: 0;
+@media only screen and (max-width: 1600px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
-.popup__content {
-    column-count: 2;
-    gap: 10px;
-    margin: auto;
-    background: #1f1f1f;
-    width: 80vw;
-    margin-bottom: 100px;
-}
-
-.popup__overflow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: scroll;
-    height: 100%;
-    padding-top: 100px;
-}
-
-.container-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-}
-
-.container-loading span {
-    font-size: 15px;
-    font-weight: 300;
-    color: #b5b5b5;
-}
-
-.loading {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 9px dotted rgb(183 183 183);
-    z-index: 1;
-    animation-name: loading-2357e87e;
-    animation-duration: 12s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    border-spacing: 17px;
-}
-
-@keyframes loading {
-
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-
-        transform: rotate(360deg);
+@media only screen and (max-width: 1000px) {
+    .grid {
+        gap: 2vw;
     }
 }
 
-.popup__img {
-    width: 100%;
+@media only screen and (max-width: 800px) {
+
+    .cards__container_name {
+        display: none;
+    }
+
+    .grid {
+        width: calc(100% - 20px);
+        gap: 1.2vw;
+    }
+
+    .cards {
+        height: 28vw;
+    }
+
+    .popup__content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .popup__overflow {
+        padding: 0;
+    }
+
+
 }
 
-.popup__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    font-size: 22px;
-    border-radius: 50%;
-    background: rgb(68, 68, 68);
-    width: 34px;
-    height: 34px;
+/* Mobile version */
+
+@media only screen and (max-width: 400px) {
+    .grid {
+        gap: 3px;
+    }
 }
 </style>
