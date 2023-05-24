@@ -1272,9 +1272,6 @@ td {
         grid-template-columns: 1fr 1.2fr;
         grid-template-areas: 'img';
     }
-
-
-
 }
 
 @media screen and (max-width: 850px) {
@@ -1413,6 +1410,8 @@ td {
         line-height: 24px;
     }
 
+    /* Footer */
+
     .interessado {
         width: 100%;
     }
@@ -1446,10 +1445,11 @@ td {
         font-size: 0.8rem;
     }
 
+
+    .informacoes__contato {
+        gap: 6px;
+    }
 }
-
-
-
 
 /* Mobile version */
 

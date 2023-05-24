@@ -264,7 +264,6 @@ button {
 @media only screen and (max-width: 800px) {
   body {
     margin-top: 80px;
-
   }
 
   /* Popup */
@@ -275,8 +274,12 @@ button {
   }
 
   .changeProject {
-    font-size: 2rem;
-
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    box-shadow: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
   }
 
   .popup__content {
@@ -288,8 +291,5 @@ button {
   .popup__overflow {
     padding: 0;
   }
-
-  /*  */
-
 }
 </style>
