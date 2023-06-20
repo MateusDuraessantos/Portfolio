@@ -7,19 +7,79 @@
         </div>
 
         <div class="links">
-            <router-link to="/">Início</router-link>
-            <router-link to="portfolio">Portfólio</router-link>
+            <router-link class="router-link-a dropdown" to="/">Início
+
+                <div class="dropdown__container">
+                    <a class="dropdown__option" @click="scrollDown('design')">Design</a>
+                    <a class="dropdown__option" @click="scrollDown('programacao')">Programação</a>
+                    <a class="dropdown__option" @click="scrollDown('sobre')">Sobre</a>
+                    <a class="dropdown__option" @click="scrollDown('contato')">Contato</a>
+                </div>
+
+            </router-link>
+            <router-link class="router-link-a dropdown" to="portfolio">Portfólio</router-link>
         </div>
     </nav>
 </template>
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
+    methods: {
+        scrollDown(ancora) {
+            const obj = document.getElementById(ancora)
+            setTimeout(() => {
+
+                window.scrollTo({
+                    top: obj.offsetTop,
+                    behavior: 'smooth'
+                })
+
+            }, 50)
+        }
+    }
 }
 </script>
 
-<style>
+<style scoped>
+.dropdown {
+    position: relative;
+    padding: 10px;
+}
+
+.dropdown__option {
+    z-index: 300;
+}
+
+.dropdown__container {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    display: flex;
+    display: none;
+    opacity: 0.3;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dropdown:hover .dropdown__container {
+    display: flex;
+    opacity: 1;
+}
+
+.dropdown__option {
+    background: #1f1f1f;
+    padding: 20px;
+}
+
+.dropdown__option:hover {
+    background: rgb(71, 71, 71);
+
+}
+
+/*  */
+
 nav {
     display: flex;
     align-items: center;
@@ -27,31 +87,53 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100vw;
-    padding: 0 40px;
+    padding: 0 80px;
     font-size: 1.2rem;
-    height: 10.1vw;
     min-height: 70px;
     top: 0;
-    z-index: 3;
     backdrop-filter: blur(14px);
-    max-height: 140px;
+    width: 100vw;
+    height: 10.1vw;
+    max-height: 100px;
+    z-index: 5;
 }
 
 a {
-    line-height: 0;
     text-decoration: none;
+}
+
+.router-link-a {
+    transition: .2s;
+    line-height: 32px;
+}
+
+.router-link-a:hover {
+    color: rgb(234, 69, 69);
     transition: .2s;
 }
 
-a:hover {
-    color: rgb(175, 175, 175);
-    transition: .2s;
+.router-link-active:hover {
+    color: red;
 }
 
 .router-link-active,
-a:focus {
+.router-link-a:focus {
     color: rgb(234, 69, 69);
+    position: relative;
+}
+
+.router-link-active:hover::after {
+    border-bottom: 2px solid red;
+}
+
+.router-link-active::after {
+    content: '';
+    position: absolute;
+    display: flex;
+    left: 0;
+    width: 40%;
+    border-radius: 6px;
+    border-bottom: 2px solid rgb(234, 69, 69);
 }
 
 button {

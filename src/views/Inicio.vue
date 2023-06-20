@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="container-loading" v-if="loading">
-                    <span>loading...</span>
+                    <span>carregando</span>
                     <div class="loading"></div>
                 </div>
 
@@ -38,6 +38,7 @@
             </div>
         </div>
 
+        <div class="linkPadding" id="design"></div>
         <section>
             <p>Minha expêriencia como designer:</p>
 
@@ -53,8 +54,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <!--  -->
 
@@ -99,6 +98,8 @@
         </section>
 
         <!-- FRONTEND -->
+
+        <div id="programacao"></div>
 
         <section class="second-section">
             <p>Minha experiência com códigos?</p>
@@ -169,7 +170,7 @@
 
         <!-- SOBRE MIM -->
 
-        <div class="sobre">
+        <div class="sobre" id="sobre">
 
             <div class="square">
                 <img src="square1.svg" class="left">
@@ -204,7 +205,7 @@
             </div>
         </div>
 
-        <div class="sky">
+        <div class="sky" id="contato">
 
             <!-- Os céus proclamam a glória de Jesus -->
 
@@ -450,6 +451,11 @@ export default {
 </style>
 
 <style scoped>
+.linkPadding {
+    padding-top: 120px;
+}
+
+
 @keyframes loading {
 
     from {
@@ -466,7 +472,7 @@ export default {
 /* Sobre */
 
 .sobre {
-    margin-top: 200px;
+    padding-top: 200px;
     position: relative;
 }
 
@@ -501,7 +507,7 @@ a {
     font-size: 4rem;
     font-weight: 300;
     line-height: 2.2rem;
-    margin-bottom: 4vw;
+
 }
 
 p {
@@ -641,14 +647,14 @@ td {
 }
 
 .card:hover .card__img {
-    transform: scale(1.05);
-    transition: .5s;
+    transform: scale(1.04);
+    transition: .3s;
 
 }
 
 .card__img {
     width: 100%;
-    transition: .5s;
+    transition: .3s;
     object-fit: cover;
 }
 
@@ -669,10 +675,11 @@ td {
 }
 
 .card__btn {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 70px;
     width: max-content;
     padding: 1vw 1.8vw;
+    font-size: 0.8rem;
     min-height: 44px;
     min-width: 100px;
     transition: .3s

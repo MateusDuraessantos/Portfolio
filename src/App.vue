@@ -13,6 +13,19 @@ export default {
   components: {
     Header,
   },
+  mounted() {
+    this.favIcon()
+  },
+  methods: {
+
+    favIcon() {
+
+      const newLink = document.createElement("link")
+      newLink.setAttribute('rel', 'icon')
+      newLink.setAttribute('href', 'eu.png')
+      document.head.appendChild(newLink)
+    }
+  }
 }
 
 </script>
@@ -59,11 +72,7 @@ p {
   border-radius: 6px;
 }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
+
 
 @media only screen and (min-width: 1981px) {
   html {
@@ -130,12 +139,13 @@ button {
     opacity: 1;
     margin-top: 0;
   }
+
 }
 
 .popup__content {
   position: relative;
   column-count: 2;
-  gap: 10px;
+  gap: 6px;
   background: #1f1f1f;
   width: 80vw;
   margin-bottom: 100px;
@@ -152,6 +162,10 @@ button {
   top: 0;
 }
 
+button {
+  cursor: pointer;
+}
+
 .changeProject {
   visibility: visible;
   position: absolute;
@@ -164,7 +178,7 @@ button {
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
   transition: .2s;
   z-index: 12;
 }
@@ -218,8 +232,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   border: 9px dotted rgb(183 183 183);
   z-index: 1;

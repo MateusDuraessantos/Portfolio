@@ -3,7 +3,7 @@
         <div class="popup__overflow">
 
             <div class="container-loading" v-if="false">
-                <span>loading...</span>
+                <span>carregando</span>
                 <div class="loading"></div>
             </div>
 
@@ -110,40 +110,6 @@ export default {
     overflow-y: overlay;
     height: 100%;
     padding-top: 100px;
-}
-
-.container-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-}
-
-.container-loading span {
-    font-size: 15px;
-    font-weight: 300;
-    color: #b5b5b5;
-}
-
-.loading {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 9px dotted rgb(183 183 183);
-    z-index: 1;
-    animation-name: loading-2357e87e;
-    animation-duration: 12s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    border-spacing: 17px;
 }
 
 @keyframes loading {

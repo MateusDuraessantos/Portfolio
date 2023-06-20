@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="container-loading" v-if="loading">
-                    <span>loading...</span>
+                    <span>carregando</span>
                     <div class="loading"></div>
                 </div>
 
@@ -74,7 +74,7 @@ export default {
         loadingImg() {
             this.number = this.number + 1
             if (this.number == this.imgs[this.indexImg].paths.length) {
-                
+
                 //O setTimeout ajuda a evitar pulos de imagens enquanto estão carregando no browser
                 setTimeout(() => {
                     this.loading = false
@@ -121,6 +121,8 @@ section {
     margin: auto;
 }
 
+
+
 .cards {
     display: flex;
     flex-direction: column-reverse;
@@ -133,31 +135,35 @@ section {
     border-radius: 10px;
 }
 
+
 .cards__container_name {
     display: flex;
+    opacity: 0;
     align-items: center;
-    background: rgb(255, 255, 255, 0.05);
-    backdrop-filter: blur(6px);
     position: absolute;
-    border-radius: 50px;
     padding: 14px 20px;
-    padding-left: 1.6vw;
-    height: 2.6vw;
-    min-height: 44px;
-    height: max-content;
-    width: calc(100% - 20px);
-    margin: 10px;
+    padding-top: 26px;
+    height: 74px;
+    width: 100%;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    transition: .6s;
+}
+
+.cards:hover .cards__container_name {
+    opacity: 1;
+    transition: .6s;
+
 }
 
 .card__text {
-    font-weight: 300;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
     line-height: 1.1rem;
     font-size: 0.9rem;
     text-align: center;
-    color: rgb(192, 192, 192);
+    color: rgb(235, 235, 235);
 }
 
 .cards__imagens {
@@ -168,12 +174,12 @@ section {
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    transition: .6s;
+    transition: .4s;
 }
 
 .cards:hover .cards__imagens {
     transform: scale(1.05);
-    transition: .6s;
+    transition: .4s;
 }
 
 @media only screen and (min-width: 1601px) {
@@ -218,8 +224,6 @@ section {
     .popup__overflow {
         padding: 0;
     }
-
-
 }
 
 /* Mobile version */
