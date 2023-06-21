@@ -267,11 +267,11 @@ button {
   position: fixed;
   right: 20px;
   top: 20px;
-  font-size: 22px;
-  border-radius: 50%;
-  background: rgb(68, 68, 68);
+  font-size: 24px;
   width: 34px;
   height: 34px;
+  border: none;
+  background: none;
 }
 
 

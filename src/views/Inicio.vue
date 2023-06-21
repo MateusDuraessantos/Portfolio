@@ -44,14 +44,14 @@
             <p>Minha expêriencia como designer:</p>
 
             <div class="card__grid">
-                <div :class="'card ' + img.class" v-for="img in cardDesign">
-                    <img class="card__img" :src="'inicio/' + img.obj[0]" loading="lazy">
+                <div :class="'card ' + img.class" v-for="img in cardDesign" @click="upPopup($event, img.index)">
+                    <img class="card__img" :src="'projetos/' + img.obj[0]" loading="lazy">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
                             <span> {{ img.obj[2] }}</span>
                         </div>
-                        <button class="card__btn" @click="upPopup($event, img.index)">ver</button>
+                        <button class="card__btn">ver</button>
                     </div>
                 </div>
             </div>
@@ -105,14 +105,15 @@
         <section class="second-section">
             <p>Minha experiência com códigos?</p>
             <div class="card__grid">
-                <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100">
-                    <img class="card__img" :src="'inicio/' + img.obj[0]">
+                <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100"
+                    @click="upPopup($event, img.index, 'true')">
+                    <img class="card__img" :src="'projetos/' + img.obj[0]">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
                             <span> {{ img.obj[2] }}</span>
                         </div>
-                        <button class="card__btn" @click="upPopup($event, img.index, 'true')">ver</button>
+                        <button class="card__btn">ver</button>
                     </div>
                 </div>
             </div>
@@ -288,7 +289,7 @@ export default {
                 {
                     index: '0',
                     obj: [
-                        'mesa_gamer.jpg',
+                        'mesa/thumb.jpg',
                         'Mesa gamer | Modelagem 3d',
                         '12/02/2023'
                     ],
@@ -296,7 +297,7 @@ export default {
                 {
                     index: '1',
                     obj: [
-                        'pingente_butterfly.jpg',
+                        'butterfly/thumb.jpg',
                         'Pingente Butterfly | Modelagem 3d',
                         '10/03/2022'
                     ],
@@ -305,7 +306,7 @@ export default {
                 {
                     index: '2',
                     obj: [
-                        'mun_arandela_escamoteavel.jpg',
+                        'mun/thumb.jpg',
                         'Mun | Arandela',
                         '24/06/2020'
                     ],
@@ -316,7 +317,7 @@ export default {
                 {
                     index: '3',
                     obj: [
-                        'datamachina_website.jpg',
+                        'datamachina/thumb.jpg',
                         'Data Machina | Website',
                         '12/02/2023'
                     ],
@@ -324,7 +325,7 @@ export default {
                 {
                     index: '3',
                     obj: [
-                        'teclakey_website.gif',
+                        'teclakey/4.gif',
                         'TeclaKey | Website',
                         '10/03/2022'
                     ],
@@ -333,7 +334,7 @@ export default {
                 {
                     index: '3',
                     obj: [
-                        'tre_design_website.jpg',
+                        'tre/thumb.jpg',
                         'Mun | Arandela',
                         '24/06/2020'
                     ],
@@ -364,7 +365,9 @@ export default {
 
             const clicked = event.target.classList[0]
 
-            if (event.currentTarget.classList[0] == 'card__btn') {
+            console.log(event.currentTarget.classList[0])
+
+            if (event.currentTarget.classList[0] == 'card') {
                 this.popFront = Boolean(front)
                 this.indexImg = index
                 document.body.style.overflow = 'hidden'
@@ -581,7 +584,7 @@ p {
 .img_design {
     grid-area: des;
     width: 100%;
-    height: 80%;
+    height: 60%;
     object-fit: contain;
 }
 
@@ -1051,7 +1054,6 @@ td {
 }
 
 /* Front end */
-
 .container-front {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -1062,7 +1064,7 @@ td {
 
 .img_front {
     width: 100%;
-    height: 80%;
+    height: 70%;
     object-fit: contain;
     mix-blend-mode: screen;
     position: relative;

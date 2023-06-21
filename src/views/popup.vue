@@ -128,17 +128,4 @@ export default {
     width: 100%;
 }
 
-.popup__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    font-size: 22px;
-    border-radius: 50%;
-    background: rgb(68, 68, 68);
-    width: 34px;
-    height: 34px;
-}
 </style>

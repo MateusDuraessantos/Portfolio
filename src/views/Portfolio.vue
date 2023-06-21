@@ -5,7 +5,7 @@
                 <div class="cards__container_name">
                     <p class="card__text">{{ img.name }}</p>
                 </div>
-                <img class="cards__imagens" :src="img.paths[0]" loading="lazy">
+                <img class="cards__imagens" :src="img.thumb" loading="lazy">
             </div>
         </div>
 
@@ -22,7 +22,13 @@
                 </div>
 
                 <div class="popup__content" id="img_port" style="opacity: 0;">
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas" loading="lazy">
+
+
+
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
+
+
+
                 </div>
 
                 <button class="popup__close">✕</button>
@@ -48,6 +54,9 @@ export default {
     },
     mounted() {
         this.scrolltoTop()
+
+
+
     },
     methods: {
         scrolltoTop() {
