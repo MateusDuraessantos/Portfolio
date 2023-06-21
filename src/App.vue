@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header class="header" />
-    <router-view />
+    <Header class="header" id="header" />
+    <router-view @nome-evento="tratarEvento" />
   </div>
 </template>
 
@@ -13,13 +13,23 @@ export default {
   components: {
     Header,
   },
+
   mounted() {
     this.favIcon()
   },
   methods: {
+    tratarEvento(showingup) {
+      const header = document.getElementById('header')
+
+      if (showingup) {
+        header.classList.add('show')
+      } else {
+        header.classList.remove('show')
+
+      }
+    },
 
     favIcon() {
-
       const newLink = document.createElement("link")
       newLink.setAttribute('rel', 'icon')
       newLink.setAttribute('href', 'eu.png')
@@ -27,12 +37,12 @@ export default {
     }
   }
 }
-
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* font-family: 'Poppins', sans-serif; */
+
 
 body {
   overflow: overlay;
@@ -43,6 +53,16 @@ body {
   overflow-y: overlay;
   overflow-x: hidden;
 
+}
+
+.header {
+  opacity: 1;
+  transition: .2s
+}
+
+.show {
+  opacity: 0;
+  transition: .2s
 }
 
 p {
@@ -72,8 +92,6 @@ p {
   border-radius: 6px;
 }
 
-
-
 @media only screen and (min-width: 1981px) {
   html {
     font-size: 30px;
@@ -92,10 +110,7 @@ p {
   }
 }
 
-
-
 /* Popup  */
-
 
 .popup__background {
   position: fixed;

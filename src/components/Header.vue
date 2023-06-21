@@ -65,10 +65,6 @@ export default {
     padding: 10px;
 }
 
-.dropdown__option {
-    z-index: 300;
-}
-
 .dropdown__container {
     position: absolute;
     top: 52px;
@@ -89,6 +85,9 @@ export default {
 .dropdown__option {
     background: #1f1f1f;
     padding: 20px;
+    z-index: 300;
+    min-width: 220px;
+
 }
 
 .dropdown__option:hover {

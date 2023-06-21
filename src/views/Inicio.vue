@@ -247,12 +247,15 @@
                                 <p class="contato">whatsapp</p>
                             </div>
                         </a>
+                    </div>
+
+                    <div id="observador__header"
+                        style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
+                        <p class="frase">Quem disse que footers precisam ser chatos? <br><br></p>
 
                     </div>
-                    <p class="frase">Quem disse que footers precisam ser chatos?</p>
 
                 </div>
-
             </div>
 
             <img class="sky__planet_01 sky__planet" src="inicio/sky/01.png" alt="planet">
@@ -352,9 +355,31 @@ export default {
 
     mounted() {
         window.addEventListener('scroll', this.niceScroll);
+        setTimeout(() => {
+            this.observador()
+        }, 500);
     },
 
     methods: {
+        observador() {
+            const observer = new IntersectionObserver(entries => {
+                console.log()
+                const showing = entries[0].isIntersecting
+
+                if (entries[0].isIntersecting) {
+             
+                    this.$emit('nomeEvento', showing)
+
+                } else {
+
+
+                    this.$emit('nomeEvento', showing)
+                }
+            })
+
+            observer.observe(document.getElementById('observador__header'))
+        },
+
         //Diminui a velocidade de scroll de alguns elementos ao scrollar
         niceScroll() {
             if (document.getElementById('bubble')) {
@@ -465,7 +490,6 @@ export default {
     padding-top: 120px;
 }
 
-
 @keyframes loading {
 
     from {
@@ -484,6 +508,7 @@ export default {
 .sobre {
     padding-top: 200px;
     position: relative;
+    margin-bottom: 400px;
 }
 
 /*  */
@@ -715,8 +740,9 @@ td {
 
 .sky {
     position: relative;
-    height: 60vw;
-    margin-top: 400px;
+    max-height: 80vw;
+    height: 100vh;
+
 }
 
 .sky__shadows {
