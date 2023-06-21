@@ -7,7 +7,15 @@
         </div>
 
         <div class="links">
-            <router-link class="router-link-a dropdown" to="/">Início
+            <router-link style="display: flex;" to="/">
+                <a class="router-link-a dropdown desktop" @click="scrollDown('design')">Design</a>
+                <a class="router-link-a dropdown desktop" @click="scrollDown('programacao')">Programação</a>
+                <a class="router-link-a dropdown desktop" @click="scrollDown('sobre')">Sobre</a>
+                <a class="router-link-a dropdown desktop" @click="scrollDown('contato')">Contato</a>
+            </router-link>
+
+            <router-link class="router-link-a dropdown mobile" to="/">Início <span
+                    style="display: flex; position: absolute; right: -12px; top: 11px; font-size: 20px; transform: rotate(90deg);">❯</span>
 
                 <div class="dropdown__container">
                     <a class="dropdown__option" @click="scrollDown('design')">Design</a>
@@ -27,8 +35,8 @@ export default {
     name: 'Header',
     methods: {
         scrollDown(ancora) {
-            const obj = document.getElementById(ancora)
             setTimeout(() => {
+                const obj = document.getElementById(ancora)
 
                 window.scrollTo({
                     top: obj.offsetTop,
@@ -42,6 +50,16 @@ export default {
 </script>
 
 <style scoped>
+.mobile {
+    display: none;
+}
+
+.desktop {
+    display: flex;
+}
+
+
+
 .dropdown {
     position: relative;
     padding: 10px;
@@ -98,16 +116,12 @@ nav {
     z-index: 5;
 }
 
-a {
+* {
     text-decoration: none;
 }
 
-.router-link-a {
-    transition: .2s;
-    line-height: 32px;
-}
 
-.router-link-a:hover {
+.router-link-active span {
     color: rgb(234, 69, 69);
     transition: .2s;
 }
@@ -122,18 +136,15 @@ a {
     position: relative;
 }
 
-.router-link-active:hover::after {
-    border-bottom: 2px solid red;
+.router-link-a {
+    transition: .2s;
+    line-height: 32px;
 }
 
-.router-link-active::after {
-    content: '';
-    position: absolute;
-    display: flex;
-    left: 0;
-    width: 40%;
-    border-radius: 6px;
-    border-bottom: 2px solid rgb(234, 69, 69);
+.router-link-a:hover,
+.router-link-a:hover span {
+    color: rgb(234, 69, 69);
+    transition: .2s;
 }
 
 button {
@@ -152,7 +163,7 @@ button {
     display: flex;
     align-items: center;
     gap: 20px;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .foto {
@@ -160,10 +171,30 @@ button {
 }
 
 .nome {
-    font-size: 1.4rem;
+    font-size: 1rem;
 }
 
 /* Mobile version */
+
+
+@media screen and (min-width: 1280px) {
+    * {
+        font-size: 18px;
+    }
+}
+
+
+
+@media screen and (max-width: 1400px) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+}
 
 @media screen and (max-width: 800px) {
 
@@ -176,9 +207,6 @@ button {
         width: 42px;
     }
 
-}
-
-@media screen and (max-width: 600px) {
 
     nav,
     .nome {

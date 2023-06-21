@@ -18,7 +18,8 @@
                 <div class="popup__content" id="img_portrato" style="opacity: 0;">
 
 
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas"
+                        loading="lazy">
                 </div>
 
                 <button class="popup__close">✕</button>
@@ -44,7 +45,7 @@
 
             <div class="card__grid">
                 <div :class="'card ' + img.class" v-for="img in cardDesign">
-                    <img class="card__img" :src="'inicio/' + img.obj[0]">
+                    <img class="card__img" :src="'inicio/' + img.obj[0]" loading="lazy">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
@@ -211,6 +212,10 @@
 
             <img class="sky__background" src="inicio/sky/sky.jpg" alt="planet">
 
+            <video class="sky__background" src="inicio/sky/darksky_1.mp4" autoplay loop muted />
+
+
+
             <div class="ultima__atualizacao">Última atualização: 11/05/2023</div>
 
             <!-- Shadows -->
@@ -219,22 +224,23 @@
 
             <shadow-1></shadow-1>
 
-
             <!-- Infos -->
 
             <div class="sky__informacoes">
 
                 <div class="informacoes__container">
+
                     <p class="interessado"> Interessando em trabalharmos juntos?</p>
 
                     <div class="informacoes__content">
-                        <a target="_blank" href="mailto:mateusduraessantos@gmail.com">
+                        <a target="_blank" class="decoration" href="mailto:mateusduraessantos@gmail.com">
                             <div class="informacoes__contato">
                                 <img src="inicio/gmail.svg" alt="Email">
                                 <p class="contato">email</p>
                             </div>
                         </a>
-                        <a target="_blank" href="https://web.whatsapp.com/send?phone=5511965939822">
+
+                        <a target="_blank" class="decoration" href="https://web.whatsapp.com/send?phone=5511965939822">
                             <div class="informacoes__contato">
                                 <img src="inicio/whatsapp.svg" alt="WhatsApp">
                                 <p class="contato">whatsapp</p>
@@ -243,9 +249,10 @@
 
                     </div>
                     <p class="frase">Quem disse que footers precisam ser chatos?</p>
-                </div>
-            </div>
 
+                </div>
+
+            </div>
 
             <img class="sky__planet_01 sky__planet" src="inicio/sky/01.png" alt="planet">
             <img class="sky__planet_02 sky__planet" src="inicio/sky/02.png" alt="planet">
@@ -701,14 +708,12 @@ td {
     font-size: 0.7rem;
 }
 
-
 /* sky */
 
 .sky {
     position: relative;
     height: 60vw;
     margin-top: 400px;
-    margin-bottom: 100px;
 }
 
 .sky__shadows {
@@ -736,11 +741,12 @@ td {
 
 .ultima__atualizacao {
     position: absolute;
-    bottom: -2vw;
-    left: 2vw;
+    bottom: 10px;
     width: 100%;
     z-index: 5;
-    color: #393939;
+    text-align: right;
+    padding-right: 30px;
+    color: #252525;
     font-size: 1rem;
 }
 
@@ -764,6 +770,10 @@ td {
     padding: 40px 0;
 }
 
+.decoration {
+    text-decoration: none;
+}
+
 .informacoes__contato {
     display: flex;
     align-items: center;
@@ -772,6 +782,11 @@ td {
     gap: 20px;
     font-size: 1.4rem;
 
+}
+
+.informacoes__contato img {
+    width: 34px;
+    margin-top: 3px;
 }
 
 .interessado {
@@ -1101,6 +1116,8 @@ td {
     margin-top: 5vw;
     background: #171d5f;
     transition: .2s;
+    text-decoration: none;
+    z-index: 4;
 }
 
 .ver:hover {
@@ -1281,6 +1298,14 @@ td {
     }
 }
 
+
+@media screen and (max-width: 1000px) {
+    .card__description {
+        display: none;
+    }
+
+}
+
 @media screen and (max-width: 850px) {
 
 
@@ -1330,11 +1355,7 @@ td {
         height: 34vw;
     }
 
-    .card__description {
-        bottom: 4px;
-        padding: 10px 8px;
-        width: calc(100% - 10px);
-    }
+
 
 
     .informacoes__container {
@@ -1357,15 +1378,6 @@ td {
 
     .card__data {
         padding-left: 20px;
-    }
-
-    .card {
-        height: 56vw;
-    }
-
-    .card__grid {
-        display: flex;
-        flex-direction: column;
     }
 
     .container-front,
