@@ -53,12 +53,9 @@ export default {
         }
     },
     mounted() {
-
         this.scrolltoTop()
-
     },
     methods: {
-
         upPopup(event, index) {
             const clicked = event.target.classList[0]
             if (event.currentTarget.classList[0] == 'cards') {
