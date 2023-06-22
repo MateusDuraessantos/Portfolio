@@ -32,16 +32,16 @@
             </div>
         </section>
 
-        <div class="bubble__container">
+        <div class="bubble__container" id="bubbles__observer">
             <div class="bubble" id="bubble">
-                <img src="bubble1.svg" class="left">
+                <img src="bubble1.svg">
                 <img src="bubble0.svg" class="right">
             </div>
         </div>
 
         <div class="linkPadding" id="design"></div>
         <section>
-            <p>Minha expêriencia como designer:</p>
+            <p class="experiencia">Minha expêriencia como designer:</p>
 
             <div class="card__grid">
                 <div :class="'card ' + img.class" v-for="img in cardDesign" @click="upPopup($event, img.index)">
@@ -103,7 +103,7 @@
         <div id="programacao"></div>
 
         <section class="second-section">
-            <p>Minha experiência com códigos?</p>
+            <p class="experiencia">Minha experiência com códigos</p>
             <div class="card__grid">
                 <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100"
                     @click="upPopup($event, img.index, 'true')">
@@ -174,8 +174,8 @@
 
         <div class="sobre" id="sobre">
 
-            <div class="square">
-                <img src="square1.svg" class="left">
+            <div class="square" id="square">
+                <img src="square1.svg">
                 <img src="square0.svg" class="right">
             </div>
 
@@ -215,9 +215,7 @@
 
             <video class="sky__background" src="inicio/sky/darksky_1.mp4" autoplay loop muted />
 
-
-
-            <div class="ultima__atualizacao">Última atualização: 11/05/2023</div>
+            <div class="ultima__atualizacao">Última atualização: 11/06/2023</div>
 
             <!-- Shadows -->
 
@@ -230,8 +228,6 @@
             <div class="sky__informacoes">
 
                 <div class="informacoes__container">
-
-                    <p class="interessado"> Interessando em trabalharmos juntos?</p>
 
                     <div class="informacoes__content">
                         <a target="_blank" class="decoration" href="mailto:mateusduraessantos@gmail.com">
@@ -249,9 +245,9 @@
                         </a>
                     </div>
 
-                    <div id="observador__header"
+                    <div id="observador__footer"
                         style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
-                        <p class="frase">Quem disse que footers precisam ser chatos? <br><br></p>
+                        <p class="frase">Quem disse que rodapés precisam ser chatos? <br><br></p>
 
                     </div>
 
@@ -354,43 +350,54 @@ export default {
     },
 
     mounted() {
-        window.addEventListener('scroll', this.niceScroll);
-        setTimeout(() => {
-            this.observador()
-        }, 500);
+        window.addEventListener('scroll', this.niceScrollBubble);
+        this.observador()
     },
 
     methods: {
         observador() {
             const observer = new IntersectionObserver(entries => {
-                console.log()
+
                 const showing = entries[0].isIntersecting
 
+                console.log(entries[0].isIntersecting)
                 if (entries[0].isIntersecting) {
-             
+
                     this.$emit('nomeEvento', showing)
 
                 } else {
-
-
                     this.$emit('nomeEvento', showing)
                 }
             })
 
-            observer.observe(document.getElementById('observador__header'))
+            observer.observe(document.getElementById('observador__footer'))
         },
 
         //Diminui a velocidade de scroll de alguns elementos ao scrollar
-        niceScroll() {
-            if (document.getElementById('bubble')) {
-                document.getElementById('bubble').style.top = window.scrollY * 0.4 + 'px';
+        niceScrollBubble() {
+
+            if (document.getElementById('square') != null) {
+                const observerSquare = new IntersectionObserver(entries => {
+
+                    if (entries[0].isIntersecting === true) {
+                        document.getElementById('square').style.top = (window.scrollY - 2800) * 0.3 + 'px';
+                    }
+                })
+                observerSquare.observe(document.getElementById('square'))
+
+                const observer = new IntersectionObserver(entries => {
+
+                    if (entries[0].isIntersecting === true) {
+                        document.getElementById('bubble').style.top = window.scrollY * 0.6 + 'px';
+                    }
+                })
+                observer.observe(document.getElementById('bubbles__observer'))
             }
+
         },
         upPopup(event, index, front) {
 
             const clicked = event.target.classList[0]
-
-            console.log(event.currentTarget.classList[0])
 
             if (event.currentTarget.classList[0] == 'card') {
                 this.popFront = Boolean(front)
@@ -477,10 +484,11 @@ export default {
     --sky-scale: 1;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 1000px) {
     :root {
-        --sky-scale: 1.4
+        --sky-scale: 0.86
     }
+
 
 }
 </style>
@@ -526,7 +534,7 @@ section {
 
 .second-section {
     margin-top: 200px;
-    z-index: 0;
+    z-index: 1;
 }
 
 a {
@@ -549,17 +557,18 @@ p {
     text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
 }
 
+/* Bubbles */
+
 .bubble__container {
-    height: 0;
+    position: absolute;
 }
 
 .bubble {
-    position: absolute;
     display: flex;
     align-items: center;
     position: relative;
-    width: 100%;
-    height: 560px;
+    width: 100vw;
+    height: 550px;
 }
 
 .right,
@@ -573,27 +582,21 @@ p {
     right: 0;
 }
 
-.left {
-    left: 0;
-}
-
 /* Square */
 
 .bubble img,
 .square img {
-    height: 40vw;
-
+    height: 24vw;
 }
 
 .square {
+    height: 800px;
     display: flex;
     align-items: center;
     position: absolute;
     width: 100%;
-    top: 16vw;
     z-index: 0;
 }
-
 
 /*  */
 
@@ -655,6 +658,13 @@ td {
 
 [border-style] {
     border-bottom: 1px solid var(--border-color);
+}
+
+.experiencia {
+    width: max-content;
+    padding: 12px 20px;
+    background: #1f1f1f;
+    border-radius: 30px;
 }
 
 .card__grid {
@@ -740,7 +750,6 @@ td {
 
 .sky {
     position: relative;
-    max-height: 80vw;
     height: 100vh;
 
 }
@@ -818,12 +827,7 @@ td {
     margin-top: 3px;
 }
 
-.interessado {
-    text-align: center;
-    align-self: flex-start;
-    white-space: pre-wrap;
-    font-size: 2rem;
-}
+
 
 .informacoes__content {
     display: flex;
@@ -833,8 +837,8 @@ td {
 }
 
 .frase {
-    color: #B7B7B7;
-    font-weight: 300;
+    color: #9aa3b2;
+    font-weight: 400;
     text-align: center;
 }
 
@@ -864,7 +868,6 @@ td {
 
     100% {
         transform: scale(var(--sky-scale)) translate(0, 0);
-
     }
 }
 
@@ -1029,14 +1032,14 @@ td {
 .sky__planet_10 {
     width: 17%;
     bottom: 18%;
-    left: 32%;
+    left: 26%;
     z-index: 3;
     animation-name: sky_04;
 }
 
 .smile_cont {
     position: absolute;
-    left: 22%;
+    left: 18%;
     bottom: 0;
     width: 22%;
     animation-name: sky_11;
@@ -1102,6 +1105,7 @@ td {
 .mim {
     width: 80%;
     margin: auto;
+    z-index: 1;
 }
 
 .mim__container {
@@ -1168,11 +1172,11 @@ td {
 
 @media screen and (max-width: 1000px) {
 
-    /* Sky */
-    .sky {
-        height: 124vw;
-        margin-top: 120px;
+    .sobre {
+        margin-bottom: 200px;
     }
+
+    /* Sky */
 
     .informacoes__container {
         width: calc(100% - 100px);
@@ -1344,9 +1348,6 @@ td {
     }
 
 
-    .square img {
-        display: none;
-    }
 
     /*  */
 
@@ -1360,7 +1361,6 @@ td {
     .contato {
         font-size: 1.4rem;
     }
-
 
     td {
         min-height: 50px;
@@ -1382,9 +1382,6 @@ td {
     .card {
         height: 34vw;
     }
-
-
-
 
     .informacoes__container {
         padding: 140px 0;
@@ -1459,11 +1456,6 @@ td {
 
     /* Footer */
 
-    .interessado {
-        width: 100%;
-    }
-
-    .interessado,
     .informacoes__contato {
         font-size: 1rem;
     }

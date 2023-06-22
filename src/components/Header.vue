@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav id="nav" :class="{ 'hiddenHeader': dadoBol }">
 
         <div class="eu">
             <img class="foto" src="eu.png" alt="Mateus Durães dos Santos">
@@ -8,24 +8,25 @@
 
         <div class="links">
             <router-link style="display: flex;" to="/">
-                <a class="router-link-a dropdown desktop" @click="scrollDown('design')">Design</a>
-                <a class="router-link-a dropdown desktop" @click="scrollDown('programacao')">Programação</a>
-                <a class="router-link-a dropdown desktop" @click="scrollDown('sobre')">Sobre</a>
-                <a class="router-link-a dropdown desktop" @click="scrollDown('contato')">Contato</a>
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Programação</a>
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Sobre</a>
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
             </router-link>
 
             <router-link class="router-link-a dropdown mobile" to="/">Início <span
                     style="display: flex; position: absolute; right: -12px; top: 11px; font-size: 20px; transform: rotate(90deg);">❯</span>
 
                 <div class="dropdown__container">
-                    <a class="dropdown__option" @click="scrollDown('design')">Design</a>
-                    <a class="dropdown__option" @click="scrollDown('programacao')">Programação</a>
-                    <a class="dropdown__option" @click="scrollDown('sobre')">Sobre</a>
-                    <a class="dropdown__option" @click="scrollDown('contato')">Contato</a>
+                    <a class="dropdown__option nav" @click="scrollDown($event, 'design')">Design</a>
+                    <a class="dropdown__option nav" @click="scrollDown($event, 'programacao')">Programação</a>
+                    <a class="dropdown__option nav" @click="scrollDown($event, 'sobre')">Sobre</a>
+                    <a class="dropdown__option nav" @click="scrollDown($event, 'contato')">Contato</a>
                 </div>
-
             </router-link>
-            <router-link class="router-link-a dropdown" to="portfolio">Portfólio</router-link>
+
+            <router-link class="router-link-a dropdown" @click="removeLink" to="portfolio">Portfólio</router-link>
+
         </div>
     </nav>
 </template>
@@ -33,8 +34,18 @@
 <script>
 export default {
     name: 'Header',
+    props: {
+        dadoBol: String
+    },
     methods: {
-        scrollDown(ancora) {
+
+        removeLink() {
+            if (document.querySelector('[activeLink]') != null) {
+                document.querySelector('[activeLink]').removeAttribute('activeLink')
+            }
+            this.$emit('removeLink')
+        },
+        scrollDown(event, ancora) {
             setTimeout(() => {
                 const obj = document.getElementById(ancora)
 
@@ -42,8 +53,17 @@ export default {
                     top: obj.offsetTop,
                     behavior: 'smooth'
                 })
-
             }, 50)
+
+            const elements = document.querySelectorAll('[activeLink]')
+
+            if (elements.length == 0) {
+                event.target.setAttribute('activeLink', '')
+            }
+            else {
+                document.querySelector('[activeLink]').removeAttribute('activeLink')
+                event.target.setAttribute('activeLink', '')
+            }
         }
     }
 }
@@ -58,11 +78,9 @@ export default {
     display: flex;
 }
 
-
-
 .dropdown {
     position: relative;
-    padding: 10px;
+    padding: 12px;
 }
 
 .dropdown__container {
@@ -92,7 +110,6 @@ export default {
 
 .dropdown__option:hover {
     background: rgb(71, 71, 71);
-
 }
 
 /*  */
@@ -105,7 +122,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 80px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     min-height: 70px;
     top: 0;
     backdrop-filter: blur(14px);
@@ -113,12 +130,34 @@ nav {
     height: 10.1vw;
     max-height: 100px;
     z-index: 5;
+    background: rgba(0, 0, 0, 0.5);
+
+}
+
+.eu {
+    transition: .2s;
+}
+
+.hiddenHeader .eu {
+    opacity: 0;
+    transition: .2s;
+}
+
+.hiddenHeader {
+    color: gray;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: none;
+
 }
 
 * {
     text-decoration: none;
 }
 
+
+[activeLink] {
+    color: rgb(234, 69, 69);
+}
 
 .router-link-active span {
     color: rgb(234, 69, 69);
@@ -135,12 +174,13 @@ nav {
     position: relative;
 }
 
-.router-link-a {
+.router-link-a,
+.nav:hover {
     transition: .2s;
-    line-height: 32px;
 }
 
 .router-link-a:hover,
+.nav:hover,
 .router-link-a:hover span {
     color: rgb(234, 69, 69);
     transition: .2s;
@@ -182,9 +222,14 @@ button {
     }
 }
 
+@media screen and (max-width: 1100px) {
 
+    nav {
+        padding: 0 40px;
+    }
+}
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1000px) {
     .desktop {
         display: none;
     }
@@ -192,7 +237,6 @@ button {
     .mobile {
         display: block;
     }
-
 }
 
 @media screen and (max-width: 800px) {
@@ -206,16 +250,16 @@ button {
         width: 42px;
     }
 
+    nav {
+        padding: 0 10px;
+    }
+}
 
-    nav,
+@media screen and (max-width: 500px) {
+
+
     .nome {
         font-size: 0.8rem;
     }
-
-    nav {
-        padding: 0 10px;
-
-    }
-
 }
 </style>

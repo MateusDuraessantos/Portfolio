@@ -193,11 +193,17 @@ section {
 
 @media only screen and (min-width: 1601px) {
     .grid {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }
 
 @media only screen and (max-width: 1600px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
     .grid {
         grid-template-columns: 1fr 1fr 1fr;
     }

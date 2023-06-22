@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header class="header" id="header" />
+    <Header class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
     <router-view @nome-evento="tratarEvento" />
   </div>
 </template>
@@ -13,19 +13,29 @@ export default {
   components: {
     Header,
   },
+  data() {
+    return {
+      hiddenHeader: true
+    }
+  },
 
   mounted() {
     this.favIcon()
   },
   methods: {
+
+    removeClass() {
+      document.getElementById('header').classList.remove('show')
+
+    },
+
     tratarEvento(showingup) {
-      const header = document.getElementById('header')
 
       if (showingup) {
-        header.classList.add('show')
-      } else {
-        header.classList.remove('show')
+        this.hiddenHeader = true
 
+      } else {
+        this.hiddenHeader = false
       }
     },
 
@@ -51,7 +61,7 @@ body {
   margin-top: 11vw;
   width: 100vw;
   overflow-y: overlay;
-  overflow-x: hidden;
+  overflow-x: hiddenHeader;
 
 }
 
@@ -167,7 +177,7 @@ p {
 }
 
 .container-button {
-  visibility: hidden;
+  visibility: hiddenHeader;
   position: fixed;
   display: flex;
   align-items: center;
