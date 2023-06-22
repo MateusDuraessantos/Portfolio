@@ -32,10 +32,10 @@ export default {
     tratarEvento(showingup) {
 
       if (showingup) {
-        this.hiddenHeader = true
+        this.hiddenHeader = false
 
       } else {
-        this.hiddenHeader = false
+        this.hiddenHeader = true
       }
     },
 

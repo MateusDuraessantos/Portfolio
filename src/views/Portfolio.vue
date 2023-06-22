@@ -53,17 +53,12 @@ export default {
         }
     },
     mounted() {
+
         this.scrolltoTop()
-
-
 
     },
     methods: {
-        scrolltoTop() {
-            this.$nextTick(() => {
-                window.scrollTo(0, 0);
-            });
-        },
+
         upPopup(event, index) {
             const clicked = event.target.classList[0]
             if (event.currentTarget.classList[0] == 'cards') {
@@ -114,7 +109,12 @@ export default {
                 }
             }
         },
-    }
+        scrolltoTop() {
+            this.$nextTick(() => {
+                window.scrollTo(0, 0);
+            });
+        },
+    },
 }
 
 </script>

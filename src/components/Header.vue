@@ -1,5 +1,5 @@
 <template>
-    <nav id="nav" :class="{ 'hiddenHeader': dadoBol }">
+    <nav id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
         <div class="eu">
             <img class="foto" src="eu.png" alt="Mateus Durães dos Santos">
@@ -26,7 +26,7 @@
             </router-link>
 
             <router-link class="router-link-a dropdown" @click="removeLink" to="portfolio">Portfólio</router-link>
-
+   
         </div>
     </nav>
 </template>
@@ -40,10 +40,17 @@ export default {
     methods: {
 
         removeLink() {
+
             if (document.querySelector('[activeLink]') != null) {
                 document.querySelector('[activeLink]').removeAttribute('activeLink')
             }
             this.$emit('removeLink')
+
+            if (document.querySelector('.hiddenHeader') != null) {
+                document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
+              
+            }
+
         },
         scrollDown(event, ancora) {
             setTimeout(() => {
@@ -134,20 +141,24 @@ nav {
 
 }
 
-.eu {
-    transition: .2s;
+.eu,
+.dropdown {
+    transition: .5s;
 }
 
 .hiddenHeader .eu {
     opacity: 0;
-    transition: .2s;
+    transition: .5s;
 }
 
 .hiddenHeader {
-    color: gray;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: none;
+}
 
+.hiddenHeader .dropdown {
+    color: gray;
+    transition: .5s;
 }
 
 * {
@@ -161,7 +172,7 @@ nav {
 
 .router-link-active span {
     color: rgb(234, 69, 69);
-    transition: .2s;
+    transition: .5s;
 }
 
 .router-link-active:hover {
@@ -176,14 +187,14 @@ nav {
 
 .router-link-a,
 .nav:hover {
-    transition: .2s;
+    transition: .5s;
 }
 
 .router-link-a:hover,
 .nav:hover,
 .router-link-a:hover span {
     color: rgb(234, 69, 69);
-    transition: .2s;
+    transition: .5s;
 }
 
 button {

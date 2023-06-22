@@ -215,7 +215,7 @@
 
             <video class="sky__background" src="inicio/sky/darksky_1.mp4" autoplay loop muted />
 
-            <div class="ultima__atualizacao">Última atualização: 11/06/2023</div>
+            <div class="ultima__atualizacao">22/06/2023</div>
 
             <!-- Shadows -->
 
@@ -348,24 +348,22 @@ export default {
             indexImg: 0,
         }
     },
-
     mounted() {
         window.addEventListener('scroll', this.niceScrollBubble);
         this.observador()
+      
     },
 
     methods: {
+    
         observador() {
             const observer = new IntersectionObserver(entries => {
-
                 const showing = entries[0].isIntersecting
 
-                console.log(entries[0].isIntersecting)
                 if (entries[0].isIntersecting) {
-
                     this.$emit('nomeEvento', showing)
-
-                } else {
+                }
+                else {
                     this.$emit('nomeEvento', showing)
                 }
             })
@@ -378,7 +376,6 @@ export default {
 
             if (document.getElementById('square') != null) {
                 const observerSquare = new IntersectionObserver(entries => {
-
                     if (entries[0].isIntersecting === true) {
                         document.getElementById('square').style.top = (window.scrollY - 2800) * 0.3 + 'px';
                     }
@@ -393,7 +390,6 @@ export default {
                 })
                 observer.observe(document.getElementById('bubbles__observer'))
             }
-
         },
         upPopup(event, index, front) {
 
@@ -414,7 +410,6 @@ export default {
                 this.number = 0
             }
         },
-
         loadingImg() {
             this.number = this.number + 1
 
@@ -429,7 +424,6 @@ export default {
                 document.getElementById('animation').classList.add('popup__animation')
             }
         },
-
         changeProjectDesign(value) {
             this.number = 0
             this.indexImg == 1
@@ -510,7 +504,6 @@ export default {
     }
 }
 
-
 /* Sobre */
 
 .sobre {
@@ -550,7 +543,6 @@ a {
     font-size: 4rem;
     font-weight: 300;
     line-height: 2.2rem;
-
 }
 
 p {
@@ -600,7 +592,6 @@ p {
 
 /*  */
 
-
 .container-table {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -636,7 +627,6 @@ p {
     padding-bottom: 16px;
 }
 
-
 td {
     position: relative;
     display: flex;
@@ -654,7 +644,6 @@ td {
     gap: 20px;
     height: 34%;
 }
-
 
 [border-style] {
     border-bottom: 1px solid var(--border-color);
@@ -826,8 +815,6 @@ td {
     width: 34px;
     margin-top: 3px;
 }
-
-
 
 .informacoes__content {
     display: flex;
