@@ -61,7 +61,7 @@ body {
   margin-top: 11vw;
   width: 100vw;
   overflow-y: overlay;
-  overflow-x: hiddenHeader;
+  overflow-x: hidden;
 
 }
 
@@ -177,7 +177,7 @@ p {
 }
 
 .container-button {
-  visibility: hiddenHeader;
+  visibility: hidden;
   position: fixed;
   display: flex;
   align-items: center;
