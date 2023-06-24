@@ -1,12 +1,16 @@
 <template>
-    <div>
+    <div class="inicio">
         <!-- Popup -->
 
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <div class="container-button">
-                    <button class="changeProject back" @click="changeProjectDesign('back')">←</button>
-                    <button class="changeProject next" @click="changeProjectDesign('next')">→</button>
+                    <button class="changeProject back" @click="changeProjectDesign('back')">
+                        <p>←</p>
+                    </button>
+                    <button class="changeProject next" @click="changeProjectDesign('next')">
+                        <p>→</p>
+                    </button>
                 </div>
 
                 <div class="container-loading" v-if="loading">
@@ -14,10 +18,7 @@
                     <div class="loading"></div>
                 </div>
 
-
                 <div class="popup__content" id="img_portrato" style="opacity: 0;">
-
-
                     <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas"
                         loading="lazy">
                 </div>
@@ -28,7 +29,7 @@
         <section>
             <div class="ola">
                 Olá,
-                <p>aqui você conhecerá um pouco dos meus trabalhos.</p>
+                <p>desenvolvi essa plataforma para divulgar um pouco dos meus trabalhos.</p>
             </div>
         </section>
 
@@ -41,15 +42,17 @@
 
         <div class="linkPadding" id="design"></div>
         <section>
-            <p class="experiencia">Minha expêriencia como designer:</p>
+            <p class="experiencia">Minha expêriencia como <strong>designer</strong></p>
 
             <div class="card__grid">
+                <p class="card__destaques">Destaques:</p>
+
                 <div :class="'card ' + img.class" v-for="img in cardDesign" @click="upPopup($event, img.index)">
                     <img class="card__img" :src="'projetos/' + img.obj[0]" loading="lazy">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
-                            <span> {{ img.obj[2] }}</span>
+                            <p> {{ img.obj[2] }}</p>
                         </div>
                         <button class="card__btn">ver</button>
                     </div>
@@ -103,15 +106,18 @@
         <div id="programacao"></div>
 
         <section class="second-section">
-            <p class="experiencia">Minha experiência com códigos</p>
+            <p class="experiencia">Minha experiência como <strong>desenvolvedor frontend</strong></p>
             <div class="card__grid">
+                <p class="card__destaques">Destaques:</p>
                 <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100"
                     @click="upPopup($event, img.index, 'true')">
+
+
                     <img class="card__img" :src="'projetos/' + img.obj[0]">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.obj[1] }}</p>
-                            <span> {{ img.obj[2] }}</span>
+                            <p> {{ img.obj[2] }}</p>
                         </div>
                         <button class="card__btn">ver</button>
                     </div>
@@ -184,14 +190,14 @@
                 <div class="mim">
                     <div class="mim__container">
                         <p class="mim__ola">Olá,</p>
-                        <strong class="mim__nome">Meu nome é Mateus Durães,</strong>
+                        <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
                         <p class="projeto">Eu projeto coisas.</p>
                     </div>
                     <br>
                     <br>
                     <p class="mim__description">
                         Tenho 22 anos, atualmente, cursando o 8° semestre de design na Universidade Presbiteriana Mackenzie.
-                        Já trabalho na área de webdesigner e desenvoldedor frontend a cerca de 2 anos, atualmente exercendo
+                        Já trabalho na área de webdesigner e desenvolvedor frontend a cerca de 2 anos, atualmente exercendo
                         a profissão na empresa Data Machina.
                         <br>
                         <br>
@@ -213,7 +219,8 @@
 
             <img class="sky__background" src="inicio/sky/sky.jpg" alt="planet">
 
-            <video class="sky__background" src="inicio/sky/darksky_1.mp4" autoplay loop muted />
+            <!-- <video class="sky__background" src="inicio/sky/darksky_1.mp4" autoplay loop muted /> -->
+            <video class="sky__background" src="inicio/sky/sky.mkv" autoplay loop muted />
 
             <div class="ultima__atualizacao">22/06/2023</div>
 
@@ -316,13 +323,14 @@ export default {
                 {
                     index: '3',
                     obj: [
-                        'datamachina/thumb.jpg',
-                        'Data Machina | Website',
-                        '12/02/2023'
+                        'tre/thumb.jpg',
+                        'Mun | Arandela',
+                        '24/06/2020'
                     ],
+                    class: 'third_el'
                 },
                 {
-                    index: '3',
+                    index: '4',
                     obj: [
                         'teclakey/4.gif',
                         'TeclaKey | Website',
@@ -331,13 +339,12 @@ export default {
                     class: 'second_el'
                 },
                 {
-                    index: '3',
+                    index: '5',
                     obj: [
-                        'tre/thumb.jpg',
-                        'Mun | Arandela',
-                        '24/06/2020'
+                        'datamachina/thumb.jpg',
+                        'Data Machina | Website',
+                        '12/02/2023'
                     ],
-                    class: 'third_el'
                 },
             ],
 
@@ -351,11 +358,10 @@ export default {
     mounted() {
         window.addEventListener('scroll', this.niceScrollBubble);
         this.observador()
-      
     },
 
     methods: {
-    
+
         observador() {
             const observer = new IntersectionObserver(entries => {
                 const showing = entries[0].isIntersecting
@@ -474,14 +480,16 @@ export default {
 <style>
 :root {
     --border-color: #474747;
+    /* --shadow-color: black; */
     --shadow-color: black;
     --sky-scale: 1;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (max-width: 1000px) {
     :root {
-        --sky-scale: 0.86
+        --sky-scale: 1.4
     }
+
 
 
 }
@@ -650,19 +658,36 @@ td {
 }
 
 .experiencia {
-    width: max-content;
+    max-width: max-content;
+    width: 100%;
     padding: 12px 20px;
     background: #1f1f1f;
-    border-radius: 30px;
+    border-radius: 10vw;
+    text-align: center;
+}
+
+.experiencia strong {
+    font-weight: 600;
 }
 
 .card__grid {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
     width: 100%;
     margin: auto;
 }
+
+.card__destaques {
+    position: absolute;
+    top: 1.4vw;
+    left: 1.6vw;
+    font-weight: 300;
+    color: rgb(172, 172, 172);
+    z-index: 2;
+}
+
 
 .star {
     display: flex;
@@ -697,11 +722,11 @@ td {
     align-items: center;
     justify-content: space-between;
     position: absolute;
-    border-radius: 70px;
-    bottom: 16px;
-    padding: 10px 10px;
+    border-radius: 10vw;
+    bottom: 0.66vw;
+    padding: 0.3vw;
     min-height: 52px;
-    width: calc(100% - 40px);
+    width: calc(100% - 20px);
     margin: auto;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(9px);
@@ -710,12 +735,11 @@ td {
 
 .card__btn {
     background: rgba(0, 0, 0, 0.4);
-    border-radius: 70px;
+    border-radius: 10vw;
     width: max-content;
     padding: 1vw 1.8vw;
     font-size: 0.8rem;
     min-height: 44px;
-    min-width: 100px;
     transition: .3s
 }
 
@@ -755,6 +779,7 @@ td {
 
 .sky__shadows {
     background-image: radial-gradient(transparent, transparent, var(--shadow-color), var(--shadow-color));
+    /* background-image: linear-gradient(0deg, var(--shadow-color), transparent, transparent, transparent, transparent, transparent, var(--shadow-color)); */
 }
 
 .sky__background {
@@ -834,6 +859,188 @@ td {
     z-index: 2;
     animation-duration: 12s;
     animation-iteration-count: infinite;
+}
+
+.sky__planet_01 {
+    width: 11%;
+    left: 6%;
+    top: 14%;
+    animation-name: sky_04;
+}
+
+.sky__planet_02 {
+    width: 13%;
+    bottom: 4%;
+    right: 32vw;
+    animation-name: sky_01;
+}
+
+.sky__planet_03 {
+    width: 16%;
+    top: 6%;
+    left: 28%;
+    animation-name: sky_02;
+}
+
+.sky__planet_05 {
+    top: 38%;
+    right: 30%;
+    width: 13%;
+    animation-name: sky_02;
+}
+
+.sky__planet_06 {
+    top: 50%;
+    width: 24%;
+    right: 10%;
+    animation-name: sky_08;
+}
+
+.sky__planet_07 {
+    width: 7.5%;
+    top: 21%;
+    right: 37%;
+    animation-name: sky_11;
+}
+
+.sky__planet_08 {
+    width: 15%;
+    top: 17%;
+    left: 30%;
+    animation-name: sky_08;
+}
+
+.sky__planet_09 {
+    animation-name: sky_01;
+    top: 40%;
+    left: 20%;
+    width: 9%;
+}
+
+.sky__planet_10 {
+    width: 17%;
+    bottom: 18%;
+    left: 26%;
+    z-index: 3;
+    animation-name: sky_04;
+}
+
+.smile_cont {
+    position: absolute;
+    left: 18%;
+    bottom: 0;
+    width: 22%;
+    animation-name: sky_11;
+}
+
+.smile {
+    position: absolute;
+    right: 0;
+    width: 34%;
+    transform: translate(60%, -280%);
+    z-index: 1;
+}
+
+.sky__planet_11 {
+    width: 100%;
+    z-index: 2;
+    bottom: 0;
+    animation-name: sky_11;
+}
+
+.sky__planet_12 {
+    width: 28%;
+    right: 10%;
+    top: 0;
+    z-index: 1;
+    animation-name: sky_08;
+}
+
+.sky__planet_13 {
+    left: 0;
+    width: 15%;
+    top: 30%;
+    animation-name: sky_y;
+}
+
+.sky__planet_14 {
+    width: 6%;
+    right: 0;
+    top: 35%;
+    animation-name: sky_13;
+}
+
+/* Front end */
+.container-front {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'img img';
+    align-items: center;
+    gap: 24px;
+}
+
+.img_front {
+    width: 100%;
+    height: 70%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    position: relative;
+    z-index: 1;
+    grid-area: img;
+}
+
+
+.mim {
+    width: 80%;
+    margin: auto;
+    z-index: 1;
+}
+
+.mim__container {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.9rem;
+}
+
+.mim__description {
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.mim__ola {
+    font-size: 1.6rem;
+}
+
+.mim__nome {
+    font-size: 2.3rem;
+}
+
+.projeto {
+    font-size: 1.6rem;
+}
+
+.ver {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    height: 5vw;
+    border-radius: 10vw;
+    max-height: 82px;
+    min-height: 44px;
+    padding: 14px 44px;
+    margin: auto;
+    color: rgb(196, 196, 196);
+    font-size: 1rem;
+    margin-top: 5vw;
+    background: #171d5f;
+    transition: .2s;
+    text-decoration: none;
+    z-index: 4;
+}
+
+.ver:hover {
+    background: #006981;
+    transition: .2s;
 }
 
 @keyframes sky_01 {
@@ -960,188 +1167,18 @@ td {
     }
 }
 
-.sky__planet_01 {
-    width: 11%;
-    left: 6%;
-    top: 14%;
-    animation-name: sky_04;
-}
+@keyframes sky_y {
+    0% {
+        transform: translatey(0);
+    }
 
-.sky__planet_02 {
-    width: 13%;
-    bottom: 4%;
-    right: 32vw;
-    animation-name: sky_01;
-}
+    50% {
+        transform: translatey(60px);
+    }
 
-.sky__planet_03 {
-    width: 16%;
-    top: 6%;
-    left: 28%;
-    animation-name: sky_02;
-}
-
-.sky__planet_05 {
-    top: 38%;
-    right: 30%;
-    width: 13%;
-    animation-name: sky_02;
-}
-
-.sky__planet_06 {
-    top: 47%;
-    width: 17%;
-    right: 10%;
-    animation-name: sky_08;
-}
-
-.sky__planet_07 {
-    width: 7.5%;
-    top: 21%;
-    right: 37%;
-    animation-name: sky_11;
-}
-
-.sky__planet_08 {
-    width: 15%;
-    top: 17%;
-    left: 30%;
-    animation-name: sky_08;
-}
-
-.sky__planet_09 {
-    animation-name: sky_01;
-    top: 40%;
-    left: 20%;
-    width: 9%;
-}
-
-.sky__planet_10 {
-    width: 17%;
-    bottom: 18%;
-    left: 26%;
-    z-index: 3;
-    animation-name: sky_04;
-}
-
-.smile_cont {
-    position: absolute;
-    left: 18%;
-    bottom: 0;
-    width: 22%;
-    animation-name: sky_11;
-}
-
-.smile {
-    position: absolute;
-    right: 0;
-    width: 34%;
-    transform: translate(60%, -280%);
-    z-index: 1;
-}
-
-.sky__planet_11 {
-    width: 100%;
-    z-index: 2;
-    bottom: 0;
-    animation-name: sky_11;
-}
-
-.sky__planet_12 {
-    width: 28%;
-    right: 10%;
-    top: 0;
-    z-index: 1;
-    animation-name: sky_08;
-}
-
-.sky__planet_13 {
-    left: 0;
-    width: 15%;
-    top: 30%;
-    animation-name: sky_13;
-}
-
-.sky__planet_14 {
-    width: 6%;
-    right: 0;
-    top: 35%;
-    animation-name: sky_13;
-}
-
-/* Front end */
-.container-front {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: 'img img';
-    align-items: center;
-    gap: 24px;
-}
-
-.img_front {
-    width: 100%;
-    height: 70%;
-    object-fit: contain;
-    mix-blend-mode: screen;
-    position: relative;
-    z-index: 1;
-    grid-area: img;
-}
-
-
-.mim {
-    width: 80%;
-    margin: auto;
-    z-index: 1;
-}
-
-.mim__container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    font-size: 1.9rem;
-    line-height: 40px;
-}
-
-.mim__description {
-    font-weight: 300;
-    font-size: 1rem;
-}
-
-.mim__ola {
-    font-size: 1.6rem;
-}
-
-.mim__nome {
-    font-size: 2.3rem;
-}
-
-.projeto {
-    font-size: 1.6rem;
-}
-
-.ver {
-    display: flex;
-    align-items: center;
-    width: max-content;
-    height: 5vw;
-    border-radius: 74px;
-    max-height: 82px;
-    min-height: 44px;
-    padding: 14px 44px;
-    margin: auto;
-    color: rgb(196, 196, 196);
-    font-size: 1rem;
-    margin-top: 5vw;
-    background: #171d5f;
-    transition: .2s;
-    text-decoration: none;
-    z-index: 4;
-}
-
-.ver:hover {
-    background: #006981;
-    transition: .2s;
+    100% {
+        transform: translatey(0);
+    }
 }
 
 @media screen and (min-width: 2400px) {
@@ -1150,11 +1187,32 @@ td {
     }
 }
 
-@media screen and (max-width: 1840px) {
-    section {
-        padding: 0 25px;
+@media screen and (min-width: 1280px) {
 
+    .ver {
+        padding: 2vw;
     }
+
+    .experiencia {
+        padding: 0.8vw 1.4vw;
+    }
+
+    .table_p {
+        padding: 2vw;
+    }
+
+    .informacoes__contato img {
+        width: 2.2vw;
+    }
+
+    .informacoes__content {
+        gap: 4vw;
+    }
+
+    .card__grid {
+        gap: 0.6vw;
+    }
+
 }
 
 @media screen and (max-width: 1000px) {
@@ -1322,19 +1380,14 @@ td {
     .card__description {
         display: none;
     }
-
 }
 
 @media screen and (max-width: 850px) {
 
-
     /* Sobre */
     .sobre {
         margin-top: 100px;
-
     }
-
-
 
     /*  */
 

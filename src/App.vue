@@ -51,9 +51,8 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* font-family: 'Poppins', sans-serif; */
-
-
 body {
   overflow: overlay;
   background: black;
@@ -102,24 +101,6 @@ p {
   border-radius: 6px;
 }
 
-@media only screen and (min-width: 1981px) {
-  html {
-    font-size: 30px;
-  }
-}
-
-@media only screen and (max-width: 1980px) {
-  html {
-    font-size: 22px;
-  }
-}
-
-@media only screen and (max-width: 1280px) {
-  html {
-    font-size: 16px;
-  }
-}
-
 /* Popup  */
 
 .popup__background {
@@ -154,7 +135,6 @@ p {
 }
 
 @keyframes popup__background--animation {
-
   from {
     opacity: 0;
     margin-top: -50px;
@@ -164,7 +144,6 @@ p {
     opacity: 1;
     margin-top: 0;
   }
-
 }
 
 .popup__content {
@@ -174,6 +153,37 @@ p {
   background: #1f1f1f;
   width: 80vw;
   margin-bottom: 100px;
+}
+
+.changes {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 2.5vw;
+  top: 12vh;
+  font-size: 1rem;
+}
+
+.changes__container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 0.24vw;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.changes__square {
+  background: #b70000;
+  border-radius: 0.2vw;
+  padding: 0.8vw;
+  width: 100%;
+  max-width: 3.5vw;
+}
+
+.column__vertical {
+  display: flex;
+  flex-direction: column;
 }
 
 .container-button {
@@ -269,6 +279,8 @@ button {
   border-spacing: 17px;
 }
 
+
+
 @keyframes loading {
 
   from {
@@ -299,6 +311,55 @@ button {
   background: none;
 }
 
+@media only screen and (min-width: 1981px) {
+  html {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 1980px) {
+  html {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  html {
+    font-size: 1.3vw !important;
+  }
+
+  .popup__close {
+    font-size: 3vw;
+    right: 2.4vw;
+    top: 2.4vw;
+  }
+
+  .changeProject {
+    width: 5vw;
+    height: 5vw;
+  }
+
+
+  .container-loading span {
+    font-size: 1rem;
+  }
+
+  .loading {
+    width: 10vw;
+    height: 10vw;
+    border-spacing: 12vw;
+
+    border: 0.64vw dotted rgb(183 183 183);
+  }
+
+
+}
+
+@media only screen and (max-width: 1279px) {
+  html {
+    font-size: 16px;
+  }
+}
 
 @media only screen and (max-width: 800px) {
   body {

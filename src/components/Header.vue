@@ -3,11 +3,11 @@
 
         <div class="eu">
             <img class="foto" src="eu.png" alt="Mateus Durães dos Santos">
-            <p class="nome">Mateus Durães dos Santos</p>
+            <h1 class="nome">Mateus Durães dos Santos</h1>
         </div>
 
         <div class="links">
-            <router-link style="display: flex;" to="/">
+            <router-link style="display: flex; gap: 1.5vw;" to="/">
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Programação</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Sobre</a>
@@ -26,7 +26,7 @@
             </router-link>
 
             <router-link class="router-link-a dropdown" @click="removeLink" to="portfolio">Portfólio</router-link>
-   
+
         </div>
     </nav>
 </template>
@@ -48,7 +48,7 @@ export default {
 
             if (document.querySelector('.hiddenHeader') != null) {
                 document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
-              
+
             }
 
         },
@@ -87,7 +87,7 @@ export default {
 
 .dropdown {
     position: relative;
-    padding: 12px;
+    padding: 12px 0;
 }
 
 .dropdown__container {
@@ -222,15 +222,34 @@ button {
 
 .nome {
     font-size: 1rem;
+    font-weight: 400;
 }
 
 /* Mobile version */
 
-
 @media screen and (min-width: 1280px) {
+
+    .links {
+        gap: 4vw;
+    }
+
+    nav {
+        min-height: 6vw;
+    }
+
+    .foto {
+        width: 4vw;
+    }
+
+    .eu {
+        gap: 1.6vw;
+    }
+
     * {
         font-size: 18px;
     }
+
+
 }
 
 @media screen and (max-width: 1100px) {

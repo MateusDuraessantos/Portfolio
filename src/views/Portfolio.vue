@@ -12,8 +12,12 @@
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <div class="container-button">
-                    <button class="changeProject back" @click="changeProject('back')">←</button>
-                    <button class="changeProject next" @click="changeProject('next')">→</button>
+                    <button class="changeProject back" @click="changeProject('back')">
+                        <p>←</p>
+                    </button>
+                    <button class="changeProject next" @click="changeProject('next')">
+                        <p>→</p>
+                    </button>
                 </div>
 
                 <div class="container-loading" v-if="loading">
@@ -21,16 +25,16 @@
                     <div class="loading"></div>
                 </div>
 
-                <div class="popup__content" id="img_port" style="opacity: 0;">
-
-
-
+                <div class="popup__content" id="img_port" layoutPopup style="opacity: 0;">
                     <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
-
-
-
                 </div>
 
+                <button class="changes" @click="changeLayout">
+                    <div class="changes__container">
+                        <div class="changes__square" v-for="quadrados in isColumn"></div>
+                    </div>
+                    Mudar <br> Layout
+                </button>
                 <button class="popup__close">✕</button>
             </div>
         </div>
@@ -50,6 +54,8 @@ export default {
             indexImg: null,
             loading: true,
             number: 0,
+            isColumn: Number,
+
         }
     },
     mounted() {
@@ -57,11 +63,14 @@ export default {
     },
     methods: {
         upPopup(event, index) {
+
             const clicked = event.target.classList[0]
             if (event.currentTarget.classList[0] == 'cards') {
                 this.indexImg = index
                 document.body.style.overflow = 'hidden'
                 this.popup = !this.popup
+                //Se o popup for fechado no modo "visualização vertical", o valor fica em 2, e quando o popup é aberto novamente, o layout fica errado
+                this.isColumn = 4
             }
             else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
                 document.body.removeAttribute('style')
@@ -105,7 +114,34 @@ export default {
                     this.indexImg++
                 }
             }
+
+            //Se for passar de projeto e antes disso o popup em estiver verical, precisa ser reiniciado para aparecer no próximo projeto  
+            if (document.querySelector('.column__vertical')) {
+                this.changeLayout()
+            }
+
         },
+
+        changeLayout() {
+            const layout = document.querySelector('[layoutPopup]')
+            const isVertical = document.querySelector('.column__vertical')
+
+            const quadrados = document.querySelector('.changes__container')
+
+            if (isVertical == null) {
+                layout.classList.add('column__vertical')
+                quadrados.classList.add('column__vertical')
+                this.isColumn = 2
+
+            }
+            else {
+                layout.classList.remove('column__vertical')
+                quadrados.classList.remove('column__vertical')
+                this.isColumn = 4
+            }
+
+        },
+
         scrolltoTop() {
             this.$nextTick(() => {
                 window.scrollTo(0, 0);
@@ -179,7 +215,6 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
     transition: .4s;
 }
 
@@ -208,8 +243,24 @@ section {
 
 @media only screen and (max-width: 1000px) {
     .grid {
-        gap: 2vw;
+        gap: 6px;
     }
+}
+
+@media only screen and (min-width: 1280px) {
+
+    .grid {
+        gap: 0.8vw;
+    }
+
+    .cards {
+        border-radius: 0.3vw;
+    }
+
+    .cards__container_name {
+        padding: 2vw;
+    }
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -224,24 +275,22 @@ section {
     }
 
     .cards {
+        border-radius: 3px;
         height: 28vw;
-    }
-
-    .popup__content {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
     }
 
     .popup__overflow {
         padding: 0;
     }
+
+
 }
 
 /* Mobile version */
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .grid {
+        width: 100%;
         gap: 3px;
     }
 }
