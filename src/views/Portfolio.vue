@@ -283,6 +283,10 @@ section {
         padding: 0;
     }
 
+    .changes {
+        display: none;
+    }
+
 
 }
 

@@ -217,10 +217,7 @@
 
             <!-- Os céus proclamam a glória de Jesus -->
 
-            <img class="sky__background" src="inicio/sky/sky.jpg" alt="planet">
-
-            <!-- <video class="sky__background" src="inicio/sky/darksky_1.mp4" autoplay loop muted /> -->
-            <video class="sky__background" src="inicio/sky/sky.mkv" autoplay loop muted />
+            <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
 
             <div class="ultima__atualizacao">22/06/2023</div>
 
@@ -237,18 +234,38 @@
                 <div class="informacoes__container">
 
                     <div class="informacoes__content">
-                        <a target="_blank" class="decoration" href="mailto:mateusduraessantos@gmail.com">
+                        <div style="display: flex; gap: 8vw;">
+                            <a target="_blank" class="decoration">
+                                <div class="informacoes__contato">
+                                    <img src="inicio/whatsapp.svg" alt="WhatsApp">
+                                    <p class="contato__email">whatsapp</p>
+                                </div>
+
+                                <div class="decoration__info" @click="copyText('(11) 96593-9822')">(11) 96593-9822
+                                </div>
+                                <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
+                            </a>
+
+                            <a target="_blank" class="decoration" href="https://instagram.com/mateusduraes_">
+                                <div class="informacoes__contato">
+                                    <img src="inicio/instagram.svg" alt="Instagram">
+                                    <p class="contato__email">instagram</p>
+                                </div>
+                                <div class="decoration__info">@mateusduraes_</div>
+                                <img class="decoration__copy" src="inicio/link.svg" alt="Copiar">
+
+                            </a>
+                        </div>
+
+                        <a target="_blank" class="decoration">
                             <div class="informacoes__contato">
                                 <img src="inicio/gmail.svg" alt="Email">
-                                <p class="contato">email</p>
+                                <p class=" contato__email">email</p>
                             </div>
-                        </a>
-
-                        <a target="_blank" class="decoration" href="https://web.whatsapp.com/send?phone=5511965939822">
-                            <div class="informacoes__contato">
-                                <img src="inicio/whatsapp.svg" alt="WhatsApp">
-                                <p class="contato">whatsapp</p>
+                            <div class="decoration__info" @click="copyText('mateusduraessantos@gmail.com')">
+                                mateusduraessantos@gmail.com
                             </div>
+                            <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
                         </a>
                     </div>
 
@@ -361,6 +378,17 @@ export default {
     },
 
     methods: {
+        copyText(content) {
+            const textToCopy = content; // Texto a ser copiado
+
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert("Texto copiado: " + textToCopy);
+                })
+                .catch((error) => {
+                    console.error("Erro ao copiar texto:", error);
+                });
+        },
 
         observador() {
             const observer = new IntersectionObserver(entries => {
@@ -775,11 +803,12 @@ td {
     height: 100%;
     z-index: 1;
     transition: .2s;
+
 }
 
 .sky__shadows {
     background-image: radial-gradient(transparent, transparent, var(--shadow-color), var(--shadow-color));
-    /* background-image: linear-gradient(0deg, var(--shadow-color), transparent, transparent, transparent, transparent, transparent, var(--shadow-color)); */
+
 }
 
 .sky__background {
@@ -789,6 +818,7 @@ td {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
 }
 
 .ultima__atualizacao {
@@ -803,6 +833,7 @@ td {
 }
 
 .sky__informacoes {
+    mix-blend-mode: difference;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -812,6 +843,7 @@ td {
 }
 
 .informacoes__container {
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -823,10 +855,53 @@ td {
 }
 
 .decoration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
 }
 
+.decoration:hover .decoration__copy {
+    opacity: 1;
+    width: 2vw;
+}
+
+.decoration__copy {
+    opacity: 0;
+    width: 0;
+    transition: .2s;
+}
+
+.decoration__copy:hover {
+    opacity: 0.6 !important;
+    transition: .2s;
+}
+
+.decoration__info {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    text-align: center;
+    gap: 1vw;
+    padding: 1vw 1.4vw;
+    bottom: -3.4vw;
+    opacity: 0;
+    border-radius: 10vw;
+    transition: .2s;
+}
+
+.decoration:hover .decoration__info {
+    opacity: 1;
+    transition: .2s;
+}
+
+.contato__email {
+    padding-right: 10px;
+}
+
 .informacoes__contato {
+
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
@@ -837,13 +912,15 @@ td {
 }
 
 .informacoes__contato img {
+
     width: 34px;
     margin-top: 3px;
 }
 
 .informacoes__content {
     display: flex;
-    gap: 80px;
+    flex-direction: column;
+    gap: 3vw;
     width: max-content;
     margin: auto;
 }

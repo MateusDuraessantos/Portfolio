@@ -248,8 +248,6 @@ button {
     * {
         font-size: 18px;
     }
-
-
 }
 
 @media screen and (max-width: 1100px) {
@@ -260,8 +258,11 @@ button {
 }
 
 @media screen and (max-width: 1000px) {
-    .desktop {
-        display: none;
+
+    .desktop,
+    .mobile span,
+    .mobile .dropdown__container {
+        display: none !important;
     }
 
     .mobile {
