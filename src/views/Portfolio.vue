@@ -1,15 +1,15 @@
 <template>
-    <section>
-        <div class="grid">
-            <div class="cards" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
+    <main>
+        <section class="grid">
+            <figure class="cards" @click="upPopup($event, index)" v-for="(img, index) in imgs" :key="index">
                 <div class="cards__container_name">
                     <p class="card__text">{{ img.name }}</p>
                 </div>
                 <img class="cards__imagens" :src="img.thumb" loading="lazy">
-            </div>
-        </div>
+            </figure>
+        </section>
 
-        <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
+        <section class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <div class="container-button">
                     <button class="changeProject back" @click="changeProject('back')">
@@ -25,9 +25,10 @@
                     <div class="loading"></div>
                 </div>
 
-                <div class="popup__content" id="img_port" layoutPopup style="opacity: 0;">
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
-                </div>
+                <figure class="popup__content" id="img_port" layoutPopup style="opacity: 0;">
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" :alt="imgs[indexImg].alt"
+                        @load="loadingImg" :src="coisas">
+                </figure>
 
                 <button class="changes" @click="changeLayout">
                     <div class="changes__container">
@@ -37,8 +38,8 @@
                 </button>
                 <button class="popup__close">✕</button>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 </template>
 
 <script>
@@ -152,7 +153,7 @@ export default {
 
 </script>
 <style scoped>
-section {
+main {
     margin-bottom: 100px;
 }
 

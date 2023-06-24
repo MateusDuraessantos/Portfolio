@@ -2,6 +2,7 @@ export const imagens = [
     {
         name: 'BlvckFinance | Identidade de marca',
         thumb: 'projetos/blvckfinance/thumb.jpg',
+        alt: 'Editorial Black Finance | Mockup photoshop',
         paths:
             [
                 'projetos/blvckfinance/1.jpg',
@@ -15,6 +16,7 @@ export const imagens = [
     {
         name: 'Chimarrão',
         thumb: 'projetos/chimarrao/thumb.jpg',
+        alt: 'Chimarrão - projeto 3d - Cinema4D',
         paths:
             [
                 'projetos/chimarrao/1.jpg',
@@ -27,6 +29,7 @@ export const imagens = [
     {
         name: 'Cobogó | Construção civil',
         thumb: 'projetos/cobogo/thumb.jpg',
+        alt: 'Trabalho acadêmico Mackenzie Higienópolios - Modelagem 3d - Cinema 4D, Cobogó',
         paths:
             [
                 'projetos/cobogo/1.jpg',
@@ -38,6 +41,7 @@ export const imagens = [
     {
         name: 'Comoda materna | Para Parelheiros',
         thumb: 'projetos/comoda/thumb.jpg',
+        alt: 'Projeto Cômoda para mães de parelheiros',
         paths:
             [
                 'projetos/comoda/1.jpg',
@@ -49,6 +53,7 @@ export const imagens = [
     {
         name: 'Desenhos realistas com lápis',
         thumb: 'projetos/desenhos/thumb.jpg',
+        alt: 'Desenhos realistas com grafite',
         paths:
             [
                 'projetos/desenhos/ariana_grande.jpg',
@@ -61,10 +66,10 @@ export const imagens = [
                 'projetos/desenhos/7.jpg',
             ],
     },
-
     {
         name: 'Pingente Butterfly',
         thumb: 'projetos/butterfly/thumb.jpg',
+        alt: 'Colar feminino borboleta',
         paths:
             [
                 'projetos/butterfly/1.jpg',
@@ -74,10 +79,10 @@ export const imagens = [
                 'projetos/butterfly/4.png',
             ],
     },
-
     {
         name: 'Desenhos coloridos',
         thumb: 'projetos/desenhos_2/thumb.jpg',
+        alt: 'Desenhos digitais, digital art',
         paths:
             [
                 'projetos/desenhos_2/1.jpg',
@@ -93,6 +98,7 @@ export const imagens = [
     {
         name: 'Mesa Gamer | Modelagem',
         thumb: 'projetos/mesa/thumb.jpg',
+        alt: 'Mesa gamer/escritório',
         paths:
             [
                 'projetos/mesa/1.jpg',
@@ -106,6 +112,7 @@ export const imagens = [
     {
         name: 'Fotografias',
         thumb: 'projetos/fotografia/thumb.jpg',
+        alt: 'Fotografias',
         paths:
             [
                 'projetos/fotografia/1.jpg',
@@ -119,6 +126,7 @@ export const imagens = [
     {
         name: 'Fotografia em Preto e Branco',
         thumb: 'projetos/fotografia_01/thumb.jpg',
+        alt: 'fotografias',
         paths:
             [
                 'projetos/fotografia_01/1.jpg',
@@ -130,8 +138,9 @@ export const imagens = [
             ],
     },
     {
-        name: ' Yamaha Merchandising | Relógio de Pulso',
+        name: 'Yamaha Merchandising | Relógio de Pulso',
         thumb: 'projetos/merchandising/thumb.jpg',
+        alt: 'Projeto acadêmico de Merchandising - Yahama',
         paths:
             [
                 'projetos/merchandising/1.jpg',
@@ -143,10 +152,10 @@ export const imagens = [
                 'projetos/merchandising/merchandising.jpg',
             ],
     },
-
     {
         name: 'Ascensão dos deuses | Tabuleiro',
         thumb: 'projetos/tabuleiro/thumb.jpg',
+        alt: 'Jogo de tabuleiro, Mackenzie higienópolis',
         paths:
             [
                 'projetos/tabuleiro/4.jpg',
@@ -156,24 +165,24 @@ export const imagens = [
                 'projetos/tabuleiro/7.jpg',
                 'projetos/tabuleiro/1.jpg',
                 'projetos/tabuleiro/5.jpg',
-
             ],
     },
     {
         name: 'TeclaKey | WebSite - One Page',
         thumb: 'projetos/teclakey/thumb.jpg',
+        alt: 'Website teclakey - UX/UI - Firebase',
         paths:
             [
                 'projetos/teclakey/1.png',
                 'projetos/teclakey/teclakey.jpg',
                 'projetos/teclakey/2.jpg',
                 'projetos/teclakey/3.jpg',
-
             ],
     },
     {
         name: 'Mun | Arandela escamoteável',
         thumb: 'projetos/mun/thumb.jpg',
+        alt: 'Luminária arandela, 3d Modelagem cinema 4d',
         paths:
             [
                 'projetos/mun/mun_arandela_escamoteavel.jpg',
@@ -188,6 +197,7 @@ export const imagens = [
     {
         name: 'Tre | WebSite One Page',
         thumb: 'projetos/tre/thumb.jpg',
+        alt: 'Onepage - Empresa Tre Designs | Vuejs html css',
         paths:
             [
                 'projetos/tre/1.jpg',
@@ -198,6 +208,7 @@ export const imagens = [
     {
         name: 'Tênis Nike | Modelagem Cinema 4d',
         thumb: 'projetos/nike/thumb.jpg',
+        alt: 'Modelagem 3d - Tênis nike',
         paths:
             [
                 'projetos/nike/modelo_tenis_nike_render.jpg',
@@ -209,6 +220,7 @@ export const imagens = [
     {
         name: 'Relógio de Ouro | Cinema 4d',
         thumb: 'projetos/relogio_dourado/thumb.jpg',
+        alt: 'Relógio masculino dourado',
         paths:
             [
                 'projetos/relogio_dourado/relogio_dourado.jpg',
@@ -221,12 +233,12 @@ export const imagens = [
     {
         name: 'Data Machina | Trabalhos Front End',
         thumb: 'projetos/datamachina/thumb.jpg',
+        alt: 'Data Machina / Projeto frontend css e html',
         paths:
-        [
+            [
                 'projetos/datamachina/datamachina.jpg',
                 'projetos/datamachina/design_system_mobile_instagram.jpg',
                 'projetos/datamachina/datamachina_website_onepage.jpg',
             ],
     },
-
 ]

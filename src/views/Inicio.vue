@@ -1,5 +1,6 @@
 <template>
-    <div class="inicio">
+    <main class="inicio">
+
         <!-- Popup -->
 
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
@@ -26,7 +27,7 @@
                 <button class="popup__close">✕</button>
             </div>
         </div>
-        <section>
+        <section class="section">
             <div class="ola">
                 Olá,
                 <p>desenvolvi essa plataforma para divulgar um pouco dos meus trabalhos.</p>
@@ -41,7 +42,7 @@
         </div>
 
         <div class="linkPadding" id="design"></div>
-        <section>
+        <section class="section">
             <p class="experiencia">Minha expêriencia como <strong>designer</strong></p>
 
             <div class="card__grid">
@@ -97,7 +98,9 @@
                         </td>
                     </div>
                 </div>
-                <img class="img_design" src="banner.png" alt="Design">
+                <figure class="figure__design">
+                    <img class="img_design" src="banner.png" alt="Design">
+                </figure>
             </div>
         </section>
 
@@ -105,7 +108,7 @@
 
         <div id="programacao"></div>
 
-        <section class="second-section">
+        <section class="second-section section">
             <p class="experiencia">Minha experiência como <strong>desenvolvedor frontend</strong></p>
             <div class="card__grid">
                 <p class="card__destaques">Destaques:</p>
@@ -125,7 +128,9 @@
             </div>
 
             <div class="container-front">
-                <img class="img_front" src="frontend.png" alt="Design" />
+                <figure class="figure__front">
+                    <img class="img_front" src="frontend.png" alt="Design" />
+                </figure>
                 <div class="table">
                     <p class="table_p">Habilidades em códigos frontend</p>
                     <div class="table__content">
@@ -178,7 +183,7 @@
 
         <!-- SOBRE MIM -->
 
-        <div class="sobre" id="sobre">
+        <section class="sobre" id="sobre">
 
             <div class="square" id="square">
                 <img src="square1.svg">
@@ -206,14 +211,14 @@
                         <br>
                         <br>
                         Também trabalho profissionalmente no desenvolvimento de códigos HTML, CSS e Javascript avançados na
-                        criação de layouts, atualmente, buscando mais experiência na área de back-end, meta: Fullstack.
+                        criação de layouts, atualmente, buscando mais experiência na área de back-end para se tornar full stack.
                     </p>
                 </div>
                 <router-link class="ver" to="/portfolio">Ver portfólio completo</router-link>
             </div>
-        </div>
+        </section>
 
-        <div class="sky" id="contato">
+        <footer class="sky" id="contato">
 
             <!-- Os céus proclamam a glória de Jesus -->
 
@@ -233,7 +238,7 @@
 
                 <div class="informacoes__container">
 
-                    <div class="informacoes__content">
+                    <address class="informacoes__content">
                         <div style="display: flex; gap: 8vw;" @click="copyText('(11) 96593-9822')">
                             <a target="_blank" class="decoration">
                                 <div class="informacoes__contato">
@@ -267,7 +272,7 @@
                             </div>
                             <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
                         </a>
-                    </div>
+                    </address>
 
                     <div id="observador__footer"
                         style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
@@ -295,9 +300,9 @@
             <img class="sky__planet_12 sky__planet" src="inicio/sky/12.png" alt="planet" id="planet_12">
             <img class="sky__planet_13 sky__planet" src="inicio/sky/13.png" alt="planet" id="planet_13">
             <img class="sky__planet_14 sky__planet" src="inicio/sky/14.png" alt="planet" id="planet_14">
-        </div>
+        </footer>
 
-    </div>
+    </main>
 </template>
 
 <script>
@@ -551,7 +556,7 @@ export default {
 
 /*  */
 
-section {
+.section {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -637,8 +642,11 @@ p {
     gap: 24px;
 }
 
-.img_design {
+.figure__design {
     grid-area: des;
+}
+
+.img_design {
     width: 100%;
     height: 60%;
     object-fit: contain;
@@ -668,9 +676,8 @@ td {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 1vw 30px;
+    padding: 1vw 3vw;
     padding-left: 2vw;
-    min-height: 62px;
     width: 100%;
 }
 
@@ -1057,6 +1064,10 @@ td {
     gap: 24px;
 }
 
+.figure__front {
+    grid-area: img;
+}
+
 .img_front {
     width: 100%;
     height: 70%;
@@ -1064,7 +1075,6 @@ td {
     mix-blend-mode: screen;
     position: relative;
     z-index: 1;
-    grid-area: img;
 }
 
 
