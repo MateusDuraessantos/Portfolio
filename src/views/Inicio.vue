@@ -234,14 +234,14 @@
                 <div class="informacoes__container">
 
                     <div class="informacoes__content">
-                        <div style="display: flex; gap: 8vw;">
+                        <div style="display: flex; gap: 8vw;" @click="copyText('(11) 96593-9822')">
                             <a target="_blank" class="decoration">
                                 <div class="informacoes__contato">
                                     <img src="inicio/whatsapp.svg" alt="WhatsApp">
                                     <p class="contato__email">whatsapp</p>
                                 </div>
 
-                                <div class="decoration__info" @click="copyText('(11) 96593-9822')">(11) 96593-9822
+                                <div class="decoration__info">(11) 96593-9822
                                 </div>
                                 <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
                             </a>
@@ -257,12 +257,12 @@
                             </a>
                         </div>
 
-                        <a target="_blank" class="decoration">
+                        <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
                             <div class="informacoes__contato">
                                 <img src="inicio/gmail.svg" alt="Email">
                                 <p class=" contato__email">email</p>
                             </div>
-                            <div class="decoration__info" @click="copyText('mateusduraessantos@gmail.com')">
+                            <div class="decoration__info">
                                 mateusduraessantos@gmail.com
                             </div>
                             <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
@@ -272,7 +272,6 @@
                     <div id="observador__footer"
                         style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
                         <p class="frase">Quem disse que rodapés precisam ser chatos? <br><br></p>
-
                     </div>
 
                 </div>
@@ -379,6 +378,8 @@ export default {
 
     methods: {
         copyText(content) {
+
+
             const textToCopy = content; // Texto a ser copiado
 
             navigator.clipboard.writeText(textToCopy)
