@@ -155,6 +155,7 @@ export default {
 <style scoped>
 main {
     margin-bottom: 100px;
+    margin-top: 11vw;
 }
 
 .grid {
@@ -163,8 +164,6 @@ main {
     gap: 10px;
     margin: auto;
 }
-
-
 
 .cards {
     display: flex;

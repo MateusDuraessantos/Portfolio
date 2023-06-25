@@ -1,8 +1,7 @@
 <template>
-    <main class="inicio">
+    <main class="">
 
         <!-- Popup -->
-
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <div class="container-button">
@@ -27,12 +26,24 @@
                 <button class="popup__close">✕</button>
             </div>
         </div>
-        <section class="section">
-            <div class="ola">
-                Olá,
-                <p>desenvolvi essa plataforma para divulgar um pouco dos meus trabalhos.</p>
+
+        <!-- Banner -->
+
+        <section class="section banner">
+            <padding></padding>
+            <div class="banner__ola">
+                Olá!
+                <p>aqui vou apresentar alguns dos meus trabalhos.</p>
             </div>
+
+            <!-- <img class="banner__img" src="inicio/sky/banner_sky.jpg" alt="Universe"> -->
+            <div class="banner__shadow"></div>
+            <video class="banner__img" src="inicio/sky/banner.mp4" muted loop autoplay></video>
+
+
         </section>
+
+        <!-- Bubbles -->
 
         <div class="bubble__container" id="bubbles__observer">
             <div class="bubble" id="bubble">
@@ -211,7 +222,8 @@
                         <br>
                         <br>
                         Também trabalho profissionalmente no desenvolvimento de códigos HTML, CSS e Javascript avançados na
-                        criação de layouts, atualmente, buscando mais experiência na área de back-end para se tornar full stack.
+                        criação de layouts, atualmente, buscando mais experiência na área de back-end para se tornar full
+                        stack.
                     </p>
                 </div>
                 <router-link class="ver" to="/portfolio">Ver portfólio completo</router-link>
@@ -378,6 +390,8 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.niceScrollBubble);
+        this.niceScrollBubble()
+
         this.observador()
     },
 
@@ -425,7 +439,7 @@ export default {
                 const observer = new IntersectionObserver(entries => {
 
                     if (entries[0].isIntersecting === true) {
-                        document.getElementById('bubble').style.top = window.scrollY * 0.6 + 'px';
+                        document.getElementById('bubble').style.top = (window.scrollY - 400)  * 0.4 + 'px';
                     }
                 })
                 observer.observe(document.getElementById('bubbles__observer'))
@@ -516,7 +530,7 @@ export default {
     --border-color: #474747;
     /* --shadow-color: black; */
     --shadow-color: black;
-    --sky-scale: 1;
+    --sky-scale: 0.9;
 }
 
 @media screen and (max-width: 1000px) {
@@ -554,6 +568,57 @@ export default {
     margin-bottom: 400px;
 }
 
+/* banner */
+
+padding {
+    padding-top: 4vw;
+}
+
+.banner {
+
+    display: flex;
+    justify-content: center;
+    height: 60vh;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.banner__img,
+.banner__shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    left: 0;
+    top: 0;
+
+
+}
+
+.banner__shadow {
+    background-image: linear-gradient(0deg, black, transparent, transparent,transparent, transparent, transparent, transparent);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+
+.banner__ola {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 2.2rem;
+    z-index: 2;
+    padding-bottom: 6vw;
+}
+
 /*  */
 
 .section {
@@ -562,7 +627,7 @@ export default {
     width: 100%;
     margin: auto;
     padding: 0 100px;
-    gap: 40px;
+    gap: 3vw;
     position: relative;
     z-index: 1;
 }
@@ -578,15 +643,6 @@ a {
     position: relative;
 }
 
-.ola {
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    font-size: 4rem;
-    font-weight: 300;
-    line-height: 2.2rem;
-}
-
 p {
     text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
 }
@@ -595,9 +651,11 @@ p {
 
 .bubble__container {
     position: absolute;
+    top: 100vh;
 }
 
 .bubble {
+    z-index: 1;
     display: flex;
     align-items: center;
     position: relative;
@@ -717,7 +775,7 @@ td {
 
 .card__destaques {
     position: absolute;
-    top: 1.4vw;
+    top: -2.6vw;
     left: 1.6vw;
     font-weight: 300;
     color: rgb(172, 172, 172);
@@ -1468,6 +1526,11 @@ td {
     .card__description {
         display: none;
     }
+
+    .section {
+        padding: 0 10px;
+    }
+
 }
 
 @media screen and (max-width: 850px) {

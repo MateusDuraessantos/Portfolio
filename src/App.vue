@@ -57,7 +57,6 @@ body {
   overflow: overlay;
   background: black;
   font-size: 16px;
-  margin-top: 11vw;
   width: 100vw;
   overflow-y: overlay;
   overflow-x: hidden;
