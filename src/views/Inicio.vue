@@ -1,6 +1,5 @@
 <template>
-    <main class="">
-
+    <main>
         <!-- Popup -->
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
@@ -29,7 +28,7 @@
 
         <!-- Banner -->
 
-        <section class="section banner">
+        <section class="section banner" id="inicio">
             <padding></padding>
             <div class="banner__ola">
                 Olá!
@@ -38,8 +37,8 @@
 
             <!-- <img class="banner__img" src="inicio/sky/banner_sky.jpg" alt="Universe"> -->
             <div class="banner__shadow"></div>
-            <video class="banner__img" src="inicio/sky/banner.mp4" muted loop autoplay></video>
-
+            <video class="banner__img" @loadeddata="loadingOla" src="inicio/sky/banner.mp4" muted loop autoplay>
+            </video>
 
         </section>
 
@@ -251,8 +250,8 @@
                 <div class="informacoes__container">
 
                     <address class="informacoes__content">
-                        <div style="display: flex; gap: 8vw;" @click="copyText('(11) 96593-9822')">
-                            <a target="_blank" class="decoration">
+                        <div class="contatos__column">
+                            <a target="_blank" class="decoration" @click="copyText('(11) 96593-9822')">
                                 <div class="informacoes__contato">
                                     <img src="inicio/whatsapp.svg" alt="WhatsApp">
                                     <p class="contato__email">whatsapp</p>
@@ -274,16 +273,28 @@
                             </a>
                         </div>
 
-                        <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
-                            <div class="informacoes__contato">
-                                <img src="inicio/gmail.svg" alt="Email">
-                                <p class=" contato__email">email</p>
-                            </div>
-                            <div class="decoration__info">
-                                mateusduraessantos@gmail.com
-                            </div>
-                            <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
-                        </a>
+                        <div class="contatos__column">
+                            <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
+                                <div class="informacoes__contato">
+                                    <img src="inicio/gmail.svg" alt="Email">
+                                    <p class=" contato__email">e-mail</p>
+                                </div>
+                                <div class="decoration__info">
+                                    mateusduraessantos@gmail.com
+                                </div>
+                                <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
+                            </a>
+                            <a target="_blank" class="decoration" href="https://www.behance.net/mateusduraes">
+                                <div class="informacoes__contato">
+                                    <img src="inicio/behance.png" alt="Email">
+                                    <p class=" contato__email">behance</p>
+                                </div>
+                                <div class="decoration__info">
+                                    Mateus Durães dos Santos
+                                </div>
+                                <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
+                            </a>
+                        </div>
                     </address>
 
                     <div id="observador__footer"
@@ -391,14 +402,15 @@ export default {
     mounted() {
         window.addEventListener('scroll', this.niceScrollBubble);
         this.niceScrollBubble()
-
         this.observador()
+        this.loadingOla()
     },
 
     methods: {
+        loadingOla(faster) {
+            this.$emit('loadingHollPage', faster, true)
+        },
         copyText(content) {
-
-
             const textToCopy = content; // Texto a ser copiado
 
             navigator.clipboard.writeText(textToCopy)
@@ -439,7 +451,7 @@ export default {
                 const observer = new IntersectionObserver(entries => {
 
                     if (entries[0].isIntersecting === true) {
-                        document.getElementById('bubble').style.top = (window.scrollY - 400)  * 0.4 + 'px';
+                        document.getElementById('bubble').style.top = (window.scrollY - 400) * 0.4 + 'px';
                     }
                 })
                 observer.observe(document.getElementById('bubbles__observer'))
@@ -538,12 +550,12 @@ export default {
         --sky-scale: 1.4
     }
 
-
-
 }
 </style>
 
 <style scoped>
+/*  */
+
 .linkPadding {
     padding-top: 120px;
 }
@@ -597,7 +609,7 @@ padding {
 }
 
 .banner__shadow {
-    background-image: linear-gradient(0deg, black, transparent, transparent,transparent, transparent, transparent, transparent);
+    background-image: linear-gradient(0deg, black, transparent, transparent, transparent, transparent, transparent, transparent);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -909,7 +921,6 @@ td {
 }
 
 .informacoes__container {
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -920,11 +931,19 @@ td {
     padding: 40px 0;
 }
 
+.contatos__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6vw;
+}
+
 .decoration {
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    width: max-content;
 }
 
 .decoration:hover .decoration__copy {
@@ -933,6 +952,8 @@ td {
 }
 
 .decoration__copy {
+    position: absolute;
+    right: -26px;
     opacity: 0;
     width: 0;
     transition: .2s;
@@ -947,6 +968,7 @@ td {
     position: absolute;
     display: flex;
     align-items: center;
+    justify-content: center;
     white-space: nowrap;
     text-align: center;
     gap: 1vw;
@@ -955,6 +977,7 @@ td {
     opacity: 0;
     border-radius: 10vw;
     transition: .2s;
+
 }
 
 .decoration:hover .decoration__info {
@@ -985,8 +1008,8 @@ td {
 
 .informacoes__content {
     display: flex;
-    flex-direction: column;
-    gap: 3vw;
+    justify-content: center;
+    gap: 5vw;
     width: max-content;
     margin: auto;
 }
@@ -1683,9 +1706,17 @@ td {
 
 /* Mobile version */
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .grid {
         gap: 3px;
     }
+
+    .decoration__info,
+    .decoration__copy {
+        display: none;
+    }
+
+
+
 }
 </style>

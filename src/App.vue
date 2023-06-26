@@ -1,7 +1,19 @@
 <template>
   <div>
+
+
+    <!-- Boas vindas -->
+
+    <div class="boasVindas" v-if="hide">
+      <div class="boasVindas__background">
+        <p class="boasvindas__porcentagem">{{ loadingHellow }}%</p>
+      </div>
+    </div>
+
+    <!--  -->
+
     <Header class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
-    <router-view @nome-evento="tratarEvento" />
+    <router-view @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
   </div>
 </template>
 
@@ -15,15 +27,58 @@ export default {
   },
   data() {
     return {
-      hiddenHeader: true
+      hiddenHeader: true,
+      loadingHellow: 0,
+      velocity: 80,
+      teste: null,
+      hide: false,
     }
   },
 
   mounted() {
     this.favIcon()
+
+   
+      this.loadingOla()
+    
+
+    document.body.style.overflow = 'hidden'
   },
   methods: {
 
+    loadingOla(fasterVideo, inicio) {
+
+      if (inicio) {
+        this.teste = true
+        this.hide = true
+      } else {
+        this.hide
+      }
+
+      if (fasterVideo) {
+        this.velocity = 25
+      }
+      if (this.teste) {
+
+        if (this.loadingHellow < 100) {
+          this.loadingHellow = this.loadingHellow + 1
+          console.log(this.loadingHellow)
+          setTimeout(() => {
+            this.loadingOla()
+          }, this.velocity);
+        }
+        if (this.loadingHellow == 100) {
+          document.querySelector('.boasVindas').classList.add('boasVindas__animation')
+
+          document.body.style.overflowY = 'overlay'
+        }
+      }
+
+
+
+
+
+    },
     removeClass() {
       document.getElementById('header').classList.remove('show')
 
@@ -60,9 +115,58 @@ body {
   width: 100vw;
   overflow-y: overlay;
   overflow-x: hidden;
+}
+
+/* Boas vindas */
+
+.boasVindas {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  top: 0;
+}
+
+.boasVindas__background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.267);
+  background: black;
+  width: 100%;
+  height: 100%;
+}
+
+.boasvindas__porcentagem {
+  font-size: 3rem;
+  text-shadow: none;
+  font-weight: 300;
+}
+
+.boasVindas__animation {
+  transform: translatex(100vw);
+  animation-name: ola;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ola {
+  0% {
+    transform: translatex(0);
+  }
+
+  10% {
+    transform: translatex(0);
+  }
+
+  100% {
+    transform: translatex(100vw);
+
+  }
 
 }
 
+/*  */
 
 .header {
   opacity: 1;
@@ -128,7 +232,7 @@ p {
   }
 }
 
-.popup__animation .popup__overflow {
+.popup__animation {
   animation-name: popup__background--animation;
   animation-duration: 1s;
   animation-fill-mode: forwards;

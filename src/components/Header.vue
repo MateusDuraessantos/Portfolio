@@ -8,6 +8,7 @@
 
         <div class="links">
             <router-link style="display: flex; gap: 1.5vw;" to="/">
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'inicio')">Inicio</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Programação</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Sobre</a>
