@@ -39,7 +39,7 @@ export default {
         dadoBol: String
     },
     methods: {
-
+        
         removeLink() {
 
             if (document.querySelector('[activeLink]') != null) {

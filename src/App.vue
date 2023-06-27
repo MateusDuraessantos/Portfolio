@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
     <!-- Boas vindas -->
 
     <div class="boasVindas" v-if="hide">
@@ -37,12 +36,10 @@ export default {
 
   mounted() {
     this.favIcon()
-
-   
-      this.loadingOla()
-    
-
+    this.loadingOla()
     document.body.style.overflow = 'hidden'
+
+
   },
   methods: {
 
@@ -62,7 +59,7 @@ export default {
 
         if (this.loadingHellow < 100) {
           this.loadingHellow = this.loadingHellow + 1
-          console.log(this.loadingHellow)
+
           setTimeout(() => {
             this.loadingOla()
           }, this.velocity);
