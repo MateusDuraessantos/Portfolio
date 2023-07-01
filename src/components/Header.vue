@@ -247,7 +247,7 @@ button {
     }
 
     * {
-        font-size: 18px;
+        font-size: 1rem;
     }
 }
 

@@ -468,10 +468,9 @@ export default {
                 this.popup = !this.popup
             }
             else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
+                document.getElementById('img_portrato').style.opacity = 1
                 document.body.removeAttribute('style')
                 this.popup = !this.popup
-
-                document.getElementById('img_portrato').setAttribute('style', 'opacity: 1;')
                 this.loading = true
                 this.number = 0
             }
@@ -484,8 +483,8 @@ export default {
                 //O setTimeout ajuda a evitar pulos de imagens enquanto estão carregando no browser
                 setTimeout(() => {
                     this.loading = false
-                    document.getElementById('img_portrato').removeAttribute('style')
-                }, 100);
+                    document.getElementById('img_portrato').style.opacity = 1
+                }, 1);
 
                 document.getElementById('animation').classList.add('popup__animation')
             }
@@ -714,13 +713,15 @@ p {
 
 .figure__design {
     grid-area: des;
+    width: 80%;
+    margin: auto;
 }
 
 .img_design {
     width: 100%;
-    height: 60%;
     object-fit: contain;
 }
+
 
 .table {
     display: flex;
@@ -870,7 +871,6 @@ td {
 .sky {
     position: relative;
     height: 100vh;
-
 }
 
 .sky__shadows {
@@ -953,7 +953,7 @@ td {
 
 .decoration__copy {
     position: absolute;
-    right: -26px;
+    right: -2vw;
     opacity: 0;
     width: 0;
     transition: .2s;
@@ -1350,13 +1350,11 @@ td {
     }
 }
 
-@media screen and (min-width: 2400px) {
-    section {
-        width: 90%;
-    }
-}
 
 @media screen and (min-width: 1280px) {
+    .decoration__info {
+        font-size: 1rem;
+    }
 
     .ver {
         padding: 2vw;
@@ -1375,7 +1373,7 @@ td {
     }
 
     .informacoes__content {
-        gap: 4vw;
+        gap: 6vw;
     }
 
     .card__grid {
@@ -1716,7 +1714,10 @@ td {
         display: none;
     }
 
-
+    .sobre,
+    .sky {
+        width: calc(100% - 7px);
+    }
 
 }
 </style>
