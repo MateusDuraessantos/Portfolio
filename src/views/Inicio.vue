@@ -1,6 +1,7 @@
 <template>
     <main>
         <!-- Popup -->
+
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <div class="container-button">
@@ -26,33 +27,46 @@
             </div>
         </div>
 
-        <!-- Banner -->
+        <!-- SOBRE -->
 
-        <section class="section banner" id="inicio">
-            <padding></padding>
-            <div class="banner__ola">
-                Olá!
-                <p>aqui vou apresentar alguns dos meus trabalhos.</p>
+        <section class="sobre" id="sobre">
+
+            <img src="square1.svg" class="square__left">
+
+            <div class="sobre__description">
+                <div class="sobre__container">
+                    <p class="mim__ola">Olá,</p>
+                    <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
+                    <p class="projeto">Eu projeto coisas.</p>
+                </div>
+                <br>
+                <br>
+                <p class="sobre__content">
+                <p>Sou formado em design na Universidade Presbiteriana Mackenzie.</p>
+                <br>
+                <p>Trabalho com a criação de designs para websites (UX/UI) e desenvolvimento frontend (com HTML, CSS e
+                    Javascript) há 2 anos.</p>
+
+                </p>
             </div>
-
-            <!-- <img class="banner__img" src="inicio/sky/banner_sky.jpg" alt="Universe"> -->
-            <div class="banner__shadow"></div>
-            <video class="banner__img" @loadeddata="loadingOla" src="inicio/sky/banner.mp4" muted loop autoplay>
-            </video>
-
+            <img src="square0.svg" class="square__right">
         </section>
 
-        <!-- Bubbles -->
-
-        <div class="bubble__container" id="bubbles__observer">
-            <div class="bubble" id="bubble">
-                <img src="bubble1.svg">
-                <img src="bubble0.svg" class="right">
-            </div>
-        </div>
 
         <div class="linkPadding" id="design"></div>
         <section class="section">
+
+            <!-- BUBBLES -->
+
+            <div class="bubble__container" id="bubbles__observer">
+                <div class="bubble" id="bubble">
+                    <img src="bubble1.svg">
+                    <img class="bubble__right" src="bubble0.svg">
+                </div>
+            </div>
+
+            <!--  -->
+
             <p class="experiencia">Minha expêriencia como <strong>designer</strong></p>
 
             <div class="card__grid">
@@ -191,51 +205,17 @@
             </div>
         </section>
 
-        <!-- SOBRE MIM -->
+        <!--  -->
 
-        <section class="sobre" id="sobre">
+        <router-link class="ver" to="/portfolio">Ver portfólio completo</router-link>
 
-            <div class="square" id="square">
-                <img src="square1.svg">
-                <img src="square0.svg" class="right">
-            </div>
-
-            <div style="margin-top: 26px; display: flex;
-            flex-direction: column;">
-                <div class="mim">
-                    <div class="mim__container">
-                        <p class="mim__ola">Olá,</p>
-                        <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
-                        <p class="projeto">Eu projeto coisas.</p>
-                    </div>
-                    <br>
-                    <br>
-                    <p class="mim__description">
-                        Tenho 22 anos, atualmente, cursando o 8° semestre de design na Universidade Presbiteriana Mackenzie.
-                        Já trabalho na área de webdesigner e desenvolvedor frontend a cerca de 2 anos, atualmente exercendo
-                        a profissão na empresa Data Machina.
-                        <br>
-                        <br>
-                        Tenho uma boa experiência com softwares de edição de imagem e criação de objetos 3D para criação de
-                        renders.
-                        <br>
-                        <br>
-                        Também trabalho profissionalmente no desenvolvimento de códigos HTML, CSS e Javascript avançados na
-                        criação de layouts, atualmente, buscando mais experiência na área de back-end para se tornar full
-                        stack.
-                    </p>
-                </div>
-                <router-link class="ver" to="/portfolio">Ver portfólio completo</router-link>
-            </div>
-        </section>
+        <!-- FOOTER -->
 
         <footer class="sky" id="contato">
 
             <!-- Os céus proclamam a glória de Jesus -->
 
             <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
-
-            <div class="ultima__atualizacao">22/06/2023</div>
 
             <!-- Shadows -->
 
@@ -400,8 +380,6 @@ export default {
         }
     },
     mounted() {
-        window.addEventListener('scroll', this.niceScrollBubble);
-        this.niceScrollBubble()
         this.observador()
         this.loadingOla()
     },
@@ -437,26 +415,6 @@ export default {
             observer.observe(document.getElementById('observador__footer'))
         },
 
-        //Diminui a velocidade de scroll de alguns elementos ao scrollar
-        niceScrollBubble() {
-
-            if (document.getElementById('square') != null) {
-                const observerSquare = new IntersectionObserver(entries => {
-                    if (entries[0].isIntersecting === true) {
-                        document.getElementById('square').style.top = (window.scrollY - 2800) * 0.3 + 'px';
-                    }
-                })
-                observerSquare.observe(document.getElementById('square'))
-
-                const observer = new IntersectionObserver(entries => {
-
-                    if (entries[0].isIntersecting === true) {
-                        document.getElementById('bubble').style.top = (window.scrollY - 400) * 0.4 + 'px';
-                    }
-                })
-                observer.observe(document.getElementById('bubbles__observer'))
-            }
-        },
         upPopup(event, index, front) {
 
             const clicked = event.target.classList[0]
@@ -571,13 +529,6 @@ export default {
     }
 }
 
-/* Sobre */
-
-.sobre {
-    padding-top: 200px;
-    position: relative;
-    margin-bottom: 400px;
-}
 
 /* banner */
 
@@ -662,7 +613,9 @@ p {
 
 .bubble__container {
     position: absolute;
-    top: 100vh;
+    top: 7vw;
+    left: 0;
+    z-index: 0;
 }
 
 .bubble {
@@ -674,32 +627,70 @@ p {
     height: 550px;
 }
 
-.right,
-.left {
+.bubble img {
+    width: 15vw;
+}
+
+.bubble__right {
     position: absolute;
     height: 100%;
     z-index: 0;
 }
 
-.right {
+.bubble__right {
     right: 0;
 }
 
-/* Square */
+/* Sobre */
 
-.bubble img,
-.square img {
-    height: 24vw;
-}
-
-.square {
-    height: 800px;
-    display: flex;
+.sobre {
+    display: grid;
+    grid-template-columns: 24vh 1fr 24vh;
     align-items: center;
-    position: absolute;
-    width: 100%;
-    z-index: 0;
+    height: 100vh;
+    position: relative;
+    margin-bottom: 100px;
+    gap: 4vw;
+    background-image: url('../../public/inicio/sky/banner_sky.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+.sobre__description {
+    width: 100%;
+    margin: auto;
+    z-index: 1;
+}
+
+.sobre__container {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.9rem;
+}
+
+.sobre__content {
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.mim__ola {
+    font-size: 1.6rem;
+}
+
+.mim__nome {
+    font-size: 2.3rem;
+}
+
+.square__right {
+    right: 0;
+}
+
+.square__right,
+.square__left {
+    pointer-events: none;
+    width: 100%;
+}
+
 
 /*  */
 
@@ -897,17 +888,6 @@ td {
     height: 100%;
     object-fit: cover;
 
-}
-
-.ultima__atualizacao {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    z-index: 5;
-    text-align: right;
-    padding-right: 30px;
-    color: #252525;
-    font-size: 1rem;
 }
 
 .sky__informacoes {
@@ -1137,6 +1117,7 @@ td {
 }
 
 /* Front end */
+
 .container-front {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -1158,32 +1139,6 @@ td {
     z-index: 1;
 }
 
-
-.mim {
-    width: 80%;
-    margin: auto;
-    z-index: 1;
-}
-
-.mim__container {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.9rem;
-}
-
-.mim__description {
-    font-weight: 300;
-    font-size: 1rem;
-}
-
-.mim__ola {
-    font-size: 1.6rem;
-}
-
-.mim__nome {
-    font-size: 2.3rem;
-}
-
 .projeto {
     font-size: 1.6rem;
 }
@@ -1197,13 +1152,14 @@ td {
     max-height: 82px;
     min-height: 44px;
     padding: 14px 44px;
-    margin: auto;
     color: rgb(196, 196, 196);
     font-size: 1rem;
-    margin-top: 5vw;
     background: #171d5f;
     transition: .2s;
     text-decoration: none;
+    margin: auto;
+    margin-top: 20vh;
+    margin-bottom: 12vh;
     z-index: 4;
 }
 
@@ -1386,6 +1342,7 @@ td {
 
     .sobre {
         margin-bottom: 200px;
+        grid-template-columns: 100px 1fr 100px;
     }
 
     /* Sky */
@@ -1644,11 +1601,11 @@ td {
         padding: 0 10px;
     }
 
-    .mim__description {
+    .sobre__content {
         font-size: 0.8rem;
     }
 
-    .mim__container {
+    .sobre__container {
         gap: 0;
     }
 
@@ -1662,7 +1619,7 @@ td {
 
     /* Sobre mim */
 
-    .mim__container {
+    .sobre__container {
         line-height: 24px;
     }
 
@@ -1705,6 +1662,21 @@ td {
 /* Mobile version */
 
 @media only screen and (max-width: 500px) {
+
+    .sobre {
+        display: flex;
+        justify-content: center;
+        height: 50vh;
+        margin: 0;
+    }
+
+    .square__left,
+    .square__right {
+        display: none;
+    }
+
+    /*  */
+
     .grid {
         gap: 3px;
     }

@@ -151,37 +151,21 @@ export default {
                         }
                         else {
                             this.newIndex.push(categorias[i].getAttribute('indexcard'))
-
                         }
                     }
-
-
-
                     const websitesElements = document.querySelectorAll('.website')
 
                     for (let y = 0; y < websitesElements.length; y++) {
                         websitesElements[y].setAttribute('indexWeb', y)
                     }
-
-
-
                 }
-
-            } else {
+            }
+            else {
                 const firstInteraction = window.getComputedStyle(document.querySelector('[index]')).width
-
                 document.getElementById('filtro__marcador').style.width = firstInteraction
             }
         },
         upPopup(event, index) {
-
-
-
-
-
-
-
-
 
             const clicked = event.target.classList[0]
 
@@ -379,16 +363,18 @@ main {
     border-radius: 10px;
 }
 
+
+
 .cards__container_name {
     display: flex;
     opacity: 0;
-    align-items: center;
+    align-items: flex-end;
     position: absolute;
     padding: 14px 20px;
-    padding-top: 26px;
-    height: 74px;
+    padding-top: 5vw;
+    height: 14vw;
     width: 100%;
-    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
     transition: .6s;
@@ -397,16 +383,16 @@ main {
 .cards:hover .cards__container_name {
     opacity: 1;
     transition: .6s;
-
 }
 
 .card__text {
     font-weight: 500;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-    line-height: 1.1rem;
+    line-height: 1.64vw;
     font-size: 0.9rem;
     text-align: center;
     color: rgb(235, 235, 235);
+
 }
 
 /* link popup */
@@ -427,6 +413,7 @@ main {
 
 .link__container {
     height: 38px;
+    border: 1px solid gray;
     opacity: 0;
     display: flex;
     align-items: center;

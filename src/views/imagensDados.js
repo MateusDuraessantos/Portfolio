@@ -1,66 +1,66 @@
 export const imagens = [
     {
-        name: 'TCC - Redesign webiste Design Mackenzie',
-        categoria: 'website',
-        thumb: 'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
-        link: 'https://mackenzie-tcc.web.app/#/',
-        github: 'https://github.com/MateusDuraessantos/TCC',
-        alt: 'Website trabalho de conclusão de curso Mackenzie',
-        paths:
-            [
-                'projetos/tcc/design-de-um-webiste-para-exposicao-de-projetos-universitarios-do-curos-de-design-mackenzie.jpg',
-                'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
-                'projetos/tcc/pagina_inicial_do_projeto.jpg',
-                'projetos/tcc/arvore_de_navegacao_proposta.jpg',
-            ],
-    },
-
-    {
-        name: 'BlvckFinance | Identidade de marca',
-        categoria: 'design',
-        thumb: 'projetos/blvckfinance/thumb.jpg',
-        alt: 'Editorial Black Finance | Mockup photoshop',
-        paths:
-            [
-                'projetos/blvckfinance/1.jpg',
-                'projetos/blvckfinance/2.jpg',
-                'projetos/blvckfinance/3.jpg',
-                'projetos/blvckfinance/4.jpg',
-                'projetos/blvckfinance/5.jpg',
-                'projetos/blvckfinance/6.jpg',
-            ],
-    },
-
-    {
-        name: 'Portfólio pessoal | Mateeus Durães dos Santos',
-        categoria: 'website',
-        thumb: 'projetos/portfolio/footer.png',
-        github: 'https://github.com/MateusDuraessantos/Portfolio',
-        alt: 'Meu portfólio',
-        paths:
-            [
-                'projetos/portfolio/pagina_inicial_body_do_projeto.jpg',
-                'projetos/portfolio/projetos_grid.png',
-                'projetos/portfolio/footer.png',
-                'projetos/portfolio/projeto_no_figma.png',
-
-
-            ],
-    },
-    {
-        name: 'Chimarrão',
+        name: 'Cuia para chimarrão',
         categoria: 'design',
         thumb: 'projetos/chimarrao/thumb.jpg',
         alt: 'Chimarrão - projeto 3d - Cinema4D',
         paths:
-            [
-                'projetos/chimarrao/1.jpg',
+        [
+            'projetos/chimarrao/1.jpg',
                 'projetos/chimarrao/2.jpg',
                 'projetos/chimarrao/3.jpg',
                 'projetos/chimarrao/4.jpg',
                 'projetos/chimarrao/5.jpg',
             ],
-    },
+        },
+        {
+            name: 'Redesign website do curso de Design Mackenzie',
+            categoria: 'website',
+            thumb: 'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
+            link: 'https://mackenzie-tcc.web.app/#/',
+            github: 'https://github.com/MateusDuraessantos/TCC',
+            alt: 'Website trabalho de conclusão de curso Mackenzie',
+            paths:
+                [
+                    'projetos/tcc/design-de-um-webiste-para-exposicao-de-projetos-universitarios-do-curos-de-design-mackenzie.jpg',
+                    'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
+                    'projetos/tcc/pagina_inicial_do_projeto.jpg',
+                    'projetos/tcc/arvore_de_navegacao_proposta.jpg',
+                ],
+        },
+    
+        {
+            name: 'BlvckFinance | Identidade de marca',
+            categoria: 'design',
+            thumb: 'projetos/blvckfinance/thumb.jpg',
+            alt: 'Editorial Black Finance | Mockup photoshop',
+            paths:
+                [
+                    'projetos/blvckfinance/1.jpg',
+                    'projetos/blvckfinance/2.jpg',
+                    'projetos/blvckfinance/3.jpg',
+                    'projetos/blvckfinance/4.jpg',
+                    'projetos/blvckfinance/5.jpg',
+                    'projetos/blvckfinance/6.jpg',
+                ],
+        },
+    
+        {
+            name: 'Portfólio pessoal | Mateus Durães dos Santos',
+            categoria: 'website',
+            thumb: 'projetos/portfolio/footer.png',
+            github: 'https://github.com/MateusDuraessantos/Portfolio',
+            alt: 'Meu portfólio',
+            paths:
+                [
+                    'projetos/portfolio/pagina_inicial_body_do_projeto.jpg',
+                    'projetos/portfolio/projetos_grid.png',
+                    'projetos/portfolio/footer.png',
+                    'projetos/portfolio/projeto_no_figma.png',
+    
+    
+                ],
+        },
     {
         name: 'Cobogó | Construção civil',
         categoria: 'design',
@@ -75,7 +75,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'Comoda materna | Para Parelheiros',
+        name: 'Cômoda materna | Para Parelheiros',
         categoria: 'design',
         thumb: 'projetos/comoda/thumb.jpg',
         alt: 'Projeto Cômoda para mães de parelheiros',
@@ -88,7 +88,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'TeclaKey | WebSite - One Page',
+        name: 'TeclaKey | One Page',
         categoria: 'website',
         thumb: 'projetos/teclakey/thumb.jpg',
         link: 'https://teclakey.com/',
@@ -245,7 +245,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'Tre | WebSite One Page',
+        name: 'Tre | One Page',
         categoria: 'website',
         thumb: 'projetos/tre/2.jpg',
         link: 'https://tre.art.br/',
@@ -287,7 +287,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'Data Machina | Trabalhos Front End',
+        name: 'Data Machina | One page',
         categoria: 'website',
         thumb: 'projetos/datamachina/thumb.jpg',
         link: 'https://datamachina.com.br/',
@@ -312,7 +312,7 @@ export const imagens = [
             ],
     },
     {
-        name: 'Music SP',
+        name: 'Music SP | One page',
         categoria: 'website',
         thumb: 'projetos/music/thumb.jpg',
         alt: 'Music SP',

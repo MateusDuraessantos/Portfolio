@@ -8,10 +8,9 @@
 
         <div class="links">
             <router-link style="display: flex; gap: 1.5vw;" to="/">
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'inicio')">Inicio</a>
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Início</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Programação</a>
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Sobre</a>
+                <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Frontend</a>
                 <a class="dropdown desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
             </router-link>
 
@@ -19,10 +18,10 @@
                     style="display: flex; position: absolute; right: -12px; top: 11px; font-size: 20px; transform: rotate(90deg);">❯</span>
 
                 <div class="dropdown__container">
-                    <a class="dropdown__option nav" @click="scrollDown($event, 'design')">Design</a>
-                    <a class="dropdown__option nav" @click="scrollDown($event, 'programacao')">Programação</a>
-                    <a class="dropdown__option nav" @click="scrollDown($event, 'sobre')">Sobre</a>
-                    <a class="dropdown__option nav" @click="scrollDown($event, 'contato')">Contato</a>
+                    <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Início</a>
+                    <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
+                    <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Frontend</a>
+                    <a class="dropdown desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
                 </div>
             </router-link>
 
@@ -39,7 +38,7 @@ export default {
         dadoBol: String
     },
     methods: {
-        
+
         removeLink() {
 
             if (document.querySelector('[activeLink]') != null) {

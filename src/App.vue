@@ -213,8 +213,8 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  width: 5vw;
+  height: 5vw;
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
