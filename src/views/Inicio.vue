@@ -161,10 +161,7 @@
                         <td border-style>
                             <p>Frontend</p>
                         </td>
-                        <td border-style>
-                            <p>HTML</p>
-                            <img class="table__star" src="cinco_estrelas.svg" alt="Conhecimento avançado" />
-                        </td>
+                    
                         <td border-style>
                             <p>CSS</p>
                             <img class="table__star" src="cinco_estrelas.svg" alt="Conhecimento avançado" />
