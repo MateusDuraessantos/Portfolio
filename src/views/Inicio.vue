@@ -1,6 +1,8 @@
 <template>
-    <main>
+    <main id="main">
         <!-- Popup -->
+
+        <div id="themeOverflow"></div>
 
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
@@ -30,6 +32,10 @@
         <!-- SOBRE -->
 
         <section class="sobre" id="sobre">
+            <p
+                style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 0.7rem; color: rgb(105, 110, 128); font-weight: 300; z-index: 10;">
+                Designed by Mateus Durães dos Santos - 2023
+            </p>
 
             <img src="square1.svg" class="square__left">
 
@@ -37,23 +43,36 @@
                 <div class="sobre__container">
                     <p class="mim__ola">Olá,</p>
                     <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
-                    <p class="projeto">Eu projeto coisas.</p>
                 </div>
                 <br>
-                <br>
-                <p class="sobre__content">
-                <p>Sou formado em design na Universidade Presbiteriana Mackenzie.</p>
-                <br>
-                <p>Trabalho com a criação de designs para websites (UX/UI) e desenvolvimento frontend (com HTML, CSS e
-                    Javascript) há 2 anos.</p>
 
-                </p>
+                <div class="redes">
+                    <a href="https://www.behance.net/mateusduraes" target="_blank">
+                        <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
+                    </a>
+                    <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
+                        <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
+                    </a>
+                    <a href="https://github.com/MateusDuraessantos" target="_blank">
+                        <img class="redes__img" :src="`icons/${whiteIcons}/github.svg`" alt="logo Github">
+                    </a>
+                </div>
+
+                <br>
+
+                <div class="sobre__content">
+                    <p>Sou formado em design na Universidade Presbiteriana Mackenzie. Trabalho a 2 anos com a criação de
+                        designs para websites (UX/UI) e desenvolvimento frontend (com CSS, Javascript e VueJs). Sempre
+                        gostei de tecnologia (hardwares/softwares). Atualmente sou Junior e tenho como meta atuar como Full
+                        Stack, para isso, tenho estudando backend, tendo como porta de entrada o Node.js</p>
+
+                </div>
             </div>
             <img src="square0.svg" class="square__right">
         </section>
 
-
         <div class="linkPadding" id="design"></div>
+
         <section class="section">
 
             <!-- BUBBLES -->
@@ -88,37 +107,24 @@
 
             <div class="container-table">
                 <div class="table">
-                    <p class="table_p">Habilidades em softwares:</p>
+                    <p class="table_p">Habilidades em softwares de Design:</p>
 
                     <div class="table__content">
+                        <div border-style></div>
                         <td border-style>
-                            <p>Design</p>
+                            <p>Adobe Photoshop</p>
                         </td>
                         <td border-style>
-                            <p>Photoshop</p>
-                            <img class="table__star" src="cinco_estrelas.svg" alt="Conhecimento avançado" />
-                        </td>
-                        <td border-style>
-                            <p>Ilustrator</p>
-                            <img class="table__star" src="cinco_estrelas.svg" alt="Conhecimento avançado" />
+                            <p>Adobe Ilustrator</p>
                         </td>
                         <td border-style>
                             <p>Figma</p>
-                            <div class="star table__star"><img v-for="star in 4" src="uma_estrelas.svg"
-                                    alt="Conhecimento avançado">
-                                <img src="meia_estrelas.svg" alt="Conhecimento avançado">
-                            </div>
                         </td>
                         <td border-style>
                             <p>Miro</p>
-                            <img class="table__star" src="cinco_estrelas.svg" alt="Conhecimento ançado" />
                         </td>
                         <td>
                             <p>Cinema 4D</p>
-                            <div class="star table__star"><img v-for="star in 4" src="uma_estrelas.svg"
-                                    alt="Conhecimento avançado">
-                                <img src="vazia_estrelas.svg" alt="Conhecimento avançado">
-                            </div>
                         </td>
                     </div>
                 </div>
@@ -139,7 +145,6 @@
                 <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100"
                     @click="upPopup($event, img.index, 'true')">
 
-
                     <img class="card__img" :src="'projetos/' + img.obj[0]">
                     <div class="card__description">
                         <div class="card__data">
@@ -156,45 +161,30 @@
                     <img class="img_front" src="frontend.png" alt="Design" />
                 </figure>
                 <div class="table">
-                    <p class="table_p">Habilidades em códigos frontend</p>
+                    <p class="table_p">Experiências em frontend:</p>
                     <div class="table__content">
-                        <td border-style>
-                            <p>Frontend</p>
-                        </td>
-                    
+                        <div border-style></div>
                         <td border-style>
                             <p>CSS</p>
-                            <img class="table__star" src="cinco_estrelas.svg" alt="Conhecimento avançado" />
                         </td>
                         <td border-style>
                             <p>Javascript</p>
-                            <div class="star table__star"><img v-for="star in 3" src="uma_estrelas.svg"
-                                    alt="Conhecimento avançado">
-                                <img src="meia_estrelas.svg" alt="Conhecimento avançado">
-                                <img src="vazia_estrelas.svg" alt="Conhecimento avançado">
-                            </div>
                         </td>
-
                         <td border-style>
                             <p>VueJs</p>
-                            <div class="star table__star"><img v-for="star in 3" src="uma_estrelas.svg"
-                                    alt="Conhecimento avançado">
-                                <img src="meia_estrelas.svg" alt="Conhecimento avançado">
-                                <img src="vazia_estrelas.svg" alt="Conhecimento avançado">
-                            </div>
                         </td>
                         <td border-style>
                             <p>Firebase</p>
-                            <div class="star table__star"><img v-for="star in 4" src="uma_estrelas.svg"
-                                    alt="Conhecimento avançado">
-                                <img src="vazia_estrelas.svg" alt="Conhecimento avançado">
-                            </div>
+                        </td>
+                        <td border-style>
+                            <p>Element Plus</p>
+                        </td>
+                        <td border-style>
+                            <p>Bootstrap</p>
                         </td>
                         <td>
                             <p>GitHub</p>
-                            <div class="star table__star"><img v-for="star in 4" src="uma_estrelas.svg"
-                                    alt="Conhecimento avançado">
-                                <img src="vazia_estrelas.svg" alt="Conhecimento avançado">
+                            <div class="star table__star">
                             </div>
                         </td>
                     </div>
@@ -212,11 +202,16 @@
 
             <!-- Os céus proclamam a glória de Jesus -->
 
-            <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
+            <span v-if="booleanVideo">
+                <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
+                <div class="sky__shadows" id="shadow"></div>
+            </span>
+            <span style="display: flex; flex-direction: column; height: 100vh;" v-else>
+                <img class="sky__background--white" src="inicio/white/footer.jpg" alt="">
+                <div class="sky__shadows--white" id="shadow"></div>
+            </span>
 
             <!-- Shadows -->
-
-            <div class="sky__shadows" id="shadow"></div>
 
             <shadow-1></shadow-1>
 
@@ -230,55 +225,56 @@
                         <div class="contatos__column">
                             <a target="_blank" class="decoration" @click="copyText('(11) 96593-9822')">
                                 <div class="informacoes__contato">
-                                    <img src="inicio/whatsapp.svg" alt="WhatsApp">
+                                    <img :src="`icons/${whiteIcons}/whatsapp.svg`" alt="WhatsApp">
                                     <p class="contato__email">whatsapp</p>
                                 </div>
 
                                 <div class="decoration__info">(11) 96593-9822
                                 </div>
-                                <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
 
                             <a target="_blank" class="decoration" href="https://instagram.com/mateusduraes_">
                                 <div class="informacoes__contato">
-                                    <img src="inicio/instagram.svg" alt="Instagram">
+                                    <img :src="`icons/${whiteIcons}/instagram.svg`" alt="Instagram">
                                     <p class="contato__email">instagram</p>
                                 </div>
                                 <div class="decoration__info">@mateusduraes_</div>
-                                <img class="decoration__copy" src="inicio/link.svg" alt="Copiar">
-
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
                         </div>
 
                         <div class="contatos__column">
                             <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
                                 <div class="informacoes__contato">
-                                    <img src="inicio/gmail.svg" alt="Email">
+                                    <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Email">
                                     <p class=" contato__email">e-mail</p>
                                 </div>
                                 <div class="decoration__info">
                                     mateusduraessantos@gmail.com
                                 </div>
-                                <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
                             <a target="_blank" class="decoration" href="https://www.behance.net/mateusduraes">
                                 <div class="informacoes__contato">
-                                    <img src="inicio/behance.png" alt="Email">
+                                    <img :src="`icons/${whiteIcons}/behance.svg`" alt="Email">
                                     <p class=" contato__email">behance</p>
                                 </div>
                                 <div class="decoration__info">
                                     Mateus Durães dos Santos
                                 </div>
-                                <img class="decoration__copy" src="inicio/copy.svg" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
                         </div>
                     </address>
 
                     <div id="observador__footer"
                         style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
-                        <p class="frase">Quem disse que rodapés precisam ser chatos? <br><br></p>
+                        <p class="frase">Quem disse que rodapés precisam ser chatos?
+                            <br>
+                            <br>
+                        </p>
                     </div>
-
                 </div>
             </div>
 
@@ -311,7 +307,7 @@ export default {
     name: 'Inicio',
     data() {
         return {
-
+            whiteIcons: 'whiteicons',
             cardDesign: [
                 {
                     index: '0',
@@ -374,14 +370,45 @@ export default {
             number: 0,
             imgs: imagens,
             indexImg: 0,
+            booleanVideo: true,
+
         }
     },
     mounted() {
         this.observador()
         this.loadingOla()
+        if (!this.booleanTheme) {
+            document.getElementById('main').setAttribute('class', 'whiteTheme')
+            this.booleanVideo = false
+            this.whiteIcons = 'blackicons'
+        }
     },
-
+    props: {
+        booleanTheme: Boolean
+    },
+    watch: {
+        booleanTheme() {
+            this.whitewhite()
+            setTimeout(() => {
+                this.booleanVideo = !this.booleanVideo
+            }, 1000);
+        }
+    },
     methods: {
+        whitewhite() {
+            if (this.booleanTheme) {
+                setTimeout(() => {
+                    document.getElementById('main').removeAttribute('class')
+                    this.whiteIcons = 'whiteicons'
+                }, 1000);
+            }
+            else {
+                setTimeout(() => {
+                    document.getElementById('main').setAttribute('class', 'whiteTheme')
+                    this.whiteIcons = 'blackicons'
+                }, 1000);
+            }
+        },
         loadingOla(faster) {
             this.$emit('loadingHollPage', faster, true)
         },
@@ -396,7 +423,6 @@ export default {
                     console.error("Erro ao copiar texto:", error);
                 });
         },
-
         observador() {
             const observer = new IntersectionObserver(entries => {
                 const showing = entries[0].isIntersecting
@@ -424,7 +450,7 @@ export default {
             }
             else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
                 document.getElementById('img_portrato').style.opacity = 1
-                document.body.removeAttribute('style')
+                document.body.style.overflow = ''
                 this.popup = !this.popup
                 this.loading = true
                 this.number = 0
@@ -493,7 +519,7 @@ export default {
 
 <style>
 :root {
-    --border-color: #474747;
+    --border-color: #2c2c2c;
     /* --shadow-color: black; */
     --shadow-color: black;
     --sky-scale: 0.9;
@@ -508,8 +534,6 @@ export default {
 </style>
 
 <style scoped>
-/*  */
-
 .linkPadding {
     padding-top: 120px;
 }
@@ -526,60 +550,7 @@ export default {
     }
 }
 
-
-/* banner */
-
-padding {
-    padding-top: 4vw;
-}
-
-.banner {
-
-    display: flex;
-    justify-content: center;
-    height: 60vh;
-    overflow: hidden;
-    position: relative;
-}
-
-
-.banner__img,
-.banner__shadow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    left: 0;
-    top: 0;
-
-
-}
-
-.banner__shadow {
-    background-image: linear-gradient(0deg, black, transparent, transparent, transparent, transparent, transparent, transparent);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    left: 0;
-    top: 0;
-    z-index: 1;
-}
-
-
-.banner__ola {
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    font-size: 4rem;
-    font-weight: 300;
-    line-height: 2.2rem;
-    z-index: 2;
-    padding-bottom: 6vw;
-}
-
 /*  */
-
 .section {
     display: flex;
     flex-direction: column;
@@ -688,6 +659,28 @@ p {
     width: 100%;
 }
 
+/*  */
+
+.redes {
+    display: flex;
+    width: max-content;
+}
+
+.redes__img {
+    cursor: pointer;
+    transition: .2s;
+    padding: 0 max(12px, 1vw);
+    height: max(34px, 2.4vw);
+}
+
+.img--1 {
+    padding-left: 0;
+}
+
+.redes:hover .redes__img:not(:hover) {
+    opacity: 0.6;
+    transition: .2s;
+}
 
 /*  */
 
@@ -697,11 +690,12 @@ p {
     grid-template-areas: 'null des des';
     align-items: center;
     gap: 24px;
+    z-index: 1;
 }
 
 .figure__design {
     grid-area: des;
-    width: 80%;
+    width: 76%;
     margin: auto;
 }
 
@@ -710,12 +704,10 @@ p {
     object-fit: contain;
 }
 
-
 .table {
     display: flex;
     flex-direction: column;
     border-radius: 2vw;
-    border: 1px solid var(--border-color);
     background-image: linear-gradient(#232323, #101010);
     width: 100%;
     height: max-content;
@@ -724,6 +716,7 @@ p {
 .table__content {
     display: flex;
     flex-direction: column;
+
 }
 
 .table_p {
@@ -735,9 +728,14 @@ td {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 1vw 3vw;
+    padding: 0.8vw 3vw;
     padding-left: 2vw;
+    min-height: 50px;
     width: 100%;
+}
+
+td p {
+    font-size: 0.9rem;
 }
 
 .table__star {
@@ -782,7 +780,6 @@ td {
     color: rgb(172, 172, 172);
     z-index: 2;
 }
-
 
 .star {
     display: flex;
@@ -861,7 +858,8 @@ td {
     height: 100vh;
 }
 
-.sky__shadows {
+.sky__shadows,
+.sky__shadows--white {
     position: absolute;
     top: 0;
     left: 0;
@@ -869,12 +867,15 @@ td {
     height: 100%;
     z-index: 1;
     transition: .2s;
-
 }
 
 .sky__shadows {
     background-image: radial-gradient(transparent, transparent, var(--shadow-color), var(--shadow-color));
+}
 
+.sky__shadows--white {
+    background-image: linear-gradient(white, transparent);
+    height: 30vh;
 }
 
 .sky__background {
@@ -884,7 +885,12 @@ td {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
 
+.sky__background--white {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .sky__informacoes {
@@ -954,7 +960,6 @@ td {
     opacity: 0;
     border-radius: 10vw;
     transition: .2s;
-
 }
 
 .decoration:hover .decoration__info {
@@ -974,7 +979,6 @@ td {
     cursor: pointer;
     gap: 20px;
     font-size: 1.4rem;
-
 }
 
 .informacoes__contato img {
@@ -1303,14 +1307,9 @@ td {
     }
 }
 
-
 @media screen and (min-width: 1280px) {
     .decoration__info {
         font-size: 1rem;
-    }
-
-    .ver {
-        padding: 2vw;
     }
 
     .experiencia {
@@ -1528,10 +1527,6 @@ td {
         font-size: 1.4rem;
     }
 
-    td {
-        min-height: 50px;
-    }
-
     .table__star {
         left: 18vw;
     }
@@ -1687,6 +1682,108 @@ td {
     .sky {
         width: calc(100% - 7px);
     }
+}
 
+/* White Theme */
+/* White Theme */
+/* White Theme */
+/* White Theme */
+/* White Theme */
+/* White Theme */
+
+main {
+    transition: .2s;
+}
+
+.whiteTheme * {
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+.whiteTheme {
+    /* background: white; */
+    transition: .2s;
+}
+
+.whiteTheme .experiencia {
+    background: rgb(216, 216, 216);
+    color: var(--text-color);
+}
+
+.whiteTheme .sobre {
+    background-image: url('../../public/inicio/white/banner.jpg');
+}
+
+.whiteTheme .card__description {
+    background-color: rgb(255 255 255 / 55%);
+}
+
+.whiteTheme .card__btn {
+    background-color: rgb(255 255 255 / 70%);
+    border-width: 2px;
+    border-color: white;
+}
+
+.whiteTheme .table {
+    background-image: linear-gradient(#F4F4F4, #fff);
+}
+
+.whiteTheme [border-style] {
+    border-bottom: 1px solid #E2E2E2;
+}
+
+.whiteTheme .sky p {
+    color: black;
+}
+
+.whiteTheme .sky__informacoes {
+    mix-blend-mode: inherit;
+}
+
+.whiteTheme {}
+</style>
+
+<style>
+:root {
+    --text-color: black;
+}
+
+.whiteOverflow {
+    background: white;
+}
+
+.blackOverflow {
+    background: black;
+}
+
+.whiteOverflow,
+.blackOverflow {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    opacity: 0;
+    transition: .2s;
+    animation-name: changingTheme;
+    animation-duration: 2s;
+    pointer-events: none;
+}
+
+@keyframes changingTheme {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+
+        opacity: 1;
+    }
+
+    100% {
+
+        opacity: 0;
+    }
 }
 </style>

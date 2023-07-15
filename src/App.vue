@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <Header class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
-    <router-view @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
+  <div id="background">
+    <div id="themeOverflow"></div>
+
+    <Header @white-theme="changeTheme" class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
+
+    <router-view :booleanTheme="changeThemeVar" @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
   </div>
 </template>
 
@@ -20,19 +23,55 @@ export default {
       velocity: 80,
       teste: null,
       hide: false,
+      changeThemeVar: true,
     }
   },
-
   mounted() {
     this.favIcon()
   },
   methods: {
+    changeTheme() {
 
+      const overflow = document.getElementById('themeOverflow')
+
+      console.log(overflow.classList[0])
+
+      if (overflow.classList[0] == undefined) {
+
+        if (this.booleanTheme) {
+          overflow.setAttribute('class', 'whiteOverflow')
+          setTimeout(() => {
+            overflow.removeAttribute('class')
+          }, 2000);
+        }
+        else {
+          overflow.setAttribute('class', 'blackOverflow')
+            setTimeout(() => {
+              overflow.removeAttribute('class')
+
+            }, 2000);
+        }
+      }
+
+      /*  */
+      this.changeThemeVar = !this.changeThemeVar
+
+      if (!this.changeThemeVar) {
+        setTimeout(() => {
+          document.body.style.background = 'white'
+        }, 1000);
+      }
+      else {
+        setTimeout(() => {
+          document.body.removeAttribute('style')
+        }, 1000);
+      }
+
+    },
     removeClass() {
       document.getElementById('header').classList.remove('show')
 
     },
-
     tratarEvento(showingup) {
 
       if (showingup) {
@@ -42,7 +81,6 @@ export default {
         this.hiddenHeader = true
       }
     },
-
     favIcon() {
       const newLink = document.createElement("link")
       newLink.setAttribute('rel', 'icon')
@@ -64,13 +102,18 @@ body {
   width: 100vw;
   overflow-y: overlay;
   overflow-x: hidden;
+
+}
+
+img {
+  user-select: none;
 }
 
 /*  */
 
 .header {
   opacity: 1;
-  transition: .2s
+  transition: .2s;
 }
 
 .show {
