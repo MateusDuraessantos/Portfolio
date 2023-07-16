@@ -1658,7 +1658,6 @@ td p {
     .sobre {
         display: flex;
         justify-content: center;
-        height: 50vh;
         margin: 0;
     }
 

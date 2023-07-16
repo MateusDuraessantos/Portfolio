@@ -44,15 +44,13 @@ export default {
             isWhite: false,
         }
     },
-
     methods: {
-
         turnWhite() {
             const buttun = document.getElementById('whiteThemeBtn')
             const white = document.querySelector('.turnWhite')
 
             if (this.isWhite == false) {
-                buttun.style.transform = 'translate(98px)'
+                buttun.style.transform = 'translate(max(7.4vw, 92px))'
                 white.classList.add('turnWhite--white')
                 this.isWhite = !this.isWhite
             }
@@ -317,17 +315,36 @@ button {
 
 /* White Theme */
 
-
 .turnWhite {
+    position: relative;
+    display: flex;
+    align-items: center;
     background: #2c2c2c;
     border-radius: 10vw;
-    padding: 0;
     border: none;
-    width: 146px;
-    padding: 8px;
+    padding: 0.6vw;
     transition: .4s;
     overflow: hidden;
-    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0.3vw 0.3vw 0.5vw rgba(0, 0, 0, 0.5);
+    width: 11vw;
+    height: 3vw;
+    min-width: 140px;
+    min-height: 50px;
+}
+
+.turnWhite__swith {
+    position: absolute;
+    left: max(4px, 0.4vw);
+    display: flex;
+    align-items: center;
+    background: gray;
+    border: 0.2vw solid transparent;
+    width: 2.4vw;
+    height: 2.4vw;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    transition: .2s;
 }
 
 .turnWhite--white {
@@ -339,32 +356,22 @@ button {
     color: black;
 }
 
-.turnWhite__swith {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: gray;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    transition: .2s;
-}
 
 .escuro,
 .claro {
     position: absolute;
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 0.8vw;
     white-space: nowrap;
     width: max-content;
 }
 
 .escuro {
-    left: 44px;
+    left: max(3vw, 50px);
 }
 
 .claro {
-    right: 44px;
+    right: max(3vw, 50px);
 }
 </style>
