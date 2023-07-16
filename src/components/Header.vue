@@ -1,10 +1,12 @@
 <template>
     <nav id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
-        <div class="eu">
-            <img class="foto" src="eu.png" alt="Mateus Durães dos Santos">
-            <h1 class="nome">Mateus Durães dos Santos</h1>
-        </div>
+        <button class="turnWhite" @click="turnWhite">
+            <div class="turnWhite__swith " id="whiteThemeBtn">
+                <p class="claro"><span>🌞</span> Claro</p>
+                <p class="escuro">Escuro <span>🌙</span></p>
+            </div>
+        </button>
 
         <div class="links">
             <router-link style="display: flex; gap: 1.5vw;" to="/">
@@ -37,8 +39,29 @@ export default {
     props: {
         dadoBol: String
     },
+    data() {
+        return {
+            isWhite: false,
+        }
+    },
+
     methods: {
 
+        turnWhite() {
+            const buttun = document.getElementById('whiteThemeBtn')
+            const white = document.querySelector('.turnWhite')
+
+            if (this.isWhite == false) {
+                buttun.style.transform = 'translate(98px)'
+                white.classList.add('turnWhite--white')
+                this.isWhite = !this.isWhite
+            }
+            else {
+                white.classList.remove('turnWhite--white')
+                buttun.style.transform = ''
+                this.isWhite = !this.isWhite
+            }
+        },
         removeLink() {
 
             if (document.querySelector('[activeLink]') != null) {
@@ -287,10 +310,61 @@ button {
 }
 
 @media screen and (max-width: 500px) {
-
-
     .nome {
         font-size: 0.8rem;
     }
+}
+
+/* White Theme */
+
+
+.turnWhite {
+    background: #2c2c2c;
+    border-radius: 10vw;
+    padding: 0;
+    border: none;
+    width: 146px;
+    padding: 8px;
+    transition: .4s;
+    overflow: hidden;
+    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.turnWhite--white {
+    background: rgb(233, 233, 233);
+    transition: .4s;
+}
+
+.turnWhite--white p {
+    color: black;
+}
+
+.turnWhite__swith {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: gray;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    transition: .2s;
+}
+
+.escuro,
+.claro {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    white-space: nowrap;
+    width: max-content;
+}
+
+.escuro {
+    left: 44px;
+}
+
+.claro {
+    right: 44px;
 }
 </style>

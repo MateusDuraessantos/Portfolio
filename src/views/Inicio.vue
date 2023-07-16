@@ -54,7 +54,7 @@
                         <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
                     </a>
                     <a href="https://github.com/MateusDuraessantos" target="_blank">
-                        <img class="redes__img" :src="`icons/${whiteIcons}/github.svg`" alt="logo Github">
+                        <img class="redes__img" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
                     </a>
                 </div>
 
@@ -1711,7 +1711,7 @@ main {
 }
 
 .whiteTheme .sobre {
-    background-image: url('../../public/inicio/white/banner.jpg');
+    /* background-image: url('../../public/inicio/white/banner.jpg'); */
 }
 
 .whiteTheme .card__description {
