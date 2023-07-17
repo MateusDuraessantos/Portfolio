@@ -1,5 +1,5 @@
 <template>
-    <main class="whiteTheme" id="main">
+    <main id="main">
         <!-- Popup -->
 
         <div id="themeOverflow"></div>
@@ -313,9 +313,9 @@ export default {
     data() {
         return {
             // whiteIcons: 'whiteicons',
-            whiteIcons: 'blackicons',
-            whitePlanets: 'whiteplanets',
-            booleanVideo: false,
+            whiteIcons: 'whiteicons',
+            whitePlanets: 'sky',
+            booleanVideo: true,
             cardDesign: [
                 {
                     index: '0',
@@ -377,15 +377,20 @@ export default {
             number: 0,
             imgs: imagens,
             indexImg: 0,
+            isWhite: false,
         }
     },
     mounted() {
         this.observador()
-        this.loadingOla()
+
         if (!this.booleanTheme) {
             document.getElementById('main').setAttribute('class', 'whiteTheme')
             this.booleanVideo = false
             this.whiteIcons = 'blackicons'
+        }
+
+        if (this.booleanTheme != true) {
+            this.ifWhiteOnChangePage()
         }
     },
     props: {
@@ -394,12 +399,35 @@ export default {
     watch: {
         booleanTheme() {
             this.whitewhite()
+
             setTimeout(() => {
                 this.booleanVideo = !this.booleanVideo
             }, 1000);
+
+            if (this.isWhite == false) {
+                setTimeout(() => {
+                    this.blockClicked = 'blackicons'
+                    this.whitePlanets = 'whiteplanets'
+                }, 1000);
+            }
+            else {
+                setTimeout(() => {
+                    this.blockClicked = 'whiteicons'
+                    this.whitePlanets = 'sky'
+
+                }, 1000);
+            }
+            this.isWhite = !this.isWhite
         }
     },
     methods: {
+        ifWhiteOnChangePage() {
+            this.blockClicked = 'blackicons'
+            this.whitePlanets = 'whiteplanets'
+            this.isWhite = true
+        },
+
+
         whitewhite() {
             if (this.booleanTheme) {
                 setTimeout(() => {
@@ -413,9 +441,6 @@ export default {
                     this.whiteIcons = 'blackicons'
                 }, 1000);
             }
-        },
-        loadingOla(faster) {
-            this.$emit('loadingHollPage', faster, true)
         },
         copyText(content) {
             const textToCopy = content; // Texto a ser copiado
@@ -861,6 +886,8 @@ td p {
 .sky {
     position: relative;
     height: 100vh;
+    overflow-x: hidden;
+    width: 100vw;
 }
 
 .sky__shadows,
@@ -1358,9 +1385,7 @@ td p {
 }
 
 @media screen and (max-width: 1000px) {
-
     .sobre {
-        margin-bottom: 200px;
         grid-template-columns: 100px 1fr 100px;
     }
 
@@ -1532,11 +1557,6 @@ td p {
 
 @media screen and (max-width: 850px) {
 
-    /* Sobre */
-    .sobre {
-        margin-top: 100px;
-    }
-
     /*  */
 
     .img_design,
@@ -1557,10 +1577,6 @@ td p {
     .card__grid,
     section {
         gap: 8px;
-    }
-
-    section {
-        padding: 0 10px;
     }
 
     .card {
@@ -1767,7 +1783,7 @@ main {
     color: white;
 }
 
- .whiteTheme .ver {
+.whiteTheme .ver {
     background: linear-gradient(85deg, #FF6666, #CE7EFF);
 }
 
@@ -1781,44 +1797,5 @@ main {
 <style>
 :root {
     --text-color: black;
-}
-
-.whiteOverflow {
-    background: white;
-}
-
-.blackOverflow {
-    background: black;
-}
-
-.whiteOverflow,
-.blackOverflow {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    opacity: 0;
-    transition: .2s;
-    animation-name: changingTheme;
-    animation-duration: 2s;
-    pointer-events: none;
-}
-
-@keyframes changingTheme {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-
-        opacity: 1;
-    }
-
-    100% {
-
-        opacity: 0;
-    }
 }
 </style>

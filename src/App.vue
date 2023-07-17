@@ -2,7 +2,7 @@
   <div id="background">
     <div id="themeOverflow"></div>
 
-    <Header @white-theme="changeTheme" class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
+    <Header @tun-on="turnOnWhite" class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
 
     <router-view :booleanTheme="changeThemeVar" @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
   </div>
@@ -24,19 +24,22 @@ export default {
       teste: null,
       hide: false,
       changeThemeVar: true,
+      booleanTheme: false,
     }
   },
   mounted() {
     this.favIcon()
   },
+
   methods: {
-    changeTheme() {
+    turnOnWhite(blockClicked) {
 
-      const overflow = document.getElementById('themeOverflow')
+      if (blockClicked) {
 
-      console.log(overflow.classList[0])
 
-      if (overflow.classList[0] == undefined) {
+        /* Aciona o overflow para alteração do tema */
+
+        const overflow = document.getElementById('themeOverflow')
 
         if (this.booleanTheme) {
           overflow.setAttribute('class', 'whiteOverflow')
@@ -46,28 +49,30 @@ export default {
         }
         else {
           overflow.setAttribute('class', 'blackOverflow')
-            setTimeout(() => {
-              overflow.removeAttribute('class')
-
-            }, 2000);
+          setTimeout(() => {
+            overflow.removeAttribute('class')
+          }, 2000);
         }
-      }
 
-      /*  */
-      this.changeThemeVar = !this.changeThemeVar
+        this.booleanTheme = !this.booleanTheme
 
-      if (!this.changeThemeVar) {
-        setTimeout(() => {
-          document.body.style.background = 'white'
-        }, 1000);
-      }
-      else {
-        setTimeout(() => {
-          document.body.removeAttribute('style')
-        }, 1000);
-      }
+        /* Altera a cor do background global */
 
+        if (this.changeThemeVar) {
+          setTimeout(() => {
+            document.body.style.background = 'white'
+          }, 1000);
+        }
+        else {
+          setTimeout(() => {
+            document.body.removeAttribute('style')
+          }, 1000);
+        }
+        this.changeThemeVar = !this.changeThemeVar
+      }
     },
+
+
     removeClass() {
       document.getElementById('header').classList.remove('show')
 
@@ -102,7 +107,6 @@ body {
   width: 100vw;
   overflow-y: overlay;
   overflow-x: hidden;
-
 }
 
 img {
@@ -411,9 +415,6 @@ button {
 }
 
 @media only screen and (max-width: 800px) {
-  body {
-    margin-top: 80px;
-  }
 
   /* Popup */
 
@@ -431,6 +432,10 @@ button {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
   }
 
+  .changeProject p {
+    color: #E0D9CE !important;
+  }
+
   .popup__content {
     display: flex;
     flex-direction: column;
@@ -439,6 +444,49 @@ button {
 
   .popup__overflow {
     padding: 0;
+  }
+}
+
+/* white theme */
+
+
+
+.whiteOverflow {
+  background: white;
+}
+
+.blackOverflow {
+  background: black;
+}
+
+.whiteOverflow,
+.blackOverflow {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0;
+  transition: .2s;
+  animation-name: changingTheme;
+  animation-duration: 2s;
+  pointer-events: none;
+}
+
+@keyframes changingTheme {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+
+    opacity: 1;
+  }
+
+  100% {
+
+    opacity: 0;
   }
 }
 </style>

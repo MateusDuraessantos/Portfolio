@@ -1,5 +1,5 @@
 <template>
-    <nav id="nav" :class="{ 'hiddenHeader': !dadoBol }">
+    <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
         <button class="turnWhite" @click="turnWhite">
             <div class="turnWhite__swith " id="whiteThemeBtn">
@@ -42,23 +42,49 @@ export default {
     data() {
         return {
             isWhite: false,
+            blockClick: true,
+            colorNav: 'black'
         }
     },
     methods: {
         turnWhite() {
-            const buttun = document.getElementById('whiteThemeBtn')
-            const white = document.querySelector('.turnWhite')
+            this.$emit('tunOn', this.blockClick)
 
-            if (this.isWhite == false) {
-                buttun.style.transform = 'translate(max(7.4vw, 92px))'
-                white.classList.add('turnWhite--white')
-                this.isWhite = !this.isWhite
+            if (this.blockClick) {
+
+
+                this.blockClick = false
+
+                const buttun = document.getElementById('whiteThemeBtn')
+                const white = document.querySelector('.turnWhite')
+
+                if (this.isWhite == false) {
+                    buttun.style.transform = 'translate(max(6.8vw, 92px))'
+                    white.classList.add('turnWhite--white')
+                    this.isWhite = !this.isWhite
+
+                    // muda cor da navegação
+                    setTimeout(() => {
+                        this.colorNav = 'white'
+                    }, 1000);
+
+                }
+                else {
+                    white.classList.remove('turnWhite--white')
+                    buttun.style.transform = ''
+                    this.isWhite = !this.isWhite
+
+                    // muda cor da navegação
+                    setInterval(() => {
+                        this.colorNav = 'black'
+                    }, 1000);
+
+                }
+                setTimeout(() => {
+                    this.blockClick = true
+                }, 2000);
             }
-            else {
-                white.classList.remove('turnWhite--white')
-                buttun.style.transform = ''
-                this.isWhite = !this.isWhite
-            }
+
         },
         removeLink() {
 
@@ -98,6 +124,24 @@ export default {
 </script>
 
 <style scoped>
+nav {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    font-size: 1rem;
+    min-height: 70px;
+    top: 0;
+    backdrop-filter: blur(14px);
+    width: 100vw;
+    height: 10.1vw;
+    max-height: 100px;
+    z-index: 5;
+}
+
 .mobile {
     display: none;
 }
@@ -142,25 +186,20 @@ export default {
 
 /*  */
 
-nav {
-    display: flex;
-    align-items: center;
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 80px;
-    font-size: 1rem;
-    min-height: 70px;
-    top: 0;
-    backdrop-filter: blur(14px);
-    width: 100vw;
-    height: 10.1vw;
-    max-height: 100px;
-    z-index: 5;
-    background: rgba(0, 0, 0, 0.5);
 
+[theme="black"] {
+    background: rgba(0, 0, 0, 0.5);
 }
+
+[theme="white"] {
+    background: rgb(183 183 183 / 70%);
+}
+
+[theme="white"] a {
+    color: black;
+}
+
+/*  */
 
 .eu,
 .dropdown {
@@ -311,6 +350,10 @@ button {
     .nome {
         font-size: 0.8rem;
     }
+
+    .links {
+        margin-right: 10px;
+    }
 }
 
 /* White Theme */
@@ -325,11 +368,12 @@ button {
     padding: 0.6vw;
     transition: .4s;
     overflow: hidden;
-    box-shadow: inset 0.3vw 0.3vw 0.5vw rgba(0, 0, 0, 0.5);
-    width: 11vw;
+    box-shadow: inset 0.3vw 0.3vw 0.5vw rgba(0, 0, 0, 0.2);
+    width: 10vw;
     height: 3vw;
     min-width: 140px;
-    min-height: 50px;
+    min-height: 40px;
+    outline: none;
 }
 
 .turnWhite__swith {
@@ -341,8 +385,8 @@ button {
     border: 0.2vw solid transparent;
     width: 2.4vw;
     height: 2.4vw;
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 30px;
+    min-height: 30px;
     border-radius: 50%;
     transition: .2s;
 }
@@ -360,10 +404,11 @@ button {
 .claro {
     position: absolute;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 0.8vw;
+    gap: max(0.4vw, 4px);
     white-space: nowrap;
-    width: max-content;
+    font-size: max(1rem, 14px);
 }
 
 .escuro {

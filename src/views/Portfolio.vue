@@ -9,7 +9,6 @@
                 <!-- <button index="2" class="filtro__option">outros</button> -->
             </div>
             <div class="filtro__marcador" id="filtro__marcador"></div>
-
         </div>
 
         <!--  -->
@@ -298,7 +297,8 @@ export default {
 <style scoped>
 main {
     margin-bottom: 100px;
-    margin-top: 11vw;
+    margin-top: 80px;
+    padding-top: 6vw;
 }
 
 /* Filtros */
@@ -349,6 +349,7 @@ main {
     display: grid;
     gap: 10px;
     margin: auto;
+
 }
 
 .cards {
