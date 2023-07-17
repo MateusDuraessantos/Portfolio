@@ -356,7 +356,6 @@ button {
     color: black;
 }
 
-
 .escuro,
 .claro {
     position: absolute;

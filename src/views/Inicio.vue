@@ -1,5 +1,5 @@
 <template>
-    <main id="main">
+    <main class="whiteTheme" id="main">
         <!-- Popup -->
 
         <div id="themeOverflow"></div>
@@ -194,7 +194,12 @@
 
         <!--  -->
 
-        <router-link class="ver" to="/portfolio">Ver portfólio completo</router-link>
+        <router-link class="ver__container" to="/portfolio">
+
+            <button class="ver--hover">Ver portfólio completo</button>
+            <button class="ver">Ver portfólio completo</button>
+
+        </router-link>
 
         <!-- FOOTER -->
 
@@ -207,7 +212,7 @@
                 <div class="sky__shadows" id="shadow"></div>
             </span>
             <span style="display: flex; flex-direction: column; height: 100vh;" v-else>
-                <img class="sky__background--white" src="inicio/white/footer.jpg" alt="">
+                <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky">
                 <div class="sky__shadows--white" id="shadow"></div>
             </span>
 
@@ -278,24 +283,24 @@
                 </div>
             </div>
 
-            <img class="sky__planet_01 sky__planet" src="inicio/sky/01.png" alt="planet">
-            <img class="sky__planet_02 sky__planet" src="inicio/sky/02.png" alt="planet">
-            <img class="sky__planet_03 sky__planet" src="inicio/sky/03.png" alt="planet">
-            <img class="sky__planet_05 sky__planet" src="inicio/sky/05.png" alt="planet" id="planet_05">
-            <img class="sky__planet_06 sky__planet" src="inicio/sky/06.png" alt="planet">
-            <img class="sky__planet_07 sky__planet" src="inicio/sky/07.png" alt="planet">
-            <img class="sky__planet_08 sky__planet" src="inicio/sky/08.png" alt="planet">
-            <img class="sky__planet_09 sky__planet" src="inicio/sky/09.png" alt="planet">
-            <img class="sky__planet_10 sky__planet" src="inicio/sky/10.png" alt="planet">
+            <img class="sky__planet_01 sky__planet" :src="`inicio/${whitePlanets}/01.png`" alt="planet">
+            <img class="sky__planet_02 sky__planet" :src="`inicio/${whitePlanets}/02.png`" alt="planet">
+            <img class="sky__planet_03 sky__planet" :src="`inicio/${whitePlanets}/03.png`" alt="planet">
+            <img class="sky__planet_05 sky__planet" :src="`inicio/${whitePlanets}/05.png`" alt="planet" id="planet_05">
+            <img class="sky__planet_06 sky__planet" :src="`inicio/${whitePlanets}/06.png`" alt="planet">
+            <img class="sky__planet_07 sky__planet" :src="`inicio/${whitePlanets}/07.png`" alt="planet">
+            <img class="sky__planet_08 sky__planet" :src="`inicio/${whitePlanets}/08.png`" alt="planet">
+            <img class="sky__planet_09 sky__planet" :src="`inicio/${whitePlanets}/09.png`" alt="planet">
+            <img class="sky__planet_10 sky__planet" :src="`inicio/${whitePlanets}/10.png`" alt="planet">
 
             <div class="smile_cont sky__planet" id="planet_11">
-                <img class="sky__planet_11 sky__planet" src="inicio/sky/11.png" alt="planet">
-                <img class="smile" src="inicio/sky/smile.svg" alt="sorriso">
+                <img class="sky__planet_11 sky__planet" :src="`inicio/${whitePlanets}/11.png`" alt="planet">
+                <img class="smile" :src="`inicio/${whitePlanets}/smile.svg`" alt="sorriso">
             </div>
 
-            <img class="sky__planet_12 sky__planet" src="inicio/sky/12.png" alt="planet" id="planet_12">
-            <img class="sky__planet_13 sky__planet" src="inicio/sky/13.png" alt="planet" id="planet_13">
-            <img class="sky__planet_14 sky__planet" src="inicio/sky/14.png" alt="planet" id="planet_14">
+            <img class="sky__planet_12 sky__planet" :src="`inicio/${whitePlanets}/12.png`" alt="planet" id="planet_12">
+            <img class="sky__planet_13 sky__planet" :src="`inicio/${whitePlanets}/13.png`" alt="planet" id="planet_13">
+            <img class="sky__planet_14 sky__planet" :src="`inicio/${whitePlanets}/14.png`" alt="planet" id="planet_14">
         </footer>
 
     </main>
@@ -307,7 +312,10 @@ export default {
     name: 'Inicio',
     data() {
         return {
-            whiteIcons: 'whiteicons',
+            // whiteIcons: 'whiteicons',
+            whiteIcons: 'blackicons',
+            whitePlanets: 'whiteplanets',
+            booleanVideo: false,
             cardDesign: [
                 {
                     index: '0',
@@ -364,14 +372,11 @@ export default {
                     ],
                 },
             ],
-
             popup: false,
             loading: true,
             number: 0,
             imgs: imagens,
             indexImg: 0,
-            booleanVideo: true,
-
         }
     },
     mounted() {
@@ -1144,30 +1149,48 @@ td p {
     font-size: 1.6rem;
 }
 
-.ver {
+.ver__container {
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20vh;
+    padding-bottom: 24vh;
+}
+
+.ver,
+.ver--hover {
+    position: absolute;
     display: flex;
     align-items: center;
     width: max-content;
     height: 5vw;
-    border-radius: 10vw;
     max-height: 82px;
     min-height: 44px;
+    border-radius: 10vw;
     padding: 14px 44px;
-    color: rgb(196, 196, 196);
     font-size: 1rem;
-    background: #171d5f;
     transition: .2s;
-    text-decoration: none;
+    color: white !important;
     margin: auto;
-    margin-top: 20vh;
-    margin-bottom: 12vh;
+    border: none;
     z-index: 4;
 }
 
-.ver:hover {
-    background: #006981;
-    transition: .2s;
+.ver--hover {
+    background: linear-gradient(-90deg, #034553, #1F234D);
 }
+
+.ver {
+    background: linear-gradient(90deg, #034553, #1F234D);
+}
+
+.ver:hover {
+    opacity: 0;
+
+}
+
 
 @keyframes sky_01 {
     0% {
@@ -1710,7 +1733,7 @@ main {
 }
 
 .whiteTheme .sobre {
-    /* background-image: url('../../public/inicio/white/banner.jpg'); */
+    background-image: url('../../public/inicio/sky/banner__white.jpg');
 }
 
 .whiteTheme .card__description {
@@ -1739,7 +1762,20 @@ main {
     mix-blend-mode: inherit;
 }
 
-.whiteTheme {}
+
+.whiteTheme .ver {
+    color: white;
+}
+
+ .whiteTheme .ver {
+    background: linear-gradient(85deg, #FF6666, #CE7EFF);
+}
+
+.whiteTheme .ver--hover {
+    position: absolute;
+    background: linear-gradient(-85deg, #FF6666, #CE7EFF);
+    color: white;
+}
 </style>
 
 <style>
