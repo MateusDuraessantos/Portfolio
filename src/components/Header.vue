@@ -9,25 +9,27 @@
         </button>
 
         <div class="links">
-            <router-link style="display: flex; gap: 1.5vw;" to="/">
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Início</a>
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Frontend</a>
-                <a class="dropdown desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
-            </router-link>
+            <!--         <router-link style="display: flex; gap: 1.5vw;" to="/">
+                <a class="desktop nav" @click="scrollDown($event, 'sobre')">Início</a>
+                <a class="desktop nav" @click="scrollDown($event, 'design')">Design</a>
+                <a class="desktop nav" @click="scrollDown($event, 'programacao')">Frontend</a>
+                <a class="desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
+            </router-link> -->
 
-            <router-link class="router-link-a dropdown mobile" to="/">Início <span
-                    style="display: flex; position: absolute; right: -12px; top: 11px; font-size: 20px; transform: rotate(90deg);">❯</span>
+            <router-link id="mobile" to="/">
+
+                <div class="dropdown__inicio">Início</div>
+                <span class="dropdown__arrow">❯</span>
 
                 <div class="dropdown__container">
-                    <a class="dropdown desktop nav" @click="scrollDown($event, 'sobre')">Início</a>
-                    <a class="dropdown desktop nav" @click="scrollDown($event, 'design')">Design</a>
-                    <a class="dropdown desktop nav" @click="scrollDown($event, 'programacao')">Frontend</a>
-                    <a class="dropdown desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'sobre')">Início</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'design')">Design</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'programacao')">Frontend</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'contato')">Contato</a>
                 </div>
             </router-link>
 
-            <router-link class="router-link-a dropdown" @click="removeLink" to="portfolio">Portfólio</router-link>
+            <router-link class="router-link-a" @click="removeLink" to="portfolio">Portfólio</router-link>
 
         </div>
     </nav>
@@ -145,74 +147,27 @@ nav {
     z-index: 5;
 }
 
-.mobile {
-    display: none;
-}
-
 .desktop {
     display: flex;
-}
-
-.dropdown {
-    position: relative;
     padding: 12px 0;
 }
 
-.dropdown__container {
-    position: absolute;
-    top: 52px;
-    right: 0;
-    display: flex;
-    display: none;
-    opacity: 0.3;
-    flex-direction: column;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.dropdown:hover .dropdown__container {
-    display: flex;
-    opacity: 1;
-}
-
-.dropdown__option {
-    background: #1f1f1f;
-    padding: 20px;
-    z-index: 300;
-    min-width: 220px;
-
-}
-
-.dropdown__option:hover {
-    background: rgb(71, 71, 71);
-}
-
 /*  */
-
 
 [theme="black"] {
     background: rgba(0, 0, 0, 0.5);
 }
 
 [theme="white"] {
-    background: rgb(183 183 183 / 50%);
+    background: rgb(255 255 255 / 40%);
 }
 
 [theme="white"] a {
     color: #1f1f1f;
 }
 
+
 /*  */
-
-.eu,
-.dropdown {
-    transition: .5s;
-}
-
-.hiddenHeader .eu {
-    opacity: 0;
-    transition: .5s;
-}
 
 .hiddenHeader {
     background: rgba(0, 0, 0, 0);
@@ -229,17 +184,14 @@ nav {
 }
 
 
-[activeLink] {
+[activeLink],
+.dropdown__inicio {
     color: rgb(234, 69, 69);
 }
 
 .router-link-active span {
     color: rgb(234, 69, 69);
     transition: .5s;
-}
-
-.router-link-active:hover {
-    color: red;
 }
 
 .router-link-active,
@@ -254,7 +206,7 @@ nav {
 }
 
 .router-link-a:hover,
-.nav:hover,
+
 .router-link-a:hover span {
     color: rgb(234, 69, 69);
     transition: .5s;
@@ -267,10 +219,14 @@ button {
     border: none;
 }
 
+/*  */
 .links {
     display: flex;
-    gap: 30px;
+    align-items: center;
+    gap: 6vw;
 }
+
+/*  */
 
 .eu {
     display: flex;
@@ -291,10 +247,6 @@ button {
 /* Mobile version */
 
 @media screen and (min-width: 1280px) {
-
-    .links {
-        gap: 4vw;
-    }
 
     nav {
         min-height: 6vw;
@@ -320,16 +272,103 @@ button {
     }
 }
 
+.dropdown__arrow,
+.dropdown__inicio {
+    display: none;
+}
+
+.dropdown__container {
+    display: flex;
+    gap: 2vw;
+}
+
 @media screen and (max-width: 1000px) {
 
     .desktop,
-    .mobile span,
-    .mobile .dropdown__container {
-        display: none !important;
+    #mobile span {
+        display: none;
     }
 
-    .mobile {
-        display: block;
+    #mobile .dropdown__inicio,
+    #mobile .dropdown__arrow {
+        display: flex;
+    }
+
+    /* Dropdown */
+
+    #mobile {
+        display: flex;
+        width: max-content;
+        align-items: center;
+        padding: 16px 0;
+        padding-right: 22px;
+    }
+
+    #mobile .dropdown__arrow {
+        display: flex;
+        position: absolute;
+        left: 50px;
+        font-size: 20px;
+        transform: rotate(90deg);
+    }
+
+    #mobile .dropdown {
+        width: 160px;
+        padding: 12px 20px;
+    }
+
+    #mobile .dropdown__container {
+        position: absolute;
+        display: none !important;
+        top: 52px;
+        gap: 0;
+        right: -28px;
+        opacity: 1;
+        flex-direction: column;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #2c2c2c;
+
+    }
+
+    #mobile a {
+        background: #2c2c2c;
+        height: 100%;
+    }
+
+    #mobile .dropdown:hover {
+        background: #1f1f1f;
+    }
+
+    #mobile .nav:hover {
+        transition: .3s;
+        color: rgb(234, 69, 69);
+    }
+
+    #mobile .dropdown__container {
+        display: flex;
+        opacity: 1;
+    }
+
+    #mobile:hover .dropdown__container {
+        display: flex !important;
+        opacity: 1;
+    }
+
+    #mobile .dropdown__option {
+        background: #1f1f1f;
+        padding: 20px;
+        z-index: 300;
+        min-width: 220px;
+    }
+
+    #mobile .dropdown__option:hover {
+        background: rgb(71, 71, 71);
+    }
+
+    [theme="white"] #mobile .dropdown,
+    [theme="white"] #mobile .dropdown__container {
+        background: #E7E7E7 !important;
     }
 }
 
@@ -345,7 +384,7 @@ button {
     }
 
     nav {
-        padding: 0 10px;
+        padding: 0 20px;
     }
 }
 

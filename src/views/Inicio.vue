@@ -87,8 +87,9 @@
 
             <p class="experiencia">Minha expêriencia como <strong>designer</strong></p>
 
+            <p class="card__destaques">Destaques:</p>
+
             <div class="card__grid">
-                <p class="card__destaques">Destaques:</p>
 
                 <div :class="'card ' + img.class" v-for="img in cardDesign" @click="upPopup($event, img.index)">
                     <img class="card__img" :src="`projetos/${img.path}`" loading="lazy">
@@ -139,8 +140,10 @@
 
         <section class="second-section section">
             <p class="experiencia">Minha experiência como <strong>desenvolvedor frontend</strong></p>
+
+            <p class="card__destaques">Destaques:</p>
+
             <div class="card__grid">
-                <p class="card__destaques">Destaques:</p>
                 <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100"
                     @click="upPopup($event, img.index, 'true')">
 
@@ -824,10 +827,10 @@ td p {
 }
 
 .card__destaques {
-    position: absolute;
-    top: -2.6vw;
-    left: 1.6vw;
     font-weight: 300;
+    height: 0;
+    line-height: 0;
+    padding-left: 12px;
     color: rgb(172, 172, 172);
     z-index: 2;
 }
