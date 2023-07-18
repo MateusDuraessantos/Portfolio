@@ -79,7 +79,6 @@ import { imagens } from './imagensDados.js'
 
 export default {
     name: 'Portfolio',
-
     data() {
         return {
             imgs: imagens,
@@ -130,7 +129,9 @@ export default {
                     filtered[i].removeAttribute('displayHidden')
                 }
 
+
                 if (event.target.getAttribute('index') == 0) {
+                    //Adiciona selector embaixo do filtro selecionado
                     marcador.style.transform = 'translate(0)'
                     this.newIndex = []
                     this.isWebsites = false
@@ -165,49 +166,44 @@ export default {
             }
         },
         upPopup(event, index) {
-
             const clicked = event.target.classList[0]
-
             if (event.currentTarget.classList[0] == 'cards' && event.target.classList[0] != 'card__link') {
                 this.indexImg = index
                 document.body.style.overflow = 'hidden'
                 this.popup = !this.popup
                 //Se o popup for fechado no modo "visualização vertical", o valor fica em 2, e quando o popup é aberto novamente, o layout fica errado
                 this.isColumn = 2
-
             }
             else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
                 document.body.removeAttribute('style')
                 this.popup = !this.popup
                 // Loading 
                 this.loading = true
-                this.number = 0
-
                 document.getElementById('img_port').setAttribute('style', 'opacity: 1;')
-
+                this.number = 0
             }
-
-
             if (this.isWebsitesIsPopup) {
                 this.valueMudadoIndex = Number(event.currentTarget.getAttribute('indexWeb'))
             }
-
         },
         loadingImg() {
+            if (this.number == 0) {
+                console.log(`length: ${this.imgs[this.indexImg].paths.length}`)
+            }
+
             this.number = this.number + 1
+
+            console.log(this.number)
+
             if (this.number == this.imgs[this.indexImg].paths.length) {
 
-                //O setTimeout ajuda a evitar pulos de imagens enquanto estão carregando no browser
-                setTimeout(() => {
-                    this.loading = false
-                    document.getElementById('img_port').removeAttribute('style')
-                }, 100)
+                this.loading = false
+                document.getElementById('img_port').removeAttribute('style')
 
                 document.getElementById('animation').classList.add('popup__animation')
             }
         },
         changeProject(value) {
-
             this.number = 0
             document.getElementById('img_port').setAttribute('style', 'opacity: 0;')
 
@@ -235,48 +231,29 @@ export default {
                 this.changeLayout()
             }
 
-
-            /*  */
-
             this.isWebsitesIsPopup = false
-
-
-
-
             if (this.isWebsites) {
 
                 //bloqueia a mudança do valor de this.valueMudadoIndex
-
-
                 if (value == 'next') {
-
-
-                    if (this.valueMudadoIndex == 5) {
+                    if (this.valueMudadoIndex == 4) {
                         this.valueMudadoIndex = 0
                     }
                     else {
                         this.valueMudadoIndex = this.valueMudadoIndex + 1
-
                     }
                 }
 
                 if (value == 'back') {
-
                     if (this.valueMudadoIndex == 0) {
-                        this.valueMudadoIndex = 5
-
+                        this.valueMudadoIndex = 4
                     }
                     else {
                         this.valueMudadoIndex = this.valueMudadoIndex - 1
-
                     }
-
                 }
-
                 this.indexImg = this.newIndex[this.valueMudadoIndex]
             }
-
-
         },
         scrolltoTop() {
             this.$nextTick(() => {

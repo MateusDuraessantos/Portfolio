@@ -51,9 +51,9 @@ export const imagens = [
         name: 'TeclaKey | WebSite - One Page',
         paths:
             [
+                'projetos/teclakey/mockup.jpg',
                 'projetos/teclakey/1.png',
                 'projetos/teclakey/teclakey.jpg',
-                'projetos/teclakey/2.jpg',
                 'projetos/teclakey/3.jpg',
             ],
     },

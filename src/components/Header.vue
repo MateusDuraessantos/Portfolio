@@ -50,39 +50,42 @@ export default {
         turnWhite() {
             this.$emit('tunOn', this.blockClick)
 
+
             if (this.blockClick) {
 
-
                 this.blockClick = false
+
+                setTimeout(() => {
+                    //bloqueia a ativação do botão enquanto a animação de 2s não termina
+                    this.blockClick = true
+                }, 2000);
 
                 const buttun = document.getElementById('whiteThemeBtn')
                 const white = document.querySelector('.turnWhite')
 
-                if (this.isWhite == false) {
-                    buttun.style.transform = 'translate(max(6.8vw, 92px))'
-                    white.classList.add('turnWhite--white')
-                    this.isWhite = !this.isWhite
-
-                    // muda cor da navegação
-                    setTimeout(() => {
-                        this.colorNav = 'white'
-                    }, 1000);
-
-                }
-                else {
-                    white.classList.remove('turnWhite--white')
-                    buttun.style.transform = ''
-                    this.isWhite = !this.isWhite
-
-                    // muda cor da navegação
-                    setInterval(() => {
-                        this.colorNav = 'black'
-                    }, 1000);
-
-                }
                 setTimeout(() => {
-                    this.blockClick = true
-                }, 2000);
+                    if (this.isWhite == false) {
+                        buttun.style.transform = 'translate(max(6.8vw, 92px))'
+                        white.classList.add('turnWhite--white')
+                        this.isWhite = !this.isWhite
+
+                        // Muda cor da navegação
+                        setTimeout(() => {
+                            this.colorNav = 'white'
+                        }, 1000);
+
+                    }
+                    else {
+                        white.classList.remove('turnWhite--white')
+                        buttun.style.transform = ''
+                        this.isWhite = !this.isWhite
+
+                        // Muda cor da navegação
+                        setTimeout(() => {
+                            this.colorNav = 'black'
+                        }, 1000);
+                    }
+                }, 0);
             }
 
         },
@@ -192,11 +195,11 @@ nav {
 }
 
 [theme="white"] {
-    background: rgb(183 183 183 / 70%);
+    background: rgb(183 183 183 / 50%);
 }
 
 [theme="white"] a {
-    color: black;
+    color: #1f1f1f;
 }
 
 /*  */

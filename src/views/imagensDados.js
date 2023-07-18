@@ -5,62 +5,29 @@ export const imagens = [
         thumb: 'projetos/chimarrao/thumb.jpg',
         alt: 'Chimarrão - projeto 3d - Cinema4D',
         paths:
-        [
-            'projetos/chimarrao/1.jpg',
+            [
+                'projetos/chimarrao/1.jpg',
                 'projetos/chimarrao/2.jpg',
                 'projetos/chimarrao/3.jpg',
                 'projetos/chimarrao/4.jpg',
                 'projetos/chimarrao/5.jpg',
             ],
-        },
-        {
-            name: 'Redesign website do curso de Design Mackenzie',
-            categoria: 'website',
-            thumb: 'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
-            link: 'https://mackenzie-tcc.web.app/#/',
-            github: 'https://github.com/MateusDuraessantos/TCC',
-            alt: 'Website trabalho de conclusão de curso Mackenzie',
-            paths:
-                [
-                    'projetos/tcc/design-de-um-webiste-para-exposicao-de-projetos-universitarios-do-curos-de-design-mackenzie.jpg',
-                    'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
-                    'projetos/tcc/pagina_inicial_do_projeto.jpg',
-                    'projetos/tcc/arvore_de_navegacao_proposta.jpg',
-                ],
-        },
-    
-        {
-            name: 'BlvckFinance | Identidade de marca',
-            categoria: 'design',
-            thumb: 'projetos/blvckfinance/thumb.jpg',
-            alt: 'Editorial Black Finance | Mockup photoshop',
-            paths:
-                [
-                    'projetos/blvckfinance/1.jpg',
-                    'projetos/blvckfinance/2.jpg',
-                    'projetos/blvckfinance/3.jpg',
-                    'projetos/blvckfinance/4.jpg',
-                    'projetos/blvckfinance/5.jpg',
-                    'projetos/blvckfinance/6.jpg',
-                ],
-        },
-    
-        {
-            name: 'Portfólio pessoal | Mateus Durães dos Santos',
-            categoria: 'website',
-            thumb: 'projetos/portfolio/footer.png',
-            github: 'https://github.com/MateusDuraessantos/Portfolio',
-            alt: 'Meu portfólio',
-            paths:
-                [
-                    'projetos/portfolio/pagina_inicial_body_do_projeto.jpg',
-                    'projetos/portfolio/projetos_grid.png',
-                    'projetos/portfolio/footer.png',
-                    'projetos/portfolio/projeto_no_figma.png',
-    
-    
-                ],
-        },
+    },
+    {
+        name: 'Redesign website do curso de Design Mackenzie',
+        categoria: 'website',
+        thumb: 'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
+        link: 'https://mackenzie-tcc.web.app/#/',
+        github: 'https://github.com/MateusDuraessantos/TCC',
+        alt: 'Website trabalho de conclusão de curso Mackenzie',
+        paths:
+            [
+                'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
+                'projetos/tcc/design-de-um-webiste-para-exposicao-de-projetos-universitarios-do-curos-de-design-mackenzie.jpg',
+                'projetos/tcc/pagina_inicial_do_projeto.jpg',
+                'projetos/tcc/arvore_de_navegacao_proposta.jpg',
+            ],
+    },
     {
         name: 'Cobogó | Construção civil',
         categoria: 'design',
@@ -81,9 +48,9 @@ export const imagens = [
         alt: 'Projeto Cômoda para mães de parelheiros',
         paths:
             [
+                'projetos/comoda/3.jpg',
                 'projetos/comoda/1.jpg',
                 'projetos/comoda/2.jpg',
-                'projetos/comoda/3.jpg',
                 'projetos/comoda/4.jpg',
             ],
     },
@@ -96,27 +63,9 @@ export const imagens = [
         alt: 'Website teclakey - UX/UI - Firebase',
         paths:
             [
-                'projetos/teclakey/1.png',
+                'projetos/teclakey/mockup.jpg',
                 'projetos/teclakey/teclakey.jpg',
-                'projetos/teclakey/2.jpg',
                 'projetos/teclakey/3.jpg',
-            ],
-    },
-    {
-        name: 'Desenhos realistas com lápis',
-        categoria: 'design',
-        thumb: 'projetos/desenhos/thumb.jpg',
-        alt: 'Desenhos realistas com grafite',
-        paths:
-            [
-                'projetos/desenhos/ariana_grande.jpg',
-                'projetos/desenhos/1.png',
-                'projetos/desenhos/2.jpg',
-                'projetos/desenhos/athelstan_vikings.jpg',
-                'projetos/desenhos/athelstan_vikings_desenho_realista.png',
-                'projetos/desenhos/4.jpg',
-                'projetos/desenhos/5.jpg',
-                'projetos/desenhos/7.jpg',
             ],
     },
     {
@@ -134,23 +83,6 @@ export const imagens = [
             ],
     },
     {
-        name: 'Desenhos coloridos',
-        categoria: 'design',
-        thumb: 'projetos/desenhos_2/thumb.jpg',
-        alt: 'Desenhos digitais, digital art',
-        paths:
-            [
-                'projetos/desenhos_2/1.jpg',
-                'projetos/desenhos_2/2.png',
-                'projetos/desenhos_2/3.png',
-                'projetos/desenhos_2/4.jpg',
-                'projetos/desenhos_2/5.png',
-                'projetos/desenhos_2/6.png',
-                'projetos/desenhos_2/7.jpg',
-
-            ],
-    },
-    {
         name: 'Mesa Gamer | Modelagem',
         categoria: 'design',
         thumb: 'projetos/mesa/thumb.jpg',
@@ -165,52 +97,6 @@ export const imagens = [
                 'projetos/mesa/5.jpg',
             ],
     },
-    /*  {
-         name: 'Fotografias',
-         categoria: 'design',
-         thumb: 'projetos/fotografia/thumb.jpg',
-         alt: 'Fotografias',
-         paths:
-             [
-                 'projetos/fotografia/1.jpg',
-                 'projetos/fotografia/2.jpg',
-                 'projetos/fotografia/3.jpg',
-                 'projetos/fotografia/4.jpg',
-                 'projetos/fotografia/5.jpg',
- 
-             ],
-     },
-     {
-         name: 'Fotografia em Preto e Branco',
-         categoria: 'design',
-         thumb: 'projetos/fotografia_01/thumb.jpg',
-         alt: 'fotografias',
-         paths:
-             [
-                 'projetos/fotografia_01/1.jpg',
-                 'projetos/fotografia_01/2.jpg',
-                 'projetos/fotografia_01/3.jpg',
-                 'projetos/fotografia_01/4.jpg',
-                 'projetos/fotografia_01/5.jpg',
- 
-             ],
-     }, */
-    /* {
-        name: 'Yamaha Merchandising | Relógio de Pulso',
-        categoria: 'design',
-        thumb: 'projetos/merchandising/thumb.jpg',
-        alt: 'Projeto acadêmico de Merchandising - Yahama',
-        paths:
-            [
-                'projetos/merchandising/1.jpg',
-                'projetos/merchandising/3.png',
-                'projetos/merchandising/4.jpg',
-                'projetos/merchandising/5.jpg',
-                'projetos/merchandising/6.jpg',
-                'projetos/merchandising/expositor_prata.jpg',
-                'projetos/merchandising/merchandising.jpg',
-            ],
-    }, */
     {
         name: 'Ascensão dos deuses | Tabuleiro',
         categoria: 'design',
@@ -227,7 +113,6 @@ export const imagens = [
                 'projetos/tabuleiro/5.jpg',
             ],
     },
-
     {
         name: 'Mun | Arandela escamoteável',
         categoria: 'design',
@@ -265,13 +150,12 @@ export const imagens = [
         alt: 'Modelagem 3d - Tênis nike',
         paths:
             [
-                'projetos/nike/modelo_tenis_nike_render.jpg',
                 'projetos/nike/tenis_nike_render_3d.jpg',
+                'projetos/nike/modelo_tenis_nike_render.jpg',
                 'projetos/nike/tenis_nike_render_3d_cinema4d.jpg',
                 'projetos/nike/tenis_nike_cinema4d.jpg',
             ],
     },
-
     {
         name: 'Relógio de Ouro | Cinema 4d',
         categoria: 'design',
@@ -318,6 +202,7 @@ export const imagens = [
         alt: 'Music SP',
         paths:
             [
+                'projetos/music/mockup.jpg',
                 'projetos/music/music_sp.jpg',
             ],
     },

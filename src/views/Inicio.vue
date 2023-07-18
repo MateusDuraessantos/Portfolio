@@ -21,8 +21,7 @@
                 </div>
 
                 <div class="popup__content" id="img_portrato" style="opacity: 0;">
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas"
-                        loading="lazy">
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
                 </div>
 
                 <button class="popup__close">✕</button>
@@ -33,7 +32,7 @@
 
         <section class="sobre" id="sobre">
             <p
-                style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 0.7rem; color: rgb(105, 110, 128); font-weight: 300; z-index: 10;">
+                style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 0.7rem; color: rgb(105, 110, 128); font-weight: 300;">
                 Designed by Mateus Durães dos Santos - 2023
             </p>
 
@@ -92,11 +91,11 @@
                 <p class="card__destaques">Destaques:</p>
 
                 <div :class="'card ' + img.class" v-for="img in cardDesign" @click="upPopup($event, img.index)">
-                    <img class="card__img" :src="'projetos/' + img.obj[0]" loading="lazy">
+                    <img class="card__img" :src="`projetos/${img.path}`" loading="lazy">
                     <div class="card__description">
                         <div class="card__data">
+                            <p> {{ img.obj[0] }}</p>
                             <p> {{ img.obj[1] }}</p>
-                            <p> {{ img.obj[2] }}</p>
                         </div>
                         <button class="card__btn">ver</button>
                     </div>
@@ -129,7 +128,7 @@
                     </div>
                 </div>
                 <figure class="figure__design">
-                    <img class="img_design" src="banner.png" alt="Design">
+                    <img class="img_design" :src="`inicio/${whitePlanets}/design.png`" alt="Design">
                 </figure>
             </div>
         </section>
@@ -158,7 +157,7 @@
 
             <div class="container-front">
                 <figure class="figure__front">
-                    <img class="img_front" src="frontend.png" alt="Design" />
+                    <img class="img_front" :src="`inicio/${whitePlanets}/frontend.png`" alt="Design" />
                 </figure>
                 <div class="table">
                     <p class="table_p">Experiências em frontend:</p>
@@ -312,23 +311,22 @@ export default {
     name: 'Inicio',
     data() {
         return {
-            // whiteIcons: 'whiteicons',
             whiteIcons: 'whiteicons',
             whitePlanets: 'sky',
             booleanVideo: true,
             cardDesign: [
                 {
                     index: '0',
+                    path: 'mesa/thumb.jpg',
                     obj: [
-                        'mesa/thumb.jpg',
                         'Mesa gamer | Modelagem 3d',
                         '12/02/2023'
                     ],
                 },
                 {
                     index: '1',
+                    path: 'butterfly/thumb.jpg',
                     obj: [
-                        'butterfly/thumb.jpg',
                         'Pingente Butterfly | Modelagem 3d',
                         '10/03/2022'
                     ],
@@ -336,8 +334,8 @@ export default {
                 },
                 {
                     index: '2',
+                    path: 'mun/thumb.jpg',
                     obj: [
-                        'mun/thumb.jpg',
                         'Mun | Arandela',
                         '24/06/2020'
                     ],
@@ -381,25 +379,25 @@ export default {
         }
     },
     mounted() {
+        console.clear()
         this.observador()
-
         if (!this.booleanTheme) {
             document.getElementById('main').setAttribute('class', 'whiteTheme')
             this.booleanVideo = false
             this.whiteIcons = 'blackicons'
         }
-
         if (this.booleanTheme != true) {
             this.ifWhiteOnChangePage()
         }
+
+        // this.changePath()
+
     },
     props: {
         booleanTheme: Boolean
     },
     watch: {
         booleanTheme() {
-            this.whitewhite()
-
             setTimeout(() => {
                 this.booleanVideo = !this.booleanVideo
             }, 1000);
@@ -407,7 +405,7 @@ export default {
             if (this.isWhite == false) {
                 setTimeout(() => {
                     this.blockClicked = 'blackicons'
-                    this.whitePlanets = 'whiteplanets'
+                    this.whitePlanets = 'white'
                 }, 1000);
             }
             else {
@@ -418,29 +416,49 @@ export default {
                 }, 1000);
             }
             this.isWhite = !this.isWhite
-        }
-    },
-    methods: {
-        ifWhiteOnChangePage() {
-            this.blockClicked = 'blackicons'
-            this.whitePlanets = 'whiteplanets'
-            this.isWhite = true
-        },
 
+            /*  */
 
-        whitewhite() {
             if (this.booleanTheme) {
                 setTimeout(() => {
                     document.getElementById('main').removeAttribute('class')
                     this.whiteIcons = 'whiteicons'
+                    const whitePaths = [
+                        'mesa/thumb.jpg',
+                        'butterfly/thumb.jpg',
+                        'mun/thumb.jpg',
+                    ]
+                    for (let i = 0; i < 3; i++) {
+                        this.cardDesign[i].path = whitePaths[i]
+                    }
                 }, 1000);
+
             }
             else {
                 setTimeout(() => {
                     document.getElementById('main').setAttribute('class', 'whiteTheme')
                     this.whiteIcons = 'blackicons'
+                    const whitePaths = [
+                        'mesa/6.jpg',
+                        'butterfly/thumb1.jpg',
+                        'mun/thumb-white-background.jpg',
+                    ]
+                    for (let i = 0; i < 3; i++) {
+                        this.cardDesign[i].path = whitePaths[i]
+                    }
                 }, 1000);
             }
+
+        }
+    },
+    methods: {
+        changePath() {
+
+        },
+        ifWhiteOnChangePage() {
+            this.blockClicked = 'blackicons'
+            this.whitePlanets = 'white'
+            this.isWhite = true
         },
         copyText(content) {
             const textToCopy = content; // Texto a ser copiado
@@ -483,25 +501,28 @@ export default {
                 document.body.style.overflow = ''
                 this.popup = !this.popup
                 this.loading = true
+            }
+            this.number = 0
+        },
+        loadingImg() {
+            if (this.number == 0) {
+                console.log(`length: ${this.imgs[this.indexImg].paths.length}`)
+            }
+
+            this.number = this.number + 1
+
+            console.log(this.number)
+
+            if (this.number == this.imgs[this.indexImg].paths.length) {
+                document.getElementById('animation').classList.add('popup__animation')
+                this.loading = false
+                document.getElementById('img_portrato').style.opacity = 1
                 this.number = 0
             }
         },
-        loadingImg() {
-            this.number = this.number + 1
-
-            if (this.number == this.imgs[this.indexImg].paths.length - 1) {
-
-                //O setTimeout ajuda a evitar pulos de imagens enquanto estão carregando no browser
-                setTimeout(() => {
-                    this.loading = false
-                    document.getElementById('img_portrato').style.opacity = 1
-                }, 1);
-
-                document.getElementById('animation').classList.add('popup__animation')
-            }
-        },
         changeProjectDesign(value) {
-            this.number = 0
+            console.clear('console limpo')
+
             this.indexImg == 1
             this.loading = true
 
@@ -599,7 +620,6 @@ export default {
 
 a {
     cursor: pointer;
-    z-index: 44;
     position: relative;
 }
 
@@ -646,6 +666,7 @@ p {
     grid-template-columns: 24vh 1fr 24vh;
     align-items: center;
     height: 100vh;
+    min-height: 600px;
     position: relative;
     margin-bottom: 100px;
     gap: 4vw;
@@ -886,7 +907,6 @@ td p {
 .sky {
     position: relative;
     height: 100vh;
-    overflow-x: hidden;
     width: 100vw;
 }
 
@@ -989,6 +1009,7 @@ td p {
     gap: 1vw;
     padding: 1vw 1.4vw;
     bottom: -3.4vw;
+    font-size: 0.8rem !important;
     opacity: 0;
     border-radius: 10vw;
     transition: .2s;
@@ -1022,7 +1043,7 @@ td p {
 .informacoes__content {
     display: flex;
     justify-content: center;
-    gap: 5vw;
+    gap: 4vw;
     width: max-content;
     margin: auto;
 }
@@ -1123,7 +1144,7 @@ td p {
 .sky__planet_11 {
     width: 100%;
     z-index: 2;
-    bottom: 0;
+    bottom: 4vh;
     animation-name: sky_11;
 }
 
@@ -1160,12 +1181,14 @@ td p {
 }
 
 .figure__front {
+    display: flex;
     grid-area: img;
 }
 
 .img_front {
-    width: 100%;
+    width: 70%;
     height: 70%;
+    margin: auto;
     object-fit: contain;
     mix-blend-mode: screen;
     position: relative;
@@ -1308,7 +1331,7 @@ td p {
     }
 
     75% {
-        transform: scale(var(--sky-scale)) translate(0px, 30px);
+        transform: scale(var(--sky-scale)) translate(0px, -30px);
     }
 
     90% {
@@ -1490,7 +1513,7 @@ td p {
         }
 
         75% {
-            transform: scale(var(--sky-scale)) translate(0px, 30px);
+            transform: scale(var(--sky-scale)) translate(0px, -30px);
         }
 
         90% {
@@ -1720,6 +1743,12 @@ td p {
     .sky {
         width: calc(100% - 7px);
     }
+
+    .sobre__description {
+
+        width: calc(100% - 20px)
+    }
+
 }
 
 /* White Theme */
@@ -1744,12 +1773,12 @@ main {
 }
 
 .whiteTheme .experiencia {
-    background: rgb(216, 216, 216);
+    background: #E7E7E7;
     color: var(--text-color);
 }
 
 .whiteTheme .sobre {
-    background-image: url('../../public/inicio/sky/banner__white.jpg');
+    background-image: url('../../public/inicio/white/banner__white.jpg');
 }
 
 .whiteTheme .card__description {
@@ -1763,7 +1792,7 @@ main {
 }
 
 .whiteTheme .table {
-    background-image: linear-gradient(#F4F4F4, #fff);
+    background-image: linear-gradient(#F4F4F4, #E7E7E7);
 }
 
 .whiteTheme [border-style] {
@@ -1781,6 +1810,10 @@ main {
 
 .whiteTheme .ver {
     color: white;
+}
+
+.whiteTheme .frase {
+    color: #a87c7c !important;
 }
 
 .whiteTheme .ver {
