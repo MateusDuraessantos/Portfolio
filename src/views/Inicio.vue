@@ -2,8 +2,6 @@
     <main id="main">
         <!-- Popup -->
 
-        <div id="themeOverflow"></div>
-
         <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
             <div class="popup__overflow">
                 <div class="container-button">
@@ -209,11 +207,11 @@
 
             <!-- Os céus proclamam a glória de Jesus -->
 
-            <span v-if="booleanVideo">
+            <span class="sky__container" v-if="footerVisible">
                 <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
                 <div class="sky__shadows" id="shadow"></div>
             </span>
-            <span style="display: flex; flex-direction: column; height: 100vh;" v-else>
+            <span class="sky__container" v-else>
                 <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky">
                 <div class="sky__shadows--white" id="shadow"></div>
             </span>
@@ -316,7 +314,6 @@ export default {
         return {
             whiteIcons: 'whiteicons',
             whitePlanets: 'sky',
-            booleanVideo: true,
             cardDesign: [
                 {
                     index: '0',
@@ -378,52 +375,58 @@ export default {
             number: 0,
             imgs: imagens,
             indexImg: 0,
-            isWhite: false,
+            footerVisible: true
+
         }
     },
     mounted() {
-        console.clear()
         this.observador()
-        if (!this.booleanTheme) {
-            document.getElementById('main').setAttribute('class', 'whiteTheme')
-            this.booleanVideo = false
-            this.whiteIcons = 'blackicons'
-        }
-        if (this.booleanTheme != true) {
-            this.ifWhiteOnChangePage()
-        }
-
-        // this.changePath()
-
+        this.keepWhiteOnReload(0)
+        this.changeImagens(0)
+      
     },
     props: {
         booleanTheme: Boolean
     },
     watch: {
         booleanTheme() {
-            setTimeout(() => {
-                this.booleanVideo = !this.booleanVideo
-            }, 1000);
-
-            if (this.isWhite == false) {
+            this.changeImagens(1000)
+        }
+    },
+    methods: {
+        changeImagens(timer) {
+            if (this.booleanTheme == true) {
                 setTimeout(() => {
                     this.blockClicked = 'blackicons'
                     this.whitePlanets = 'white'
-                }, 1000);
+                    this.footerVisible = false
+                }, timer);
             }
             else {
                 setTimeout(() => {
                     this.blockClicked = 'whiteicons'
                     this.whitePlanets = 'sky'
-
-                }, 1000);
+                    this.footerVisible = true
+                }, timer);
             }
-            this.isWhite = !this.isWhite
-
-            /*  */
-
-            if (this.booleanTheme) {
-                setTimeout(() => {
+            this.keepWhiteOnReload(1000)
+        },
+        keepWhiteOnReload(timer) {
+            setTimeout(() => {
+                //Altera o path das thumbs
+                if (this.booleanTheme == true) {
+                    document.getElementById('main').setAttribute('class', 'whiteTheme')
+                    this.whiteIcons = 'blackicons'
+                    const whitePaths = [
+                        'mesa/thumb1.jpg',
+                        'butterfly/thumb1.jpg',
+                        'mun/thumb-white-background.jpg',
+                    ]
+                    for (let i = 0; i < 3; i++) {
+                        this.cardDesign[i].path = whitePaths[i]
+                    }
+                }
+                else {
                     document.getElementById('main').removeAttribute('class')
                     this.whiteIcons = 'whiteicons'
                     const whitePaths = [
@@ -434,35 +437,11 @@ export default {
                     for (let i = 0; i < 3; i++) {
                         this.cardDesign[i].path = whitePaths[i]
                     }
-                }, 1000);
 
-            }
-            else {
-                setTimeout(() => {
-                    document.getElementById('main').setAttribute('class', 'whiteTheme')
-                    this.whiteIcons = 'blackicons'
-                    const whitePaths = [
-                        'mesa/6.jpg',
-                        'butterfly/thumb1.jpg',
-                        'mun/thumb-white-background.jpg',
-                    ]
-                    for (let i = 0; i < 3; i++) {
-                        this.cardDesign[i].path = whitePaths[i]
-                    }
-                }, 1000);
-            }
-
-        }
-    },
-    methods: {
-        changePath() {
-
+                }
+            }, timer);
         },
-        ifWhiteOnChangePage() {
-            this.blockClicked = 'blackicons'
-            this.whitePlanets = 'white'
-            this.isWhite = true
-        },
+
         copyText(content) {
             const textToCopy = content; // Texto a ser copiado
 
@@ -485,14 +464,10 @@ export default {
                     this.$emit('nomeEvento', showing)
                 }
             })
-
             observer.observe(document.getElementById('observador__footer'))
         },
-
         upPopup(event, index, front) {
-
             const clicked = event.target.classList[0]
-
             if (event.currentTarget.classList[0] == 'card') {
                 this.popFront = Boolean(front)
                 this.indexImg = index
@@ -508,14 +483,7 @@ export default {
             this.number = 0
         },
         loadingImg() {
-            if (this.number == 0) {
-                console.log(`length: ${this.imgs[this.indexImg].paths.length}`)
-            }
-
             this.number = this.number + 1
-
-            console.log(this.number)
-
             if (this.number == this.imgs[this.indexImg].paths.length) {
                 document.getElementById('animation').classList.add('popup__animation')
                 this.loading = false
@@ -524,13 +492,9 @@ export default {
             }
         },
         changeProjectDesign(value) {
-            console.clear('console limpo')
-
             this.indexImg == 1
             this.loading = true
-
             document.getElementById('img_portrato').setAttribute('style', 'opacity: 0')
-
             if (!this.popFront == true) {
                 if (value == 'back') {
                     if (this.indexImg > 0) {
@@ -561,7 +525,8 @@ export default {
                 if (value == 'next') {
                     if (this.indexImg < 5) {
                         this.indexImg++
-                    } else {
+                    }
+                    else {
                         this.indexImg = 3
                     }
                 }
@@ -574,7 +539,6 @@ export default {
 <style>
 :root {
     --border-color: #2c2c2c;
-    /* --shadow-color: black; */
     --shadow-color: black;
     --sky-scale: 0.9;
 }
@@ -583,7 +547,12 @@ export default {
     :root {
         --sky-scale: 1.4
     }
+}
 
+@media screen and (max-height: 800px) {
+    :root {
+        --sky-scale: 1
+    }
 }
 </style>
 
@@ -666,7 +635,7 @@ p {
 
 .sobre {
     display: grid;
-    grid-template-columns: 24vh 1fr 24vh;
+    grid-template-columns: 12vh 1fr 12vh;
     align-items: center;
     height: 100vh;
     min-height: 600px;
@@ -913,6 +882,12 @@ td p {
     width: 100vw;
 }
 
+.sky__container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 .sky__shadows,
 .sky__shadows--white {
     position: absolute;
@@ -1093,7 +1068,7 @@ td p {
 }
 
 .sky__planet_06 {
-    top: 50%;
+    bottom: 35%;
     width: 24%;
     right: 10%;
     animation-name: sky_08;
@@ -1111,11 +1086,13 @@ td p {
     top: 17%;
     left: 30%;
     animation-name: sky_08;
+
 }
 
 .sky__planet_09 {
     animation-name: sky_01;
     top: 40%;
+
     left: 20%;
     width: 9%;
 }
@@ -1162,14 +1139,14 @@ td p {
 .sky__planet_13 {
     left: 0;
     width: 15%;
-    top: 30%;
+    bottom: 30%;
     animation-name: sky_y;
 }
 
 .sky__planet_14 {
     width: 6%;
     right: 0;
-    top: 35%;
+    bottom: 45%;
     animation-name: sky_13;
 }
 

@@ -93,26 +93,37 @@ export default {
             isWebsitesIsPopup: true,
         }
     },
+    props: {
+        booleanTheme: Boolean
+    },
+    watch: {
+        booleanTheme() {
+            this.filtroTheme(1000)
+        }
+    },
     mounted() {
-        console.clear();
+        this.filtroTheme(0)
         this.scrolltoTop()
         this.clickedFilter()
-
     },
     methods: {
+        filtroTheme(time) {
+            setTimeout(() => {
+                if (this.booleanTheme == true) {
+                    document.querySelector('.filtro__container').classList.add('white')
+                }
+                else {
+                    document.querySelector('.filtro__container').classList.remove('white')
+                }
+            }, time);
+        },
         clickedFilter(event) {
-
             if (event) {
-
                 // Interção do marcador
                 const elementClicked = window.getComputedStyle(event.target)
-
                 const marcador = document.getElementById('filtro__marcador')
-
                 marcador.style.width = elementClicked.width
-
                 const elementsIndex = document.querySelectorAll('[index]')
-
                 const filter = document.querySelector('[filterSelected]')
 
                 /*  */
@@ -129,7 +140,6 @@ export default {
                     filtered[i].removeAttribute('displayHidden')
                 }
 
-
                 if (event.target.getAttribute('index') == 0) {
                     //Adiciona selector embaixo do filtro selecionado
                     marcador.style.transform = 'translate(0)'
@@ -138,9 +148,7 @@ export default {
 
                 }
                 else if (event.target.getAttribute('index') == 1) {
-
                     marcador.style.transform = `translate(${window.getComputedStyle(elementsIndex[0]).width})`
-
                     this.isWebsites = true
 
                     // Esconder elementos
@@ -187,41 +195,31 @@ export default {
             }
         },
         loadingImg() {
-            if (this.number == 0) {
-                console.log(`length: ${this.imgs[this.indexImg].paths.length}`)
-            }
-
             this.number = this.number + 1
 
-            console.log(this.number)
-
             if (this.number == this.imgs[this.indexImg].paths.length) {
-
                 this.loading = false
                 document.getElementById('img_port').removeAttribute('style')
-
                 document.getElementById('animation').classList.add('popup__animation')
             }
         },
         changeProject(value) {
             this.number = 0
             document.getElementById('img_port').setAttribute('style', 'opacity: 0;')
-
             this.loading = true
             if (value == 'back') {
                 if (this.indexImg == 0) {
                     this.indexImg = this.imgs.length - 1
-
-                } else {
+                }
+                else {
                     this.indexImg--
-
                 }
             }
             if (value == 'next') {
                 if (this.indexImg == this.imgs.length - 1) {
                     this.indexImg = 0
-
-                } else {
+                }
+                else {
                     this.indexImg++
                 }
             }
@@ -314,7 +312,7 @@ main {
 }
 
 [filterSelected] {
-    color: rgb(234, 69, 69);
+    color: rgb(234, 69, 69) !important;
     transition: .4s;
 }
 
@@ -503,5 +501,11 @@ main {
         width: 100%;
         gap: 3px;
     }
+}
+
+/* White Theme */
+
+.white button {
+    color: black;
 }
 </style>

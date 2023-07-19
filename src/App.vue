@@ -2,9 +2,10 @@
   <div id="background">
     <div id="themeOverflow"></div>
 
-    <Header @tun-on="turnOnWhite" class="header" id="header" @remove-link="removeClass" :dadoBol="hiddenHeader" />
+    <Header @tun-on="turnOn" :booleanTheme="booleanTheme" class="header" id="header" @remove-link="removeClass"
+      :dadoBol="hiddenHeader" />
 
-    <router-view :booleanTheme="changeThemeVar" @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
+    <router-view :booleanTheme="booleanTheme" @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
   </div>
 </template>
 
@@ -19,63 +20,60 @@ export default {
   data() {
     return {
       hiddenHeader: true,
-      loadingHellow: 0,
-      velocity: 80,
-      teste: null,
       hide: false,
-      changeThemeVar: true,
+      //se true o tema fica branco 
       booleanTheme: false,
     }
   },
   mounted() {
     this.favIcon()
+    this.turnBackgroundWhite(0)
+    this.overflow(0)
   },
-
   methods: {
-    turnOnWhite(blockClicked) {
+    turnOn() {
+      this.booleanTheme = !this.booleanTheme
+      this.turnBackgroundWhite(1000)
+      this.overflow(2000)
 
-      if (blockClicked) {
+    },
+    overflow(timer) {
+      // Aciona o overflow para alteração do tema 
+      const overflow = document.getElementById('themeOverflow')
 
+      if (this.booleanTheme == true) {
+        overflow.setAttribute('class', 'whiteOverflow')
 
-        /* Aciona o overflow para alteração do tema */
-
-        const overflow = document.getElementById('themeOverflow')
-
-        if (this.booleanTheme) {
-          overflow.setAttribute('class', 'whiteOverflow')
-          setTimeout(() => {
-            overflow.removeAttribute('class')
-          }, 2000);
-        }
-        else {
-          overflow.setAttribute('class', 'blackOverflow')
-          setTimeout(() => {
-            overflow.removeAttribute('class')
-          }, 2000);
-        }
-
-        this.booleanTheme = !this.booleanTheme
-
-        /* Altera a cor do background global */
-
-        if (this.changeThemeVar) {
-          setTimeout(() => {
-            document.body.style.background = 'white'
-          }, 1000);
-        }
-        else {
-          setTimeout(() => {
-            document.body.removeAttribute('style')
-          }, 1000);
-        }
-        this.changeThemeVar = !this.changeThemeVar
+        setTimeout(() => {
+          overflow.removeAttribute('class')
+        }, timer);
+      }
+      else {
+        overflow.setAttribute('class', 'blackOverflow')
+        setTimeout(() => {
+          overflow.removeAttribute('class')
+        }, timer);
       }
     },
+    turnBackgroundWhite(timer) {
+      // Altera a cor do background global 
 
+      if (this.booleanTheme == true) {
+        console.log('mateus')
+        setTimeout(() => {
+          document.body.style.background = 'white'
+        }, timer);
 
+      }
+      else {
+        console.log('duraes')
+        setTimeout(() => {
+          document.body.removeAttribute('style')
+        }, timer);
+      }
+    },
     removeClass() {
       document.getElementById('header').classList.remove('show')
-
     },
     tratarEvento(showingup) {
 
@@ -92,7 +90,8 @@ export default {
       newLink.setAttribute('href', 'eu.png')
       document.head.appendChild(newLink)
     }
-  }
+  },
+
 }
 </script>
 
@@ -316,7 +315,7 @@ button {
 .container-loading span {
   font-size: 15px;
   font-weight: 300;
-  color: #b5b5b5;
+  color: #b5b5b5 !important;
 }
 
 .loading {

@@ -1,7 +1,7 @@
 <template>
     <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
-        <button class="turnWhite" @click="turnWhite">
+        <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith " id="whiteThemeBtn">
                 <p class="claro"><span>🌞</span> Claro</p>
                 <p class="escuro">Escuro <span>🌙</span></p>
@@ -9,13 +9,6 @@
         </button>
 
         <div class="links">
-            <!--         <router-link style="display: flex; gap: 1.5vw;" to="/">
-                <a class="desktop nav" @click="scrollDown($event, 'sobre')">Início</a>
-                <a class="desktop nav" @click="scrollDown($event, 'design')">Design</a>
-                <a class="desktop nav" @click="scrollDown($event, 'programacao')">Frontend</a>
-                <a class="desktop nav" @click="scrollDown($event, 'contato')">Contato</a>
-            </router-link> -->
-
             <router-link id="mobile" to="/">
 
                 <div class="dropdown__inicio">Início</div>
@@ -39,60 +32,63 @@
 export default {
     name: 'Header',
     props: {
-        dadoBol: String
+        dadoBol: String,
+        booleanTheme: Boolean
     },
     data() {
         return {
             isWhite: false,
             blockClick: true,
-            colorNav: 'black'
+            colorNav: 'black',
+        }
+    },
+    mounted() {
+        this.turnWhite(0)
+    },
+    watch:{
+        booleanTheme(){
+            this.turnWhite(1000)
         }
     },
     methods: {
-        turnWhite() {
-            this.$emit('tunOn', this.blockClick)
-
+        emitFunction() {
 
             if (this.blockClick) {
+                this.$emit('tunOn')
 
                 this.blockClick = false
-
                 setTimeout(() => {
-                    //bloqueia a ativação do botão enquanto a animação de 2s não termina
+                    //Bloqueia a troca de tema 2x seguidas antes de 2s
                     this.blockClick = true
                 }, 2000);
-
-                const buttun = document.getElementById('whiteThemeBtn')
-                const white = document.querySelector('.turnWhite')
-
-                setTimeout(() => {
-                    if (this.isWhite == false) {
-                        buttun.style.transform = 'translate(max(6.8vw, 92px))'
-                        white.classList.add('turnWhite--white')
-                        this.isWhite = !this.isWhite
-
-                        // Muda cor da navegação
-                        setTimeout(() => {
-                            this.colorNav = 'white'
-                        }, 1000);
-
-                    }
-                    else {
-                        white.classList.remove('turnWhite--white')
-                        buttun.style.transform = ''
-                        this.isWhite = !this.isWhite
-
-                        // Muda cor da navegação
-                        setTimeout(() => {
-                            this.colorNav = 'black'
-                        }, 1000);
-                    }
-                }, 0);
             }
+        },
+        turnWhite(timer) {
+            const buttun = document.getElementById('whiteThemeBtn')
+            const white = document.querySelector('.turnWhite')
 
+            if (this.booleanTheme == true) {
+                buttun.style.transform = 'translate(max(6.8vw, 92px))'
+                white.classList.add('turnWhite--white')
+                this.isWhite = !this.isWhite
+
+                // Muda cor da navegação
+                setTimeout(() => {
+                    this.colorNav = 'white'
+                }, timer);
+            }
+            else {
+                white.classList.remove('turnWhite--white')
+                buttun.style.transform = ''
+                this.isWhite = !this.isWhite
+
+                // Muda cor da navegação
+                setTimeout(() => {
+                    this.colorNav = 'black'
+                }, timer);
+            }
         },
         removeLink() {
-
             if (document.querySelector('[activeLink]') != null) {
                 document.querySelector('[activeLink]').removeAttribute('activeLink')
             }
@@ -100,9 +96,7 @@ export default {
 
             if (document.querySelector('.hiddenHeader') != null) {
                 document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
-
             }
-
         },
         scrollDown(event, ancora) {
             setTimeout(() => {
@@ -183,10 +177,9 @@ nav {
     text-decoration: none;
 }
 
-
 [activeLink],
-.dropdown__inicio {
-    color: rgb(234, 69, 69);
+.router-link-active .dropdown__inicio {
+    color: rgb(234, 69, 69) !important;
 }
 
 .router-link-active span {
@@ -196,7 +189,7 @@ nav {
 
 .router-link-active,
 .router-link-a:focus {
-    color: rgb(234, 69, 69);
+    color: rgb(234, 69, 69) !important;
     position: relative;
 }
 
@@ -224,6 +217,11 @@ button {
     display: flex;
     align-items: center;
     gap: 6vw;
+}
+
+.dropdown__container {
+    display: flex;
+    gap: 3vw;
 }
 
 /*  */
@@ -277,12 +275,13 @@ button {
     display: none;
 }
 
-.dropdown__container {
-    display: flex;
-    gap: 2vw;
-}
+
 
 @media screen and (max-width: 1000px) {
+
+    .dropdown__container {
+        display: none;
+    }
 
     .desktop,
     #mobile span {
@@ -290,7 +289,7 @@ button {
     }
 
     #mobile .dropdown__inicio,
-    #mobile .dropdown__arrow {
+    .router-link-active#mobile .dropdown__arrow {
         display: flex;
     }
 
@@ -304,8 +303,24 @@ button {
         padding-right: 22px;
     }
 
-    #mobile .dropdown__arrow {
+    #mobile .dropdown__container {
+        position: absolute;
+        top: 52px;
+        gap: 0;
+        right: -28px;
+        opacity: 1;
+        flex-direction: column;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #2c2c2c;
+    }
+
+    .router-link-active#mobile:hover .dropdown__container {
         display: flex;
+        opacity: 1;
+    }
+
+    #mobile .dropdown__arrow {
         position: absolute;
         left: 50px;
         font-size: 20px;
@@ -315,20 +330,6 @@ button {
     #mobile .dropdown {
         width: 160px;
         padding: 12px 20px;
-    }
-
-    #mobile .dropdown__container {
-        position: absolute;
-        display: none !important;
-        top: 52px;
-        gap: 0;
-        right: -28px;
-        opacity: 1;
-        flex-direction: column;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #2c2c2c;
-
     }
 
     #mobile a {
@@ -345,15 +346,7 @@ button {
         color: rgb(234, 69, 69);
     }
 
-    #mobile .dropdown__container {
-        display: flex;
-        opacity: 1;
-    }
 
-    #mobile:hover .dropdown__container {
-        display: flex !important;
-        opacity: 1;
-    }
 
     #mobile .dropdown__option {
         background: #1f1f1f;
@@ -369,6 +362,10 @@ button {
     [theme="white"] #mobile .dropdown,
     [theme="white"] #mobile .dropdown__container {
         background: #E7E7E7 !important;
+    }
+
+    [theme="white"] .dropdown__inicio {
+        color: #1f1f1f;
     }
 }
 
@@ -454,7 +451,7 @@ button {
 }
 
 .escuro {
-    left: max(3vw, 50px);
+    left: max(3vw, 42px);
 }
 
 .claro {
