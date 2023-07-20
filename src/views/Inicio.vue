@@ -2,8 +2,8 @@
     <main id="main">
         <!-- Popup -->
 
-        <div class="popup__background" id="animation" v-if="popup" @click="upPopup">
-            <div class="popup__overflow">
+        <div class="popup__background" v-if="popup" @click="upPopup">
+            <div class="popup__overflow" id="animation">
                 <div class="container-button">
                     <button class="changeProject back" @click="changeProjectDesign('back')">
                         <p>←</p>
@@ -30,7 +30,7 @@
 
         <section class="sobre" id="sobre">
             <p
-                style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 0.7rem; color: rgb(105, 110, 128); font-weight: 300;">
+                style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 1rem; color: rgb(105, 110, 128); font-weight: 300;">
                 Designed by Mateus Durães dos Santos - 2023
             </p>
 
@@ -38,7 +38,7 @@
 
             <div class="sobre__description">
                 <div class="sobre__container">
-                    <p class="mim__ola">Olá,</p>
+                    <p class="mim__ola">{{ saldacao }}</p>
                     <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
                 </div>
                 <br>
@@ -194,7 +194,7 @@
 
         <!--  -->
 
-        <router-link class="ver__container" to="/portfolio">
+        <router-link class="ver__container" to="/portfolio" @click="this.$emit('removeLinkVer')">
 
             <button class="ver--hover">Ver portfólio completo</button>
             <button class="ver">Ver portfólio completo</button>
@@ -375,15 +375,16 @@ export default {
             number: 0,
             imgs: imagens,
             indexImg: 0,
-            footerVisible: true
-
+            footerVisible: true,
+            saldacao: null,
         }
     },
     mounted() {
         this.observador()
         this.keepWhiteOnReload(0)
         this.changeImagens(0)
-      
+        this.haveAGoodDay()
+
     },
     props: {
         booleanTheme: Boolean
@@ -394,6 +395,24 @@ export default {
         }
     },
     methods: {
+        haveAGoodDay() {
+            const date = new Date().getHours()
+
+            if (date >= 0 && date < 5) {
+                this.saldacao = 'Olá,'
+            }
+            else if (date >= 5 && date < 12) {
+                this.saldacao = 'Bom dia!'
+            }
+            else if (date >= 12 && date < 18) {
+                this.saldacao = 'Boa tarde!'
+            }
+            else {
+                this.saldacao = 'Boa noite!'
+            }
+
+
+        },
         changeImagens(timer) {
             if (this.booleanTheme == true) {
                 setTimeout(() => {
@@ -409,7 +428,7 @@ export default {
                     this.footerVisible = true
                 }, timer);
             }
-            this.keepWhiteOnReload(1000)
+            this.keepWhiteOnReload(timer)
         },
         keepWhiteOnReload(timer) {
             setTimeout(() => {

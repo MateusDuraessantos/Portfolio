@@ -26,8 +26,8 @@
 
         <!--  -->
 
-        <section class="popup__background" id="animation" v-if="popup" @click="upPopup">
-            <div class="popup__overflow">
+        <section class="popup__background" v-if="popup" @click="upPopup">
+            <div class="popup__overflow" id="animation">
 
                 <div class="container-button">
                     <button class="changeProject back" @click="changeProject('back')">
@@ -93,20 +93,22 @@ export default {
             isWebsitesIsPopup: true,
         }
     },
+    mounted() {
+        this.filtroTheme(0)
+        this.scrolltoTop()
+        this.clickedFilter()
+
+    },
     props: {
-        booleanTheme: Boolean
+        booleanTheme: Boolean,
     },
     watch: {
         booleanTheme() {
             this.filtroTheme(1000)
         }
     },
-    mounted() {
-        this.filtroTheme(0)
-        this.scrolltoTop()
-        this.clickedFilter()
-    },
     methods: {
+        
         filtroTheme(time) {
             setTimeout(() => {
                 if (this.booleanTheme == true) {
@@ -183,7 +185,7 @@ export default {
                 this.isColumn = 2
             }
             else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
-                document.body.removeAttribute('style')
+                document.body.style.overflow = ''
                 this.popup = !this.popup
                 // Loading 
                 this.loading = true
@@ -469,7 +471,6 @@ main {
     .cards__container_name {
         padding: 2vw;
     }
-
 }
 
 @media only screen and (max-width: 800px) {
@@ -508,4 +509,5 @@ main {
 .white button {
     color: black;
 }
+
 </style>

@@ -21,7 +21,6 @@
                     <a class="dropdown nav" @click="scrollDown($event, 'contato')">Contato</a>
                 </div>
             </router-link>
-
             <router-link class="router-link-a" @click="removeLink" to="portfolio">Portfólio</router-link>
 
         </div>
@@ -33,26 +32,30 @@ export default {
     name: 'Header',
     props: {
         dadoBol: String,
-        booleanTheme: Boolean
+        booleanTheme: Boolean,
+        removeLinkVer: Boolean
     },
     data() {
         return {
-            isWhite: false,
             blockClick: true,
-            colorNav: 'black',
+            colorNav: '',
         }
     },
     mounted() {
-        this.turnWhite(0)
+        setTimeout(() => {
+            this.turnWhite(0)
+        }, 0);
     },
-    watch:{
-        booleanTheme(){
+    watch: {
+        booleanTheme() {
             this.turnWhite(1000)
+        },
+        removeLinkVer() {
+            this.removeLink()
         }
     },
     methods: {
         emitFunction() {
-
             if (this.blockClick) {
                 this.$emit('tunOn')
 
@@ -70,7 +73,6 @@ export default {
             if (this.booleanTheme == true) {
                 buttun.style.transform = 'translate(max(6.8vw, 92px))'
                 white.classList.add('turnWhite--white')
-                this.isWhite = !this.isWhite
 
                 // Muda cor da navegação
                 setTimeout(() => {
@@ -80,7 +82,6 @@ export default {
             else {
                 white.classList.remove('turnWhite--white')
                 buttun.style.transform = ''
-                this.isWhite = !this.isWhite
 
                 // Muda cor da navegação
                 setTimeout(() => {
@@ -89,10 +90,11 @@ export default {
             }
         },
         removeLink() {
+            this.$emit('removeLink')
+
             if (document.querySelector('[activeLink]') != null) {
                 document.querySelector('[activeLink]').removeAttribute('activeLink')
             }
-            this.$emit('removeLink')
 
             if (document.querySelector('.hiddenHeader') != null) {
                 document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
@@ -346,8 +348,6 @@ button {
         color: rgb(234, 69, 69);
     }
 
-
-
     #mobile .dropdown__option {
         background: #1f1f1f;
         padding: 20px;
@@ -361,7 +361,7 @@ button {
 
     [theme="white"] #mobile .dropdown,
     [theme="white"] #mobile .dropdown__container {
-        background: #E7E7E7 !important;
+        background: #F4F4F4 !important;
     }
 
     [theme="white"] .dropdown__inicio {
@@ -370,7 +370,6 @@ button {
 }
 
 @media screen and (max-width: 800px) {
-
     .cards {
         height: 27vw;
     }
@@ -455,6 +454,6 @@ button {
 }
 
 .claro {
-    right: max(3vw, 50px);
+    right: max(3vw, 42px);
 }
 </style>

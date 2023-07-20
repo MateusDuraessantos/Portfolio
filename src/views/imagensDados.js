@@ -23,7 +23,7 @@ export const imagens = [
         paths:
             [
                 'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
-                'projetos/tcc/design-de-um-webiste-para-exposicao-de-projetos-universitarios-do-curos-de-design-mackenzie.jpg',
+                
                 'projetos/tcc/pagina_inicial_do_projeto.jpg',
                 'projetos/tcc/arvore_de_navegacao_proposta.jpg',
             ],

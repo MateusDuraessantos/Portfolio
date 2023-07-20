@@ -1,11 +1,18 @@
 <template>
   <div id="background">
     <div id="themeOverflow"></div>
+    <div id="overflow">
+      <div class="overflowPort">
+        <img :src="`inicio/${smile}/smile.svg`">
+      </div>
+    </div>
 
-    <Header @tun-on="turnOn" :booleanTheme="booleanTheme" class="header" id="header" @remove-link="removeClass"
-      :dadoBol="hiddenHeader" />
 
-    <router-view :booleanTheme="booleanTheme" @nome-evento="tratarEvento" @loading-holl-page="loadingOla" />
+    <Header @tun-on="turnOn" :removeLinkVer="removeLinkVer" :booleanTheme="booleanTheme" class="header" id="header"
+      @remove-link="removeClass" :dadoBol="hiddenHeader" />
+
+    <router-view :booleanTheme="booleanTheme" @remove-link-ver="removeLinkVerFunc" @nome-evento="tratarEvento"
+      @loading-holl-page="loadingOla" />
   </div>
 </template>
 
@@ -19,37 +26,72 @@ export default {
   },
   data() {
     return {
+      removeLinkVer: true,
+      whatTimeIs: null,
       hiddenHeader: true,
+      //Se true o tema fica branco 
+      booleanTheme: null,
       hide: false,
-      //se true o tema fica branco 
-      booleanTheme: false,
+      smile: '',
     }
   },
   mounted() {
+    this.transitionAnimation()
+    this.isDay()
     this.favIcon()
     this.turnBackgroundWhite(0)
     this.overflow(0)
   },
   methods: {
+    transitionAnimation() {
+      const overflow = document.getElementById('overflow')
+
+      if (this.booleanTheme == true) {
+        overflow.classList.add('whiteoverflows')
+        this.smile = 'white'
+        setTimeout(() => {
+          overflow.classList.remove('whiteoverflows')
+        }, 1250);
+      }
+      else {
+        overflow.classList.add('blackoverflows')
+        this.smile = 'sky'
+        setTimeout(() => {
+          overflow.classList.remove('blackoverflows')
+        }, 1250);
+      }
+    },
+    removeLinkVerFunc() {
+      this.removeLinkVer = !this.removeLinkVer
+    },
+    isDay() {
+      this.whatTimeIs = new Date().getHours()
+
+      if (this.whatTimeIs <= 5 || this.whatTimeIs > 18) {
+        this.booleanTheme = false
+      }
+      else {
+        this.booleanTheme = true
+      }
+    },
     turnOn() {
       this.booleanTheme = !this.booleanTheme
       this.turnBackgroundWhite(1000)
       this.overflow(2000)
-
     },
     overflow(timer) {
       // Aciona o overflow para alteração do tema 
       const overflow = document.getElementById('themeOverflow')
+      overflow.setAttribute('class', 'blackOverflow')
 
       if (this.booleanTheme == true) {
-        overflow.setAttribute('class', 'whiteOverflow')
 
         setTimeout(() => {
           overflow.removeAttribute('class')
         }, timer);
       }
       else {
-        overflow.setAttribute('class', 'blackOverflow')
+        overflow.setAttribute('class', 'whiteOverflow')
         setTimeout(() => {
           overflow.removeAttribute('class')
         }, timer);
@@ -57,16 +99,13 @@ export default {
     },
     turnBackgroundWhite(timer) {
       // Altera a cor do background global 
-
       if (this.booleanTheme == true) {
-        console.log('mateus')
+
         setTimeout(() => {
           document.body.style.background = 'white'
         }, timer);
-
       }
       else {
-        console.log('duraes')
         setTimeout(() => {
           document.body.removeAttribute('style')
         }, timer);
@@ -76,11 +115,10 @@ export default {
       document.getElementById('header').classList.remove('show')
     },
     tratarEvento(showingup) {
-
       if (showingup) {
         this.hiddenHeader = false
-
-      } else {
+      }
+      else {
         this.hiddenHeader = true
       }
     },
@@ -91,7 +129,6 @@ export default {
       document.head.appendChild(newLink)
     }
   },
-
 }
 </script>
 
@@ -106,6 +143,11 @@ body {
   width: 100vw;
   overflow-y: overlay;
   overflow-x: hidden;
+}
+
+
+:root {
+  --creme: #E0D9CE
 }
 
 img {
@@ -130,7 +172,7 @@ p {
 
 * {
   font-family: 'Poppins', sans-serif;
-  color: #E0D9CE;
+  color: var(--creme);
   margin: 0;
   box-sizing: border-box;
 
@@ -365,6 +407,7 @@ button {
   height: 34px;
   border: none;
   background: none;
+  color: var(--creme) !important;
 }
 
 @media only screen and (min-width: 1981px) {
@@ -435,8 +478,6 @@ button {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
   }
 
-
-
   .popup__content {
     display: flex;
     flex-direction: column;
@@ -450,14 +491,12 @@ button {
 
 /* white theme */
 
-
+.blackOverflow {
+  background: black;
+}
 
 .whiteOverflow {
   background: white;
-}
-
-.blackOverflow {
-  background: black;
 }
 
 .whiteOverflow,
@@ -481,12 +520,74 @@ button {
   }
 
   50% {
-
     opacity: 1;
   }
 
   100% {
+    opacity: 0;
+  }
+}
 
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transition: 1s;
+  opacity: 0;
+}
+
+
+/* Animação ao carregar a página */
+
+.overflowPort {
+  display: none;
+}
+
+.whiteoverflows .overflowPort,
+.blackoverflows .overflowPort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: none;
+}
+
+.whiteoverflows,
+.blackoverflows {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 100vh;
+  opacity: 1;
+  animation-name: animationOverflow;
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  width: 100vw;
+}
+
+.blackoverflows {
+  background: black;
+}
+
+.whiteoverflows {
+  background: white;
+}
+
+@keyframes animationOverflow {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
     opacity: 0;
   }
 }
