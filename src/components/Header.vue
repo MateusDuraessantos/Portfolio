@@ -3,7 +3,7 @@
 
         <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith " id="whiteThemeBtn">
-                <p class="claro"><span>🌞</span> Claro</p>
+                <p class="claro"><span>☀️</span> Claro</p>
                 <p class="escuro">Escuro <span>🌙</span></p>
             </div>
         </button>
@@ -72,20 +72,20 @@ export default {
 
             if (this.booleanTheme == true) {
                 buttun.style.transform = 'translate(max(6.8vw, 92px))'
-                white.classList.add('turnWhite--white')
 
                 // Muda cor da navegação
                 setTimeout(() => {
                     this.colorNav = 'white'
+                    white.classList.add('turnWhite--white')
                 }, timer);
             }
             else {
-                white.classList.remove('turnWhite--white')
                 buttun.style.transform = ''
 
                 // Muda cor da navegação
                 setTimeout(() => {
                     this.colorNav = 'black'
+                    white.classList.remove('turnWhite--white')
                 }, timer);
             }
         },
@@ -406,12 +406,16 @@ button {
     padding: 0.6vw;
     transition: .4s;
     overflow: hidden;
-    box-shadow: inset 0.3vw 0.3vw 0.5vw rgba(0, 0, 0, 0.2);
     width: 10vw;
     height: 3vw;
     min-width: 140px;
     min-height: 40px;
     outline: none;
+    box-shadow: inset 0.1vw 0.1vw 0.4vw rgba(0, 0, 0, 0.4);
+}
+
+.turnWhite--white.turnWhite {
+    box-shadow: inset 0.1vw 0.1vw 0.4vw rgba(0, 0, 0, 0.2), -0.1vw -0.1vw 0.1vw rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(255, 255, 255, 0.6);
 }
 
 .turnWhite__swith {
@@ -420,17 +424,22 @@ button {
     display: flex;
     align-items: center;
     background: gray;
-    border: 0.2vw solid transparent;
-    width: 2.4vw;
-    height: 2.4vw;
+    box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.4), inset -1px -1px 5px rgba(0, 0, 0, 0.4);
+    width: 2.2vw;
+    height: 2.2vw;
     min-width: 30px;
     min-height: 30px;
     border-radius: 50%;
     transition: .2s;
 }
 
+.turnWhite--white .turnWhite__swith {
+    box-shadow: none;
+    box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.4);
+}
+
 .turnWhite--white {
-    background: rgb(233, 233, 233);
+    background: rgb(235 235 235);
     transition: .4s;
 }
 
@@ -447,6 +456,7 @@ button {
     gap: max(0.4vw, 4px);
     white-space: nowrap;
     font-size: max(1rem, 14px);
+    width: 5.6vw;
 }
 
 .escuro {
