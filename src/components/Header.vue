@@ -3,8 +3,8 @@
 
         <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith " id="whiteThemeBtn">
-                <p class="claro"><span>☀️</span> Claro</p>
-                <p class="escuro">Escuro <span>🌙</span></p>
+                <p class="claro"><span>☀️</span> <text-btn>Claro</text-btn></p>
+                <p class="escuro"><text-btn>Escuro</text-btn> <span>🌙</span></p>
             </div>
         </button>
 
@@ -71,7 +71,7 @@ export default {
             const white = document.querySelector('.turnWhite')
 
             if (this.booleanTheme == true) {
-                buttun.style.transform = 'translate(max(6.8vw, 92px))'
+                buttun.style.transform = 'translate(max(6.8vw, 100px))'
 
                 // Muda cor da navegação
                 setTimeout(() => {
@@ -443,8 +443,12 @@ button {
     transition: .4s;
 }
 
-.turnWhite--white p {
+.turnWhite--white text-btn {
     color: black;
+}
+
+text-btn {
+    width: 3.4rem;
 }
 
 .escuro,
@@ -456,7 +460,6 @@ button {
     gap: max(0.4vw, 4px);
     white-space: nowrap;
     font-size: max(1rem, 14px);
-    width: 5.6vw;
 }
 
 .escuro {
