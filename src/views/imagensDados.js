@@ -5,13 +5,13 @@ export const imagens = [
         thumb: 'projetos/chimarrao/thumb.jpg',
         alt: 'Chimarrão - projeto 3d - Cinema4D',
         paths:
-            [
-                'projetos/chimarrao/1.jpg',
-                'projetos/chimarrao/2.jpg',
-                'projetos/chimarrao/3.jpg',
-                'projetos/chimarrao/4.jpg',
-                'projetos/chimarrao/5.jpg',
-            ],
+        [
+            'projetos/chimarrao/1.jpg',
+            'projetos/chimarrao/2.jpg',
+            'projetos/chimarrao/3.jpg',
+            'projetos/chimarrao/4.jpg',
+            'projetos/chimarrao/5.jpg',
+        ],
     },
     {
         name: 'Redesign website do curso de Design Mackenzie',
@@ -21,38 +21,12 @@ export const imagens = [
         github: 'https://github.com/MateusDuraessantos/TCC',
         alt: 'Website trabalho de conclusão de curso Mackenzie',
         paths:
-            [
-                'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
-                
-                'projetos/tcc/pagina_inicial_do_projeto.jpg',
-                'projetos/tcc/arvore_de_navegacao_proposta.jpg',
-            ],
-    },
-    {
-        name: 'Cobogó | Construção civil',
-        categoria: 'design',
-        thumb: 'projetos/cobogo/thumb.jpg',
-        alt: 'Trabalho acadêmico Mackenzie Higienópolios - Modelagem 3d - Cinema 4D, Cobogó',
-        paths:
-            [
-                'projetos/cobogo/1.jpg',
-                'projetos/cobogo/2.jpg',
-                'projetos/cobogo/3.jpg',
-                'projetos/cobogo/4.jpg',
-            ],
-    },
-    {
-        name: 'Cômoda materna | Para Parelheiros',
-        categoria: 'design',
-        thumb: 'projetos/comoda/thumb.jpg',
-        alt: 'Projeto Cômoda para mães de parelheiros',
-        paths:
-            [
-                'projetos/comoda/3.jpg',
-                'projetos/comoda/1.jpg',
-                'projetos/comoda/2.jpg',
-                'projetos/comoda/4.jpg',
-            ],
+        [
+            'projetos/tcc/webiste_mackenzie_curso_de_design.jpg',
+            'projetos/tcc/pagina_inicial_do_projeto.jpg',
+            'projetos/tcc/arvore_de_navegacao_proposta.jpg',
+        ],
+        description: 'Nesse projeto, desenvolvido apenas por mim, buscando aprimorar a experiência do usuário, para o website do curso de Design da Universidade Presbiteriana Mackenzie, propus uma nova abordagem de UI (Interface do Usuário) e UX (Experiência do Usuário), utilizando a metodologia de Design HCD (Design Centrado no Humano) em conjunto com "Os 5 Elementos da Experiência do Usuário" como guias norteadores. O projeto levou cerca que 9 mêses até o resultado final e contou com muitas pesquisas de campo para realizar um resoltado que trouxesse valor aos usuários do sistema. As seguintes ferramentas foram utilizadas: HTML, CSS, Javascript, VueJs, Firebase, GitHub e Element Plus.',
     },
     {
         name: 'TeclaKey | One Page',
@@ -67,6 +41,7 @@ export const imagens = [
                 'projetos/teclakey/teclakey.jpg',
                 'projetos/teclakey/3.jpg',
             ],
+            description: 'TeclaKey é um estudio de design, onde, na criação do website, junto a uma equipe de 3 pessoas, eu coordenador o desenvolvimento da identidade visual. No projeto, além de coordenar, também fiquei 100% responsável pelo frontend, responsiveidade, implementação no domínio e otimização dos conteúdos para web.'
     },
     {
         name: 'Pingente Butterfly',
@@ -81,6 +56,7 @@ export const imagens = [
                 'projetos/butterfly/2.jpg',
                 'projetos/butterfly/4.png',
             ],
+            description: 'Nesse projeto, eu desenvolvi um modelo 3D de pingente, utilizando como ferramenta de modelagem e renderização o Cinema 4D.'
     },
     {
         name: 'Mesa Gamer | Modelagem',
@@ -98,22 +74,6 @@ export const imagens = [
             ],
     },
     {
-        name: 'Ascensão dos deuses | Tabuleiro',
-        categoria: 'design',
-        thumb: 'projetos/tabuleiro/thumb.jpg',
-        alt: 'Jogo de tabuleiro, Mackenzie higienópolis',
-        paths:
-            [
-                'projetos/tabuleiro/4.jpg',
-                'projetos/tabuleiro/6.jpg',
-                'projetos/tabuleiro/2.jpg',
-                'projetos/tabuleiro/8.jpg',
-                'projetos/tabuleiro/7.jpg',
-                'projetos/tabuleiro/1.jpg',
-                'projetos/tabuleiro/5.jpg',
-            ],
-    },
-    {
         name: 'Mun | Arandela escamoteável',
         categoria: 'design',
         thumb: 'projetos/mun/thumb.jpg',
@@ -125,14 +85,13 @@ export const imagens = [
                 'projetos/mun/mun_Iluminacao.jpg',
                 'projetos/mun/mun_visao_interna.jpg',
                 'projetos/mun/mun_visao_interna_escamoteavel.jpg',
-
-
             ],
     },
     {
         name: 'Tre | One Page',
         categoria: 'website',
         thumb: 'projetos/tre/2.jpg',
+        github: 'https://github.com/MateusDuraessantos/tre',
         link: 'https://tre.art.br/',
         alt: 'Onepage - Empresa Tre Designs | Vuejs html css',
         paths:
@@ -141,40 +100,12 @@ export const imagens = [
                 'projetos/tre/2.jpg',
                 'projetos/tre/site.jpg',
             ],
-    },
-
-    {
-        name: 'Tênis Nike | Modelagem Cinema 4d',
-        categoria: 'design',
-        thumb: 'projetos/nike/thumb.jpg',
-        alt: 'Modelagem 3d - Tênis nike',
-        paths:
-            [
-                'projetos/nike/tenis_nike_render_3d.jpg',
-                'projetos/nike/modelo_tenis_nike_render.jpg',
-                'projetos/nike/tenis_nike_render_3d_cinema4d.jpg',
-                'projetos/nike/tenis_nike_cinema4d.jpg',
-            ],
-    },
-    {
-        name: 'Relógio de Ouro | Cinema 4d',
-        categoria: 'design',
-        thumb: 'projetos/relogio_dourado/thumb.jpg',
-        alt: 'Relógio masculino dourado',
-        paths:
-            [
-                'projetos/relogio_dourado/relogio_dourado.jpg',
-                'projetos/relogio_dourado/relogio_dourado.jpg',
-                'projetos/relogio_dourado/perspectiva_relogio.jpg',
-                'projetos/relogio_dourado/lateral_do_relogio.jpg',
-                'projetos/relogio_dourado/relogio_de_ouro_masculino_de_pulso.jpg',
-            ],
+        description: "A Tre Comunicação, é uma empresa de design, onde eu e uma equipe de 3 pessoas, trabalhamos em uma nova prosta de design para o seu website. No projeto, além da minha participação no design, fiquei 100% responsável pela programação e hospedagem dos códigos no domínio (que já existia) da empresa.",
     },
     {
         name: 'Data Machina | One page',
         categoria: 'website',
         thumb: 'projetos/datamachina/thumb.jpg',
-        link: 'https://datamachina.com.br/',
         alt: 'Data Machina / Projeto frontend css e html',
         paths:
             [
@@ -182,6 +113,7 @@ export const imagens = [
                 'projetos/datamachina/design_system_mobile_instagram.jpg',
                 'projetos/datamachina/datamachina_website_onepage.jpg',
             ],
+        description: 'Nesse projeto, com o design (para desktop) e conteúdos desenvolvido préviamente por outros colaboradores, fiquei encarregado de desenvolver toda a etapa de HTML e CSS e torna-lo responsiveo para dispositivos mobile.',
     },
     {
         name: 'Relógio de pulso 2.0 | Cinema 4d',
@@ -205,6 +137,6 @@ export const imagens = [
                 'projetos/music/mockup.jpg',
                 'projetos/music/music_sp.jpg',
             ],
+        description: 'Nesse projeto, focado na divulgação projetos músical (Bandas, orquestras, artistas individuais), junto a uma equipe, participei da criação do design visual e usabilidade/experiência do usuário. Utilizando como ferramenta de prototipação navegávelo, o Figma.'
     },
-
 ]

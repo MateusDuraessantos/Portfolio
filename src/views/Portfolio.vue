@@ -43,26 +43,32 @@
                     <div class="loading"></div>
                 </div>
 
-                <figure class="popup__content" id="img_port" layoutPopup style="opacity: 0;">
+                <figure class="popup__content" id="img_port" layoutPopup style="opacity: 1;">
 
                     <div class="link__grid">
                         <a :href="imgs[indexImg].link" target="_blank" v-if="imgs[indexImg].link" class="link__container">
-                            Link
-                            para o projeto
+                            Website online
                             <img class="link__img" src="external.svg">
                         </a>
                         <a :href="imgs[indexImg].github" target="_blank" v-if="imgs[indexImg].github"
                             class="link__container">
-                            Link
-                            para o GitHub
+                            GitHub
                             <img class="link__img" src="github_logo.svg">
                         </a>
                     </div>
 
+                    <div class="description">
+                        <h1 class="h1__popup">{{ imgs[indexImg].name }}</h1>
+                        <span v-if="imgs[indexImg].description">
+                            <br>
+                            <p style="font-size: 0.8rem; line-height: 1.4rem;">
+                                {{ imgs[indexImg].description }}
+                            </p>
+                        </span> 
+                    </div>
+
                     <span v-for="coisas in imgs[indexImg].paths">
-
                         <img class="popup__img" :alt="imgs[indexImg].alt" @load="loadingImg" :src="coisas">
-
                     </span>
 
                 </figure>
@@ -377,6 +383,8 @@ main {
 
 .link__grid {
     display: flex;
+    justify-content: flex-end;
+    padding-right: 1vw;
     gap: 1vw;
     position: sticky;
     margin-left: 1vw;

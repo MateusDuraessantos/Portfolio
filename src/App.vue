@@ -195,6 +195,16 @@ p {
 
 /* Popup  */
 
+.description {
+    padding: 1.2vw;
+}
+
+.h1__popup {
+    font-size: 1.4rem;
+    font-weight: 600;
+    width: 70%;
+}
+
 .popup__background {
   position: fixed;
   top: 0;

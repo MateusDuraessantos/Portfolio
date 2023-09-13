@@ -19,6 +19,11 @@
                 </div>
 
                 <div class="popup__content" id="img_portrato" style="opacity: 0;">
+                    <div class="description" v-if="imgs[indexImg].title">
+                        <h1 class="h1__popup">{{ imgs[indexImg].title }}</h1>
+                        <br>
+                        <p style="font-size: 0.8rem;">{{ imgs[indexImg].description }}</p>
+                    </div>
                     <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
                 </div>
 
@@ -61,7 +66,7 @@
                     <p>Sou formado em design na Universidade Presbiteriana Mackenzie. Trabalho a 2 anos com a criação de
                         designs para websites (UX/UI) e desenvolvimento frontend (com CSS, Javascript e VueJs). Sempre
                         gostei de tecnologia (hardwares/softwares). Atualmente sou Junior e tenho como meta atuar como Full
-                        Stack, para isso, tenho estudando backend, tendo como porta de entrada o Node.js</p>
+                        Stack, para isso, tenho estudando tecnologias backend.</p>
 
                 </div>
             </div>

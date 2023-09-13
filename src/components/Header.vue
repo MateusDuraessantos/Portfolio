@@ -136,7 +136,7 @@ nav {
     font-size: 1rem;
     min-height: 70px;
     top: 0;
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px) !important;
     width: 100vw;
     height: 10.1vw;
     max-height: 100px;
