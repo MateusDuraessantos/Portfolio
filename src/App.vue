@@ -6,8 +6,6 @@
         <img :src="`inicio/${smile}/smile.svg`">
       </div>
     </div>
-
-
     <Header @tun-on="turnOn" :removeLinkVer="removeLinkVer" :booleanTheme="booleanTheme" class="header" id="header"
       @remove-link="removeClass" :dadoBol="hiddenHeader" />
 

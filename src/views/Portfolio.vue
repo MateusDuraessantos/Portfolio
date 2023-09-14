@@ -400,7 +400,7 @@ main {
 .link__container {
     height: 38px;
     border: 1px solid gray;
-    opacity: 0;
+    opacity: 1;
     display: flex;
     align-items: center;
     width: max-content;

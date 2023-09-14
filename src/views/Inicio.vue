@@ -19,8 +19,8 @@
                 </div>
 
                 <div class="popup__content" id="img_portrato" style="opacity: 0;">
-                    <div class="description" v-if="imgs[indexImg].title">
-                        <h1 class="h1__popup">{{ imgs[indexImg].title }}</h1>
+                    <div class="description" >
+                        <h1 class="h1__popup">{{ imgs[indexImg].name }}</h1>
                         <br>
                         <p style="font-size: 0.8rem;">{{ imgs[indexImg].description }}</p>
                     </div>
