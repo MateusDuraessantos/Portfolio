@@ -193,8 +193,9 @@ p {
 
 /* Popup  */
 
-.description {
+.description h1, .description p {
     padding: 1.2vw;
+    color: #E0D9CE !important;
 }
 
 .h1__popup {
