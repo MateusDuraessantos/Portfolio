@@ -63,6 +63,7 @@ export const imagens = [
     },
     {
         name: 'Data Machina | Trabalhos Front End',
+        link: 'https://data-machina.web.app/',
         paths:
             [
                 'projetos/datamachina/datamachina.jpg',

@@ -143,7 +143,6 @@ body {
   overflow-x: hidden;
 }
 
-
 :root {
   --creme: #E0D9CE
 }
@@ -189,6 +188,50 @@ p {
 *::-webkit-scrollbar-thumb {
   background-color: #474747;
   border-radius: 6px;
+}
+
+
+/* link popup */
+
+.link__grid {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1vw;
+    gap: 1vw;
+    position: sticky;
+    margin-left: 1vw;
+    top: -88px;
+    transform: translatey(12px);
+    height: 0;
+}
+
+.link__container {
+    height: 38px;
+    border: 1px solid gray;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    padding: 0.4vw 1vw 0.4vw 1.2vw;
+    text-decoration: none;
+    gap: 0.6vw;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10vw;
+    backdrop-filter: blur(15px);
+    transition: .2s;
+}
+
+.link__img {
+    width: 1.2vw;
+    min-width: 20px;
+    margin: auto;
+    z-index: 2;
+    transition: .2s;
+}
+
+.link__container:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: .2s;
 }
 
 /* Popup  */

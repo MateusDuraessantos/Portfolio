@@ -111,6 +111,7 @@ export const imagens = [
         categoria: 'website',
         thumb: 'projetos/datamachina/thumb.jpg',
         alt: 'Data Machina / Projeto frontend css e html',
+        link: 'https://data-machina.web.app/',
         paths:
             [
                 'projetos/datamachina/datamachina.jpg',

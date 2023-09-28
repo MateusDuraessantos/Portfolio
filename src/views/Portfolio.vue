@@ -324,7 +324,6 @@ main {
     transition: .4s;
 }
 
-
 /* Cards */
 
 .grid {
@@ -334,7 +333,6 @@ main {
     margin: auto;
 
 }
-
 .cards {
     display: flex;
     flex-direction: column-reverse;
@@ -346,8 +344,6 @@ main {
     cursor: pointer;
     border-radius: 10px;
 }
-
-
 
 .cards__container_name {
     display: flex;
@@ -376,54 +372,10 @@ main {
     font-size: 0.9rem;
     text-align: center;
     color: rgb(235, 235, 235);
-
-}
-
-/* link popup */
-
-.link__grid {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 1vw;
-    gap: 1vw;
-    position: sticky;
-    margin-left: 1vw;
-    top: -88px;
-    transform: translatey(12px);
-    height: 0;
 }
 
 .popup__content:hover .link__container {
     opacity: 1;
-}
-
-.link__container {
-    height: 38px;
-    border: 1px solid gray;
-    opacity: 1;
-    display: flex;
-    align-items: center;
-    width: max-content;
-    padding: 0.4vw 1vw 0.4vw 1.2vw;
-    text-decoration: none;
-    gap: 0.6vw;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10vw;
-    backdrop-filter: blur(15px);
-    transition: .2s;
-}
-
-.link__img {
-    width: 1.2vw;
-    min-width: 20px;
-    margin: auto;
-    z-index: 2;
-    transition: .2s;
-}
-
-.link__container:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-    transition: .2s;
 }
 
 
