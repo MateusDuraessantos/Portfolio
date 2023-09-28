@@ -5,7 +5,7 @@
 * Designed and Programmed by: Me
 
 
-# ⚙️ Technologies I used
+## ⚙️ Technologies I used
 
 HTML/CSS
 VueJs
