@@ -205,6 +205,10 @@ p {
     height: 0;
 }
 
+.link__grid a {
+  color: var(--creme) !important;
+}
+
 .link__container {
     height: 38px;
     border: 1px solid gray;

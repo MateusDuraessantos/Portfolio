@@ -43,6 +43,7 @@ export const imagens = [
 
     {
         name: 'Tre | One Page',
+        link: 'https://tre-art-4b66f.web.app/',
         paths:
             [
                 'projetos/tre/1.jpg',
@@ -53,6 +54,7 @@ export const imagens = [
     },
     {
         name: 'TeclaKey | One Page',
+        link: 'https://teclakey.com/', 
         paths:
             [
                 'projetos/teclakey/mockup.jpg',
