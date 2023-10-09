@@ -261,7 +261,7 @@
                                     <p class="contato__email">instagram</p>
                                 </div>
                                 <div class="decoration__info">@mateusduraes_</div>
-                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Copiar">
                             </a>
                         </div>
 
@@ -284,7 +284,7 @@
                                 <div class="decoration__info">
                                     Mateus Durães dos Santos
                                 </div>
-                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Copiar">
                             </a>
                         </div>
                     </address>
