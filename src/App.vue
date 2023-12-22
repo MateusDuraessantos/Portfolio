@@ -41,6 +41,9 @@ export default {
     this.overflow(0)
   },
   methods: {
+    login(){
+      this.$gtag.event('login', { method: 'Google' })
+    },
     transitionAnimation() {
       const overflow = document.getElementById('overflow')
 
