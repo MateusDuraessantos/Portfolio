@@ -22,3 +22,8 @@
 * My GitHub: https://github.com/MateusDuraessantos
 * Email me: mateusduraessantos@gmail.com
 * My LinkedIn: https://www.linkedin.com/in/mateus-durães-dos-santos/
+
+# Run project
+
+* npm install
+* npm run serve
