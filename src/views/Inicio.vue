@@ -105,7 +105,7 @@
 
             <div class="card__grid">
 
-                <div :class="'card ' + img.class" v-for="img in cardDesign" @click="upPopup($event, img.index)">
+                <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardDesign" @click="upPopup($event, img.index)">
                     <img class="card__img" :src="`projetos/${img.path}`" loading="lazy">
                     <div class="card__description">
                         <div class="card__data">
@@ -115,11 +115,6 @@
                         <button class="card__btn">ver</button>
                     </div>
                 </div>
-            </div>
-
-            <!--  -->
-
-            <div class="container-table">
                 <div class="table">
                     <p class="table_p">Habilidades em softwares de Design:</p>
 
@@ -142,9 +137,9 @@
                         </td>
                     </div>
                 </div>
-                <figure class="figure__design">
+             <!--    <figure class="figure__design">
                     <img class="img_design" :src="`inicio/${whitePlanets}/design.png`" alt="Design">
-                </figure>
+                </figure> -->
             </div>
         </section>
 
@@ -158,7 +153,7 @@
             <p class="card__destaques">Destaques:</p>
 
             <div class="card__grid">
-                <div :class="'card ' + img.class" v-for="img in cardFront" data-sr-delay="100"
+                <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
                     @click="upPopup($event, img.index, 'true')">
 
                     <img class="card__img" :src="'projetos/' + img.obj[0]">
@@ -170,12 +165,6 @@
                         <button class="card__btn">ver</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="container-front">
-                <figure class="figure__front">
-                    <img class="img_front" :src="`inicio/${whitePlanets}/frontend.png`" alt="Design" />
-                </figure>
                 <div class="table">
                     <p class="table_p">Experiências em frontend:</p>
                     <div class="table__content">
@@ -341,12 +330,22 @@ export default {
                 },
                 {
                     index: '1',
-                    path: 'butterfly/thumb.jpg',
+                    path: 'butterfly/3.jpg',
                     obj: [
                         'Pingente Butterfly | Modelagem 3d',
                         '10/03/2022'
                     ],
+                    classGrid: 'gridGrid',
                     class: 'second_el'
+                },
+                {
+                    index: '2',
+                    path: 'mun/thumb.jpg',
+                    obj: [
+                        'Mun | Arandela',
+                        '24/06/2020'
+                    ],
+                    class: 'third_el'
                 },
                 {
                     index: '2',
@@ -371,16 +370,25 @@ export default {
                 {
                     index: '4',
                     obj: [
-                        'teclakey/4.gif',
+                        'teclakey/teclakey.jpg',
                         'TeclaKey | Website',
                         '10/03/2022'
                     ],
-                    class: 'second_el'
+                    class: 'second_el',
+                    classGrid: 'gridGrid',
                 },
                 {
                     index: '5',
                     obj: [
                         'datamachina/thumb.jpg',
+                        'Data Machina | Website',
+                        '12/02/2023'
+                    ],
+                },
+                {
+                    index: '5',
+                    obj: [
+                        'datamachina/datamachina.jpg',
                         'Data Machina | Website',
                         '12/02/2023'
                     ],
@@ -454,11 +462,12 @@ export default {
                     this.whiteIcons = 'blackicons'
                     const whitePaths = [
                         'mesa/thumb1.jpg',
-                        'butterfly/thumb1.jpg',
+                        'butterfly/4.png',
                         'mun/thumb-white-background.jpg',
                     ]
                     for (let i = 0; i < 3; i++) {
                         this.cardDesign[i].path = whitePaths[i]
+                        console.log(this.cardDesign[i]);
                     }
                 }
                 else {
@@ -768,7 +777,8 @@ p {
     border-radius: 2vw;
     background-image: linear-gradient(#232323, #101010);
     width: 100%;
-    height: max-content;
+    height: 100%;
+    grid-area: table;
 }
 
 .table__content {
@@ -825,9 +835,16 @@ td p {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+    '. gridGrid .'
+    'table gridGrid .';
     gap: 24px;
     width: 100%;
     margin: auto;
+}
+
+.gridGrid {
+    grid-area: gridGrid;
 }
 
 .card__destaques {
@@ -848,7 +865,6 @@ td p {
     display: flex;
     justify-content: center;
     position: relative;
-    height: 28vw;
     width: 100%;
     border-radius: 2vw;
     overflow: hidden;
@@ -882,6 +898,7 @@ td p {
     backdrop-filter: blur(9px);
     z-index: 2;
 }
+
 
 .card__btn {
     background: rgba(0, 0, 0, 0.4);
