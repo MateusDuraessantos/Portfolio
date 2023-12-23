@@ -100,7 +100,7 @@ export default {
       if (this.booleanTheme == true) {
 
         setTimeout(() => {
-          document.body.style.background = 'white'
+          document.body.style.background = '#789dc7'
         }, timer);
       }
       else {

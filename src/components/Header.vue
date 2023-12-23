@@ -2,7 +2,7 @@
     <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
         <button class="turnWhite" @click="emitFunction">
-            <div class="turnWhite__swith " id="whiteThemeBtn">
+            <div class="turnWhite__swith" id="whiteThemeBtn">
                 <p class="claro"><span>☀️</span> <text-btn>Claro</text-btn></p>
                 <p class="escuro"><text-btn>Escuro</text-btn> <span>🌙</span></p>
             </div>
@@ -21,8 +21,6 @@
                     <a class="dropdown nav" @click="scrollDown($event, 'contato')">Contato</a>
                 </div>
             </router-link>
-            <router-link class="router-link-a" @click="removeLink" to="portfolio">Portfólio</router-link>
-
         </div>
     </nav>
 </template>
@@ -71,7 +69,7 @@ export default {
             const white = document.querySelector('.turnWhite')
 
             if (this.booleanTheme == true) {
-                buttun.style.transform = 'translate(max(6.8vw, 100px))'
+                buttun.style.transform = 'translate(100px)'
 
                 // Muda cor da navegação
                 setTimeout(() => {
@@ -187,21 +185,12 @@ nav {
     transition: .5s;
 }
 
-.router-link-active,
-.router-link-a:focus {
+.router-link-active {
     color: rgb(234, 69, 69) !important;
     position: relative;
 }
 
-.router-link-a,
 .nav:hover {
-    transition: .5s;
-}
-
-.router-link-a:hover,
-
-.router-link-a:hover span {
-    color: rgb(234, 69, 69);
     transition: .5s;
 }
 
@@ -294,10 +283,6 @@ button {
         background: #2c2c2c;
     }
 
-    .router-link-active#mobile:hover .dropdown__container {
-        display: flex;
-        opacity: 1;
-    }
 
     #mobile .dropdown__arrow {
         position: absolute;
@@ -380,32 +365,28 @@ button {
     background: #2c2c2c;
     border-radius: 10vw;
     border: none;
-    padding: 0.6vw;
+    padding: 12px;
     transition: .4s;
     overflow: hidden;
-    width: 10vw;
-    height: 3vw;
-    min-width: 140px;
-    min-height: 40px;
+    width: 140px;
+    height: 40px;
     outline: none;
-    box-shadow: inset 0.1vw 0.1vw 0.4vw rgba(0, 0, 0, 0.4);
+    box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.4);
 }
 
 .turnWhite--white.turnWhite {
-    box-shadow: inset 0.1vw 0.1vw 0.4vw rgba(0, 0, 0, 0.2), -0.1vw -0.1vw 0.1vw rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(255, 255, 255, 0.6);
+    box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.2), -3px -3px 3px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(255, 255, 255, 0.6);
 }
 
 .turnWhite__swith {
     position: absolute;
-    left: max(4px, 0.4vw);
+    left: 4px;
     display: flex;
     align-items: center;
     background: gray;
     box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.4), inset -1px -1px 5px rgba(0, 0, 0, 0.4);
-    width: 2.2vw;
-    height: 2.2vw;
-    min-width: 30px;
-    min-height: 30px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     transition: .2s;
 }
@@ -425,7 +406,7 @@ button {
 }
 
 text-btn {
-    width: 3.4rem;
+    width: 55px;
 }
 
 .escuro,
@@ -434,16 +415,16 @@ text-btn {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: max(0.4vw, 4px);
+    gap: 4px;
     white-space: nowrap;
-    font-size: max(1rem, 14px);
+    font-size: 14px;
 }
 
 .escuro {
-    left: max(3vw, 42px);
+    left: 42px;
 }
 
 .claro {
-    right: max(3vw, 42px);
+    right: 42px;
 }
 </style>
