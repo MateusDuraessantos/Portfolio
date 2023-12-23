@@ -466,56 +466,6 @@ button {
   color: var(--creme) !important;
 }
 
-@media only screen and (min-width: 1981px) {
-  html {
-    font-size: 30px;
-  }
-}
-
-@media only screen and (max-width: 1980px) {
-  html {
-    font-size: 22px;
-  }
-}
-
-@media only screen and (min-width: 1280px) {
-  html {
-    font-size: 1.2vw !important;
-  }
-
-  .popup__close {
-    font-size: 3vw;
-    right: 2.4vw;
-    top: 2.4vw;
-  }
-
-  .changeProject {
-    width: 5vw;
-    height: 5vw;
-  }
-
-
-  .container-loading span {
-    font-size: 1rem;
-  }
-
-  .loading {
-    width: 10vw;
-    height: 10vw;
-    border-spacing: 12vw;
-
-    border: 0.64vw dotted rgb(183 183 183);
-  }
-
-
-}
-
-@media only screen and (max-width: 1279px) {
-  html {
-    font-size: 16px;
-  }
-}
-
 @media only screen and (max-width: 800px) {
 
   /* Popup */

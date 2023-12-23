@@ -418,21 +418,6 @@ main {
     }
 }
 
-@media only screen and (min-width: 1280px) {
-
-    .grid {
-        gap: 0.8vw;
-    }
-
-    .cards {
-        border-radius: 0.3vw;
-    }
-
-    .cards__container_name {
-        padding: 2vw;
-    }
-}
-
 @media only screen and (max-width: 800px) {
 
     .cards__container_name {

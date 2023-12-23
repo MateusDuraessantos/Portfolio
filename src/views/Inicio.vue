@@ -44,52 +44,51 @@
 
         <!-- SOBRE -->
 
-        <section class="sobre" id="sobre">
-            <p
-                style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 1rem; color: rgb(105, 110, 128); font-weight: 300;">
-                Designed by Mateus Durães dos Santos - 2023
-            </p>
+        <section class="section__sobre" id="sobre">
+            <div class="max__width sobre">
+                <p style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 1rem; color: rgb(105, 110, 128); font-weight: 300;">
+                    Designed by Mateus Durães dos Santos - 2023
+                </p>
 
-            <img src="square1.svg" class="square__left">
+                <div class="sobre__description">
+                    <div class="sobre__container">
+                        <p class="mim__ola">{{ saldacao }}</p>
+                        <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
+                    </div>
+                    <br>
 
-            <div class="sobre__description">
-                <div class="sobre__container">
-                    <p class="mim__ola">{{ saldacao }}</p>
-                    <h2 class="mim__nome">Meu nome é Mateus Durães dos Santos,</h2>
-                </div>
-                <br>
+                    <div class="redes">
+                        <a href="https://www.behance.net/mateusduraes" target="_blank">
+                            <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
+                        </a>
+                        <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
+                            <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
+                        </a>
+                        <a href="https://github.com/MateusDuraessantos" target="_blank">
+                            <img class="redes__img" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
+                        </a>
+                    </div>
 
-                <div class="redes">
-                    <a href="https://www.behance.net/mateusduraes" target="_blank">
-                        <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
-                    </a>
-                    <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                        <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
-                    </a>
-                    <a href="https://github.com/MateusDuraessantos" target="_blank">
-                        <img class="redes__img" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
-                    </a>
-                </div>
+                    <br>
 
-                <br>
+                    <div class="sobre__content">
+                        <p>Sou formado em design na Universidade Presbiteriana Mackenzie. Trabalho a 2 anos com a criação de
+                            designs para websites (UX/UI) e desenvolvimento frontend (com CSS, Javascript e VueJs). Sempre
+                            gostei de tecnologia (hardwares/softwares). Atualmente sou Junior e tenho como meta atuar como Full
+                            Stack, para isso, tenho estudando tecnologias backend.</p>
 
-                <div class="sobre__content">
-                    <p>Sou formado em design na Universidade Presbiteriana Mackenzie. Trabalho a 2 anos com a criação de
-                        designs para websites (UX/UI) e desenvolvimento frontend (com CSS, Javascript e VueJs). Sempre
-                        gostei de tecnologia (hardwares/softwares). Atualmente sou Junior e tenho como meta atuar como Full
-                        Stack, para isso, tenho estudando tecnologias backend.</p>
-
+                    </div>
                 </div>
             </div>
+            
+            <img src="square1.svg" class="square__left">
             <img src="square0.svg" class="square__right">
         </section>
 
         <div class="linkPadding" id="design"></div>
 
         <section class="section">
-
             <!-- BUBBLES -->
-
             <div class="bubble__container" id="bubbles__observer">
                 <div class="bubble" id="bubble">
                     <img src="bubble1.svg">
@@ -97,49 +96,46 @@
                 </div>
             </div>
 
-            <!--  -->
+            <div class="max__width">
+                <p class="experiencia">Minha expêriencia como <strong>designer</strong></p>
 
-            <p class="experiencia">Minha expêriencia como <strong>designer</strong></p>
+                <p class="card__destaques">Destaques:</p>
 
-            <p class="card__destaques">Destaques:</p>
+                <div class="card__grid">
 
-            <div class="card__grid">
-
-                <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardDesign" @click="upPopup($event, img.index)">
-                    <img class="card__img" :src="`projetos/${img.path}`" loading="lazy">
-                    <div class="card__description">
-                        <div class="card__data">
-                            <p> {{ img.obj[0] }}</p>
-                            <p> {{ img.obj[1] }}</p>
+                    <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardDesign" @click="upPopup($event, img.index)">
+                        <img class="card__img" :src="`projetos/${img.path}`" loading="lazy">
+                        <div class="card__description">
+                            <div class="card__data">
+                                <p> {{ img.obj[0] }}</p>
+                                <p> {{ img.obj[1] }}</p>
+                            </div>
+                            <button class="card__btn">ver</button>
                         </div>
-                        <button class="card__btn">ver</button>
                     </div>
-                </div>
-                <div class="table">
-                    <p class="table_p">Habilidades em softwares de Design:</p>
+                    <div class="table">
+                        <p class="table_p">Habilidades em softwares de Design:</p>
 
-                    <div class="table__content">
-                        <div border-style></div>
-                        <td border-style>
-                            <p>Adobe Photoshop</p>
-                        </td>
-                        <td border-style>
-                            <p>Adobe Ilustrator</p>
-                        </td>
-                        <td border-style>
-                            <p>Figma</p>
-                        </td>
-                        <td border-style>
-                            <p>Miro</p>
-                        </td>
-                        <td>
-                            <p>Cinema 4D</p>
-                        </td>
+                        <div class="table__content">
+                            <div border-style></div>
+                            <td border-style>
+                                <p>Adobe Photoshop</p>
+                            </td>
+                            <td border-style>
+                                <p>Adobe Ilustrator</p>
+                            </td>
+                            <td border-style>
+                                <p>Figma</p>
+                            </td>
+                            <td border-style>
+                                <p>Miro</p>
+                            </td>
+                            <td>
+                                <p>Cinema 4D</p>
+                            </td>
+                        </div>
                     </div>
                 </div>
-             <!--    <figure class="figure__design">
-                    <img class="img_design" :src="`inicio/${whitePlanets}/design.png`" alt="Design">
-                </figure> -->
             </div>
         </section>
 
@@ -148,50 +144,49 @@
         <div id="programacao"></div>
 
         <section class="second-section section">
-            <p class="experiencia">Minha experiência como <strong>desenvolvedor frontend</strong></p>
-
-            <p class="card__destaques">Destaques:</p>
-
-            <div class="card__grid">
-                <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
-                    @click="upPopup($event, img.index, 'true')">
-
-                    <img class="card__img" :src="'projetos/' + img.obj[0]">
-                    <div class="card__description">
-                        <div class="card__data">
-                            <p> {{ img.obj[1] }}</p>
-                            <p> {{ img.obj[2] }}</p>
-                        </div>
-                        <button class="card__btn">ver</button>
-                    </div>
-                </div>
-                <div class="table">
-                    <p class="table_p">Experiências em frontend:</p>
-                    <div class="table__content">
-                        <div border-style></div>
-                        <td border-style>
-                            <p>CSS</p>
-                        </td>
-                        <td border-style>
-                            <p>Javascript</p>
-                        </td>
-                        <td border-style>
-                            <p>VueJs</p>
-                        </td>
-                        <td border-style>
-                            <p>Firebase</p>
-                        </td>
-                        <td border-style>
-                            <p>Element Plus</p>
-                        </td>
-                        <td border-style>
-                            <p>Bootstrap</p>
-                        </td>
-                        <td>
-                            <p>GitHub</p>
-                            <div class="star table__star">
+            <div class="max__width">
+                <p class="experiencia">Minha experiência como <strong>desenvolvedor frontend</strong></p>
+                <p class="card__destaques">Destaques:</p>
+                <div class="card__grid">
+                    <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
+                        @click="upPopup($event, img.index, 'true')">
+                        <img class="card__img" :src="'projetos/' + img.obj[0]">
+                        <div class="card__description">
+                            <div class="card__data">
+                                <p> {{ img.obj[1] }}</p>
+                                <p> {{ img.obj[2] }}</p>
                             </div>
-                        </td>
+                            <button class="card__btn">ver</button>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <p class="table_p">Experiências em frontend:</p>
+                        <div class="table__content">
+                            <div border-style></div>
+                            <td border-style>
+                                <p>CSS</p>
+                            </td>
+                            <td border-style>
+                                <p>Javascript</p>
+                            </td>
+                            <td border-style>
+                                <p>VueJs</p>
+                            </td>
+                            <td border-style>
+                                <p>Firebase</p>
+                            </td>
+                            <td border-style>
+                                <p>Element Plus</p>
+                            </td>
+                            <td border-style>
+                                <p>Bootstrap</p>
+                            </td>
+                            <td>
+                                <p>GitHub</p>
+                                <div class="star table__star">
+                                </div>
+                            </td>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -598,6 +593,14 @@ export default {
         --sky-scale: 1
     }
 }
+.max__width {
+    position: relative;
+    max-width: 1200px;
+    width: calc(100% - 200px);
+    margin: auto;
+}
+
+
 </style>
 
 <style scoped>
@@ -624,9 +627,10 @@ export default {
     width: 100%;
     margin: auto;
     padding: 0 100px;
-    gap: 3vw;
+    gap: 28px;
     position: relative;
     z-index: 1;
+    perspective: 10px;
 }
 
 .second-section {
@@ -669,6 +673,7 @@ p {
     position: absolute;
     height: 100%;
     z-index: 0;
+    transform: translateZ(-10px) scale(2);
 }
 
 .bubble__right {
@@ -678,14 +683,19 @@ p {
 /* Sobre */
 
 .sobre {
-    display: grid;
-    grid-template-columns: 12vh 1fr 12vh;
+    display: flex;
+    align-items: center;
     align-items: center;
     height: 100vh;
     min-height: 600px;
     position: relative;
     margin-bottom: 100px;
     gap: 4vw;
+}
+
+.section__sobre {
+    display: flex;
+    align-items: center;
     background-image: url('../../public/inicio/sky/banner_sky.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -719,11 +729,15 @@ p {
 .square__right {
     right: 0;
 }
+.square__left {
+    left: 0;
+}
 
 .square__right,
 .square__left {
-    pointer-events: none;
-    width: 100%;
+    position: absolute;
+    width: 80px;
+    z-index: 1;
 }
 
 /*  */
@@ -848,9 +862,10 @@ td p {
 }
 
 .card__destaques {
+    display: flex;
+    align-items: center;
     font-weight: 300;
-    height: 0;
-    line-height: 0;
+    height: 60px;
     padding-left: 12px;
     color: rgb(172, 172, 172);
     z-index: 2;
@@ -866,7 +881,7 @@ td p {
     justify-content: center;
     position: relative;
     width: 100%;
-    border-radius: 2vw;
+    border-radius: 28px;
     overflow: hidden;
     cursor: pointer;
 }
@@ -1247,7 +1262,7 @@ td p {
     display: flex;
     align-items: center;
     width: max-content;
-    height: 5vw;
+    height: 46px;
     max-height: 82px;
     min-height: 44px;
     border-radius: 10vw;
@@ -1270,9 +1285,7 @@ td p {
 
 .ver:hover {
     opacity: 0;
-
 }
-
 
 @keyframes sky_01 {
     0% {
@@ -1315,7 +1328,6 @@ td p {
 
     100% {
         transform: scale(var(--sky-scale)) translate(0, 0);
-
     }
 }
 
@@ -1349,7 +1361,6 @@ td p {
 
     100% {
         transform: scale(var(--sky-scale)) translate(0, 0);
-
     }
 }
 
@@ -1372,7 +1383,6 @@ td p {
 
     100% {
         transform: scale(var(--sky-scale)) translate(0, 0);
-
     }
 }
 
@@ -1411,34 +1421,6 @@ td p {
         transform: translatey(0);
     }
 }
-
-@media screen and (min-width: 1280px) {
-    .decoration__info {
-        font-size: 1rem;
-    }
-
-    .experiencia {
-        padding: 0.8vw 1.4vw;
-    }
-
-    .table_p {
-        padding: 2vw;
-    }
-
-    .informacoes__contato img {
-        width: 2.2vw;
-    }
-
-    .informacoes__content {
-        gap: 6vw;
-    }
-
-    .card__grid {
-        gap: 0.6vw;
-    }
-
-}
-
 @media screen and (max-width: 1000px) {
     .sobre {
         grid-template-columns: 100px 1fr 100px;
@@ -1497,7 +1479,6 @@ td p {
 
         100% {
             transform: scale(var(--sky-scale)) translate(0, 0);
-
         }
     }
 
@@ -1531,7 +1512,6 @@ td p {
 
         100% {
             transform: scale(var(--sky-scale)) translate(0, 0);
-
         }
     }
 
@@ -1554,7 +1534,6 @@ td p {
 
         100% {
             transform: scale(var(--sky-scale)) translate(0, 0);
-
         }
     }
 
@@ -1598,7 +1577,6 @@ td p {
     }
 }
 
-
 @media screen and (max-width: 1000px) {
     .card__description {
         display: none;
@@ -1607,13 +1585,9 @@ td p {
     .section {
         padding: 0 10px;
     }
-
 }
 
 @media screen and (max-width: 850px) {
-
-    /*  */
-
     .img_design,
     .img_front {
         display: none;
@@ -1725,6 +1699,7 @@ td p {
     }
 
     /* sky */
+
     .ultima__atualizacao {
         left: initial;
         margin: auto;
@@ -1738,7 +1713,6 @@ td p {
     .frase {
         font-size: 0.8rem;
     }
-
 
     .informacoes__contato {
         gap: 6px;
@@ -1784,11 +1758,6 @@ td p {
 }
 
 /* White Theme */
-/* White Theme */
-/* White Theme */
-/* White Theme */
-/* White Theme */
-/* White Theme */
 
 main {
     transition: .2s;
@@ -1800,7 +1769,6 @@ main {
 }
 
 .whiteTheme {
-    /* background: white; */
     transition: .2s;
 }
 
@@ -1838,7 +1806,6 @@ main {
 .whiteTheme .sky__informacoes {
     mix-blend-mode: inherit;
 }
-
 
 .whiteTheme .ver {
     color: white;

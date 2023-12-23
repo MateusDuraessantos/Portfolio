@@ -134,12 +134,10 @@ nav {
     align-items: center;
     padding: 0 80px;
     font-size: 1rem;
-    min-height: 70px;
     top: 0;
     backdrop-filter: blur(14px) !important;
     width: 100vw;
-    height: 10.1vw;
-    max-height: 100px;
+    height: 80px;
     z-index: 5;
 }
 
@@ -223,7 +221,7 @@ button {
 
 .dropdown__container {
     display: flex;
-    gap: 3vw;
+    gap: 28px;
 }
 
 /*  */
@@ -246,25 +244,6 @@ button {
 
 /* Mobile version */
 
-@media screen and (min-width: 1280px) {
-
-    nav {
-        min-height: 6vw;
-    }
-
-    .foto {
-        width: 4vw;
-    }
-
-    .eu {
-        gap: 1.6vw;
-    }
-
-    * {
-        font-size: 1rem;
-    }
-}
-
 @media screen and (max-width: 1100px) {
 
     nav {
@@ -276,8 +255,6 @@ button {
 .dropdown__inicio {
     display: none;
 }
-
-
 
 @media screen and (max-width: 1000px) {
 
