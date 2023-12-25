@@ -84,7 +84,9 @@
                 <!-- BUBBLES -->
                 <div class="bubble__container" id="bubbles__observer">
                     <img class="bubble bubble__left" src="bubble1.svg">
-                    <img class="bubble bubble__right" src="bubble2.png">
+                    <!-- <img class="bubble bubble__right" src="bubble2.png"> -->
+                    <div class="bubble bubble__right"></div>
+
                 </div>
             </section>
             
@@ -140,13 +142,62 @@
                     </div>
                 </section>
 
-                <!--  -->
+                <!-- FRONTEND -->
+                
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
 
-                <div class="parallax_group">
-
-                    <h1 style="width: 100%; height: 100vh; color: white; margin-top: 300px;">mateus</h1>
-
-                </div>
+                <section class="second-section section">
+                    <div class="max__width">
+                        <p class="experiencia">Minha experiência como <strong>desenvolvedor frontend</strong></p>
+                        <p class="card__destaques">Destaques:</p>
+                        <div class="card__grid">
+                            <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
+                                @click="upPopup($event, img.index, 'true')">
+                                <img class="card__img" :src="'projetos/' + img.obj[0]">
+                                <div class="card__description">
+                                    <div class="card__data">
+                                        <p> {{ img.obj[1] }}</p>
+                                        <p> {{ img.obj[2] }}</p>
+                                    </div>
+                                    <button class="card__btn">ver</button>
+                                </div>
+                            </div>
+                            <div class="table">
+                                <p class="table_p">Experiências em frontend:</p>
+                                <div class="table__content">
+                                    <div border-style></div>
+                                    <td border-style>
+                                        <p>CSS</p>
+                                    </td>
+                                    <td border-style>
+                                        <p>Javascript</p>
+                                    </td>
+                                    <td border-style>
+                                        <p>VueJs</p>
+                                    </td>
+                                    <td border-style>
+                                        <p>Firebase</p>
+                                    </td>
+                                    <td border-style>
+                                        <p>Element Plus</p>
+                                    </td>
+                                    <td border-style>
+                                        <p>Bootstrap</p>
+                                    </td>
+                                    <td>
+                                        <p>GitHub</p>
+                                        <div class="star table__star">
+                                        </div>
+                                    </td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <div class="teste background__sun">
                     <h4 class="background__sun__h4">Mateus Duraes dos Santos</h4>
@@ -332,8 +383,8 @@ export default {
                 {
                     index: '5',
                     obj: [
-                        'datamachina/datamachina.jpg',
-                        'Data Machina | Website',
+                        'tcc/webiste_mackenzie_curso_de_design.jpg',
+                        'Curso de Design Mackenzie',
                         '12/02/2023'
                     ],
                 },
@@ -394,7 +445,7 @@ export default {
                     this.footerVisible = true
                 }, timer);
             }
-            this.keepWhiteOnReload(timer)
+        this.keepWhiteOnReload(timer)
         },
         keepWhiteOnReload(timer) {
             setTimeout(() => {
@@ -402,28 +453,11 @@ export default {
                 if (this.booleanTheme == true) {
                     document.getElementById('main').setAttribute('class', 'whiteTheme')
                     this.whiteIcons = 'blackicons'
-                    const whitePaths = [
-                        'mesa/thumb1.jpg',
-                        'butterfly/4.png',
-                        'mun/thumb-white-background.jpg',
-                    ]
-                    for (let i = 0; i < 3; i++) {
-                        this.cardDesign[i].path = whitePaths[i]
-                        console.log(this.cardDesign[i]);
-                    }
+                   
                 }
                 else {
                     document.getElementById('main').removeAttribute('class')
                     this.whiteIcons = 'whiteicons'
-                    const whitePaths = [
-                        'mesa/thumb.jpg',
-                        'butterfly/thumb.jpg',
-                        'mun/thumb.jpg',
-                    ]
-                    for (let i = 0; i < 3; i++) {
-                        this.cardDesign[i].path = whitePaths[i]
-                    }
-
                 }
             }, timer);
         },
@@ -542,7 +576,7 @@ export default {
 }
 .max__width {
     position: relative;
-    max-width: 1200px;
+    max-width: 1300px;
     width: calc(100% - 200px);
     margin: auto;
 }
@@ -572,7 +606,6 @@ export default {
 
 /*  */
 .second-section {
-    margin-top: 200px;
     z-index: 1;
 }
 
@@ -589,7 +622,7 @@ p {
 
 .bubble__container {
     position: absolute;
-    top: 280px;
+    top: 800px;
     width: 100vw;
     left: 0;
     z-index: 0;
@@ -613,6 +646,14 @@ p {
     width: 200px;
     right: 0;
     object-fit: contain;
+    background-image: url('../../public/inicio/sky/lua.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.whiteTheme .bubble__right {
+    background-image: url('../../public/inicio/white/birds.svg');
+    margin-top: 300px;
 }
 
 .bubble__left {
@@ -632,6 +673,27 @@ p {
     position: relative;
     margin-bottom: 100px;
     gap: 4vw;
+}
+
+.whiteTheme .sobre::after {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-image: linear-gradient(white, transparent);
+    width: 100%;
+    height: 500px;
+}
+.whiteTheme .sobre::before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom:0 ;
+    background-image: linear-gradient(transparent, white);
+    width: 100%;
+    height: 100px;
 }
 
 .section__sobre {
@@ -1721,10 +1783,10 @@ main {
     background: #E7E7E7;
     color: var(--text-color);
 }
-/* 
+
 .whiteTheme .sobre {
     background-image: url('../../public/inicio/white/banner__white.jpg');
-} */
+}
 
 .whiteTheme .informacoes__container::after {
     background-image: linear-gradient(transparent, white);
@@ -1811,7 +1873,7 @@ main {
     transform-style: preserve-3d;
 }
 #sobre {
-    min-height: 100vh;
+    min-height: 2000px;
 }
 
 .sobre {
@@ -1836,8 +1898,9 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 210vh;
+    height: 0;
     width: 100%;
+    z-index: 1;
     color: wheat;
 }
 
@@ -1875,8 +1938,8 @@ main {
 
 .whiteTheme .section__sobre {
     position: relative;
-    background-image: url('https://images.unsplash.com/photo-1645225456916-bcc838cd7d4b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-position: center;
+    background-image: url('https://images.unsplash.com/photo-1553882951-9c3dab4a50cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-position: top;
 }
 
 .whiteTheme .section__sobre::after {
@@ -1909,8 +1972,6 @@ main {
 .whiteTheme .background__sun::after {
     display: none;
 }
-
-
 </style>
 
 <style>
