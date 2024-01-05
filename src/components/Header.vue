@@ -15,9 +15,10 @@
                 <span class="dropdown__arrow">❯</span>
 
                 <div class="dropdown__container">
-                    <a class="dropdown nav" @click="scrollDown($event, 'sobre')">Início</a>
-                    <a class="dropdown nav" @click="scrollDown($event, 'design')">Design</a>
-                    <a class="dropdown nav" @click="scrollDown($event, 'programacao')">Frontend</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'inicio')">Início</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'portfolio')">Portfólio</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'facaumorcamento')">Faça um orçamento</a>
+                    <a class="dropdown nav" @click="scrollDown($event, 'sobre')">Sobre</a>
                     <a class="dropdown nav" @click="scrollDown($event, 'contato')">Contato</a>
                 </div>
             </router-link>
@@ -100,12 +101,18 @@ export default {
         },
         scrollDown(event, ancora) {
             setTimeout(() => {
-                const obj = document.getElementById(ancora)
-
-                window.scrollTo({
-                    top: obj.offsetTop,
-                    behavior: 'smooth'
-                })
+                if(ancora == 'inicio') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
+                } else {
+                    const obj = document.getElementById(ancora)
+                    window.scrollTo({
+                        top: obj.offsetTop,
+                        behavior: 'smooth'
+                    })
+                }
             }, 50)
 
             const elements = document.querySelectorAll('[activeLink]')

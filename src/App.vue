@@ -100,7 +100,7 @@ export default {
       if (this.booleanTheme == true) {
 
         setTimeout(() => {
-          document.body.style.background = '#789dc7'
+          document.body.style.background = '#e8dede'
         }, timer);
       }
       else {
@@ -258,6 +258,7 @@ p {
   z-index: 10;
   width: 100%;
   height: 100vh;
+  backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.8);
   animation-name: animation_opacity;
   animation-duration: 1s;
