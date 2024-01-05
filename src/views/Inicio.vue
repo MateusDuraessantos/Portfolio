@@ -63,8 +63,7 @@
                     <br>
                     <div class="redes">
                         <a href="https://www.behance.net/mateusduraes" target="_blank">
-                            <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`"
-                                alt="logo Behance">
+                            <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
                         </a>
                         <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
                             <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
@@ -190,18 +189,31 @@
             <div class="max__width">
                 <div class="sobre__container">
                     <div class="sobre__redes">
-                        <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`">
-                        <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`">
-                        <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`">
+                        <a  href="https://www.behance.net/mateusduraes" target="_blank">
+                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
+                        </a>
+                        <a href="https://github.com/MateusDuraessantos" target="_blank">
+                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
+                        </a>
+                        <a  href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
+                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
+                        </a>
                     </div>
                     <p> Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI. Com dois anos de experiência profissional, utilizando tecnologias como CSS, JavaScript e Vue.js. Atualmente, ocupo a posição de Desenvolvedor Frontend Júnior, mas estou em uma jornada contínua de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e completo no campo do desenvolvimento web.</p>
                     <img class="sobre__mateus" src="mateus.jpg">
                 </div>
                 
-                <p>Experiência:</p>
                 <br>
+                <div style="display: flex; justify-content: center;">
+                    <p>Experiência:</p>
+                    <br><br><br>
+                </div>
+
                 <div class="sobre__experiencia">
-                    <img class="sobre__icon--redes" v-for="icons in experienciaIcons" :src="`${icons}.png`">
+                    <div class="sobre__ctn" v-for="icons in experienciaIcons" style="text-align: center; width: 124px;">
+                        <img class="sobre__icon--redes" :src="`${icons[0]}.png`">
+                        <p>{{ icons[1] }}</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -233,22 +245,10 @@
                                 <p class="contato__email">whatsapp</p>
                             </div>
 
-                            <div class="decoration__info">(11) 96593-9822
-                            </div>
+                            <p class="decoration__info">(11) 96593-9822</p>
                             <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                         </a>
 
-                        <a target="_blank" class="decoration" href="https://instagram.com/mateusduraes_">
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${whiteIcons}/instagram.svg`" alt="Instagram">
-                                <p class="contato__email">instagram</p>
-                            </div>
-                            <div class="decoration__info">@mateusduraes_</div>
-                            <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Copiar">
-                        </a>
-                    </div>
-
-                    <div class="contatos__column">
                         <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Email">
@@ -259,6 +259,7 @@
                             </div>
                             <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                         </a>
+
                         <a target="_blank" class="decoration" href="https://www.behance.net/mateusduraes">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${whiteIcons}/behance.svg`" alt="Email">
@@ -315,16 +316,16 @@ export default {
             whiteIcons: 'whiteicons',
             whitePlanets: 'sky',
             experienciaIcons: [
-                'software0',
-                'software1',
-                'software2',
-                'software3',
-                'software4',
-                'tech0',
-                'tech1',
-                'tech2',
-                'tech3',
-                'tech4',
+                ['software0', 'Illustrator'],
+                ['software1', 'cinema 4D'],
+                ['software2', 'Photoshop'],
+                ['software3', 'Miro'],
+                ['software4', 'Figma'],
+                ['tech0', 'Firebase'],
+                ['tech1', 'CSS'],
+                ['tech2', 'HTML'],
+                ['tech3', 'Javascript'],
+                ['tech4', 'Vue JS'],
             ],
             blackTools: {
                 tools: [
@@ -425,15 +426,15 @@ export default {
                     card: [
                         {
                             oferta: 'Protótipo navegável',
-                            beneficio: 'Você terá acesso a um protótipo navegavel, para entender melhor como o produto final será, antes de ser desenvolvido os códigos',
+                            beneficio: 'Você terá acesso a um protótipo navegavel, para entender melhor como o produto final será, antes de ser desenvolvido os códigos.',
                         },
                         {
                             oferta: 'Mobile first',
-                            beneficio: 'Trabalho com designs tanto desktops quanto mobiles'
+                            beneficio: 'Trabalho com designs tanto desktops quanto mobiles.'
                         },
                         {
                             oferta: 'Design único',
-                            beneficio: 'Cada projeto é único, não utilizo layouts pré montados (salvo alguma necessidade do cliente)'
+                            beneficio: 'Cada projeto é único, não utilizo layouts pré montados (salvo alguma necessidade do cliente).'
                         },
                     ],
                 },
@@ -447,7 +448,7 @@ export default {
                         },
                         {
                             oferta: 'Domínio próprio',
-                            beneficio: 'Você escolhe o domínio desejado, exemplo: www.meusite.com.br, e eu implemento'
+                            beneficio: 'Você escolhe o domínio desejado, exemplo: www.meusite.com.br, e eu implemento.'
                         },
                         {
                             oferta: 'Programação',
@@ -495,7 +496,7 @@ export default {
         this.haveAGoodDay()
 
         const scrolling = [ //elementos que serão ativados
-            { obj: 'parallax', value: 0.4, position: 540 },
+            { obj: 'parallax', value: 0.4, position: 900 },
             { obj: 'bubbles__observer', value: 0.4, position: 1200 },
             { obj: 'mensagem', value: 0.3, position: -500 },
         ]
@@ -721,20 +722,6 @@ export default {
     display: block !important;
 }
 
-.whiteTheme .background__parallax::after {
-    background-image: linear-gradient(transparent, #e8dede);
-}
-
-.background__parallax::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 300px;
-    background-image: linear-gradient(transparent, black);
-}
-
 /* Mensagem */
 
 .mensagem {
@@ -793,7 +780,7 @@ a {
 }
 
 p {
-    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
 
 /* Bubbles */
@@ -848,8 +835,8 @@ p {
 
 .orcamento {
     position: relative;
-    background: rgba(18, 31, 36, 0.6);
-    backdrop-filter: blur(20px);
+    background: rgba(40, 71, 83, 0.418);
+    backdrop-filter: blur(10px);
     width: 100%;
     margin-top: 120px;
     padding: 80px;
@@ -1004,76 +991,62 @@ p {
     display: flex;
     align-items: center;
     width: 100%;
-    background: black;
     padding: 200px 0 100px 0;
     margin-top: 300px;
 }
 
-
-.sobre .max__width {
-    max-width: 1000px
+.sobre__container {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    gap: 40px;
+    border-radius: 36px;
+    padding: 40px;
+    margin-bottom: 60px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
 }
 
-.whiteTheme .sobre {
-    background: white;
-}
-
-.sobre::after {
-    position: absolute;
-    content: '';
-    bottom: 100%;
-    left: 0;
-    width: 100%;
-    height: 200px;
-    background-image: linear-gradient(transparent, black);
-}
-
-.whiteTheme .sobre::after {
-    background-image: linear-gradient(transparent, white);
+.whiteTheme .sobre__container {
+    color: black;
 }
 
 .sobre__mateus {
     height: 200px;
-    border-radius: 8px;
-}
-
-.sobre__container {
-    display: flex;
-    gap: 40px;
-    background: #222222;
-    border-radius: 36px;
-    padding: 40px;
-    margin-bottom: 60px;
-}
-
-.whiteTheme .sobre__container {
-    box-shadow: 4px 4px 22px rgba(118, 53, 53, 0.4);
-    background: white;
-    color: black;
+    border-radius: 20px;
 }
 
 .sobre__redes {
     display: flex;
-    gap: 20px;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 0;
 }
 
 .sobre__icon--redes {
     width: 40px;
+    filter: grayscale(1);
+    transition: 5s;
+}
+
+.sobre__ctn:hover .sobre__icon--redes {
+    transition: 0s;
+    filter: grayscale(0);
 }
 
 .sobre__experiencia {
     display: flex;
-    gap: 20px;
     align-items: center;
-    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
     width: calc(100% - 100px);
     margin: auto;
 }
 
-
 /*  */
-
 
 .inicio {
     display: flex;
@@ -1126,6 +1099,7 @@ p {
     width: 100%;
     margin: auto;
     z-index: 1;
+    margin-left: 100px;
 }
 
 .inicio__container {
@@ -1442,9 +1416,8 @@ td p {
 
 .contatos__column {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6vw;
+    gap: 100px;
 }
 
 .decoration {
@@ -1483,10 +1456,10 @@ td p {
     gap: 1vw;
     padding: 1vw 1.4vw;
     bottom: -3.4vw;
-    font-size: 0.8rem !important;
     opacity: 0;
     border-radius: 10vw;
     transition: .2s;
+    font-size: 18px;
 }
 
 .decoration:hover .decoration__info {
