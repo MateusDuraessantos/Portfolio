@@ -3,8 +3,8 @@
 
         <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith" id="whiteThemeBtn">
-                <p class="claro"><span>☀️</span> <text-btn>Claro</text-btn></p>
-                <p class="escuro"><text-btn>Escuro</text-btn> <span>🌙</span></p>
+                <p class="claro"><div class="emoji">☀️</div> <text-btn>Claro</text-btn></p>
+                <p class="escuro"><text-btn>Escuro</text-btn> <div class="emoji">🌙</div></p>
             </div>
         </button>
 
@@ -433,5 +433,9 @@ text-btn {
 
 .claro {
     right: 42px;
+}
+
+.emoji {
+    font-size: 22px;
 }
 </style>

@@ -37,6 +37,7 @@
         <div class="background__parallax">
             <img class="parallax--img" id="parallax" :src="`inicio/${whitePlanets}/background__parallax.jpg`">
         </div>
+        
         <!-- POPUP -->
         <div class="popup__background" v-if="popup" @click="upPopup">
             <div class="popup__overflow" id="animation">
@@ -52,7 +53,7 @@
                     <span>carregando</span>
                     <div class="loading"></div>
                 </div>
-                <div class="popup__content" id="img_portrato" style="opacity: 0;">
+                <div class="popup__content" id="img_portrato">
                     <div class="link__grid">
                         <a :href="imgs[indexImg].link" target="_blank" v-if="imgs[indexImg].link" class="link__container">
                             Website online
@@ -67,9 +68,9 @@
                     <div class="description">
                         <h1 class="h1__popup">{{ imgs[indexImg].name }}</h1>
                         <br>
-                        <p style="font-size: 0.8rem;">{{ imgs[indexImg].description }}</p>
+                        <p>{{ imgs[indexImg].description }}</p>
                     </div>
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="`projetos/${coisas}`">
                 </div>
                 <button class="popup__close">✕</button>
             </div>
@@ -83,15 +84,21 @@
     
         <!-- PORTFÓLIO -->
         <section class="programacao section" id="portfolio">
-            <p class="experiencia">Alguns trabalhos que fiz</p>
-            <p class="card__destaques">Destaques:</p>
+            <div class="max__width">
+                <p class="experiencia">Alguns trabalhos que fiz</p>
+                <p class="card__destaques">Destaques:</p>
+            </div>
             <div class="card__grid">
-                <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
-                    @click="upPopup($event, img.index, 'true')">
-                    <img class="card__img" :src="'projetos/' + img.obj[0]">
+                <div
+                    v-for="(img, index) in imgs"
+                    :class="'card ' + img.class + ' ' + img.classGrid"
+                    :key="index"
+                    @click="upPopup($event, index, 'true')"
+                >
+                     <img class="card__img" :src="`projetos/${img.thumb}`">
                     <div class="card__description">
                         <div class="card__data">
-                            <p> {{ img.obj[1] }}</p>
+                            <p> {{ img.name }}</p>
                         </div>
                         <button class="card__btn">ver</button>
                     </div>
@@ -109,25 +116,24 @@
                 <img :src="`inicio/${whitePlanets}/tools.svg`" class="orcamento__tools">
                 <div class="orcamento__card--container">
                     <div :class="`orcamento__card ${cards.class}`" v-for="cards in cardsOrcamento">
-                        <p><strong>{{ cards.title }}</strong></p>
-                        <span>
-                            <span v-for="infos in cards.card">
-                                <li>
-                                    <div style="display: flex; flex-direction: column; gap: 2px;">
-                                        <p><strong>{{ infos.oferta }}</strong></p>
-                                        <p style="font-size: 14px;">{{ infos.beneficio }}</p>
-                                    </div>
-    
-                                    <div class="orcamento__icons">
-                                        <img src="icons/blackicons/check.svg">
-                                    </div>
-                                </li>
+                        <div>
+                            <p><strong>{{ cards.title }}</strong></p>
+                            <span>
+                                <span v-for="infos in cards.card">
+                                    <li>
+                                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                                            <p><strong>{{ infos.oferta }}</strong></p>
+                                            <p style="font-size: 14px;">{{ infos.beneficio }}</p>
+                                        </div>
+                                        <div class="orcamento__icons">
+                                            <img src="icons/blackicons/check.svg">
+                                        </div>
+                                    </li>
+                                </span>
                             </span>
-                        </span>
+                        </div>
                         <button href="#contato" class="orcamento__btn" @click="scrollDown($event, 'contato')">Contate-me</button>
                     </div>
-    
-    
                 </div>
             </div>
         </section>
@@ -140,7 +146,7 @@
         <section class="section sobre" id="sobre">
             <div class="max__width">
                 <img src="inicio/sky/red-planet.jpg" id="planets-red" class="sobre__planet--1">
-                <img src="inicio/sky/earth.jpg" id="planets-earth" class="sobre__planet--2">
+                <img src="inicio/sky/earth.png" id="planets-earth" class="sobre__planet--2">
 
                 <div class="sobre__elements">
                     <div class="sobre__container">
@@ -164,13 +170,13 @@
                         <h4>Experiência:</h4>
                     </div>
                     <div class="sobre__experiencia">
-                        <div class="sobre__ctn" v-for="icons in experienciaIcons[0]" style="text-align: center; width: 124px;">
+                        <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
                             <img class="sobre__icon" :src="`${icons[0]}.png`">
                             <p>{{ icons[1] }}</p>
                         </div>
                     </div>
                     <div class="sobre__experiencia">
-                        <div class="sobre__ctn" v-for="icons in experienciaIcons[1]" style="text-align: center; width: 124px;">
+                        <div class="sobre__ctn" v-for="icons in experienciaIcons[1]">
                             <img class="sobre__icon" :src="`${icons[0]}.png`">
                             <p>{{ icons[1] }}</p>
                         </div>
@@ -195,7 +201,11 @@
                 <div class="informacoes__container">
                     <address class="informacoes__content">
                         <div class="contatos__column">
-                            <a target="_blank" class="decoration" @click="copyText('(11) 96593-9822')">
+                            <a target="_blank" class="decoration"
+                                @mouseenter="blurFooter('enter')"
+                                @mouseleave="blurFooter"
+                                @click="copyText('(11) 96593-9822')"
+                            >
                                 <div class="informacoes__contato">
                                     <img :src="`icons/${whiteIcons}/whatsapp.svg`" alt="WhatsApp">
                                     <p class="contato__email">whatsapp</p>
@@ -203,7 +213,11 @@
                                 <p class="decoration__info">(11) 96593-9822</p>
                                 <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
-                            <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
+                            <a target="_blank" class="decoration" 
+                                @mouseenter="blurFooter('enter')"
+                                @mouseleave="blurFooter"
+                                @click="copyText('mateusduraessantos@gmail.com')"
+                            >
                                 <div class="informacoes__contato">
                                     <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Email">
                                     <p class=" contato__email">e-mail</p>
@@ -213,7 +227,11 @@
                                 </div>
                                 <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
-                            <a target="_blank" class="decoration" href="https://www.behance.net/mateusduraes">
+                            <a target="_blank" class="decoration"
+                                @mouseenter="blurFooter('enter')"
+                                @mouseleave="blurFooter"
+                                href="https://www.behance.net/mateusduraes"
+                            >
                                 <div class="informacoes__contato">
                                     <img :src="`icons/${whiteIcons}/behance.svg`" alt="Email">
                                     <p class=" contato__email">behance</p>
@@ -263,6 +281,7 @@ export default {
     },
     data() {
         return {
+            blurTimeout: '',
             whiteIcons: 'whiteicons',
             whitePlanets: 'sky',
             experienciaIcons: [
@@ -299,39 +318,6 @@ export default {
                     'aling4',
                 ],
             },
-            cardFront: [
-                {
-                    index: '3',
-                    obj: [
-                        'tre/1.jpg',
-                        'Tre website',
-                    ],
-                    class: 'third_el'
-                },
-                {
-                    index: '4',
-                    obj: [
-                        'teclakey/teclakey.jpg',
-                        'TeclaKey | Website',
-                    ],
-                    class: 'second_el',
-                    classGrid: 'gridGrid',
-                },
-                {
-                    index: '5',
-                    obj: [
-                        'datamachina/datamachina.jpg',
-                        'Data Machina | Website',
-                    ],
-                },
-                {
-                    index: '5',
-                    obj: [
-                        'tcc/webiste_mackenzie_curso_de_design.jpg',
-                        'Curso de Design Mackenzie',
-                    ],
-                },
-            ],
             cardsOrcamento: [
                 { 
                     title: 'Design',
@@ -408,8 +394,8 @@ export default {
         this.haveAGoodDay()
 
         const scrolling = [ //elementos que serão ativados
-            { obj: 'planets-earth', value: 0.4, position: -2000 },
-            { obj: 'planets-red', value: 0.4, position: -1500 },
+            { obj: 'planets-earth', value: 0.4, position: -2200 },
+            { obj: 'planets-red', value: 0.4, position: -1700 },
             { obj: 'parallax', value: 0.4, position: -500 },
             { obj: 'bubbles__observer', value: 0.4, position: 1200 },
         ]
@@ -481,7 +467,6 @@ export default {
         },
         copyText(content) {
             const textToCopy = content; // Texto a ser copiado
-
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
                     alert("Texto copiado: " + textToCopy);
@@ -489,6 +474,21 @@ export default {
                 .catch((error) => {
                     console.error("Erro ao copiar texto:", error);
                 });
+        },
+        blurFooter(event){
+            clearTimeout(this.blurTimeout)
+            const footer = document.querySelector('.sky__informacoes')
+            if(event == 'enter'){
+                footer.classList.remove('blur-remove')
+                footer.classList.add('blur')
+            } else {
+                footer.classList.add('blur-remove')
+                footer.classList.remove('blur')
+                this.blurTimeout = setTimeout(() => {
+                    footer.classList.remove('blur')
+                    footer.classList.remove('blur-remove')
+                }, 2000);
+            }
         },
         observador() {
             const observer = new IntersectionObserver(entries => {
@@ -503,19 +503,28 @@ export default {
             })
             observer.observe(document.getElementById('observador__footer'))
         },
-        upPopup(event, index, front) {
+        upPopup(event, index) {
             const clicked = event.target.classList[0]
+            const elementos = ['popup__close', 'popup__overflow', 'container-button']
+
             if (event.currentTarget.classList[0] == 'card') {
-                this.popFront = Boolean(front)
                 this.indexImg = index
                 document.body.style.overflow = 'hidden'
                 this.popup = !this.popup
-            }
-            else if (document.body.style.overflow == 'hidden' && clicked == 'popup__close' || clicked == 'popup__overflow' || clicked == 'container-button') {
-                document.getElementById('img_portrato').style.opacity = 1
-                document.body.style.overflow = ''
-                this.popup = !this.popup
-                this.loading = true
+            } else {
+                elementos.forEach(obj => {
+                    if(document.body.style.overflow == 'hidden'&& clicked == obj){
+                        document.querySelector('#img_portrato').classList.add('popup__close--animation-opacity')
+                        document.querySelector('.popup__background') .classList.add('popup__close--animation-blur')
+                        setTimeout(() => {
+                            document.body.style.overflow = ''
+                            this.popup = !this.popup
+                            this.loading = true
+                            document.querySelector('.popup__background').classList.remove('popup__close--animation-blur')
+                            document.querySelector('#img_portrato').classList.remove('popup__close--animation-opacity')
+                        }, 1000);
+                    }
+                })
             }
             this.number = 0
         },
@@ -529,43 +538,22 @@ export default {
             }
         },
         changeProjectDesign(value) {
-            this.indexImg == 1
             this.loading = true
             document.getElementById('img_portrato').setAttribute('style', 'opacity: 0')
-            if (!this.popFront == true) {
-                if (value == 'back') {
-                    if (this.indexImg > 0) {
-                        this.indexImg--
-                    }
-                    else {
-                        this.indexImg = 2
-                    }
+            if (value == 'back') {
+                if (this.indexImg > 0) {
+                    this.indexImg--
                 }
-                if (value == 'next') {
-                    if (this.indexImg < 2) {
-                        this.indexImg++
-                    }
-                    else {
-                        this.indexImg = 0
-                    }
+                else {
+                    this.indexImg = imagens.length - 1
                 }
             }
-            else {
-                if (value == 'back') {
-                    if (this.indexImg > 3) {
-                        this.indexImg--
-                    }
-                    else {
-                        this.indexImg = 5
-                    }
+            if (value == 'next') {
+                if (this.indexImg < imagens.length - 1) {
+                    this.indexImg++
                 }
-                if (value == 'next') {
-                    if (this.indexImg < 5) {
-                        this.indexImg++
-                    }
-                    else {
-                        this.indexImg = 3
-                    }
+                else {
+                    this.indexImg = 0
                 }
             }
         },
@@ -574,6 +562,16 @@ export default {
 </script>
 
 <style>
+
+:root {
+    --blur: 12px
+}
+
+.blur {
+    backdrop-filter: blur(var(--blur));
+    transition: .2s;
+}
+
 :root {
     --border-color: #2c2c2c;
     --shadow-color: black;
@@ -618,13 +616,14 @@ export default {
 
 .parallax--img {
     position: absolute;
-    width: 1500px;
+    width: 1700px;
     object-fit: cover;
     filter: blur(4px);
 }
 
 .whiteTheme .parallax--img {
     width: 100%;
+    height: 100%;
     filter: blur(0);
 } 
 
@@ -644,30 +643,18 @@ export default {
     font-size: 20px;
     font-weight: 400;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .whiteTheme .mensagem h6 {
     text-shadow: none;
     color: #8f5245;
 }
-
 </style>
 
 <style scoped>
 .linkPadding {
     padding-top: 120px;
-}
-
-@keyframes loading {
-
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-
-        transform: rotate(360deg);
-    }
 }
 
 /*  */
@@ -818,12 +805,14 @@ p {
 .orcamento__card {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 20px;
     background: white;
     border-radius: 26px;
     padding: 30px;
     width: 100%;
     height: max-content;
+    max-height: 630px;
 }
 
 .orcamento__card * {
@@ -844,6 +833,17 @@ p {
 
 .orcamento__card--3 {
     margin-top: 50%;
+}
+
+@media screen and (max-width: 1380px) {
+    .orcamento__card--2, .orcamento__card--3 {
+        margin-top: 0;
+    }
+    
+    .orcamento__card {
+        height: 100%;
+    }
+
 }
 
 .orcamento__card p {
@@ -920,7 +920,6 @@ p {
     object-fit: contain;
 }
 
-
 .whiteTheme .sobre__planet--1,
 .whiteTheme .sobre__planet--2 {
     display: none;
@@ -930,7 +929,7 @@ p {
     position: relative;
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(50px);
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
     gap: 40px;
@@ -1120,11 +1119,6 @@ p {
     margin: auto;
 }
 
-.img_design {
-    width: 100%;
-    object-fit: contain;
-}
-
 .experiencia {
     max-width: max-content;
     width: 100%;
@@ -1159,10 +1153,6 @@ p {
     transition: .2s;
 }
 
-.gridGrid {
-    grid-area: gridGrid;
-    max-height: 70vw;
-}
 
 .card__destaques {
     display: flex;
@@ -1174,19 +1164,20 @@ p {
     z-index: 2;
 }
 
-.star {
-    display: flex;
-    gap: 9px;
-}
-
 .card {
     display: flex;
     justify-content: center;
     position: relative;
     width: 100%;
+    height: 500px;
     overflow: hidden;
     cursor: pointer;
     box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.gridGrid {
+    grid-area: gridGrid;
+    height: 1000px;
 }
 
 .card:hover .card__img {
@@ -1206,9 +1197,9 @@ p {
     justify-content: space-between;
     position: absolute;
     border-radius: 10vw;
-    bottom: 0.66vw;
-    padding: 0.3vw;
-    min-height: 52px;
+    padding: 0 4px;
+    bottom: 10px;
+    height: 52px;
     width: calc(100% - 20px);
     margin: auto;
     background: rgba(0, 0, 0, 0.3);
@@ -1221,9 +1212,9 @@ p {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 10vw;
     width: max-content;
-    padding: 1vw 1.8vw;
-    font-size: 0.8rem;
-    min-height: 44px;
+    padding: 0 24px;
+    font-size: 14px;
+    height: 44px;
     transition: .3s
 }
 
@@ -1352,12 +1343,11 @@ p {
 
 .decoration:hover .decoration__copy {
     opacity: 1;
-    width: 2vw;
 }
 
 .decoration__copy {
     position: absolute;
-    right: -2vw;
+    right: -28px;
     opacity: 0;
     width: 0;
     transition: .2s;
@@ -1376,8 +1366,7 @@ p {
     white-space: nowrap;
     text-align: center;
     gap: 1vw;
-    padding: 1vw 1.4vw;
-    bottom: -3.4vw;
+    bottom: -40px;
     opacity: 0;
     border-radius: 10vw;
     transition: .2s;
@@ -1391,16 +1380,15 @@ p {
 
 .contato__email {
     padding-right: 10px;
+    font-size: 20px;
 }
 
 .informacoes__contato {
-
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
     cursor: pointer;
     gap: 20px;
-    font-size: 1.4rem;
 }
 
 .informacoes__contato img {
@@ -1566,50 +1554,446 @@ p {
     z-index: 1;
 }
 
-.projeto {
-    font-size: 1.6rem;
+@media screen and (max-width: 1000px) {
+    .inicio {
+        grid-template-columns: 100px 1fr 100px;
+    }
+
+    .inicio .max__width {
+        width: calc(100% - 50px);
+    }
+
+    .inicio__description {
+        width: calc(100% - 20px);
+        margin-left: 0;
+    }
+
+    .square__left,
+    .square__right {
+        display: none;
+    }
+    /* Sky */
+
+    .informacoes__container {
+        width: calc(100% - 100px);
+    }
+
+    @keyframes sky_01 {
+        0% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+
+        20% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+
+        45% {
+            transform: scale(var(--sky-scale)) translate(-30px, -40px);
+        }
+
+        75% {
+            transform: scale(var(--sky-scale)) translate(10px, -60px);
+        }
+
+        100% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+    }
+
+    @keyframes sky_02 {
+        0% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+
+        15% {
+            transform: scale(var(--sky-scale)) translate(-60px, 0);
+        }
+
+        35% {
+            transform: scale(var(--sky-scale)) translate(-60px, -20px);
+        }
+
+        75% {
+            transform: scale(var(--sky-scale)) translate(-60px, 20px);
+        }
+
+        100% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+    }
+
+    @keyframes sky_04 {
+        0% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+
+        50% {
+            transform: scale(var(--sky-scale)) translate(30px, 40px);
+        }
+
+        100% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+
+        }
+    }
+
+    @keyframes sky_08 {
+        0% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+
+        35% {
+            transform: scale(var(--sky-scale)) translate(20px, 50px);
+        }
+
+        70% {
+            transform: scale(var(--sky-scale)) translate(-35px, 60px);
+        }
+
+        100% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+    }
+
+    @keyframes sky_11 {
+        0% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+
+        50% {
+            transform: scale(var(--sky-scale)) translate(20px, 0);
+        }
+
+        75% {
+            transform: scale(var(--sky-scale)) translate(0px, -30px);
+        }
+
+        90% {
+            transform: scale(var(--sky-scale)) translate(20px, 0);
+        }
+
+        100% {
+            transform: scale(var(--sky-scale)) translate(0, 0);
+        }
+    }
+
+    @keyframes sky_13 {
+        0% {
+            transform: scale(var(--sky-scale)) translatey(0);
+        }
+
+        10% {
+            transform: scale(var(--sky-scale)) translatey(0);
+        }
+
+        35% {
+            transform: scale(var(--sky-scale)) translatey(60px);
+        }
+
+        90% {
+            transform: scale(var(--sky-scale)) translatey(0);
+        }
+
+        100% {
+            transform: scale(var(--sky-scale)) translatey(0);
+        }
+    }
+    .informacoes__container {
+        width: 90%;
+    }
+
+    .informacoes__content {
+        gap: 20px;
+    }
+
+    .container-table {
+        grid-template-columns: 1.3fr 1fr;
+    }
+
+    .container-front {
+        grid-template-columns: 1fr 1.2fr;
+        grid-template-areas: 'img';
+    }
+
+    .card__description {
+        display: none;
+    }
+
+    /* Orçamento */
+
+    .orcamento__card--container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* cards */
+    .card {
+        height: 250px;
+    }
+
+    .gridGrid {
+        height: 500px;
+    }
+
+    /* Orcamentos */
+
+    .orcamento {
+        padding: 80px 24px;
+    }
+
+    #facaumorcamento.max__width {
+        width: calc(100% - 50px);
+    }
+
+    .contatos__column, .sobre__container {
+        flex-direction: column;
+    }
+
+    .sobre__redes {
+        flex-direction: row;
+    }
+
+    /* sobre */
+
+    .sobre .max__width {
+        width: calc(100% - 50px);
+    }
+
+    .sobre__elements {
+        padding: 30px;   
+    }
+
+    .sobre__icon {
+        width: 30px;    
+    }
+
+    .sobre__icon p {
+        font-size: 14px;
+    }
+
+    .sobre__ctn {
+        width: 88px !important;
+    }
+
 }
 
-.ver__container {
-    position: relative;
-    text-decoration: none;
+@media screen and (max-width: 850px) {
+
+    .img_front {
+        display: none;
+    }
+
+    /*  */
+
+    .informacoes__container {
+        padding: 140px 0;
+    }
+
+    .informacoes__contato img {
+        width: 30px;
+    }
+
+    .card__data {
+        padding-left: 20px;
+    }
+
+    .container-front,
+    .container-table {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Mim */
+
+    .inicio__container {
+        gap: 0;
+        line-height: 24px;
+    }
+
+    .mim__nome {
+        font-size: 1rem;
+    }
+
+    /* Footer */
+
+    .informacoes__contato {
+        font-size: 1rem;
+    }
+
+    .informacoes__container {
+        width: 100%;
+        gap: 0;
+    }
+
+    .informacoes__contato img {
+        width: 30px;
+    }
+
+    /* sky */
+
+    .frase {
+        font-size: 0.8rem;
+    }
+
+    .informacoes__contato {
+        gap: 6px;
+    }
+}
+
+/* Mobile version */
+
+@media only screen and (max-width: 500px) {
+
+    .inicio {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+    }
+
+    /*  */
+
+    .decoration__info,
+    .decoration__copy {
+        display: none;
+    }
+
+    .inicio,
+    .sky {
+        width: calc(100% - 7px);
+    }
+
+}
+
+/* White Theme */
+
+.whiteTheme * {
+    color: var(--text-color);
+    text-shadow: none;
+}
+
+.whiteTheme {
+    transition: .2s;
+}
+
+.whiteTheme .experiencia {
+    background: #E7E7E7;
+    color: var(--text-color);
+}
+
+.whiteTheme .inicio {
+    background-image: url('../../public/inicio/white/banner__white.jpg');
+}
+
+.whiteTheme .card__description {
+    background-color: rgb(255 255 255 / 55%);
+}
+
+.whiteTheme .card__btn {
+    background-color: rgb(255 255 255 / 70%);
+    border-width: 2px;
+    border-color: white;
+}
+
+
+.whiteTheme .sky p {
+    color: black;
+}
+
+.whiteTheme .sky__informacoes {
+    mix-blend-mode: inherit;
+}
+
+.whiteTheme .frase {
+    color: #a87c7c !important;
+}
+
+.section__sobre {
+    z-index: 222;
+    min-height: 84vh;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 20vh;
-    padding-bottom: 24vh;
 }
 
-.ver,
-.ver--hover {
-    position: absolute;
+.sobre__ctn {
+    text-align: center;
+    width: 124px;
+}
+
+.inicio {
+    min-height: 100vh;
+    z-index: 1;
+}
+
+.inicio .max__width {
     display: flex;
     align-items: center;
-    width: max-content;
-    height: 46px;
-    max-height: 82px;
-    min-height: 44px;
-    border-radius: 10vw;
-    padding: 14px 44px;
-    font-size: 1rem;
-    transition: .2s;
-    color: white !important;
-    margin: auto;
-    border: none;
-    z-index: 4;
+    position: relative;
+    height: 100vh;
 }
 
-.ver--hover {
-    background: linear-gradient(-90deg, #034553, #1F234D);
+.background__sun {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300vh;
+    width: 100%;
+    color: wheat;
+    background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2111&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
 }
 
-.ver {
-    background: linear-gradient(90deg, #034553, #1F234D);
+.whiteTheme .section__sobre {
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1553882951-9c3dab4a50cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-position: top;
+    background-size: cover;
 }
 
-.ver:hover {
-    opacity: 0;
+.whiteTheme .section__sobre::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 260px;
+    bottom: -6px;
+    background-image: linear-gradient(transparent, #789dc7);
+    transform: translateY(-1px);
 }
+
+.whiteTheme .background__sun {
+    background-image: none;
+}
+
+.whiteTheme .background__sun__h4 {
+    color: white;
+}
+
+.blur-remove {
+    animation-name: remove-blur;
+    animation-duration: 2s;
+}
+
+@keyframes remove-blur {
+    from {
+        backdrop-filter: blur(var(--blur))
+    }
+    to {
+        backdrop-filter: blur(0)
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0);
+    }
+    to {
+
+        transform: rotate(360deg);
+    }
+}
+
 
 @keyframes sky_01 {
     0% {
@@ -1744,451 +2128,7 @@ p {
         transform: translatey(0);
     }
 }
-
-@media screen and (max-width: 1000px) {
-    .inicio {
-        grid-template-columns: 100px 1fr 100px;
-    }
-
-    /* Sky */
-
-    .informacoes__container {
-        width: calc(100% - 100px);
-    }
-
-    .ultima__atualizacao {
-        text-align: center;
-        bottom: -60px;
-    }
-
-    @keyframes sky_01 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        20% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        45% {
-            transform: scale(var(--sky-scale)) translate(-30px, -40px);
-        }
-
-        75% {
-            transform: scale(var(--sky-scale)) translate(10px, -60px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_02 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        15% {
-            transform: scale(var(--sky-scale)) translate(-60px, 0);
-        }
-
-        35% {
-            transform: scale(var(--sky-scale)) translate(-60px, -20px);
-        }
-
-        75% {
-            transform: scale(var(--sky-scale)) translate(-60px, 20px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_04 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        50% {
-            transform: scale(var(--sky-scale)) translate(30px, 40px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-
-        }
-    }
-
-    @keyframes sky_08 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        35% {
-            transform: scale(var(--sky-scale)) translate(20px, 50px);
-        }
-
-        70% {
-            transform: scale(var(--sky-scale)) translate(-35px, 60px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_11 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        50% {
-            transform: scale(var(--sky-scale)) translate(20px, 0);
-        }
-
-        75% {
-            transform: scale(var(--sky-scale)) translate(0px, -30px);
-        }
-
-        90% {
-            transform: scale(var(--sky-scale)) translate(20px, 0);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_13 {
-        0% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-
-        10% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-
-        35% {
-            transform: scale(var(--sky-scale)) translatey(60px);
-        }
-
-        90% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-    }
-
-    .informacoes__container {
-        width: 90%;
-    }
-
-    .informacoes__content {
-        gap: 20px;
-    }
-
-    .container-table {
-        grid-template-columns: 1.3fr 1fr;
-    }
-
-    .container-front {
-        grid-template-columns: 1fr 1.2fr;
-        grid-template-areas: 'img';
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    .card__description {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 850px) {
-
-    .img_design,
-    .img_front {
-        display: none;
-    }
-
-    /*  */
-
-    .contato {
-        font-size: 1.4rem;
-    }
-
-    .table__star {
-        left: 18vw;
-    }
-
-    .card__grid {
-        gap: 8px;
-    }
-
-    .card {
-        height: 34vw;
-    }
-
-    .informacoes__container {
-        padding: 140px 0;
-    }
-
-    .informacoes__contato img {
-        width: 30px;
-    }
-
-    .img_design {
-        margin: 50px 0;
-        margin-top: 100px;
-    }
-
-    .ola {
-        font-size: 2rem;
-        line-height: 2.2rem;
-    }
-
-    .card__data {
-        padding-left: 20px;
-    }
-
-    .container-front,
-    .container-table {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Table */
-    .table__star {
-        left: auto;
-        right: 24px;
-    }
-
-    td {
-        padding-left: 20px;
-    }
-
-    .table_p {
-        padding: 20px;
-    }
-
-    /* Mim */
-    .mim {
-        padding: 0;
-        width: calc(100% - 20px);
-        padding: 0 10px;
-    }
-
-    .inicio__container {
-        gap: 0;
-        line-height: 24px;
-    }
-
-    .mim__nome {
-        font-size: 1rem;
-    }
-
-    .projeto {
-        font-size: 1rem;
-    }
-
-    /* Footer */
-
-    .informacoes__contato {
-        font-size: 1rem;
-    }
-
-    .informacoes__container {
-        width: 100%;
-        gap: 0;
-    }
-
-    .informacoes__contato img {
-        width: 30px;
-    }
-
-    /* sky */
-
-    .ultima__atualizacao {
-        left: initial;
-        margin: auto;
-        font-size: 0.6rem;
-    }
-
-    .contato {
-        font-size: 1.1rem;
-    }
-
-    .frase {
-        font-size: 0.8rem;
-    }
-
-    .informacoes__contato {
-        gap: 6px;
-    }
-}
-
-/* Mobile version */
-
-@media only screen and (max-width: 500px) {
-
-    .inicio {
-        display: flex;
-        justify-content: center;
-        margin: 0;
-    }
-
-    .square__left,
-    .square__right {
-        display: none;
-    }
-
-    /*  */
-
-    .grid {
-        gap: 3px;
-    }
-
-    .decoration__info,
-    .decoration__copy {
-        display: none;
-    }
-
-    .inicio,
-    .sky {
-        width: calc(100% - 7px);
-    }
-
-    .inicio__description {
-
-        width: calc(100% - 20px)
-    }
-
-}
-
-/* White Theme */
-
-.whiteTheme * {
-    color: var(--text-color);
-    text-shadow: none;
-}
-
-.whiteTheme {
-    transition: .2s;
-}
-
-.whiteTheme .experiencia {
-    background: #E7E7E7;
-    color: var(--text-color);
-}
-
-.whiteTheme .inicio {
-    background-image: url('../../public/inicio/white/banner__white.jpg');
-}
-
-.whiteTheme .card__description {
-    background-color: rgb(255 255 255 / 55%);
-}
-
-.whiteTheme .card__btn {
-    background-color: rgb(255 255 255 / 70%);
-    border-width: 2px;
-    border-color: white;
-}
-
-.whiteTheme .table {
-    background-image: linear-gradient(#F4F4F4, #E7E7E7);
-}
-
-.whiteTheme [border-style] {
-    border-bottom: 1px solid #E2E2E2;
-}
-
-.whiteTheme .sky p {
-    color: black;
-}
-
-.whiteTheme .sky__informacoes {
-    mix-blend-mode: inherit;
-}
-
-.whiteTheme .ver {
-    color: white;
-}
-
-.whiteTheme .frase {
-    color: #a87c7c !important;
-}
-
-.whiteTheme .ver {
-    background: linear-gradient(85deg, #FF6666, #CE7EFF);
-}
-
-.whiteTheme .ver--hover {
-    position: absolute;
-    background: linear-gradient(-85deg, #FF6666, #CE7EFF);
-    color: white;
-}
-
-.section__sobre {
-    z-index: 222;
-    min-height: 84vh;
-    width: 100%;
-}
-
-
-.inicio {
-    min-height: 100vh;
-    z-index: 1;
-}
-
-.inicio .max__width {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 100vh;
-}
-
-.background__sun {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 300vh;
-    width: 100%;
-    color: wheat;
-    background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2111&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover;
-    background-position: center;
-}
-
-.whiteTheme .section__sobre {
-    position: relative;
-    background-image: url('https://images.unsplash.com/photo-1553882951-9c3dab4a50cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-position: top;
-    background-size: cover;
-}
-
-.whiteTheme .section__sobre::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 260px;
-    bottom: -6px;
-    background-image: linear-gradient(transparent, #789dc7);
-    transform: translateY(-1px);
-}
-
-.whiteTheme .background__sun {
-    background-image: none;
-}
-
-.whiteTheme .background__sun__h4 {
-    color: white;
-}</style>
+</style>
 
 <style>:root {
     --text-color: black;

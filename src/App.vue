@@ -3,7 +3,7 @@
     <div id="themeOverflow"></div>
     <div id="overflow">
       <div class="overflowPort">
-        <img :src="`inicio/${smile}/smile.svg`">
+        <img :src="`inicio/sky/smile.svg`">
       </div>
     </div>
     <Header @tun-on="turnOn" :removeLinkVer="removeLinkVer" :booleanTheme="booleanTheme" class="header" id="header"
@@ -163,10 +163,6 @@ img {
   transition: .2s
 }
 
-p {
-  font-size: 1rem;
-}
-
 * {
   font-family: 'Poppins', sans-serif;
   color: var(--creme);
@@ -189,7 +185,6 @@ p {
   background-color: #474747;
   border-radius: 6px;
 }
-
 
 /* link popup */
 
@@ -266,40 +261,16 @@ p {
 
 }
 
-@keyframes animation_opacity {
-
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 .popup__animation {
   animation-name: popup__background--animation;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
-@keyframes popup__background--animation {
-  from {
-    opacity: 0;
-    margin-top: -50px;
-  }
-
-  to {
-    opacity: 1;
-    margin-top: 0;
-  }
-}
-
 .popup__content {
   position: relative;
   display: flex;
   flex-direction: column;
-
   background: #1f1f1f;
   width: 80vw;
   margin-bottom: 100px;
@@ -370,23 +341,24 @@ button {
 
 .changeProject p {
   color: #E0D9CE !important;
+  font-size: 20px;
 }
 
 .back {
-  left: 2vw;
+  left: 32px;
 }
 
 .next {
-  right: 2vw;
+  right: 32px;
 }
 
 .back:hover {
-  left: 1.8vw;
+  left: 26px;
   transition: .2s;
 }
 
 .next:hover {
-  right: 1.8vw;
+  right: 26px;
   transition: .2s;
 }
 
@@ -432,20 +404,6 @@ button {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   border-spacing: 17px;
-}
-
-
-
-@keyframes loading {
-
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-
-    transform: rotate(360deg);
-  }
 }
 
 .popup__img {
@@ -521,19 +479,6 @@ button {
   pointer-events: none;
 }
 
-@keyframes changingTheme {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
 
 .v-enter-active,
 .v-leave-active {
@@ -588,6 +533,97 @@ button {
 @keyframes animationOverflow {
   0% {
     opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.popup__close--animation-blur .popup__overflow {
+  overflow: hidden;
+}
+
+.popup__close--animation-blur {
+  animation-name: close-popup-blur;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes close-popup-blur {
+  0% {
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+  }
+  50% {
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    overflow: hidden;
+    backdrop-filter: blur(0px);
+    background: rgba(0, 0, 0, 0);
+    opacity: 0;
+  }
+}
+
+.popup__close--animation-opacity {
+  animation-name: close-popup-opacity;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  backdrop-filter: blur(20px);
+}
+
+@keyframes close-popup-opacity {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0);
+  }
+  
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animation_opacity {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popup__background--animation {
+  from {
+    opacity: 0;
+    margin-top: -50px;
+  }
+
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+
+@keyframes changingTheme {
+  0% {
+    opacity: 0;
   }
 
   50% {
