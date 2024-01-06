@@ -3,7 +3,7 @@
         <!-- Inicio -->
         <header class="inicio">
             <div class="max__width" id="inicio">
-                <p style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 1rem; color: rgb(105, 110, 128); font-weight: 300;">
+                <p class="designed_by">
                     Designed by Mateus Durães dos Santos - 2023
                 </p>
                 <div class="inicio__description">
@@ -111,7 +111,6 @@
         <section class="max__width" id="facaumorcamento">
             <div class="orcamento">
                 <h1>Serviços:</h1>
-                <br><br>
                 <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors">
                 <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text">
                 <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools">
@@ -201,8 +200,8 @@
                     <address class="informacoes__content">
                         <div class="contatos__column">
                             <a target="_blank" class="decoration"
-                                @mouseenter="blurFooter('enter')"
-                                @mouseleave="blurFooter"
+                                @mouseenter="blurIn('enter')"
+                                @mouseleave="blurIn"
                                 @click="copyText('(11) 96593-9822')"
                             >
                                 <div class="informacoes__contato">
@@ -213,8 +212,8 @@
                                 <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
                             <a target="_blank" class="decoration" 
-                                @mouseenter="blurFooter('enter')"
-                                @mouseleave="blurFooter"
+                                @mouseenter="blurIn('enter')"
+                                @mouseleave="blurIn"
                                 @click="copyText('mateusduraessantos@gmail.com')"
                             >
                                 <div class="informacoes__contato">
@@ -227,8 +226,8 @@
                                 <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
                             </a>
                             <a target="_blank" class="decoration"
-                                @mouseenter="blurFooter('enter')"
-                                @mouseleave="blurFooter"
+                                @mouseenter="blurIn('enter')"
+                                @mouseleave="blurIn"
                                 href="https://www.behance.net/mateusduraes"
                             >
                                 <div class="informacoes__contato">
@@ -282,7 +281,6 @@ export default {
         return {
             blockTimer: true,
             blurTimeout: '',
-            blurTimeout2: '',
             whiteIcons: 'whiteicons',
             whiteImages: 'black',
             experienciaIcons: [
@@ -474,41 +472,24 @@ export default {
                     console.error("Erro ao copiar texto:", error);
                 });
         },
-        blurFooter(event){
-             clearTimeout(this.blurTimeout)
-           clearInterval(this.blurTimeout2)
+        blurIn(enter){
+            clearTimeout(this.blurTimeout)
             const footer = document.querySelector('.sky__informacoes')
-            const timer = 30
-            let blur = footer.style.backdropFilter.split('(')[1][0]
-            if(event == 'enter'){
-                let i = blur
-                this.blurTimeout = setInterval(() => {
-                    footer.setAttribute('style', `backdrop-filter: blur(${i}px)`)
-                    i++
-                    if(i == 10) {
-                        clearInterval(this.blurTimeout)
-                    }
-                }, timer);
-            } else {
-                let i = blur
-                this.blurTimeout2 = setInterval(() => {
-                    i--
-                    footer.setAttribute('style', `backdrop-filter: blur(${i}px)`)
-                    if(i == 0) {
-                        clearInterval(this.blurTimeout2)
-                    }
-                }, timer);
-            }
-        },
-        observador() {
-            const observer = new IntersectionObserver(entries => {
-                const showing = entries[0].isIntersecting
-
-                if (entries[0].isIntersecting) {
-                    this.$emit('nomeEvento', showing)
-                } else {
-                    this.$emit('nomeEvento', showing)
+            let blur = Number(footer.style.backdropFilter.split('(')[1][0])
+            let y = blur
+            const addBlur = (increment) => {
+                footer.setAttribute('style', `backdrop-filter: blur(${y}px)`);
+                y += increment
+                if ((increment === 1 && y < 10) || (increment === -1 && y >= 0)) {
+                    clearTimeout(this.blurTimeout)
+                    this.blurTimeout = setTimeout(() => addBlur(increment), 20);
                 }
+            }
+            addBlur(enter == 'enter' ? 1 : -1)
+        },
+        observador() { // Altear o estilo do header ao chegar no footer
+            const observer = new IntersectionObserver(entries => {
+                this.$emit('nomeEvento', entries[0].isIntersecting)
             })
             observer.observe(document.getElementById('observador__footer'))
         },
@@ -586,6 +567,16 @@ export default {
     :root {
         --sky-scale: 1
     }
+}
+
+.designed_by {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 10px;
+    font-size: 12px;
+    color: rgb(105, 110, 128);
+    font-weight: 300;
 }
 
 #main {
@@ -672,6 +663,7 @@ a {
 
 p {
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
 }
 
 /* Bubbles */
@@ -734,6 +726,11 @@ p {
     z-index: 1;
 }
 
+.orcamento h1 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
 .whiteTheme .orcamento {
     background: rgba(255, 255, 255, 0.6);
 }
@@ -770,7 +767,7 @@ p {
     display: flex;
     align-items: center;
     background: #00A3FF;
-    font-size: 16px;
+    font-size: 1rem;
     border: none;
     border-radius: 6px;
     padding: 4px 10px;
@@ -1226,7 +1223,6 @@ p {
     z-index: 2;
 }
 
-
 .card__btn {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 10vw;
@@ -1593,12 +1589,13 @@ p {
 }
 
 @media screen and (max-width: 1000px) {
-    .inicio {
-        grid-template-columns: 100px 1fr 100px;
+    
+    .max__width {
+        width: calc(100% - 50px);
     }
 
-    .inicio .max__width {
-        width: calc(100% - 50px);
+    .inicio {
+        grid-template-columns: 100px 1fr 100px;
     }
 
     .inicio__description {
@@ -1607,7 +1604,8 @@ p {
     }
 
     .square__left,
-    .square__right {
+    .square__right,
+    .bubble {
         display: none;
     }
     /* Sky */
@@ -1775,14 +1773,6 @@ p {
 
     /* Orcamentos */
 
-    .orcamento {
-        padding: 80px 24px;
-    }
-
-    #facaumorcamento.max__width {
-        width: calc(100% - 50px);
-    }
-
     .contatos__column, .sobre__container {
         flex-direction: column;
     }
@@ -1792,11 +1782,6 @@ p {
     }
 
     /* sobre */
-
-    .sobre .max__width {
-        width: calc(100% - 50px);
-    }
-
     .sobre__elements {
         padding: 30px;   
     }
@@ -1811,6 +1796,12 @@ p {
 
     .sobre__ctn {
         width: 88px !important;
+    }
+    .sobre__planet--1 {
+        width: 500px;
+    }
+    .sobre__planet--2 {
+        right: -8px;
     }
 
     /* Portfólio/ */
@@ -1854,8 +1845,8 @@ p {
         line-height: 24px;
     }
 
-    .mim__nome {
-        font-size: 1rem;
+    .mim__nome, .mim__ola {
+        font-size: 1.2rem;
     }
 
     /* Footer */
@@ -1906,6 +1897,61 @@ p {
 
     .sky {
         width: calc(100% - 7px);
+    }
+
+    .orcamento__text {
+        height: 30px;
+        bottom: -15px;
+    }
+
+    .card {
+        height: 200px;
+    }
+
+    .tre, .teclakey, .tcc {
+        height: 400px;
+    }
+}
+
+
+@media only screen and (max-width: 400px) {
+
+    .max__width {
+        width: calc(100% - 10px);
+    }
+
+     /* Orcamentos */
+
+     .orcamento {
+        padding: 80px 5px;
+    }
+
+    .sobre__elements {
+        padding: 20px 10px 30px 10px;
+    }
+    .sobre__container {
+        gap: 10px;
+    }
+    .sobre__redes {
+        padding: 10px 0;
+    }
+
+    .sobre__mateus {
+        width: 140px;
+        height: 140px;
+    }
+    .orcamento__colors {
+        height: 140px;
+    }
+    .orcamento h1 {
+        margin-left: 12px;
+        /* font-size: 1.2rem; */
+    }
+    .orcamento__card {
+        padding: 14px;
+    }
+    .orcamento__card {
+        border-radius: 12px;
     }
 }
 

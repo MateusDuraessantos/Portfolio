@@ -3,12 +3,13 @@
     <div id="themeOverflow"></div>
     <div id="overflow">
       <div class="overflowPort">
-        <img :src="`inicio/black/smile.svg`">
+        <img :src="`inicio/${smile}/smile.svg`">
       </div>
     </div>
     <Header @tun-on="turnOn" :removeLinkVer="removeLinkVer" :booleanTheme="booleanTheme" class="header" id="header"
       @remove-link="removeClass" :dadoBol="hiddenHeader" />
 
+    <!-- Se booleanTheme for true o tema fica branco  -->
     <router-view :booleanTheme="booleanTheme" @remove-link-ver="removeLinkVerFunc" @nome-evento="tratarEvento"
       @loading-holl-page="loadingOla" />
   </div>
@@ -27,21 +28,24 @@ export default {
       removeLinkVer: true,
       whatTimeIs: null,
       hiddenHeader: true,
-      //Se true o tema fica branco 
-      booleanTheme: null,
-      hide: false,
+      booleanTheme: true,
       smile: '',
     }
   },
   mounted() {
-    this.transitionAnimation()
     this.isDay()
     this.favIcon()
     this.turnBackgroundWhite(0)
     this.overflow(0)
   },
   methods: {
-    transitionAnimation() {
+    removeLinkVerFunc() {
+      this.removeLinkVer = !this.removeLinkVer
+    },
+    isDay() {
+      this.whatTimeIs = new Date().getHours()
+      this.booleanTheme = this.whatTimeIs < 5 || this.whatTimeIs > 18 ? false : true 
+      this.booleanTheme = true
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -51,21 +55,10 @@ export default {
         }, 1250);
       } else {
         overflow.classList.add('blackoverflows')
-        this.smile = 'sky'
+        this.smile = 'black'
         setTimeout(() => {
           overflow.classList.remove('blackoverflows')
         }, 1250);
-      }
-    },
-    removeLinkVerFunc() {
-      this.removeLinkVer = !this.removeLinkVer
-    },
-    isDay() {
-      this.whatTimeIs = new Date().getHours()
-      if (this.whatTimeIs <= 5 || this.whatTimeIs > 18) {
-        this.booleanTheme = false
-      } else {
-        this.booleanTheme = true
       }
     },
     turnOn() {
@@ -79,7 +72,6 @@ export default {
       overflow.setAttribute('class', 'blackOverflow')
 
       if (this.booleanTheme == true) {
-
         setTimeout(() => {
           overflow.removeAttribute('class')
         }, timer);
@@ -93,7 +85,6 @@ export default {
     turnBackgroundWhite(timer) {
       // Altera a cor do background global 
       if (this.booleanTheme == true) {
-
         setTimeout(() => {
           document.body.style.background = '#e8dede'
         }, timer);
@@ -107,11 +98,7 @@ export default {
       document.getElementById('header').classList.remove('show')
     },
     tratarEvento(showingup) {
-      if (showingup) {
-        this.hiddenHeader = false
-      } else {
-        this.hiddenHeader = true
-      }
+      this.hiddenHeader = showingup ? false: true
     },
     favIcon() {
       const newLink = document.createElement("link")
@@ -127,10 +114,13 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* font-family: 'Poppins', sans-serif; */
+html {
+  font-size: 16px;
+}
+
 body {
   overflow: overlay;
   background: black;
-  font-size: 16px;
   width: 100vw;
   overflow-y: overlay;
   overflow-x: hidden;
@@ -148,7 +138,7 @@ img {
 
 .header {
   opacity: 1;
-  transition: .2s;
+  transition: .5s;
 }
 
 .show {
@@ -210,6 +200,11 @@ img {
     border-radius: 10vw;
     backdrop-filter: blur(15px);
     transition: .2s;
+  }
+  
+.link__container:hover {
+  background: rgba(107, 107, 107, 0.6);
+  transition: .2s;
 }
 
 .link__img {
@@ -217,11 +212,6 @@ img {
     min-width: 20px;
     margin: auto;
     z-index: 2;
-    transition: .2s;
-}
-
-.link__container:hover {
-    background-color: rgba(0, 0, 0, 0.7);
     transition: .2s;
 }
 
@@ -514,12 +504,20 @@ button {
   width: 100vw;
 }
 
-.blackoverflows {
+.blackoverflows .overflowPort {
   background: black;
 }
 
 .whiteoverflows {
   background: white;
+}
+
+
+
+@media only screen and (max-width: 400px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 @keyframes animationOverflow {

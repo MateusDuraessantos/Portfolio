@@ -163,17 +163,22 @@ nav {
     color: #1f1f1f;
 }
 
-
 /*  */
 
 .hiddenHeader {
     background: rgba(0, 0, 0, 0);
-    backdrop-filter: none;
+    backdrop-filter: none !important;
+    transition: .5s;
 }
 
 .hiddenHeader .dropdown {
     color: gray;
     transition: .5s;
+}
+
+.hiddenHeader .turnWhite {
+    opacity: 0;
+    pointer-events: none;
 }
 
 * {
@@ -376,11 +381,6 @@ button {
     width: 140px;
     height: 40px;
     outline: none;
-    box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.4);
-}
-
-.turnWhite--white.turnWhite {
-    box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.2), -3px -3px 3px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(255, 255, 255, 0.6);
 }
 
 .turnWhite__swith {
@@ -389,7 +389,6 @@ button {
     display: flex;
     align-items: center;
     background: gray;
-    box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.4), inset -1px -1px 5px rgba(0, 0, 0, 0.4);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -398,7 +397,6 @@ button {
 
 .turnWhite--white .turnWhite__swith {
     box-shadow: none;
-    box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.4);
 }
 
 .turnWhite--white {
@@ -412,7 +410,7 @@ button {
 
 text-btn {
     width: 55px;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .emoji {
@@ -434,6 +432,4 @@ text-btn {
 .claro {
     right: 42px;
 }
-
-
 </style>
