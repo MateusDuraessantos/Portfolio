@@ -3,7 +3,7 @@
     <div id="themeOverflow"></div>
     <div id="overflow">
       <div class="overflowPort">
-        <img :src="`inicio/sky/smile.svg`">
+        <img :src="`inicio/black/smile.svg`">
       </div>
     </div>
     <Header @tun-on="turnOn" :removeLinkVer="removeLinkVer" :booleanTheme="booleanTheme" class="header" id="header"
@@ -43,15 +43,13 @@ export default {
   methods: {
     transitionAnimation() {
       const overflow = document.getElementById('overflow')
-
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
         this.smile = 'white'
         setTimeout(() => {
           overflow.classList.remove('whiteoverflows')
         }, 1250);
-      }
-      else {
+      } else {
         overflow.classList.add('blackoverflows')
         this.smile = 'sky'
         setTimeout(() => {
@@ -64,11 +62,9 @@ export default {
     },
     isDay() {
       this.whatTimeIs = new Date().getHours()
-
       if (this.whatTimeIs <= 5 || this.whatTimeIs > 18) {
         this.booleanTheme = false
-      }
-      else {
+      } else {
         this.booleanTheme = true
       }
     },
@@ -87,8 +83,7 @@ export default {
         setTimeout(() => {
           overflow.removeAttribute('class')
         }, timer);
-      }
-      else {
+      } else {
         overflow.setAttribute('class', 'whiteOverflow')
         setTimeout(() => {
           overflow.removeAttribute('class')
@@ -102,8 +97,7 @@ export default {
         setTimeout(() => {
           document.body.style.background = '#e8dede'
         }, timer);
-      }
-      else {
+      } else {
         setTimeout(() => {
           document.body.removeAttribute('style')
         }, timer);
@@ -115,8 +109,7 @@ export default {
     tratarEvento(showingup) {
       if (showingup) {
         this.hiddenHeader = false
-      }
-      else {
+      } else {
         this.hiddenHeader = true
       }
     },
@@ -206,12 +199,11 @@ img {
 
 .link__container {
     height: 38px;
-    border: 1px solid gray;
     opacity: 1;
     display: flex;
     align-items: center;
     width: max-content;
-    padding: 0.4vw 1vw 0.4vw 1.2vw;
+    padding: 0 14px 0 16px;
     text-decoration: none;
     gap: 0.6vw;
     background: rgba(0, 0, 0, 0.6);
@@ -221,7 +213,7 @@ img {
 }
 
 .link__img {
-    width: 1.2vw;
+    width: 20px;
     min-width: 20px;
     margin: auto;
     z-index: 2;

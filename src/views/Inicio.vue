@@ -35,7 +35,7 @@
         
         <!-- BACKGROUND -->
         <div class="background__parallax">
-            <img class="parallax--img" id="parallax" :src="`inicio/${whitePlanets}/background__parallax.jpg`">
+            <img class="parallax--img" id="parallax" :src="`inicio/${whiteImages}/background__parallax.jpg`">
         </div>
         
         <!-- POPUP -->
@@ -91,11 +91,12 @@
             <div class="card__grid">
                 <div
                     v-for="(img, index) in imgs"
-                    :class="'card ' + img.class + ' ' + img.classGrid"
+                    :class="'card ' + img.class"
                     :key="index"
                     @click="upPopup($event, index, 'true')"
                 >
-                     <img class="card__img" :src="`projetos/${img.thumb}`">
+                    <img v-if="img.thumb.default" class="card__img" :src="`projetos/${img.thumb.default}`">
+                    <img v-else class="card__img" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.name }}</p>
@@ -109,24 +110,22 @@
         <!-- FAÇA UM ORÇAMENTO -->
         <section class="max__width" id="facaumorcamento">
             <div class="orcamento">
-                <h1>Serviços que ofereço:</h1>
+                <h1>Serviços:</h1>
                 <br><br>
-                <img :src="`inicio/${whitePlanets}/colors.svg`" class="orcamento__colors">
-                <img :src="`inicio/${whitePlanets}/texts.svg`" class="orcamento__text">
-                <img :src="`inicio/${whitePlanets}/tools.svg`" class="orcamento__tools">
+                <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors">
+                <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text">
+                <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools">
                 <div class="orcamento__card--container">
                     <div :class="`orcamento__card ${cards.class}`" v-for="cards in cardsOrcamento">
                         <div>
                             <p><strong>{{ cards.title }}</strong></p>
+                            <br>
                             <span>
                                 <span v-for="infos in cards.card">
                                     <li>
                                         <div style="display: flex; flex-direction: column; gap: 2px;">
                                             <p><strong>{{ infos.oferta }}</strong></p>
                                             <p style="font-size: 14px;">{{ infos.beneficio }}</p>
-                                        </div>
-                                        <div class="orcamento__icons">
-                                            <img src="icons/blackicons/check.svg">
                                         </div>
                                     </li>
                                 </span>
@@ -145,8 +144,8 @@
         <!-- SOBRE -->
         <section class="section sobre" id="sobre">
             <div class="max__width">
-                <img src="inicio/sky/red-planet.jpg" id="planets-red" class="sobre__planet--1">
-                <img src="inicio/sky/earth.png" id="planets-earth" class="sobre__planet--2">
+                <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1">
+                <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2">
 
                 <div class="sobre__elements">
                     <div class="sobre__container">
@@ -167,7 +166,7 @@
                         <img class="sobre__mateus" src="mateus.jpg">
                     </div>
                     <div style="display: flex; justify-content: center;">
-                        <h4>Experiência:</h4>
+                        <h4>Conhecimento:</h4>
                     </div>
                     <div class="sobre__experiencia">
                         <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
@@ -189,7 +188,7 @@
         <footer class="sky" id="contato">
             <!-- Os céus proclamam a glória de Jesus -->
             <span class="sky__container" v-if="footerVisible">
-                <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
+                <video class="sky__background" src="inicio/black/bluesky_2.mp4" autoplay loop muted />
                 <div class="sky__shadows" id="shadow"></div>
             </span>
             <span class="sky__container" v-else>
@@ -197,7 +196,7 @@
                 <div class="sky__shadows--white" id="shadow"></div>
             </span>
             <!-- Infos -->
-            <div class="sky__informacoes">
+            <div class="sky__informacoes" style="backdrop-filter: blur(0px);">
                 <div class="informacoes__container">
                     <address class="informacoes__content">
                         <div class="contatos__column">
@@ -252,22 +251,22 @@
                     </div>
                 </div>
             </div>
-            <img class="sky__planet_01 sky__planet" :src="`inicio/${whitePlanets}/01.png`" alt="planet">
-            <img class="sky__planet_02 sky__planet" :src="`inicio/${whitePlanets}/02.png`" alt="planet">
-            <img class="sky__planet_03 sky__planet" :src="`inicio/${whitePlanets}/03.png`" alt="planet">
-            <img class="sky__planet_05 sky__planet" :src="`inicio/${whitePlanets}/05.png`" alt="planet" id="planet_05">
-            <img class="sky__planet_06 sky__planet" :src="`inicio/${whitePlanets}/06.png`" alt="planet">
-            <img class="sky__planet_07 sky__planet" :src="`inicio/${whitePlanets}/07.png`" alt="planet">
-            <img class="sky__planet_08 sky__planet" :src="`inicio/${whitePlanets}/08.png`" alt="planet">
-            <img class="sky__planet_09 sky__planet" :src="`inicio/${whitePlanets}/09.png`" alt="planet">
-            <img class="sky__planet_10 sky__planet" :src="`inicio/${whitePlanets}/10.png`" alt="planet">
+            <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/01.png`" alt="planet">
+            <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/02.png`" alt="planet">
+            <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/03.png`" alt="planet">
+            <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/05.png`" alt="planet" id="planet_05">
+            <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/06.png`" alt="planet">
+            <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/07.png`" alt="planet">
+            <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/08.png`" alt="planet">
+            <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/09.png`" alt="planet">
+            <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/10.png`" alt="planet">
             <div class="smile_cont sky__planet" id="planet_11">
-                <img class="sky__planet_11 sky__planet" :src="`inicio/${whitePlanets}/11.png`" alt="planet">
-                <img class="smile" :src="`inicio/${whitePlanets}/smile.svg`" alt="sorriso">
+                <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/11.png`" alt="planet">
+                <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="sorriso">
             </div>
-            <img class="sky__planet_12 sky__planet" :src="`inicio/${whitePlanets}/12.png`" alt="planet" id="planet_12">
-            <img class="sky__planet_13 sky__planet" :src="`inicio/${whitePlanets}/13.png`" alt="planet" id="planet_13">
-            <img class="sky__planet_14 sky__planet" :src="`inicio/${whitePlanets}/14.png`" alt="planet" id="planet_14">
+            <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/12.png`" alt="planet" id="planet_12">
+            <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/13.png`" alt="planet" id="planet_13">
+            <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/14.png`" alt="planet" id="planet_14">
         </footer>
     </div>
 </template>
@@ -281,9 +280,11 @@ export default {
     },
     data() {
         return {
+            blockTimer: true,
             blurTimeout: '',
+            blurTimeout2: '',
             whiteIcons: 'whiteicons',
-            whitePlanets: 'sky',
+            whiteImages: 'black',
             experienciaIcons: [
                 [
                     ['software0', 'Illustrator'],
@@ -352,6 +353,10 @@ export default {
                             oferta: 'Programação',
                             beneficio: 'Já tem um design de website pronto? eu posso fazer os códigos desse site para você.'
                         },
+                        {
+                            oferta: 'Otimização',
+                            beneficio: ' Otimizado para carregar rapidamente.'
+                        },
                     ],
                 },
                 {
@@ -410,28 +415,24 @@ export default {
         });
     },
     methods: {
-        scrollDown(event, ancora) {
+        scrollDown(ancora) {
             setTimeout(() => {
                 const obj = document.getElementById(ancora)
-                    window.scrollTo({
-                        top: obj.offsetTop,
-                        behavior: 'smooth'
+                window.scrollTo({
+                    top: obj.offsetTop,
+                    behavior: 'smooth'
                 })
             }, 50)
         },
         haveAGoodDay() {
             const date = new Date().getHours()
-
             if (date >= 0 && date < 5) {
                 this.saldacao = 'Olá,'
-            }
-            else if (date >= 5 && date < 12) {
+            } else if (date >= 5 && date < 12) {
                 this.saldacao = 'Bom dia!'
-            }
-            else if (date >= 12 && date < 18) {
+            } else if (date >= 12 && date < 18) {
                 this.saldacao = 'Boa tarde!'
-            }
-            else {
+            } else {
                 this.saldacao = 'Boa noite!'
             }
         },
@@ -439,14 +440,13 @@ export default {
             if (this.booleanTheme == true) {
                 setTimeout(() => {
                     this.blockClicked = 'blackicons'
-                    this.whitePlanets = 'white'
+                    this.whiteImages = 'white'
                     this.footerVisible = false
                 }, timer);
-            }
-            else {
+            } else {
                 setTimeout(() => {
                     this.blockClicked = 'whiteicons'
-                    this.whitePlanets = 'sky'
+                    this.whiteImages = 'black'
                     this.footerVisible = true
                 }, timer);
             }
@@ -458,8 +458,7 @@ export default {
                 if (this.booleanTheme == true) {
                     document.getElementById('main').setAttribute('class', 'whiteTheme')
                     this.whiteIcons = 'blackicons'
-                }
-                else {
+                } else {
                     document.getElementById('main').removeAttribute('class')
                     this.whiteIcons = 'whiteicons'
                 }
@@ -476,18 +475,29 @@ export default {
                 });
         },
         blurFooter(event){
-            clearTimeout(this.blurTimeout)
+             clearTimeout(this.blurTimeout)
+           clearInterval(this.blurTimeout2)
             const footer = document.querySelector('.sky__informacoes')
+            const timer = 30
+            let blur = footer.style.backdropFilter.split('(')[1][0]
             if(event == 'enter'){
-                footer.classList.remove('blur-remove')
-                footer.classList.add('blur')
+                let i = blur
+                this.blurTimeout = setInterval(() => {
+                    footer.setAttribute('style', `backdrop-filter: blur(${i}px)`)
+                    i++
+                    if(i == 10) {
+                        clearInterval(this.blurTimeout)
+                    }
+                }, timer);
             } else {
-                footer.classList.add('blur-remove')
-                footer.classList.remove('blur')
-                this.blurTimeout = setTimeout(() => {
-                    footer.classList.remove('blur')
-                    footer.classList.remove('blur-remove')
-                }, 2000);
+                let i = blur
+                this.blurTimeout2 = setInterval(() => {
+                    i--
+                    footer.setAttribute('style', `backdrop-filter: blur(${i}px)`)
+                    if(i == 0) {
+                        clearInterval(this.blurTimeout2)
+                    }
+                }, timer);
             }
         },
         observador() {
@@ -496,24 +506,23 @@ export default {
 
                 if (entries[0].isIntersecting) {
                     this.$emit('nomeEvento', showing)
-                }
-                else {
+                } else {
                     this.$emit('nomeEvento', showing)
                 }
             })
             observer.observe(document.getElementById('observador__footer'))
         },
         upPopup(event, index) {
-            const clicked = event.target.classList[0]
-            const elementos = ['popup__close', 'popup__overflow', 'container-button']
-
-            if (event.currentTarget.classList[0] == 'card') {
-                this.indexImg = index
-                document.body.style.overflow = 'hidden'
-                this.popup = !this.popup
-            } else {
+            const elementos = ['popup__close', 'popup__overflow', 'container-button', 'card']
+            if(this.blockTimer){
+                const clicked = event.target.classList[0]
                 elementos.forEach(obj => {
-                    if(document.body.style.overflow == 'hidden'&& clicked == obj){
+                    if (event.currentTarget.classList[0] == obj) {
+                        this.indexImg = index
+                        document.body.style.overflow = 'hidden'
+                        this.popup = !this.popup
+                    } else if(document.body.style.overflow == 'hidden' && clicked == obj){
+                        this.blockTimer = false
                         document.querySelector('#img_portrato').classList.add('popup__close--animation-opacity')
                         document.querySelector('.popup__background') .classList.add('popup__close--animation-blur')
                         setTimeout(() => {
@@ -522,10 +531,11 @@ export default {
                             this.loading = true
                             document.querySelector('.popup__background').classList.remove('popup__close--animation-blur')
                             document.querySelector('#img_portrato').classList.remove('popup__close--animation-opacity')
+                            this.blockTimer = true
                         }, 1000);
                     }
-                })
-            }
+                }
+            )}
             this.number = 0
         },
         loadingImg() {
@@ -543,16 +553,14 @@ export default {
             if (value == 'back') {
                 if (this.indexImg > 0) {
                     this.indexImg--
-                }
-                else {
+                } else {
                     this.indexImg = imagens.length - 1
                 }
             }
             if (value == 'next') {
                 if (this.indexImg < imagens.length - 1) {
                     this.indexImg++
-                }
-                else {
+                } else {
                     this.indexImg = 0
                 }
             }
@@ -562,16 +570,6 @@ export default {
 </script>
 
 <style>
-
-:root {
-    --blur: 12px
-}
-
-.blur {
-    backdrop-filter: blur(var(--blur));
-    transition: .2s;
-}
-
 :root {
     --border-color: #2c2c2c;
     --shadow-color: black;
@@ -593,6 +591,7 @@ export default {
 #main {
     position: relative;
     transition: .2s;
+    /* overflow-x: hidden; */
 }
 
 .max__width {
@@ -714,7 +713,7 @@ p {
     width: 140px;
     right: 0;
     object-fit: contain;
-    background-image: url('../../public/inicio/sky/lua.png');
+    background-image: url('../../public/inicio/black/lua.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -868,12 +867,16 @@ p {
 .orcamento__card li::before {
     position: absolute;
     content: '';
-    top: 10px;
-    left: -20px;
-    height: 6px;
-    width: 6px;
+    top: 2px;
+    left: -26px;
+    height: 22px;
+    width: 22px;
     border-radius: 50%;
-    background: black;
+    background-image: url('../../public/icons/blackicons/check.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+    /* background: black; */
 }
 .orcamento__card img {
     width: 40px;
@@ -929,6 +932,7 @@ p {
     position: relative;
     display: flex;
     flex-direction: column;
+    -webkit-backdrop-filter: blur(50px) !important;
     backdrop-filter: blur(50px);
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
@@ -999,7 +1003,7 @@ p {
     position: relative;
     margin-bottom: 100px;
     gap: 4vw;
-    background-image: url('../../public/inicio/sky/banner_sky.jpg');
+    background-image: url('../../public/inicio/black/banner_sky.jpg');
     background-size: cover;
 }
 
@@ -1132,17 +1136,6 @@ p {
     font-weight: 600;
 }
 
-.card__grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas:
-        '. gridGrid .'
-        'table gridGrid .';
-    width: 100%;
-    margin: auto;
-}
-
 .card__description {
     opacity: 0;
     transition: .2s;
@@ -1152,7 +1145,6 @@ p {
     opacity: 1;
     transition: .2s;
 }
-
 
 .card__destaques {
     display: flex;
@@ -1175,15 +1167,42 @@ p {
     box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.2);
 }
 
-.gridGrid {
-    grid-area: gridGrid;
-    height: 1000px;
-}
-
 .card:hover .card__img {
     transform: scale(1.04);
     transition: .3s;
 }
+
+.card__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    margin: auto;
+    grid-template-areas:
+        'mesa mesa teclakey'
+        '. tre teclakey'
+        'tcc tre .'
+        'tcc . .'
+}
+
+.tcc, .tre, .teclakey {
+    height: 1000px;
+}
+.tcc {
+    grid-area: tcc;
+}
+.tre {
+    grid-area: tre;
+}
+
+.mesa {
+    grid-area: mesa;
+}
+
+.teclakey {
+    grid-area: teclakey;
+}
+
 
 .card__img {
     width: 100%;
@@ -1215,12 +1234,13 @@ p {
     padding: 0 24px;
     font-size: 14px;
     height: 44px;
-    transition: .3s
+    transition: .3s;
+    border: none;
 }
 
 .card__btn:hover {
     background: rgba(255, 255, 255, 0.7);
-    color: black;
+    color: black !important;
     transition: .3s
 }
 
@@ -1365,8 +1385,8 @@ p {
     justify-content: center;
     white-space: nowrap;
     text-align: center;
-    gap: 1vw;
     bottom: -40px;
+    height: 40px;
     opacity: 0;
     border-radius: 10vw;
     transition: .2s;
@@ -1554,6 +1574,24 @@ p {
     z-index: 1;
 }
 
+@media screen and (max-width: 1280px) {
+    .orcamento {
+        padding: 80px 20px;
+    }
+
+    .orcamento__card {
+        padding: 20px;
+    }
+
+    .orcamento__card li {
+        gap: 4px;
+    }
+
+    .max__width {
+        width: calc(100% - 100px);
+    }
+}
+
 @media screen and (max-width: 1000px) {
     .inicio {
         grid-template-columns: 100px 1fr 100px;
@@ -1731,7 +1769,7 @@ p {
         height: 250px;
     }
 
-    .gridGrid {
+    .teclakey {
         height: 500px;
     }
 
@@ -1775,11 +1813,17 @@ p {
         width: 88px !important;
     }
 
+    /* Portfólio/ */
+
+    .tcc, .tre, .teclakey {
+        height: 500px;
+    }
+
 }
 
 @media screen and (max-width: 850px) {
 
-    .img_front {
+    .img_front, .orcamento__tools {
         display: none;
     }
 
@@ -1806,7 +1850,7 @@ p {
     /* Mim */
 
     .inicio__container {
-        gap: 0;
+        gap: 12px;
         line-height: 24px;
     }
 
@@ -1838,6 +1882,9 @@ p {
     .informacoes__contato {
         gap: 6px;
     }
+
+    /* Orçamento */
+    
 }
 
 /* Mobile version */
@@ -1857,11 +1904,9 @@ p {
         display: none;
     }
 
-    .inicio,
     .sky {
         width: calc(100% - 7px);
     }
-
 }
 
 /* White Theme */
@@ -1884,19 +1929,8 @@ p {
     background-image: url('../../public/inicio/white/banner__white.jpg');
 }
 
-.whiteTheme .card__description {
-    background-color: rgb(255 255 255 / 55%);
-}
-
-.whiteTheme .card__btn {
-    background-color: rgb(255 255 255 / 70%);
-    border-width: 2px;
-    border-color: white;
-}
-
-
-.whiteTheme .sky p {
-    color: black;
+.card__data p, .card__btn{
+    color: var(--creme) !important;
 }
 
 .whiteTheme .sky__informacoes {
@@ -1969,31 +2003,6 @@ p {
 .whiteTheme .background__sun__h4 {
     color: white;
 }
-
-.blur-remove {
-    animation-name: remove-blur;
-    animation-duration: 2s;
-}
-
-@keyframes remove-blur {
-    from {
-        backdrop-filter: blur(var(--blur))
-    }
-    to {
-        backdrop-filter: blur(0)
-    }
-}
-
-@keyframes loading {
-    from {
-        transform: rotate(0);
-    }
-    to {
-
-        transform: rotate(360deg);
-    }
-}
-
 
 @keyframes sky_01 {
     0% {

@@ -3,8 +3,8 @@
 
         <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith" id="whiteThemeBtn">
-                <p class="claro"><div class="emoji">☀️</div> <text-btn>Claro</text-btn></p>
-                <p class="escuro"><text-btn>Escuro</text-btn> <div class="emoji">🌙</div></p>
+                <p class="claro"><div class="emoji">☀️</div> <text-btn>Tema</text-btn></p>
+                <p class="escuro"><text-btn>Tema</text-btn> <div class="emoji">🌙</div></p>
             </div>
         </button>
 
@@ -77,8 +77,7 @@ export default {
                     this.colorNav = 'white'
                     white.classList.add('turnWhite--white')
                 }, timer);
-            }
-            else {
+            } else {
                 buttun.style.transform = ''
 
                 // Muda cor da navegação
@@ -119,8 +118,7 @@ export default {
 
             if (elements.length == 0) {
                 event.target.setAttribute('activeLink', '')
-            }
-            else {
+            } else {
                 document.querySelector('[activeLink]').removeAttribute('activeLink')
                 event.target.setAttribute('activeLink', '')
             }
@@ -414,17 +412,19 @@ button {
 
 text-btn {
     width: 55px;
+    font-size: 16px;
 }
 
-.escuro,
-.claro {
+.emoji {
+    font-size: 22px;
+}
+.escuro, .claro {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 4px;
     white-space: nowrap;
-    font-size: 14px;
 }
 
 .escuro {
@@ -435,7 +435,5 @@ text-btn {
     right: 42px;
 }
 
-.emoji {
-    font-size: 22px;
-}
+
 </style>
