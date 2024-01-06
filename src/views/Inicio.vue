@@ -1,56 +1,7 @@
 <template>
-    <main id="main">
-        <!-- BACKGROUND -->
-        <div class="background__parallax" id="parallax" style="top: 0;">
-            <img class="parallax--img--black"
-                :src="`inicio/${whitePlanets}/background__parallax.jpg`">
-            <img class="parallax--img--white"
-                src="https://images.unsplash.com/photo-1553882951-9c3dab4a50cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-            </div>
-        <!-- Popup -->
-        <div class="popup__background" v-if="popup" @click="upPopup">
-            <div class="popup__overflow" id="animation">
-                <div class="container-button">
-                    <button class="changeProject back" @click="changeProjectDesign('back')">
-                        <p>←</p>
-                    </button>
-                    <button class="changeProject next" @click="changeProjectDesign('next')">
-                        <p>→</p>
-                    </button>
-                </div>
-
-                <div class="container-loading" v-if="loading">
-                    <span>carregando</span>
-                    <div class="loading"></div>
-                </div>
-
-                <div class="popup__content" id="img_portrato" style="opacity: 0;">
-                    <div class="link__grid">
-                        <a :href="imgs[indexImg].link" target="_blank" v-if="imgs[indexImg].link" class="link__container">
-                            Website online
-                            <img class="link__img" src="external.svg">
-                        </a>
-                        <a :href="imgs[indexImg].github" target="_blank" v-if="imgs[indexImg].github"
-                            class="link__container">
-                            GitHub
-                            <img class="link__img" src="github_logo.svg">
-                        </a>
-                    </div>
-                    <div class="description">
-                        <h1 class="h1__popup">{{ imgs[indexImg].name }}</h1>
-                        <br>
-                        <p style="font-size: 0.8rem;">{{ imgs[indexImg].description }}</p>
-                    </div>
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
-                </div>
-
-                <button class="popup__close">✕</button>
-            </div>
-        </div>
-
+    <div id="main">
         <!-- Inicio -->
-
-        <div class="inicio">
+        <header class="inicio">
             <div class="max__width" id="inicio">
                 <p style="position: absolute; width: 100%; text-align: center; bottom: 1vw; font-size: 1rem; color: rgb(105, 110, 128); font-weight: 300;">
                     Designed by Mateus Durães dos Santos - 2023
@@ -80,80 +31,83 @@
             </div>
             <img src="square1.svg" class="square__left">
             <img src="square0.svg" class="square__right">
+        </header>
+        
+        <!-- BACKGROUND -->
+        <div class="background__parallax">
+            <img class="parallax--img" id="parallax" :src="`inicio/${whitePlanets}/background__parallax.jpg`">
         </div>
-
+        <!-- POPUP -->
+        <div class="popup__background" v-if="popup" @click="upPopup">
+            <div class="popup__overflow" id="animation">
+                <div class="container-button">
+                    <button class="changeProject back" @click="changeProjectDesign('back')">
+                        <p>←</p>
+                    </button>
+                    <button class="changeProject next" @click="changeProjectDesign('next')">
+                        <p>→</p>
+                    </button>
+                </div>
+                <div class="container-loading" v-if="loading">
+                    <span>carregando</span>
+                    <div class="loading"></div>
+                </div>
+                <div class="popup__content" id="img_portrato" style="opacity: 0;">
+                    <div class="link__grid">
+                        <a :href="imgs[indexImg].link" target="_blank" v-if="imgs[indexImg].link" class="link__container">
+                            Website online
+                            <img class="link__img" src="external.svg">
+                        </a>
+                        <a :href="imgs[indexImg].github" target="_blank" v-if="imgs[indexImg].github"
+                            class="link__container">
+                            GitHub
+                            <img class="link__img" src="github_logo.svg">
+                        </a>
+                    </div>
+                    <div class="description">
+                        <h1 class="h1__popup">{{ imgs[indexImg].name }}</h1>
+                        <br>
+                        <p style="font-size: 0.8rem;">{{ imgs[indexImg].description }}</p>
+                    </div>
+                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="coisas">
+                </div>
+                <button class="popup__close">✕</button>
+            </div>
+        </div>
+        
         <!-- BUBBLES -->
-
         <div class="bubble__container" id="bubbles__observer">
             <img class="bubble bubble__left" src="bubble1.svg">
             <div class="bubble bubble__right"></div>
         </div>
-        
+    
         <!-- PORTFÓLIO -->
-
         <section class="programacao section" id="portfolio">
-            <div class="max__width">
-                <p class="experiencia">Alguns trabalhos que fiz</p>
-                <p class="card__destaques">Destaques:</p>
-                <div class="card__grid">
-                    <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
-                        @click="upPopup($event, img.index, 'true')">
-                        <img class="card__img" :src="'projetos/' + img.obj[0]">
-                        <div class="card__description">
-                            <div class="card__data">
-                                <p> {{ img.obj[1] }}</p>
-                                <p> {{ img.obj[2] }}</p>
-                            </div>
-                            <button class="card__btn">ver</button>
+            <p class="experiencia">Alguns trabalhos que fiz</p>
+            <p class="card__destaques">Destaques:</p>
+            <div class="card__grid">
+                <div :class="'card ' + img.class + ' ' + img.classGrid" v-for="img in cardFront" data-sr-delay="100"
+                    @click="upPopup($event, img.index, 'true')">
+                    <img class="card__img" :src="'projetos/' + img.obj[0]">
+                    <div class="card__description">
+                        <div class="card__data">
+                            <p> {{ img.obj[1] }}</p>
                         </div>
-                    </div>
-                    <div class="table">
-                        <p class="table_p">Experiências em frontend:</p>
-                        <div class="table__content">
-                            <div border-style></div>
-                            <td border-style>
-                                <p>CSS</p>
-                            </td>
-                            <td border-style>
-                                <p>Javascript</p>
-                            </td>
-                            <td border-style>
-                                <p>VueJs</p>
-                            </td>
-                            <td border-style>
-                                <p>Firebase</p>
-                            </td>
-                            <td border-style>
-                                <p>Element Plus</p>
-                            </td>
-                            <td border-style>
-                                <p>Bootstrap</p>
-                            </td>
-                            <td>
-                                <p>GitHub</p>
-                                <div class="star table__star">
-                                </div>
-                            </td>
-                        </div>
+                        <button class="card__btn">ver</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- FAÇA UM ORÇAMENTO -->
-
         <section class="max__width" id="facaumorcamento">
             <div class="orcamento">
-                <h1>Websites personalizados de acordo com o seu gosto</h1>
+                <h1>Serviços que ofereço:</h1>
                 <br><br>
-
                 <img :src="`inicio/${whitePlanets}/colors.svg`" class="orcamento__colors">
                 <img :src="`inicio/${whitePlanets}/texts.svg`" class="orcamento__text">
                 <img :src="`inicio/${whitePlanets}/tools.svg`" class="orcamento__tools">
-
                 <div class="orcamento__card--container">
-
-
                     <div :class="`orcamento__card ${cards.class}`" v-for="cards in cardsOrcamento">
                         <p><strong>{{ cards.title }}</strong></p>
                         <span>
@@ -163,7 +117,7 @@
                                         <p><strong>{{ infos.oferta }}</strong></p>
                                         <p style="font-size: 14px;">{{ infos.beneficio }}</p>
                                     </div>
-                                    
+    
                                     <div class="orcamento__icons">
                                         <img src="icons/blackicons/check.svg">
                                     </div>
@@ -172,136 +126,132 @@
                         </span>
                         <button href="#contato" class="orcamento__btn" @click="scrollDown($event, 'contato')">Contate-me</button>
                     </div>
-                    
-                 
+    
+    
                 </div>
             </div>
         </section>
-        
-
+    
         <section class="mensagem">
-            <h6 id="mensagem">A arte imita a natureza.</h6>
+            <h6>A arte imita a natureza.</h6>
         </section>
 
         <!-- SOBRE -->
-
         <section class="section sobre" id="sobre">
             <div class="max__width">
-                <div class="sobre__container">
-                    <div class="sobre__redes">
-                        <a  href="https://www.behance.net/mateusduraes" target="_blank">
-                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
-                        </a>
-                        <a href="https://github.com/MateusDuraessantos" target="_blank">
-                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
-                        </a>
-                        <a  href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
-                        </a>
-                    </div>
-                    <p> Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI. Com dois anos de experiência profissional, utilizando tecnologias como CSS, JavaScript e Vue.js. Atualmente, ocupo a posição de Desenvolvedor Frontend Júnior, mas estou em uma jornada contínua de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e completo no campo do desenvolvimento web.</p>
-                    <img class="sobre__mateus" src="mateus.jpg">
-                </div>
-                
-                <br>
-                <div style="display: flex; justify-content: center;">
-                    <p>Experiência:</p>
-                    <br><br><br>
-                </div>
+                <img src="inicio/sky/red-planet.jpg" id="planets-red" class="sobre__planet--1">
+                <img src="inicio/sky/earth.jpg" id="planets-earth" class="sobre__planet--2">
 
-                <div class="sobre__experiencia">
-                    <div class="sobre__ctn" v-for="icons in experienciaIcons" style="text-align: center; width: 124px;">
-                        <img class="sobre__icon--redes" :src="`${icons[0]}.png`">
-                        <p>{{ icons[1] }}</p>
+                <div class="sobre__elements">
+                    <div class="sobre__container">
+                        <div class="sobre__redes">
+                            <a  href="https://www.behance.net/mateusduraes" target="_blank">
+                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`" alt="logo Behance">
+                            </a>
+                            <a href="https://github.com/MateusDuraessantos" target="_blank">
+                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
+                            </a>
+                            <a  href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
+                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
+                            </a>
+                        </div>
+                        <p> 
+                            Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI. Com dois anos de experiência profissional, utilizando tecnologias como CSS, JavaScript e Vue.js. Atualmente, ocupo a posição de Desenvolvedor Frontend Júnior, mas estou em uma jornada contínua de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e completo no campo do desenvolvimento web.
+                        </p>
+                        <img class="sobre__mateus" src="mateus.jpg">
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        <h4>Experiência:</h4>
+                    </div>
+                    <div class="sobre__experiencia">
+                        <div class="sobre__ctn" v-for="icons in experienciaIcons[0]" style="text-align: center; width: 124px;">
+                            <img class="sobre__icon" :src="`${icons[0]}.png`">
+                            <p>{{ icons[1] }}</p>
+                        </div>
+                    </div>
+                    <div class="sobre__experiencia">
+                        <div class="sobre__ctn" v-for="icons in experienciaIcons[1]" style="text-align: center; width: 124px;">
+                            <img class="sobre__icon" :src="`${icons[0]}.png`">
+                            <p>{{ icons[1] }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-    </main>
-    <!-- FOOTER -->
-    <footer class="sky" id="contato">
-        <!-- Os céus proclamam a glória de Jesus -->
-        <span class="sky__container" v-if="footerVisible">
-            <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
-            <div class="sky__shadows" id="shadow"></div>
-        </span>
-        <span class="sky__container" v-else>
-            <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky">
-            <div class="sky__shadows--white" id="shadow"></div>
-        </span>
-        <!-- Shadows -->
-        <shadow-1></shadow-1>
-        <!-- Infos -->
-        <div class="sky__informacoes">
-
-            <div class="informacoes__container">
-
-                <address class="informacoes__content">
-                    <div class="contatos__column">
-                        <a target="_blank" class="decoration" @click="copyText('(11) 96593-9822')">
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${whiteIcons}/whatsapp.svg`" alt="WhatsApp">
-                                <p class="contato__email">whatsapp</p>
-                            </div>
-
-                            <p class="decoration__info">(11) 96593-9822</p>
-                            <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
-                        </a>
-
-                        <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Email">
-                                <p class=" contato__email">e-mail</p>
-                            </div>
-                            <div class="decoration__info">
-                                mateusduraessantos@gmail.com
-                            </div>
-                            <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
-                        </a>
-
-                        <a target="_blank" class="decoration" href="https://www.behance.net/mateusduraes">
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${whiteIcons}/behance.svg`" alt="Email">
-                                <p class=" contato__email">behance</p>
-                            </div>
-                            <div class="decoration__info">
-                                Mateus Durães dos Santos
-                            </div>
-                            <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Copiar">
-                        </a>
+        <!-- FOOTER -->
+        <footer class="sky" id="contato">
+            <!-- Os céus proclamam a glória de Jesus -->
+            <span class="sky__container" v-if="footerVisible">
+                <video class="sky__background" src="inicio/sky/bluesky_2.mp4" autoplay loop muted />
+                <div class="sky__shadows" id="shadow"></div>
+            </span>
+            <span class="sky__container" v-else>
+                <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky">
+                <div class="sky__shadows--white" id="shadow"></div>
+            </span>
+            <!-- Infos -->
+            <div class="sky__informacoes">
+                <div class="informacoes__container">
+                    <address class="informacoes__content">
+                        <div class="contatos__column">
+                            <a target="_blank" class="decoration" @click="copyText('(11) 96593-9822')">
+                                <div class="informacoes__contato">
+                                    <img :src="`icons/${whiteIcons}/whatsapp.svg`" alt="WhatsApp">
+                                    <p class="contato__email">whatsapp</p>
+                                </div>
+                                <p class="decoration__info">(11) 96593-9822</p>
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
+                            </a>
+                            <a target="_blank" class="decoration" @click="copyText('mateusduraessantos@gmail.com')">
+                                <div class="informacoes__contato">
+                                    <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Email">
+                                    <p class=" contato__email">e-mail</p>
+                                </div>
+                                <div class="decoration__info">
+                                    mateusduraessantos@gmail.com
+                                </div>
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
+                            </a>
+                            <a target="_blank" class="decoration" href="https://www.behance.net/mateusduraes">
+                                <div class="informacoes__contato">
+                                    <img :src="`icons/${whiteIcons}/behance.svg`" alt="Email">
+                                    <p class=" contato__email">behance</p>
+                                </div>
+                                <div class="decoration__info">
+                                    Mateus Durães dos Santos
+                                </div>
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Copiar">
+                            </a>
+                        </div>
+                    </address>
+                    <div id="observador__footer"
+                        style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
+                        <p class="frase">Quem disse que rodapés precisam ser chatos?
+                            <br>
+                            <br>
+                        </p>
                     </div>
-                </address>
-
-                <div id="observador__footer"
-                    style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
-                    <p class="frase">Quem disse que rodapés precisam ser chatos?
-                        <br>
-                        <br>
-                    </p>
                 </div>
             </div>
-        </div>
-
-        <img class="sky__planet_01 sky__planet" :src="`inicio/${whitePlanets}/01.png`" alt="planet">
-        <img class="sky__planet_02 sky__planet" :src="`inicio/${whitePlanets}/02.png`" alt="planet">
-        <img class="sky__planet_03 sky__planet" :src="`inicio/${whitePlanets}/03.png`" alt="planet">
-        <img class="sky__planet_05 sky__planet" :src="`inicio/${whitePlanets}/05.png`" alt="planet" id="planet_05">
-        <img class="sky__planet_06 sky__planet" :src="`inicio/${whitePlanets}/06.png`" alt="planet">
-        <img class="sky__planet_07 sky__planet" :src="`inicio/${whitePlanets}/07.png`" alt="planet">
-        <img class="sky__planet_08 sky__planet" :src="`inicio/${whitePlanets}/08.png`" alt="planet">
-        <img class="sky__planet_09 sky__planet" :src="`inicio/${whitePlanets}/09.png`" alt="planet">
-        <img class="sky__planet_10 sky__planet" :src="`inicio/${whitePlanets}/10.png`" alt="planet">
-
-        <div class="smile_cont sky__planet" id="planet_11">
-            <img class="sky__planet_11 sky__planet" :src="`inicio/${whitePlanets}/11.png`" alt="planet">
-            <img class="smile" :src="`inicio/${whitePlanets}/smile.svg`" alt="sorriso">
-        </div>
-
-        <img class="sky__planet_12 sky__planet" :src="`inicio/${whitePlanets}/12.png`" alt="planet" id="planet_12">
-        <img class="sky__planet_13 sky__planet" :src="`inicio/${whitePlanets}/13.png`" alt="planet" id="planet_13">
-        <img class="sky__planet_14 sky__planet" :src="`inicio/${whitePlanets}/14.png`" alt="planet" id="planet_14">
-    </footer>
+            <img class="sky__planet_01 sky__planet" :src="`inicio/${whitePlanets}/01.png`" alt="planet">
+            <img class="sky__planet_02 sky__planet" :src="`inicio/${whitePlanets}/02.png`" alt="planet">
+            <img class="sky__planet_03 sky__planet" :src="`inicio/${whitePlanets}/03.png`" alt="planet">
+            <img class="sky__planet_05 sky__planet" :src="`inicio/${whitePlanets}/05.png`" alt="planet" id="planet_05">
+            <img class="sky__planet_06 sky__planet" :src="`inicio/${whitePlanets}/06.png`" alt="planet">
+            <img class="sky__planet_07 sky__planet" :src="`inicio/${whitePlanets}/07.png`" alt="planet">
+            <img class="sky__planet_08 sky__planet" :src="`inicio/${whitePlanets}/08.png`" alt="planet">
+            <img class="sky__planet_09 sky__planet" :src="`inicio/${whitePlanets}/09.png`" alt="planet">
+            <img class="sky__planet_10 sky__planet" :src="`inicio/${whitePlanets}/10.png`" alt="planet">
+            <div class="smile_cont sky__planet" id="planet_11">
+                <img class="sky__planet_11 sky__planet" :src="`inicio/${whitePlanets}/11.png`" alt="planet">
+                <img class="smile" :src="`inicio/${whitePlanets}/smile.svg`" alt="sorriso">
+            </div>
+            <img class="sky__planet_12 sky__planet" :src="`inicio/${whitePlanets}/12.png`" alt="planet" id="planet_12">
+            <img class="sky__planet_13 sky__planet" :src="`inicio/${whitePlanets}/13.png`" alt="planet" id="planet_13">
+            <img class="sky__planet_14 sky__planet" :src="`inicio/${whitePlanets}/14.png`" alt="planet" id="planet_14">
+        </footer>
+    </div>
 </template>
 
 <script>
@@ -316,16 +266,20 @@ export default {
             whiteIcons: 'whiteicons',
             whitePlanets: 'sky',
             experienciaIcons: [
-                ['software0', 'Illustrator'],
-                ['software1', 'cinema 4D'],
-                ['software2', 'Photoshop'],
-                ['software3', 'Miro'],
-                ['software4', 'Figma'],
-                ['tech0', 'Firebase'],
-                ['tech1', 'CSS'],
-                ['tech2', 'HTML'],
-                ['tech3', 'Javascript'],
-                ['tech4', 'Vue JS'],
+                [
+                    ['software0', 'Illustrator'],
+                    ['software1', 'cinema 4D'],
+                    ['software2', 'Photoshop'],
+                    ['software3', 'Miro'],
+                    ['software4', 'Figma']
+                ],
+                [
+                    ['tech0', 'Firebase'],
+                    ['tech1', 'CSS'],
+                    ['tech2', 'HTML'],
+                    ['tech3', 'Javascript'],
+                    ['tech4', 'Vue JS']
+                ],
             ],
             blackTools: {
                 tools: [
@@ -345,51 +299,12 @@ export default {
                     'aling4',
                 ],
             },
-            cardDesign: [
-                {
-                    index: '0',
-                    path: 'mesa/thumb.jpg',
-                    obj: [
-                        'Mesa gamer | Modelagem 3d',
-                        '12/02/2023'
-                    ],
-                },
-                {
-                    index: '1',
-                    path: 'butterfly/3.jpg',
-                    obj: [
-                        'Pingente Butterfly | Modelagem 3d',
-                        '10/03/2022'
-                    ],
-                    classGrid: 'gridGrid',
-                    class: 'second_el'
-                },
-                {
-                    index: '2',
-                    path: 'mun/thumb.jpg',
-                    obj: [
-                        'Mun | Arandela',
-                        '24/06/2020'
-                    ],
-                    class: 'third_el'
-                },
-                {
-                    index: '2',
-                    path: 'mun/thumb.jpg',
-                    obj: [
-                        'Mun | Arandela',
-                        '24/06/2020'
-                    ],
-                    class: 'third_el'
-                },
-            ],
             cardFront: [
                 {
                     index: '3',
                     obj: [
-                        'tre/thumb.jpg',
-                        'Mun | Arandela',
-                        '24/06/2020'
+                        'tre/1.jpg',
+                        'Tre website',
                     ],
                     class: 'third_el'
                 },
@@ -398,7 +313,6 @@ export default {
                     obj: [
                         'teclakey/teclakey.jpg',
                         'TeclaKey | Website',
-                        '10/03/2022'
                     ],
                     class: 'second_el',
                     classGrid: 'gridGrid',
@@ -406,9 +320,8 @@ export default {
                 {
                     index: '5',
                     obj: [
-                        'datamachina/thumb.jpg',
+                        'datamachina/datamachina.jpg',
                         'Data Machina | Website',
-                        '12/02/2023'
                     ],
                 },
                 {
@@ -416,7 +329,6 @@ export default {
                     obj: [
                         'tcc/webiste_mackenzie_curso_de_design.jpg',
                         'Curso de Design Mackenzie',
-                        '12/02/2023'
                     ],
                 },
             ],
@@ -496,9 +408,10 @@ export default {
         this.haveAGoodDay()
 
         const scrolling = [ //elementos que serão ativados
-            { obj: 'parallax', value: 0.4, position: 900 },
+            { obj: 'planets-earth', value: 0.4, position: -2000 },
+            { obj: 'planets-red', value: 0.4, position: -1500 },
+            { obj: 'parallax', value: 0.4, position: -500 },
             { obj: 'bubbles__observer', value: 0.4, position: 1200 },
-            { obj: 'mensagem', value: 0.3, position: -500 },
         ]
 
         const parallaxScroll = (element) => document.getElementById(element.obj).style.top = `${window.scrollY * element.value + element.position}px`
@@ -566,7 +479,6 @@ export default {
                 }
             }, timer);
         },
-
         copyText(content) {
             const textToCopy = content; // Texto a ser copiado
 
@@ -680,6 +592,11 @@ export default {
     }
 }
 
+#main {
+    position: relative;
+    transition: .2s;
+}
+
 .max__width {
     position: relative;
     max-width: 1300px;
@@ -690,37 +607,26 @@ export default {
 .background__parallax {
     position: absolute;
     display: flex;
-    align-items: flex-end;
+    align-items:  flex-start;
+    top: 100vh;
     left: 0;
     width: 100%;
-    /* padding-bottom: 400px; */
+    height: calc(100% - 100vh);
+    transform: translateY(-400px);
+    overflow: hidden;
 }
 
-.parallax--img--black {
+.parallax--img {
+    position: absolute;
+    width: 1500px;
+    object-fit: cover;
     filter: blur(4px);
 }
 
-.parallax--img--black,
-.parallax--img--white {
+.whiteTheme .parallax--img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.parallax--img--white {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.whiteTheme .parallax--img--black,
-.parallax--img--white {
-    display: none;
-}
-
-.whiteTheme .parallax--img--white {
-    display: block !important;
-}
+    filter: blur(0);
+} 
 
 /* Mensagem */
 
@@ -728,13 +634,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    align-items: center;
     position: relative;
     height: 800px;
 }
 
 .mensagem h6 {
-    position: absolute;
-    top: 0;
     text-align: center;
     font-size: 20px;
     font-weight: 400;
@@ -742,8 +647,8 @@ export default {
 }
 
 .whiteTheme .mensagem h6 {
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
-    color: #ffdddd;
+    text-shadow: none;
+    color: #8f5245;
 }
 
 </style>
@@ -986,26 +891,61 @@ p {
 
 /* Sobre */
 
-.sobre  {
+.sobre {
     position: relative;
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 200px 0 100px 0;
-    margin-top: 300px;
+    padding: 200px 0;
+    padding-bottom: 400px;
 }
 
-.sobre__container {
-    max-width: 1000px;
-    margin: auto;
+.sobre__planet--1 {
+    position: absolute;
+    bottom: -400px;
+    left: -100px;
+    width: 800px;
+    height: 800px;
+    object-fit: contain;
+    z-index: 1;
+    filter: blur(4px);
+}
+.sobre__planet--2 {
+    position: absolute;
+    filter: blur(4px);
+    top: -400px;
+    right: -100px;
+    width: 550px;
+    height: 550px;
+    object-fit: contain;
+}
+
+
+.whiteTheme .sobre__planet--1,
+.whiteTheme .sobre__planet--2 {
+    display: none;
+}
+
+.sobre__elements {
+    position: relative;
     display: flex;
-    gap: 40px;
-    border-radius: 36px;
-    padding: 40px;
-    margin-bottom: 60px;
+    flex-direction: column;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
+    gap: 40px;
+    border-radius: 36px;
+    padding: 40px;
+    padding-bottom: 80px;
+    max-width: 1000px;
+    margin: auto;
+    z-index: 2;
+}
+.sobre__container {
+    display: flex;
+    gap: 40px;
+    border-radius: 36px;
+    align-items: center;
 }
 
 .whiteTheme .sobre__container {
@@ -1014,7 +954,8 @@ p {
 
 .sobre__mateus {
     height: 200px;
-    border-radius: 20px;
+    width: 200px;
+    border-radius: 50%;
 }
 
 .sobre__redes {
@@ -1027,13 +968,12 @@ p {
 
 .sobre__icon--redes {
     width: 40px;
-    filter: grayscale(1);
-    transition: 5s;
+    transition: .2s;
 }
 
-.sobre__ctn:hover .sobre__icon--redes {
-    transition: 0s;
-    filter: grayscale(0);
+.sobre__icon--redes:hover {
+    transform: scale(1.2);
+    transition: .2s;
 }
 
 .sobre__experiencia {
@@ -1042,8 +982,12 @@ p {
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
-    width: calc(100% - 100px);
+    width: 100%;
     margin: auto;
+}
+
+.sobre__icon {
+    width: 40px;
 }
 
 /*  */
@@ -1181,53 +1125,6 @@ p {
     object-fit: contain;
 }
 
-.table {
-    display: flex;
-    flex-direction: column;
-    border-radius: 2vw;
-    background-image: linear-gradient(#232323, #101010);
-    width: 100%;
-    height: 100%;
-    grid-area: table;
-}
-
-.table__content {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.table_p {
-    padding: 30px;
-    padding-bottom: 16px;
-}
-
-td {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 0.8vw 3vw;
-    padding-left: 2vw;
-    min-height: 50px;
-    width: 100%;
-}
-
-td p {
-    font-size: 0.9rem;
-}
-
-.table__star {
-    position: absolute;
-    left: 12vw;
-    display: flex;
-    gap: 20px;
-    height: 34%;
-}
-
-[border-style] {
-    border-bottom: 1px solid var(--border-color);
-}
-
 .experiencia {
     max-width: max-content;
     width: 100%;
@@ -1248,13 +1145,23 @@ td p {
     grid-template-areas:
         '. gridGrid .'
         'table gridGrid .';
-    gap: 24px;
     width: 100%;
     margin: auto;
 }
 
+.card__description {
+    opacity: 0;
+    transition: .2s;
+}
+
+.card:hover .card__description{
+    opacity: 1;
+    transition: .2s;
+}
+
 .gridGrid {
     grid-area: gridGrid;
+    max-height: 70vw;
 }
 
 .card__destaques {
@@ -1277,7 +1184,6 @@ td p {
     justify-content: center;
     position: relative;
     width: 100%;
-    border-radius: 28px;
     overflow: hidden;
     cursor: pointer;
     box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.2);
@@ -1286,7 +1192,6 @@ td p {
 .card:hover .card__img {
     transform: scale(1.04);
     transition: .3s;
-
 }
 
 .card__img {
@@ -1335,7 +1240,7 @@ td p {
 }
 
 .card__data p {
-    font-size: 0.7rem;
+    font-size: 14px;
 }
 
 /* sky */
@@ -1344,12 +1249,29 @@ td p {
     position: relative;
     height: 100vh;
     width: 100vw;
-    margin-top: 200px;
-
+    z-index: 2;
 }
 
-.whiteTheme .sky::after {
-    background-image: linear-gradient(transparent, #E9DFDF);
+.sky::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    width: 100%;
+    height: 200px;
+    z-index: 2;
+}
+
+.sky::before {
+    position: absolute;
+    content: '';
+    bottom: 100%;
+    width: 100%;
+    height: 200px;
+    z-index: 2;
+    background-image: linear-gradient(transparent, black);
+}
+.whiteTheme .sky::before {
+    background-image: linear-gradient(transparent, rgb(232, 222, 222));
 }
 
 .sky__container {
@@ -2146,12 +2068,6 @@ td p {
 }
 
 /* White Theme */
-
-main {
-    position: relative;
-    transition: .2s;
-    overflow: hidden;
-}
 
 .whiteTheme * {
     color: var(--text-color);
