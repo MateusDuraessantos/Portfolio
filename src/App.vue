@@ -28,8 +28,8 @@ export default {
       removeLinkVer: true,
       whatTimeIs: null,
       hiddenHeader: true,
-      booleanTheme: true,
-      smile: '',
+      booleanTheme: true, // Se booleanTheme for true o tema fica branc
+      smile: 'black',
     }
   },
   mounted() {
@@ -174,10 +174,10 @@ img {
 .link__grid {
     display: flex;
     justify-content: flex-end;
-    padding-right: 1vw;
-    gap: 1vw;
+    padding-right: 14px;
+    gap: 14px;
     position: sticky;
-    margin-left: 1vw;
+    margin-left: 14px;
     top: -88px;
     transform: translatey(12px);
     height: 0;
@@ -195,7 +195,7 @@ img {
     width: max-content;
     padding: 0 14px 0 16px;
     text-decoration: none;
-    gap: 0.6vw;
+    gap: 10px;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10vw;
     backdrop-filter: blur(15px);
@@ -311,9 +311,8 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 5vw;
-  height: 5vw;
-  font-size: 1rem;
+  width: 70px;
+  height: 70px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
@@ -323,7 +322,7 @@ button {
 
 .changeProject p {
   color: #E0D9CE !important;
-  font-size: 20px;
+  font-size: 24px !important;
 }
 
 .back {
@@ -367,7 +366,7 @@ button {
 
 .container-loading span {
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   color: #b5b5b5 !important;
 }
 

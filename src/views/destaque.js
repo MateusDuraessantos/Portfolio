@@ -71,7 +71,7 @@ export const imagens = [
         paths: [
             'teclakey/mockup.jpg',
             'teclakey/teclakey.jpg',
-            'teclakey/3.jpg',
+            'teclakey/teclakey.gif',
         ],
         description: 'TeclaKey é um estudio de design. Na criação do website para o estúdio, junto a uma equipe de 3 pessoas, eu coordenador o desenvolvimento da identidade visual. Também fiquei 100% responsável pelo frontend, responsiveidade, implementação no domínio e otimização dos conteúdos para web.',
         thumb:{ default:'teclakey/teclakey.jpg' },

@@ -399,7 +399,7 @@ export default {
         const scrolling = [ //elementos que serão ativados
             { obj: 'planets-earth', value: 0.4, position: -2200 },
             { obj: 'planets-red', value: 0.4, position: -1700 },
-            { obj: 'parallax', value: 0.4, position: -500 },
+            { obj: 'parallax', value: 0.4, position: -200 },
             { obj: 'bubbles__observer', value: 0.4, position: 1200 },
         ]
 
@@ -555,6 +555,7 @@ export default {
     --border-color: #2c2c2c;
     --shadow-color: black;
     --sky-scale: 0.9;
+    --text-color: black;
 }
 
 @media screen and (max-width: 1000px) {
@@ -576,7 +577,7 @@ export default {
     bottom: 10px;
     font-size: 12px;
     color: rgb(105, 110, 128);
-    font-weight: 300;
+    font-weight: 400;
 }
 
 #main {
@@ -914,7 +915,7 @@ p {
     position: absolute;
     filter: blur(4px);
     top: -400px;
-    right: -100px;
+    right: -3vw;
     width: 550px;
     height: 550px;
     object-fit: contain;
@@ -1053,7 +1054,7 @@ p {
 }
 
 .inicio__content {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1rem;
 }
 
@@ -1146,7 +1147,7 @@ p {
 .card__destaques {
     display: flex;
     align-items: center;
-    font-weight: 300;
+    font-weight: 400;
     height: 60px;
     padding-left: 12px;
     color: rgb(172, 172, 172);
@@ -1593,6 +1594,11 @@ p {
     .max__width {
         width: calc(100% - 50px);
     }
+    
+    .parallax--img {
+        transform: translateY(400px);
+        width: 1000px;
+    }
 
     .inicio {
         grid-template-columns: 100px 1fr 100px;
@@ -1799,6 +1805,7 @@ p {
     }
     .sobre__planet--1 {
         width: 500px;
+        transform: translateY(200px);
     }
     .sobre__planet--2 {
         right: -8px;
@@ -1809,7 +1816,6 @@ p {
     .tcc, .tre, .teclakey {
         height: 500px;
     }
-
 }
 
 @media screen and (max-width: 850px) {
@@ -2012,7 +2018,6 @@ p {
 
 .background__sun {
     position: relative;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2184,7 +2189,3 @@ p {
     }
 }
 </style>
-
-<style>:root {
-    --text-color: black;
-}</style>

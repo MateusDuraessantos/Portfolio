@@ -8,21 +8,19 @@
             </div>
         </button>
 
-        <div class="links">
-            <router-link id="mobile" to="/">
-
-                <div class="dropdown__inicio">Início</div>
-                <span class="dropdown__arrow">❯</span>
-
-                <div class="dropdown__container">
-                    <a class="dropdown nav" @click="scrollDown($event, 'inicio')">Início</a>
-                    <a class="dropdown nav" @click="scrollDown($event, 'portfolio')">Portfólio</a>
-                    <a class="dropdown nav" @click="scrollDown($event, 'facaumorcamento')">Faça um orçamento</a>
-                    <a class="dropdown nav" @click="scrollDown($event, 'sobre')">Sobre</a>
-                    <a class="dropdown nav" @click="scrollDown($event, 'contato')">Contato</a>
+        <div class="links" @click="upDropdown">
+            <div id="mobile">
+                <div class="dropdown__inicio">Menu</div>
+                <div class="dropdown__container" @click="scrollDown">
+                    <a class="dropdown nav" ancora="inicio">Início</a>
+                    <a class="dropdown nav" ancora="portfolio">Portfólio</a>
+                    <a class="dropdown nav" ancora="facaumorcamento">Faça um orçamento</a>
+                    <a class="dropdown nav" ancora="sobre">Sobre</a>
+                    <a class="dropdown nav" ancora="contato">Contato</a>
                 </div>
-            </router-link>
+            </div>
         </div>
+
     </nav>
 </template>
 
@@ -38,6 +36,7 @@ export default {
         return {
             blockClick: true,
             colorNav: '',
+            handle: true,
         }
     },
     mounted() {
@@ -54,6 +53,17 @@ export default {
         }
     },
     methods: {
+        upDropdown(event) {
+            
+            const dropdown = document.querySelector('#mobile')
+            if(event.currentTarget.classList[0] == 'links' && this.handle) {
+                dropdown.classList.add('openMenu')
+                this.handle = false
+            } else {
+                dropdown.classList.remove('openMenu')
+                this.handle = true
+            }
+        },
         emitFunction() {
             if (this.blockClick) {
                 this.$emit('tunOn')
@@ -66,20 +76,18 @@ export default {
             }
         },
         turnWhite(timer) {
-            const buttun = document.getElementById('whiteThemeBtn')
+            const button = document.getElementById('whiteThemeBtn')
             const white = document.querySelector('.turnWhite')
 
             if (this.booleanTheme == true) {
-                buttun.style.transform = 'translate(100px)'
-
+                button.style.transform = 'translate(100px)'
                 // Muda cor da navegação
                 setTimeout(() => {
                     this.colorNav = 'white'
                     white.classList.add('turnWhite--white')
                 }, timer);
             } else {
-                buttun.style.transform = ''
-
+                button.style.transform = ''
                 // Muda cor da navegação
                 setTimeout(() => {
                     this.colorNav = 'black'
@@ -89,40 +97,23 @@ export default {
         },
         removeLink() {
             this.$emit('removeLink')
-
             if (document.querySelector('[activeLink]') != null) {
                 document.querySelector('[activeLink]').removeAttribute('activeLink')
             }
-
             if (document.querySelector('.hiddenHeader') != null) {
                 document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
             }
         },
-        scrollDown(event, ancora) {
-            setTimeout(() => {
-                if(ancora == 'inicio') {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    })
-                } else {
-                    const obj = document.getElementById(ancora)
-                    window.scrollTo({
-                        top: obj.offsetTop,
-                        behavior: 'smooth'
-                    })
-                }
-            }, 50)
-
-            const elements = document.querySelectorAll('[activeLink]')
-
-            if (elements.length == 0) {
-                event.target.setAttribute('activeLink', '')
-            } else {
-                document.querySelector('[activeLink]').removeAttribute('activeLink')
-                event.target.setAttribute('activeLink', '')
+        scrollDown(e) {
+            let ancora = e.target.getAttribute('ancora')
+            if(ancora) {
+                const obj = document.getElementById(ancora)
+                window.scrollTo({
+                    top: obj.offsetTop,
+                    behavior: 'smooth'
+                })
             }
-        }
+        } 
     }
 }
 </script>
@@ -144,10 +135,6 @@ nav {
     z-index: 5;
 }
 
-.desktop {
-    display: flex;
-    padding: 12px 0;
-}
 
 /*  */
 
@@ -171,10 +158,6 @@ nav {
     transition: .5s;
 }
 
-.hiddenHeader .dropdown {
-    color: gray;
-    transition: .5s;
-}
 
 .hiddenHeader .turnWhite {
     opacity: 0;
@@ -183,21 +166,6 @@ nav {
 
 * {
     text-decoration: none;
-}
-
-[activeLink],
-.router-link-active .dropdown__inicio {
-    color: rgb(234, 69, 69) !important;
-}
-
-.router-link-active span {
-    color: rgb(234, 69, 69);
-    transition: .5s;
-}
-
-.router-link-active {
-    color: rgb(234, 69, 69) !important;
-    position: relative;
 }
 
 .nav:hover {
@@ -223,22 +191,15 @@ button {
     gap: 28px;
 }
 
-/*  */
 
-.eu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-weight: 300;
+.nav {
+    cursor: pointer;
+    transition: .2s;
 }
 
-.foto {
-    width: 62px;
-}
-
-.nome {
-    font-size: 1rem;
-    font-weight: 400;
+.nav:hover {
+    color: rgb(255, 54, 54);
+    transition: .2s;
 }
 
 /* Mobile version */
@@ -250,59 +211,66 @@ button {
     }
 }
 
-.dropdown__arrow,
 .dropdown__inicio {
     display: none;
 }
 
 @media screen and (max-width: 1000px) {
-
-    .dropdown__container {
-        display: none;
-    }
-
-    .desktop,
-    #mobile span {
-        display: none;
-    }
-
-    #mobile .dropdown__inicio,
-    .router-link-active#mobile .dropdown__arrow {
+  
+    #mobile .dropdown__inicio {
+        position: relative;
+        align-items: center;
         display: flex;
+    }
+    
+    #mobile .dropdown__inicio::after {
+        position: absolute;
+        content: '❯';
+        right: -20px;
+        font-size: 20px;
+        transform: rotate(90deg);
     }
 
     /* Dropdown */
 
+    .dropdown__container {
+        pointer-events: none;
+        opacity: 0;
+        width: 226px;
+    }
+
+    .openMenu .dropdown__container {
+        pointer-events: initial;
+        opacity: 1;
+        transition: .2s;
+    }
+
     #mobile {
+        position: relative;
         display: flex;
+        justify-content: flex-end;
         width: max-content;
         align-items: center;
         padding: 16px 0;
+        width: 100px;
         padding-right: 22px;
+        z-index: 2;
+        cursor: pointer;
     }
-
+    
     #mobile .dropdown__container {
         position: absolute;
-        top: 52px;
+        top: 70px;
         gap: 0;
-        right: -28px;
-        opacity: 1;
+        right: 0;
         flex-direction: column;
         border-radius: 8px;
         overflow: hidden;
         background: #2c2c2c;
     }
 
-
-    #mobile .dropdown__arrow {
-        position: absolute;
-        left: 50px;
-        font-size: 20px;
-        transform: rotate(90deg);
-    }
-
     #mobile .dropdown {
-        width: 160px;
+        width: 100%;
         padding: 12px 20px;
     }
 
@@ -342,14 +310,6 @@ button {
 }
 
 @media screen and (max-width: 800px) {
-    .cards {
-        height: 27vw;
-    }
-
-    .foto {
-        display: none;
-        width: 42px;
-    }
 
     nav {
         padding: 0 20px;
