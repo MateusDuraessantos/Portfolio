@@ -70,7 +70,7 @@
                         <br>
                         <p>{{ imgs[indexImg].description }}</p>
                     </div>
-                    <img class="popup__img" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="`projetos/${coisas}`">
+                    <img class="popup__img" loading="lazy" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="`projetos/${coisas}`">
                 </div>
                 <button class="popup__close">✕</button>
             </div>
@@ -95,8 +95,8 @@
                     :key="index"
                     @click="upPopup($event, index, 'true')"
                 >
-                    <img v-if="img.thumb.default" class="card__img" :src="`projetos/${img.thumb.default}`">
-                    <img v-else class="card__img" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`">
+                    <img v-if="img.thumb.default" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`">
+                    <img v-else class="card__img" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`">
                     <div class="card__description">
                         <div class="card__data">
                             <p> {{ img.name }}</p>
@@ -143,8 +143,8 @@
         <!-- SOBRE -->
         <section class="section sobre" id="sobre">
             <div class="max__width">
-                <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1">
-                <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2">
+                <img src="inicio/black/red-planet.jpg" id="planets-red" loading="lazy" class="sobre__planet--1">
+                <img src="inicio/black/earth.png" id="planets-earth" loading="lazy" class="sobre__planet--2">
 
                 <div class="sobre__elements">
                     <div class="sobre__container">
@@ -165,7 +165,7 @@
                         <img class="sobre__mateus" src="mateus.jpg">
                     </div>
                     <div style="display: flex; justify-content: center;">
-                        <h4>Conhecimento:</h4>
+                        <h4>Conhecimentos:</h4>
                     </div>
                     <div class="sobre__experiencia">
                         <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">

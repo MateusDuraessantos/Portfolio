@@ -45,7 +45,6 @@ export default {
     isDay() {
       this.whatTimeIs = new Date().getHours()
       this.booleanTheme = this.whatTimeIs < 5 || this.whatTimeIs > 18 ? false : true 
-      this.booleanTheme = true
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -103,7 +102,7 @@ export default {
     favIcon() {
       const newLink = document.createElement("link")
       newLink.setAttribute('rel', 'icon')
-      newLink.setAttribute('href', 'eu.png')
+      newLink.setAttribute('href', 'eu-favicon.png')
       document.head.appendChild(newLink)
     }
   },

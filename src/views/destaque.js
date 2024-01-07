@@ -2,12 +2,11 @@ export const imagens = [
     {
         name: 'Mesa para computadores Desktop | Modelagem',
         paths: [
-            'mesa/mesa-gamer-black.jpg',
+            'mesa/mesa-de-pinus-gamer.jpg',
             'mesa/1.jpg',
-            'mesa/3.jpg',
-            'mesa/4.jpg',
-            'mesa/2.jpg',
-            'mesa/6.jpg',
+            'mesa/estrutura-mesa-de-pinus-gamer.jpg',
+            'mesa/estrutura-mesa-de-madeira.jpg',
+            'mesa/mesa-gamer-preta.jpg',
             'mesa/5.jpg',
         ],
         description: 'Nesse projeto, eu criei um modelo 3D de uma mesa que fosse ergonômica para computadores desktop. Utilizei para prototipação, modelagem e renderização, o Cinema 4D. Além disso, a mesa também saiu do papel e foi produzido em escala real, para uso doméstico.',
@@ -22,9 +21,9 @@ export const imagens = [
         paths: [
             'butterfly/butterfly-black.jpg',
             'butterfly/butterfly-white.jpg',
-            'butterfly/3.jpg',
-            'butterfly/2.jpg',
-            'butterfly/4.png',
+            'butterfly/colar-vermelho-3d.jpg',
+            'butterfly/colar-dourado-de-borboleta.jpg',
+            'butterfly/colar-3d-modelagem.png',
         ],
         description: 'Nesse projeto de estudo, eu desenvolvi um modelo 3D de pingente, utilizando como ferramenta de modelagem e renderização o Cinema 4D.',
         thumb: {
@@ -54,9 +53,9 @@ export const imagens = [
         name: 'Tre | One Page',
         link: 'https://tre-art-4b66f.web.app/',
         paths: [
-            'tre/1.jpg',
-            'tre/2.jpg',
-            'tre/site.jpg',
+            'tre/mobile-tre-studio-design.jpg',
+            'tre/studio-tre.jpg',
+            'tre/website-tre-studio-design.jpg',
         ],
         description: "A Tre Comunicação, é um estúdio de design. Eu, mais uma equipe de 3 pessoas, trabalhamos em uma nova prosta para o seu website. No projeto, além da minha participação no design, fiquei 100% responsável pela programação e hospedagem dos códigos no domínio da empresa.",
         thumb: { default: 'tre/2.jpg' },
@@ -69,12 +68,12 @@ export const imagens = [
     {
         name: 'TeclaKey | One Page',
         paths: [
-            'teclakey/mockup.jpg',
-            'teclakey/teclakey.jpg',
+            'teclakey/mockup-site-studios-design-teclakey.jpg',
+            'teclakey/teclakey-webiste-de-design.jpg',
             'teclakey/teclakey.gif',
         ],
         description: 'TeclaKey é um estudio de design. Na criação do website para o estúdio, junto a uma equipe de 3 pessoas, eu coordenador o desenvolvimento da identidade visual. Também fiquei 100% responsável pelo frontend, responsiveidade, implementação no domínio e otimização dos conteúdos para web.',
-        thumb:{ default:'teclakey/teclakey.jpg' },
+        thumb:{ default:'teclakey/teclakey-webiste-de-design.jpg' },
         link: 'https://teclakey.com/',
         github: 'https://github.com/MateusDuraessantos/teclakeygit',
         alt: 'Website teclakey - UX/UI - Firebase',
@@ -111,12 +110,12 @@ export const imagens = [
     {
         name: 'Music SP | One page',
         paths: [
-            'music/mockup.jpg',
-            'music/music_sp.jpg',
+            'music/mockup-apple-imac.jpg',
+            'music/music_sp-webiste.jpg',
         ],
         description: 'Nesse projeto, focado na divulgação projetos músical (bandas, orquestras, artistas individuais), junto a uma equipe, participei da criação do design visual e usabilidade/experiência do usuário. Utilizando como ferramenta de prototipação o Figma.',
         categoria: 'website',
-        thumb: { default: 'music/mockup.jpg' },
+        thumb: { default: 'music/mockup-apple-imac.jpg' },
         alt: 'Music SP',
     },
 ]
