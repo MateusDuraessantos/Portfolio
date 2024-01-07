@@ -27,6 +27,7 @@ export default {
     return {
       removeLinkVer: true,
       whatTimeIs: null,
+      removeTimer: null,
       hiddenHeader: true,
       booleanTheme: true, // Se booleanTheme for true o tema fica branc
       smile: 'black',
@@ -239,14 +240,8 @@ img {
   animation-name: animation_opacity;
   animation-duration: 1s;
   animation-fill-mode: forwards;
-
 }
 
-.popup__animation {
-  animation-name: popup__background--animation;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
 
 .popup__content {
   position: relative;
@@ -595,6 +590,12 @@ button {
   to {
     opacity: 1;
   }
+}
+
+.popup__animation {
+  animation-name: popup__background--animation;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes popup__background--animation {

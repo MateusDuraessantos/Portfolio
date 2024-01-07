@@ -58,7 +58,7 @@ export const imagens = [
             'tre/website-tre-studio-design.jpg',
         ],
         description: "A Tre Comunicação, é um estúdio de design. Eu, mais uma equipe de 3 pessoas, trabalhamos em uma nova prosta para o seu website. No projeto, além da minha participação no design, fiquei 100% responsável pela programação e hospedagem dos códigos no domínio da empresa.",
-        thumb: { default: 'tre/2.jpg' },
+        thumb: { default: 'tre/studio-tre.jpg' },
         github: 'https://github.com/MateusDuraessantos/tre',
         link: 'https://tre.art.br/',
         alt: 'Onepage - Empresa Tre Designs | Vuejs html css',

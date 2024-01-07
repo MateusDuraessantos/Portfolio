@@ -130,7 +130,7 @@
                                 </span>
                             </span>
                         </div>
-                        <button href="#contato" class="orcamento__btn" @click="scrollDown($event, 'contato')">Contate-me</button>
+                        <button href="#contato" class="orcamento__btn" @click="scrollDown('contato')">Contate-me</button>
                     </div>
                 </div>
             </div>
@@ -414,13 +414,10 @@ export default {
     },
     methods: {
         scrollDown(ancora) {
-            setTimeout(() => {
-                const obj = document.getElementById(ancora)
-                window.scrollTo({
-                    top: obj.offsetTop,
-                    behavior: 'smooth'
-                })
-            }, 50)
+            window.scrollTo({
+                top: document.getElementById(ancora).offsetTop,
+                behavior: 'smooth'
+            })
         },
         haveAGoodDay() {
             const date = new Date().getHours()
@@ -529,8 +526,10 @@ export default {
             }
         },
         changeProjectDesign(value) {
+            clearTimeout(this.removeTimer)
             this.loading = true
-            document.getElementById('img_portrato').setAttribute('style', 'opacity: 0')
+            const img_portrato = document.getElementById('img_portrato')
+            img_portrato.setAttribute('style', 'opacity: 0')
             if (value == 'back') {
                 if (this.indexImg > 0) {
                     this.indexImg--
@@ -545,6 +544,11 @@ export default {
                     this.indexImg = 0
                 }
             }
+            img_portrato.classList.add('popup__animation')
+            this.removeTimer = setTimeout(() => {
+                img_portrato.classList.remove('popup__animation')
+            }, 1000);
+            img_portrato.setAttribute('style', 'opacity: 1')
         },
     }
 }
