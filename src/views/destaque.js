@@ -14,7 +14,7 @@ export const imagens = [
             white: 'mesa/mesa-gamer',
         },
         alt: 'Mesa gamer/escritório',
-        class: 'mesa'
+        class: 'mesa grid-area-height'
     },
     {
         name: 'Pingente Butterfly',
@@ -62,7 +62,7 @@ export const imagens = [
         github: 'https://github.com/MateusDuraessantos/tre',
         link: 'https://tre.art.br/',
         alt: 'Onepage - Empresa Tre Designs | Vuejs html css',
-        class: 'tre'
+        class: 'tre grid-area-height'
     },
     // Teclakey
     {
@@ -77,7 +77,7 @@ export const imagens = [
         link: 'https://teclakey.com/',
         github: 'https://github.com/MateusDuraessantos/teclakeygit',
         alt: 'Website teclakey - UX/UI - Firebase',
-        class: 'teclakey',
+        class: 'teclakey grid-area-height',
     },
     {
         name: 'Data Machina | Trabalhos Front End',
@@ -105,7 +105,7 @@ export const imagens = [
         link: 'https://mackenzie-tcc.web.app/#/',
         github: 'https://github.com/MateusDuraessantos/TCC',
         alt: 'Website trabalho de conclusão de curso Mackenzie',
-        class: 'tcc',
+        class: 'tcc grid-area-height',
     },
     {
         name: 'Music SP | One page',

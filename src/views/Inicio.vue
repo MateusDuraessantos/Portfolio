@@ -67,10 +67,22 @@
                     </div>
                     <div class="description">
                         <h1 class="h1__popup">{{ imgs[indexImg].name }}</h1>
-                        <br>
-                        <p>{{ imgs[indexImg].description }}</p>
                     </div>
-                    <img class="popup__img" loading="lazy" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="`projetos/${coisas}`">
+                    <div class="popup__container--mobile">
+                        <div class="description">
+                            <p>{{ imgs[indexImg].description }}</p>
+                        </div>
+                        <div class="popup__mobile">
+                            <div class="popup__carrossel--count">
+                                <p>{{ indexImg }}</p>/
+                                <p>{{ imgs[indexImg].paths.length }}</p>
+
+                            </div>
+                            <div class="popup__carrossel">
+                                <img class="popup__img" loading="lazy" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="`projetos/${coisas}`">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button class="popup__close">✕</button>
             </div>
@@ -1182,12 +1194,12 @@ p {
     margin: auto;
     grid-template-areas:
         'mesa mesa teclakey'
-        '. tre teclakey'
-        'tcc tre .'
-        'tcc . .'
+        ' .   tre  teclakey'
+        'tcc  tre     .    '
+        'tcc   .      .    '
 }
 
-.tcc, .tre, .teclakey {
+.grid-area-height {
     height: 1000px;
 }
 .tcc {
@@ -1199,12 +1211,12 @@ p {
 
 .mesa {
     grid-area: mesa;
+    height: 500px;
 }
 
 .teclakey {
     grid-area: teclakey;
 }
-
 
 .card__img {
     width: 100%;
@@ -1777,10 +1789,6 @@ p {
         height: 250px;
     }
 
-    .teclakey {
-        height: 500px;
-    }
-
     /* Orcamentos */
 
     .contatos__column, .sobre__container {
@@ -1817,7 +1825,7 @@ p {
 
     /* Portfólio/ */
 
-    .tcc, .tre, .teclakey {
+    .grid-area-height {
         height: 500px;
     }
 }
@@ -1827,6 +1835,7 @@ p {
     .img_front, .orcamento__tools {
         display: none;
     }
+
 
     /*  */
 
@@ -1884,8 +1893,23 @@ p {
         gap: 6px;
     }
 
-    /* Orçamento */
+    /* Card */
     
+    .card {
+        overflow: initial;
+    }
+    
+    .card__grid {
+        display: flex;
+        width: 100vw;
+        overflow: auto;
+    }
+
+    .grid-area-height, .card__img {
+        height: 600px;
+        width: calc(100vw - 100px);
+    }
+
 }
 
 /* Mobile version */
@@ -1918,7 +1942,7 @@ p {
         height: 200px;
     }
 
-    .tre, .teclakey, .tcc {
+    .grid-area-height {
         height: 400px;
     }
 }
