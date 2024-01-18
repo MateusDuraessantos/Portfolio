@@ -484,7 +484,6 @@ button {
     display: flex;
     align-items: center;
     gap: 4px;
-    background: wheat;
     border-radius: 50vw;
     padding: 4px 12px;
     height: max-content;

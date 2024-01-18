@@ -100,24 +100,35 @@
                 <p class="experiencia">Alguns trabalhos que fiz</p>
                 <p class="card__destaques">Destaques:</p>
             </div>
-            <div class="card__grid">
-                <div
-                    v-for="(img, index) in imgs"
-                    :class="'card ' + img.class"
-                    :key="index"
-                    @click="upPopup($event, index, 'true')"
+            <div class="card__grid--mobile">
+                <div class="card__grid"
+                    @touchmove="moveTouch"
+                    @touchstart="startCarrossel"
+                    @touchend="endCarrossel"
+                    style="transform: translateX(0vw)"
                 >
-                    <img v-if="img.thumb.default" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`">
-                    <img v-else class="card__img" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`">
-                    <div class="card__description">
-                        <div class="card__data">
-                            <p> {{ img.name }}</p>
+                    <div
+                        v-for="(img, index) in imgs"
+                        :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`"
+                        :key="index"
+                        @click="upPopup($event, index, 'true')"
+                    >
+                        <img v-if="img.thumb.default" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`">
+                        <img v-else class="card__img" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`">
+                        <div class="card__description">
+                            <div class="card__data">
+                                <p> {{ img.name }}</p>
+                            </div>
+                            <button class="card__btn">ver</button>
                         </div>
-                        <button class="card__btn">ver</button>
                     </div>
                 </div>
             </div>
         </section>
+
+
+        <button class="carrossel__controlls" @click="startCarrossel('voltar')">Voltar</button>
+        <button class="carrossel__controlls" @click="startCarrossel('avancar')">Avançar</button>
 
         <!-- FAÇA UM ORÇAMENTO -->
         <section class="max__width" id="facaumorcamento">
@@ -395,6 +406,15 @@ export default {
             indexImg: 0,
             footerVisible: true,
             saldacao: null,
+            // Carrossel
+            toucheInicialPosition: undefined,
+            toucheFinishPosition: undefined,
+            touchePositionVetor: [],
+            carrossel: 0,
+            initialClick: 0,
+            inicialTransform: 0,
+            willchange: false,
+            positionInicial: 0
         }
     },
     watch: {
@@ -425,6 +445,43 @@ export default {
         });
     },
     methods: {
+        moveTouch(event) {
+            const element = document.querySelector('.card__grid')
+            const slideWidth = String(event.touches[0].clientX).split('.')[0] - this.initialClick
+            const widthSum = this.inicialTransform + slideWidth * .15
+            
+            widthSum <= 0  && element.style.transform.split('(')[1].split('vw)')[0] > this.imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
+        },
+        endCarrossel(e) {
+            const element = document.querySelector('.card__grid')
+            if(element.style.transform.split('(')[1].split('vw)')[0] < 0 && element.style.transform.split('(')[1].split('vw)')[0] > this.imgs.length * 100 * -1 + 100) {
+                this.initialClick > e.changedTouches[0].clientX ?
+                this.positionInicial += -100 :
+                this.positionInicial += 100
+            }
+            
+            element.style.transform = `translateX(${this.positionInicial}vw)`
+            this.willchange = false
+            this.initialClick = 0
+            this.inicialTransform = 0
+        },
+        startCarrossel(e){
+            const carrossel = document.querySelector('.card__grid')
+            this.positionInicial = Number(carrossel.style.transform.split('(')[1].split('vw)')[0])
+
+            if(e != 'avancar' && e != 'voltar'){
+                this.initialClick = String(e.touches[0].clientX).split('.')[0]
+                this.inicialTransform = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
+            }
+
+            if (e == 'avancar' && this.imgs.length - 1 > this.carrossel) {
+                this.carrossel += 1
+                carrossel.setAttribute('style', `transform: translateX(-${this.carrossel}00vw)`)
+            } else if (e == 'voltar' && this.carrossel > 0) {
+                this.carrossel -= 1
+                carrossel.setAttribute('style', `transform: translateX(-${this.carrossel}00vw)`)
+            } 
+        },
         scrollDown(ancora) {
             window.scrollTo({
                 top: document.getElementById(ancora).offsetTop,
@@ -1192,6 +1249,7 @@ p {
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
     margin: auto;
+    transition: .2s;
     grid-template-areas:
         'mesa mesa teclakey'
         ' .   tre  teclakey'
@@ -1265,6 +1323,15 @@ p {
 
 .card__data p {
     font-size: 14px;
+}
+
+.carrossel__controlls {
+    position: relative;
+    background: pink;
+    padding: 10px 20px;
+    color: violet;
+    z-index: 2;
+    margin: auto;
 }
 
 /* sky */
@@ -1894,21 +1961,33 @@ p {
     }
 
     /* Card */
-    
-    .card {
-        overflow: initial;
-    }
-    
-    .card__grid {
-        display: flex;
-        width: 100vw;
-        overflow: auto;
-    }
 
     .grid-area-height, .card__img {
         height: 600px;
-        width: calc(100vw - 100px);
     }
+
+    /* CARD MOBILE */
+
+    .card__grid--mobile {
+        width: 100vw;
+        overflow: hidden;
+
+    }
+
+    .card__grid {
+        display: flex;
+        width: max-content;
+    }
+
+    .card__grid {
+        height: 600px;
+        position: relative;
+    }  
+    
+    .card {
+        overflow: initial;
+        width: 100vw
+    } 
 
 }
 
@@ -1937,16 +2016,9 @@ p {
         height: 30px;
         bottom: -15px;
     }
-
-    .card {
-        height: 200px;
-    }
-
-    .grid-area-height {
-        height: 400px;
-    }
+    
+    
 }
-
 
 @media only screen and (max-width: 400px) {
 
