@@ -295,7 +295,66 @@
 
 <script>
 import { imagens } from './destaque.js'
+import { ref } from 'vue'
 export default {
+    setup(){
+        let initialClick = ref(0)
+        let inicialTransform = ref(0)
+        let willchange = ref(false)
+        let positionInicial = ref(0) 
+        const imgs = imagens
+
+        const moveTouch = (event) => {
+            const element = document.querySelector('.card__grid')
+            const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClick.value
+            const widthSum = inicialTransform.value + slideWidth * .15
+            
+            widthSum <= 0  && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
+        }
+ 
+        const endCarrossel = (e) => {
+            const element = document.querySelector('.card__grid')
+
+            if(element.style.transform.split('(')[1].split('vw)')[0] < 0 && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 100) {
+                
+                if (initialClick.value > e.changedTouches[0].clientX) {
+                    positionInicial.value += -100
+                } else { 
+                    positionInicial.value += 100
+                }
+            }
+            
+            element.style.transform = `translateX(${positionInicial.value}vw)`
+            willchange.value = false
+            initialClick.value = 0
+            inicialTransform.value = 0
+        }
+
+        const startCarrossel = (e) => { 
+            const carrossel = document.querySelector('.card__grid')
+            positionInicial.value = Number(carrossel.style.transform.split('(')[1].split('vw)')[0])
+
+            if(e != 'avancar' && e != 'voltar'){
+                initialClick.value = String(e.touches[0].clientX).split('.')[0]
+                inicialTransform.value = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
+            }
+
+            if (e == 'avancar' && imgs.length - 1 > carrossel.value) {
+                carrossel.value += 1
+                carrossel.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
+            } else if (e == 'voltar' && carrossel.value > 0) {
+                carrossel.value -= 1
+                carrossel.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
+            } 
+        }
+
+        return {
+            imgs,
+            moveTouch,
+            endCarrossel,
+            startCarrossel,
+        }
+    },
     name: 'Inicio',
     props: {
         booleanTheme: Boolean
@@ -402,19 +461,9 @@ export default {
             popup: false,
             loading: true,
             number: 0,
-            imgs: imagens,
             indexImg: 0,
             footerVisible: true,
-            saldacao: null,
-            // Carrossel
-            toucheInicialPosition: undefined,
-            toucheFinishPosition: undefined,
-            touchePositionVetor: [],
-            carrossel: 0,
-            initialClick: 0,
-            inicialTransform: 0,
-            willchange: false,
-            positionInicial: 0
+            saldacao: null
         }
     },
     watch: {
@@ -445,43 +494,6 @@ export default {
         });
     },
     methods: {
-        moveTouch(event) {
-            const element = document.querySelector('.card__grid')
-            const slideWidth = String(event.touches[0].clientX).split('.')[0] - this.initialClick
-            const widthSum = this.inicialTransform + slideWidth * .15
-            
-            widthSum <= 0  && element.style.transform.split('(')[1].split('vw)')[0] > this.imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
-        },
-        endCarrossel(e) {
-            const element = document.querySelector('.card__grid')
-            if(element.style.transform.split('(')[1].split('vw)')[0] < 0 && element.style.transform.split('(')[1].split('vw)')[0] > this.imgs.length * 100 * -1 + 100) {
-                this.initialClick > e.changedTouches[0].clientX ?
-                this.positionInicial += -100 :
-                this.positionInicial += 100
-            }
-            
-            element.style.transform = `translateX(${this.positionInicial}vw)`
-            this.willchange = false
-            this.initialClick = 0
-            this.inicialTransform = 0
-        },
-        startCarrossel(e){
-            const carrossel = document.querySelector('.card__grid')
-            this.positionInicial = Number(carrossel.style.transform.split('(')[1].split('vw)')[0])
-
-            if(e != 'avancar' && e != 'voltar'){
-                this.initialClick = String(e.touches[0].clientX).split('.')[0]
-                this.inicialTransform = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
-            }
-
-            if (e == 'avancar' && this.imgs.length - 1 > this.carrossel) {
-                this.carrossel += 1
-                carrossel.setAttribute('style', `transform: translateX(-${this.carrossel}00vw)`)
-            } else if (e == 'voltar' && this.carrossel > 0) {
-                this.carrossel -= 1
-                carrossel.setAttribute('style', `transform: translateX(-${this.carrossel}00vw)`)
-            } 
-        },
         scrollDown(ancora) {
             window.scrollTo({
                 top: document.getElementById(ancora).offsetTop,
