@@ -87,7 +87,7 @@
                 <button class="popup__close">✕</button>
             </div>
         </div>
-        
+
         <!-- BUBBLES -->
         <div class="bubble__container" id="bubbles__observer">
             <img class="bubble bubble__left" src="bubble1.svg">
@@ -124,11 +124,12 @@
                     </div>
                 </div>
             </div>
+    
+            <div class="carrossel">
+                <button class="carrossel__controlls carrossel--left" @click="startCarrossel('voltar')">Voltar</button>
+                <button class="carrossel__controlls carrossel--right" @click="startCarrossel('avancar')">Avançar</button>
+            </div>
         </section>
-
-
-        <button class="carrossel__controlls" @click="startCarrossel('voltar')">Voltar</button>
-        <button class="carrossel__controlls" @click="startCarrossel('avancar')">Avançar</button>
 
         <!-- FAÇA UM ORÇAMENTO -->
         <section class="max__width" id="facaumorcamento">
@@ -298,6 +299,7 @@ import { imagens } from './destaque.js'
 import { ref } from 'vue'
 export default {
     setup(){
+        let carrossel = ref('')
         let initialClick = ref(0)
         let inicialTransform = ref(0)
         let willchange = ref(false)
@@ -315,13 +317,16 @@ export default {
         const endCarrossel = (e) => {
             const element = document.querySelector('.card__grid')
 
-            if(element.style.transform.split('(')[1].split('vw)')[0] < 0 && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 100) {
-                
-                if (initialClick.value > e.changedTouches[0].clientX) {
+            let widthScroll = Number(element.style.transform.split('(')[1].split('vw)')[0]) // Distancia que a imagem foi arrastada
+            let stopScroll = widthScroll > imgs.length * 100 * -1 + 100 // Impede o scroll No final
+            
+            const arrastoCursor = 70 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
+
+            if(widthScroll && stopScroll) {
+                if (initialClick.value > e.changedTouches[0].clientX && initialClick.value - e.changedTouches[0].clientX > arrastoCursor)
                     positionInicial.value += -100
-                } else { 
+                else if(initialClick.value - e.changedTouches[0].clientX < -arrastoCursor)
                     positionInicial.value += 100
-                }
             }
             
             element.style.transform = `translateX(${positionInicial.value}vw)`
@@ -331,8 +336,8 @@ export default {
         }
 
         const startCarrossel = (e) => { 
-            const carrossel = document.querySelector('.card__grid')
-            positionInicial.value = Number(carrossel.style.transform.split('(')[1].split('vw)')[0])
+            const element = document.querySelector('.card__grid')
+            positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
 
             if(e != 'avancar' && e != 'voltar'){
                 initialClick.value = String(e.touches[0].clientX).split('.')[0]
@@ -341,10 +346,10 @@ export default {
 
             if (e == 'avancar' && imgs.length - 1 > carrossel.value) {
                 carrossel.value += 1
-                carrossel.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
+                element.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
             } else if (e == 'voltar' && carrossel.value > 0) {
                 carrossel.value -= 1
-                carrossel.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
+                element.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
             } 
         }
 
@@ -1337,13 +1342,40 @@ p {
     font-size: 14px;
 }
 
+/* Carrossel */
+
+
+.carrossel {
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    margin: auto;
+    margin-top: 20px;
+}
+
 .carrossel__controlls {
     position: relative;
-    background: pink;
+    background: white;
+    width: 100px;
     padding: 10px 20px;
-    color: violet;
     z-index: 2;
-    margin: auto;
+    border: none;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.carrossel__controlls:hover {
+    background: rgb(74, 74, 74);
+    color: white;
+    transition: .2s;
+}
+
+.carrossel--left {
+    border-radius: 50px 0 0 50px;
+}
+
+.carrossel--right {
+    border-radius: 0 50px 50px 0;
 }
 
 /* sky */
@@ -1863,11 +1895,6 @@ p {
         flex-direction: column;
     }
 
-    /* cards */
-    .card {
-        height: 250px;
-    }
-
     /* Orcamentos */
 
     .contatos__column, .sobre__container {
@@ -1901,12 +1928,7 @@ p {
     .sobre__planet--2 {
         right: -8px;
     }
-
-    /* Portfólio/ */
-
-    .grid-area-height {
-        height: 500px;
-    }
+   
 }
 
 @media screen and (max-width: 850px) {
@@ -1972,18 +1994,15 @@ p {
         gap: 6px;
     }
 
-    /* Card */
-
-    .grid-area-height, .card__img {
-        height: 600px;
-    }
-
     /* CARD MOBILE */
+
+    .grid-area-height, .card__img, .card__grid {
+        height: 60vh;
+    }
 
     .card__grid--mobile {
         width: 100vw;
         overflow: hidden;
-
     }
 
     .card__grid {
@@ -1992,7 +2011,6 @@ p {
     }
 
     .card__grid {
-        height: 600px;
         position: relative;
     }  
     
@@ -2000,6 +2018,11 @@ p {
         overflow: initial;
         width: 100vw
     } 
+
+    /*  */
+    .carrossel {
+        display: flex;
+    }
 
 }
 

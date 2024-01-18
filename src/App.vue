@@ -242,13 +242,13 @@ img {
   animation-fill-mode: forwards;
 }
 
-
 .popup__content {
   position: relative;
   display: flex;
   flex-direction: column;
   background: #1f1f1f;
   width: 80vw;
+  max-width: 1200px;
   margin-bottom: 100px;
 }
 
