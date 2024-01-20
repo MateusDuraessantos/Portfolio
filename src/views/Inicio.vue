@@ -123,6 +123,11 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="carrossel__count">
+                    <div :class="`carrossel__current carrossel--${index}`" v-for="(count, index) in imgs" />
+                </div>
+                
             </div>
     
             <div class="carrossel">
@@ -296,10 +301,9 @@
 
 <script>
 import { imagens } from './destaque.js'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 export default {
     setup(){
-        let carrossel = ref('')
         let initialClickX = ref(0)
         let initialClickY = ref(0)
         let inicialTransform = ref(0)
@@ -322,18 +326,36 @@ export default {
                 blockBodyScroll.value = 'justHorizontalScrollAllowed'
             }
         }
+        
+        let carrosselSelected = ref(0)
+        const more = (value) => document.querySelector(`.carrossel--${value}`).classList.add('carrossel__current--gray')
+        const less = (value) => document.querySelector(`.carrossel--${value}`).classList.remove('carrossel__current--gray')
+        
+        const carrosselFocus = (changer) => {
+            if (changer == 'right') less(carrosselSelected.value), carrosselSelected.value++, more(carrosselSelected.value)
+            if (changer == 'left') less(carrosselSelected.value), carrosselSelected.value--, more(carrosselSelected.value)
+            if (changer == 'init') document.querySelector('.carrossel__current').classList.add('carrossel__current--gray')
+        }
+        onMounted(()=> {
+            carrosselFocus('init')
+        })
 
         const endCarrossel = (e) => {
             const element = document.querySelector('.card__grid')
-            const arrastoCursor = 70 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
+            
+            const arrastoCursor = 20 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
             let widthScroll = Number(element.style.transform.split('(')[1].split('vw)')[0]) // Distancia que a imagem foi arrastada
             let stopScroll = widthScroll > imgs.length * 100 * -1 + 100 // Impede o scroll No final
-
+            
             if(widthScroll && stopScroll) {
-                if (initialClickX.value > e.changedTouches[0].clientX && initialClickX.value - e.changedTouches[0].clientX > arrastoCursor)
-                    positionInicial.value += -100
-                else if(initialClickX.value - e.changedTouches[0].clientX < -arrastoCursor)
-                    positionInicial.value += 100
+                if (initialClickX.value > e.changedTouches[0].clientX && initialClickX.value - e.changedTouches[0].clientX > arrastoCursor){
+                positionInicial.value += -100
+                carrosselFocus('right')
+            }
+            else if(initialClickX.value - e.changedTouches[0].clientX < -arrastoCursor) {
+                positionInicial.value += 100
+                carrosselFocus('left')
+                }
             }
             element.style.transform = `translateX(${positionInicial.value}vw)`
             willchange.value = false
@@ -353,12 +375,16 @@ export default {
                 inicialTransform.value = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
             }
 
-            if (e == 'avancar' && imgs.length - 1 > carrossel.value) {
-                carrossel.value += 1
-                element.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
-            } else if (e == 'voltar' && carrossel.value > 0) {
-                carrossel.value -= 1
-                element.setAttribute('style', `transform: translateX(-${carrossel.value}00vw)`)
+            if (e == 'avancar') {
+                less(carrosselSelected.value)
+                carrosselSelected.value++
+                more(carrosselSelected.value)
+                document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
+            } else if (e == 'voltar') {
+                less(carrosselSelected.value)
+                carrosselSelected.value--
+                more(carrosselSelected.value)
+                document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
             } 
         }
 
@@ -1396,7 +1422,6 @@ p {
 
 /* Carrossel */
 
-
 .carrossel {
     display: none;
     justify-content: center;
@@ -1405,15 +1430,40 @@ p {
     margin-top: 20px;
 }
 
+.carrossel__count {
+    display: flex;
+    position: absolute;
+    margin: auto;
+    gap: 10px;
+    bottom: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.carrossel__current {
+    background: white;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+}
+
+.carrossel__current--gray {
+    background: gray;
+}
+
 .carrossel__controlls {
     position: relative;
-    background: white;
+    background: #2c2c2c;
     width: 100px;
     padding: 10px 20px;
     z-index: 2;
     border: none;
     transition: .2s;
     cursor: pointer;
+}
+
+.whiteTheme .carrossel__controlls {
+    background: white;
 }
 
 .carrossel__controlls:hover {
@@ -2058,6 +2108,7 @@ p {
     }
 
     .card__grid--mobile {
+        position: relative;
         width: 100vw;
         overflow: hidden;
     }

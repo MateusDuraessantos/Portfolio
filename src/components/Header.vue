@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-
     </nav>
 </template>
 
@@ -80,14 +79,14 @@ export default {
             const white = document.querySelector('.turnWhite')
 
             if (this.booleanTheme == true) {
-                button.style.transform = 'translate(100px)'
+                button.classList.add('turnWhite__swith--transform') 
                 // Muda cor da navegação
                 setTimeout(() => {
                     this.colorNav = 'white'
                     white.classList.add('turnWhite--white')
                 }, timer);
             } else {
-                button.style.transform = ''
+                button.classList.remove('turnWhite__swith--transform')
                 // Muda cor da navegação
                 setTimeout(() => {
                     this.colorNav = 'black'
@@ -135,7 +134,6 @@ nav {
     z-index: 5;
 }
 
-
 /*  */
 
 [theme="black"] {
@@ -157,7 +155,6 @@ nav {
     backdrop-filter: none !important;
     transition: .5s;
 }
-
 
 .hiddenHeader .turnWhite {
     opacity: 0;
@@ -202,6 +199,77 @@ button {
     transition: .2s;
 }
 
+/* White Theme */
+
+.turnWhite {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #2c2c2c;
+    border-radius: 10vw;
+    border: none;
+    padding: 12px;
+    transition: .4s;
+    overflow: hidden;
+    width: 140px;
+    height: 40px;
+    outline: none;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.2)
+}
+
+.turnWhite__swith {
+    position: absolute;
+    left: 4px;
+    display: flex;
+    align-items: center;
+    background: gray;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: .2s;
+}
+
+.turnWhite__swith--transform {
+    transform: translateX(100px)
+}
+
+.turnWhite--white .turnWhite__swith {
+    box-shadow: none;
+}
+
+.turnWhite--white {
+    background: rgb(235 235 235);
+    transition: .4s;
+}
+
+.turnWhite--white text-btn {
+    color: black;
+}
+
+text-btn {
+    width: 55px;
+    font-size: 1rem;
+}
+
+.emoji {
+    font-size: 22px;
+}
+.escuro, .claro {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.escuro {
+    left: 42px;
+}
+
+.claro {
+    right: 42px;
+}
 /* Mobile version */
 
 @media screen and (max-width: 1100px) {
@@ -217,6 +285,12 @@ button {
 
 @media screen and (max-width: 1000px) {
   
+    #header {
+        height: 60px;
+    }
+    
+    /*  */
+
     #mobile .dropdown__inicio {
         position: relative;
         align-items: center;
@@ -307,6 +381,35 @@ button {
     [theme="white"] .dropdown__inicio {
         color: #1f1f1f;
     }
+
+    /*  */
+
+    .turnWhite {
+        width: 110px;
+        height: 30px;
+    }
+
+    .turnWhite__swith {
+        width: 24px;
+        height: 24px;
+    }
+
+    .escuro {
+        left: 25px;
+    }
+
+    .claro {
+        right: 25px;
+    }
+
+    .emoji {
+        font-size: 14px;
+    }
+
+    .turnWhite__swith--transform {
+        transform: translateX(79px)
+    }
+
 }
 
 @media screen and (max-width: 800px) {
@@ -326,70 +429,4 @@ button {
     }
 }
 
-/* White Theme */
-
-.turnWhite {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #2c2c2c;
-    border-radius: 10vw;
-    border: none;
-    padding: 12px;
-    transition: .4s;
-    overflow: hidden;
-    width: 140px;
-    height: 40px;
-    outline: none;
-}
-
-.turnWhite__swith {
-    position: absolute;
-    left: 4px;
-    display: flex;
-    align-items: center;
-    background: gray;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    transition: .2s;
-}
-
-.turnWhite--white .turnWhite__swith {
-    box-shadow: none;
-}
-
-.turnWhite--white {
-    background: rgb(235 235 235);
-    transition: .4s;
-}
-
-.turnWhite--white text-btn {
-    color: black;
-}
-
-text-btn {
-    width: 55px;
-    font-size: 1rem;
-}
-
-.emoji {
-    font-size: 22px;
-}
-.escuro, .claro {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
-    white-space: nowrap;
-}
-
-.escuro {
-    left: 42px;
-}
-
-.claro {
-    right: 42px;
-}
 </style>

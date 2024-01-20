@@ -439,7 +439,7 @@ button {
     }
 
     .popup__background {
-        padding: 20px;
+        padding: 10px 6px;
     }
 
     .popup__overflow {
