@@ -29,13 +29,13 @@
                     </div>
                 </div>
             </div>
-            <img src="square1.svg" class="square__left">
-            <img src="square0.svg" class="square__right">
+            <img src="square1.svg" class="square__left" alt="">
+            <img src="square0.svg" class="square__right" alt="">
         </header>
         
         <!-- BACKGROUND -->
         <div class="background__parallax">
-            <img class="parallax--img" id="parallax" :src="`inicio/${whiteImages}/background__parallax.jpg`">
+            <img class="parallax--img" id="parallax" :src="`inicio/${whiteImages}/background__parallax.jpg`" alt="">
         </div>
         
         <!-- POPUP -->
@@ -57,12 +57,12 @@
                     <div class="link__grid">
                         <a :href="imgs[indexImg].link" target="_blank" v-if="imgs[indexImg].link" class="link__container">
                             Website online
-                            <img class="link__img" src="external.svg">
+                            <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto">
                         </a>
                         <a :href="imgs[indexImg].github" target="_blank" v-if="imgs[indexImg].github"
                             class="link__container">
                             GitHub
-                            <img class="link__img" src="github_logo.svg">
+                            <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto">
                         </a>
                     </div>
                     <div class="description">
@@ -79,7 +79,7 @@
 
                             </div>
                             <div class="popup__carrossel">
-                                <img class="popup__img" loading="lazy" v-for="coisas in imgs[indexImg].paths" @load="loadingImg" :src="`projetos/${coisas}`">
+                                <img class="popup__img" loading="lazy" v-for="coisas in imgs[indexImg].paths" :alt="coisas.alt" @load="loadingImg" :src="`projetos/${coisas.img}`">
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
 
         <!-- BUBBLES -->
         <div class="bubble__container" id="bubbles__observer">
-            <img class="bubble bubble__left" src="bubble1.svg">
+            <img class="bubble bubble__left" src="bubble1.svg" alt="">
             <div class="bubble bubble__right"></div>
         </div>
     
@@ -135,9 +135,9 @@
         <section class="max__width" id="facaumorcamento">
             <div class="orcamento">
                 <h1>Serviços:</h1>
-                <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors">
-                <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text">
-                <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools">
+                <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors" alt="">
+                <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text" alt="">
+                <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools" alt="">
                 <div class="orcamento__card--container">
                     <div :class="`orcamento__card ${cards.class}`" v-for="cards in cardsOrcamento">
                         <div>
@@ -167,8 +167,8 @@
         <!-- SOBRE -->
         <section class="section sobre" id="sobre">
             <div class="max__width">
-                <img src="inicio/black/red-planet.jpg" id="planets-red" loading="lazy" class="sobre__planet--1">
-                <img src="inicio/black/earth.png" id="planets-earth" loading="lazy" class="sobre__planet--2">
+                <img src="inicio/black/red-planet.jpg" id="planets-red" loading="lazy" class="sobre__planet--1" alt="">
+                <img src="inicio/black/earth.png" id="planets-earth" loading="lazy" class="sobre__planet--2" alt="">
 
                 <div class="sobre__elements">
                     <div class="sobre__container">
@@ -193,14 +193,14 @@
                     </div>
                     <div class="sobre__experiencia">
                         <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
-                            <img class="sobre__icon" :src="`${icons[0]}.png`">
-                            <p>{{ icons[1] }}</p>
+                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt">
+                            <p>{{ icons.skill }}</p>
                         </div>
                     </div>
                     <div class="sobre__experiencia">
                         <div class="sobre__ctn" v-for="icons in experienciaIcons[1]">
-                            <img class="sobre__icon" :src="`${icons[0]}.png`">
-                            <p>{{ icons[1] }}</p>
+                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt">
+                            <p>{{ icons.skill }}</p>
                         </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                                     <p class="contato__email">whatsapp</p>
                                 </div>
                                 <p class="decoration__info">(11) 96593-9822</p>
-                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Icone de copiar">
                             </a>
                             <a target="_blank" class="decoration" 
                                 @mouseenter="blurIn('enter')"
@@ -241,13 +241,13 @@
                                 @click="copyText('mateusduraessantos@gmail.com')"
                             >
                                 <div class="informacoes__contato">
-                                    <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Email">
+                                    <img :src="`icons/${whiteIcons}/gmail.svg`" alt="Logo Email">
                                     <p class=" contato__email">e-mail</p>
                                 </div>
                                 <div class="decoration__info">
                                     mateusduraessantos@gmail.com
                                 </div>
-                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/copy.svg`" alt="Icone de copiar">
                             </a>
                             <a target="_blank" class="decoration"
                                 @mouseenter="blurIn('enter')"
@@ -255,13 +255,13 @@
                                 href="https://www.behance.net/mateusduraes"
                             >
                                 <div class="informacoes__contato">
-                                    <img :src="`icons/${whiteIcons}/behance.svg`" alt="Email">
+                                    <img :src="`icons/${whiteIcons}/behance.svg`" alt="Logo Behance">
                                     <p class=" contato__email">behance</p>
                                 </div>
                                 <div class="decoration__info">
                                     Mateus Durães dos Santos
                                 </div>
-                                <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Copiar">
+                                <img class="decoration__copy" :src="`icons/${whiteIcons}/link.svg`" alt="Icone de copiar">
                             </a>
                         </div>
                     </address>
@@ -274,22 +274,22 @@
                     </div>
                 </div>
             </div>
-            <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/01.png`" alt="planet">
-            <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/02.png`" alt="planet">
-            <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/03.png`" alt="planet">
-            <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/05.png`" alt="planet" id="planet_05">
-            <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/06.png`" alt="planet">
-            <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/07.png`" alt="planet">
-            <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/08.png`" alt="planet">
-            <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/09.png`" alt="planet">
-            <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/10.png`" alt="planet">
+            <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/01.png`" alt="">
+            <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/02.png`" alt="">
+            <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/03.png`" alt="">
+            <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/05.png`" alt="" id="planet_05">
+            <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/06.png`" alt="">
+            <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/07.png`" alt="">
+            <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/08.png`" alt="">
+            <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/09.png`" alt="">
+            <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/10.png`" alt="">
             <div class="smile_cont sky__planet" id="planet_11">
-                <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/11.png`" alt="planet">
-                <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="sorriso">
+                <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/11.png`" alt="">
+                <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="">
             </div>
-            <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/12.png`" alt="planet" id="planet_12">
-            <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/13.png`" alt="planet" id="planet_13">
-            <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/14.png`" alt="planet" id="planet_14">
+            <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/12.png`" alt="" id="planet_12">
+            <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/13.png`" alt="" id="planet_13">
+            <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/14.png`" alt="" id="planet_14">
         </footer>
     </div>
 </template>
@@ -372,18 +372,58 @@ export default {
             whiteImages: 'black',
             experienciaIcons: [
                 [
-                    ['software0', 'Illustrator'],
-                    ['software1', 'cinema 4D'],
-                    ['software2', 'Photoshop'],
-                    ['software3', 'Miro'],
-                    ['software4', 'Figma']
+                    {
+                        img: 'software0',
+                        skill: 'Illustrator',
+                        alt: 'Logo Adobe Illustrator'
+                    },
+                    {
+                        img: 'software1',
+                        skill: 'cinema 4D',
+                        alt: 'Logo cinema 4D'
+                    },
+                    {
+                        img: 'software2',
+                        skill: 'Photoshop',
+                        alt: 'Logo Adobe Photoshop'
+                    },
+                    {
+                        img: 'software3',
+                        skill: 'Miro',
+                        alt: 'Logo Miro'
+                    },
+                    {
+                        img: 'software4',
+                        skill: 'Figma',
+                        alt: 'Logo Figma'
+                    }
                 ],
                 [
-                    ['tech0', 'Firebase'],
-                    ['tech1', 'CSS'],
-                    ['tech2', 'HTML'],
-                    ['tech3', 'Javascript'],
-                    ['tech4', 'Vue JS']
+                    {
+                        img:'tech0',
+                        skill: 'Firebase',
+                        alt: 'Logo Firebase'
+                    },
+                    {
+                        img:'tech1',
+                        skill: 'CSS',
+                        alt: 'Logo CSS'
+                    },
+                    {
+                        img:'tech2',
+                        skill: 'HTML',
+                        alt: 'Logo HTML'
+                    },
+                    {
+                        img:'tech3',
+                        skill: 'Javascript',
+                        alt: 'Logo Javascript'
+                    },
+                    {
+                        img:'tech4',
+                        skill: 'Vue  JS',
+                        alt: 'Logo Vuejs 3'
+                    }
                 ],
             ],
             blackTools: {
@@ -474,7 +514,7 @@ export default {
     watch: {
         booleanTheme() {
             this.changeImagens(1000)
-        }
+        },
     },
     mounted() {
         this.observador()
@@ -483,20 +523,22 @@ export default {
         this.haveAGoodDay()
 
         const scrolling = [ //elementos que serão ativados
-            { obj: 'planets-earth', value: 0.4, position: -2200 },
-            { obj: 'planets-red', value: 0.4, position: -1700 },
-            { obj: 'parallax', value: 0.4, position: -200 },
-            { obj: 'bubbles__observer', value: 0.4, position: 1200 },
+            { id: 'planets-earth', value: 0.4, position: -2200 },
+            { id: 'planets-red', value: 0.4, position: -1700 },
+            { id: 'parallax', value: 0.4, position: -200 },
+            { id: 'bubbles__observer', value: 0.4, position: 1200 },
         ]
 
-        const parallaxScroll = (element) => document.getElementById(element.obj).style.top = `${window.scrollY * element.value + element.position}px`
+        const parallaxScroll = (element) => document.getElementById(element.id).style.top = `${window.scrollY * element.value + element.position}px`
 
-        scrolling.forEach(element => {
-            parallaxScroll(element) // Define o valor inicia de acordo com o scroll inicial
-            window.addEventListener('scroll', () => {
-                parallaxScroll(element)
-            })
-        });
+        if(window.screen.availWidth > 1000) {
+            scrolling.forEach(element => {
+                parallaxScroll(element) // Define o valor inicia de acordo com o scroll inicial
+                window.addEventListener('scroll', () => {
+                    parallaxScroll(element)
+                })
+            });
+        }
     },
     methods: {
         scrollDown(ancora) {
@@ -1391,7 +1433,7 @@ p {
     position: absolute;
     content: '';
     top: 0;
-    width: 100%;
+    width: 100vw;
     height: 200px;
     z-index: 2;
 }
@@ -1400,7 +1442,7 @@ p {
     position: absolute;
     content: '';
     bottom: 100%;
-    width: 100%;
+    width: 100vw;
     height: 200px;
     z-index: 2;
     background-image: linear-gradient(transparent, black);
@@ -1723,8 +1765,8 @@ p {
     }
     
     .parallax--img {
-        transform: translateY(400px);
-        width: 1000px;
+        transform: translate(-400px, 1400px);
+        width: 1400px;
     }
 
     .inicio {
@@ -1741,6 +1783,11 @@ p {
     .bubble {
         display: none;
     }
+    /*  */
+    .experiencia {
+        padding: 8px 18px;
+    }
+    
     /* Sky */
 
     .informacoes__container {
