@@ -300,39 +300,47 @@ import { ref } from 'vue'
 export default {
     setup(){
         let carrossel = ref('')
-        let initialClick = ref(0)
+        let initialClickX = ref(0)
+        let initialClickY = ref(0)
         let inicialTransform = ref(0)
         let willchange = ref(false)
-        let positionInicial = ref(0) 
+        let positionInicial = ref(0)
+        let blockBodyScroll = ref(true)
         const imgs = imagens
 
         const moveTouch = (event) => {
             const element = document.querySelector('.card__grid')
-            const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClick.value
-            const widthSum = inicialTransform.value + slideWidth * .15
-            
-            widthSum <= 0  && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
+            const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
+            const slideHeight = event.touches[0].clientY - initialClickY.value
+            const widthSum = inicialTransform.value + slideWidth * .26
+
+           if(parseInt(slideWidth / slideHeight).toString() != 0 && blockBodyScroll.value == true || blockBodyScroll.value == 'justVerticalScrollAllowed') { // Se o scroll começou na horizontal, bloqueia o scroll da vertical e vise-versa
+                document.querySelector('body').style.overflowY = 'hidden'
+                widthSum <= 0 && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
+                blockBodyScroll.value = 'justVerticalScrollAllowed'
+            } else if(blockBodyScroll.value || blockBodyScroll.value == 'justHorizontalScrollAllowed') {
+                blockBodyScroll.value = 'justHorizontalScrollAllowed'
+            }
         }
- 
+
         const endCarrossel = (e) => {
             const element = document.querySelector('.card__grid')
-
+            const arrastoCursor = 70 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
             let widthScroll = Number(element.style.transform.split('(')[1].split('vw)')[0]) // Distancia que a imagem foi arrastada
             let stopScroll = widthScroll > imgs.length * 100 * -1 + 100 // Impede o scroll No final
-            
-            const arrastoCursor = 70 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
 
             if(widthScroll && stopScroll) {
-                if (initialClick.value > e.changedTouches[0].clientX && initialClick.value - e.changedTouches[0].clientX > arrastoCursor)
+                if (initialClickX.value > e.changedTouches[0].clientX && initialClickX.value - e.changedTouches[0].clientX > arrastoCursor)
                     positionInicial.value += -100
-                else if(initialClick.value - e.changedTouches[0].clientX < -arrastoCursor)
+                else if(initialClickX.value - e.changedTouches[0].clientX < -arrastoCursor)
                     positionInicial.value += 100
             }
-            
             element.style.transform = `translateX(${positionInicial.value}vw)`
             willchange.value = false
-            initialClick.value = 0
+            initialClickX.value = 0
             inicialTransform.value = 0
+            blockBodyScroll.value = true
+            document.querySelector('body').style.overflowY = 'initial'
         }
 
         const startCarrossel = (e) => { 
@@ -340,7 +348,8 @@ export default {
             positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
 
             if(e != 'avancar' && e != 'voltar'){
-                initialClick.value = String(e.touches[0].clientX).split('.')[0]
+                initialClickY.value = Number(String(e.touches[0].clientY).split('.')[0])
+                initialClickX.value = Number(String(e.touches[0].clientX).split('.')[0])
                 inicialTransform.value = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
             }
 
@@ -517,6 +526,7 @@ export default {
         },
     },
     mounted() {
+        console.clear()
         this.observador()
         this.keepWhiteOnReload(0)
         this.changeImagens(0)
