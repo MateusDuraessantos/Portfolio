@@ -336,6 +336,7 @@ export default {
             if (changer == 'left') less(carrosselSelected.value), carrosselSelected.value--, more(carrosselSelected.value)
             if (changer == 'init') document.querySelector('.carrossel__current').classList.add('carrossel__current--gray')
         }
+        
         onMounted(()=> {
             carrosselFocus('init')
         })
@@ -375,12 +376,12 @@ export default {
                 inicialTransform.value = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
             }
 
-            if (e == 'avancar') {
+            if (e == 'avancar' && imgs.length - 1 > carrosselSelected.value) {
                 less(carrosselSelected.value)
                 carrosselSelected.value++
                 more(carrosselSelected.value)
                 document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
-            } else if (e == 'voltar') {
+            } else if (e == 'voltar' && carrosselSelected.value > 0) {
                 less(carrosselSelected.value)
                 carrosselSelected.value--
                 more(carrosselSelected.value)
@@ -1441,14 +1442,14 @@ p {
 }
 
 .carrossel__current {
-    background: white;
+    background: #d7d7d7;
     border-radius: 50%;
     width: 6px;
     height: 6px;
 }
 
 .carrossel__current--gray {
-    background: gray;
+    background: #414141;
 }
 
 .carrossel__controlls {
