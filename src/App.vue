@@ -27,7 +27,6 @@ export default {
         return {
             removeLinkVer: true,
             whatTimeIs: null,
-            removeTimer: null,
             hiddenHeader: true,
             booleanTheme: true, // Se booleanTheme for true o tema fica branc
             smile: 'black',
@@ -220,285 +219,15 @@ img {
     transition: .2s;
 }
 
-/* Popup  */
-
-.description h1,
-.description p {
-    padding: 1.2vw;
-    color: #E0D9CE !important;
-}
-
-.h1__popup {
-    font-size: 1.4rem;
-    font-weight: 600;
-    width: 70%;
-}
-
-.popup__background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-    height: 100vh;
-    backdrop-filter: blur(20px);
-    background: rgba(0, 0, 0, 0.8);
-    animation-name: animation_opacity;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-.popup__content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background: #1f1f1f;
-    width: 80vw;
-    max-width: 1200px;
-    margin-bottom: 100px;
-}
-
-.changes {
-    background: none;
-    border: none;
-    position: absolute;
-    right: 2.5vw;
-    top: 12vh;
-    font-size: 1rem;
-}
-
-.changes__container {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    gap: 0.24vw;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 6px;
-}
-
-.changes__square {
-    background: #b70000;
-    border-radius: 0.2vw;
-    padding: 0.8vw;
-    width: 100%;
-    max-width: 3.5vw;
-}
-
-.column__vertical {
-    display: initial;
-    column-count: 2 !important;
-}
-
-.container-button {
-    visibility: hidden;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    left: 0;
-    top: 0;
-}
-
-button {
-    cursor: pointer;
-}
-
-.changeProject {
-    visibility: visible;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
-    transition: .2s;
-    z-index: 12;
-}
-
-.changeProject p {
-    color: #E0D9CE !important;
-    font-size: 24px !important;
-}
-
-.back {
-    left: 32px;
-}
-
-.next {
-    right: 32px;
-}
-
-.back:hover {
-    left: 26px;
-    transition: .2s;
-}
-
-.next:hover {
-    right: 26px;
-    transition: .2s;
-}
-
-.popup__overflow {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    overflow-y: overlay;
-    height: 100%;
-    padding-top: 100px;
-}
-
-.container-loading {
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-}
-
-.container-loading span {
-    font-size: 15px;
-    font-weight: 400;
-    color: #b5b5b5 !important;
-}
-
-.loading {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 9px dotted rgb(183 183 183);
-    z-index: 1;
-    animation-name: loading;
-    animation-duration: 12s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    border-spacing: 17px;
-}
-
-.popup__img {
-    width: 100%;
-    object-fit: cover;
-}
-
-.popup__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    font-size: 24px;
-    width: 34px;
-    height: 34px;
-    border: none;
-    background: none;
-    color: var(--creme) !important;
-}
-
-.popup__carrossel--count {
-    display: none;
-}
 
 @media only screen and (max-width: 900px) {
-
-    /* Popup */
-
-    .container-button {
-        z-index: 11;
-    }
-
-    .changeProject {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        box-shadow: none;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Popup */
-
-    .popup__content {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-    }
-
-    .popup__background {
-        padding: 10px 6px;
-    }
-
-    .popup__overflow {
-        height: 100%;
-    }
-
-    .popup__img {
-        height: 100%;
-        height: 100%;
-    }
-
-    .popup__overflow {
-        padding-top: 0;
-    }
 
     .description {
         padding: 20px;
     }
 
-    .popup__container--mobile {
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-        width: 100%;
-        height: 100%;
-    }
-
-    .h1__popup {
-        font-size: 16px;
-    }
-
-    .popup__mobile {
-        position: relative;
-        height: 100%;
-    }
-
-    .popup__carrossel {
-        position: relative;
-        display: flex;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-    }
-
     .container-button {
         display: none;
-    }
-
-    .popup__carrossel--count {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        right: 10px;
-        top: 10px;
-        gap: 4px;
-        border-radius: 50vw;
-        padding: 4px 12px;
-        height: max-content;
-        z-index: 1;
     }
 
 }
@@ -528,7 +257,6 @@ button {
     pointer-events: none;
 }
 
-
 .v-enter-active,
 .v-leave-active {
     transition: opacity 1s ease;
@@ -539,7 +267,6 @@ button {
     transition: 1s;
     opacity: 0;
 }
-
 
 /* Animação ao carregar a página */
 
@@ -578,8 +305,6 @@ button {
 .whiteoverflows {
     background: white;
 }
-
-
 
 @media only screen and (max-width: 400px) {
     html {
@@ -669,24 +394,6 @@ button {
     }
 }
 
-.popup__animation {
-    animation-name: popup__background--animation;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes popup__background--animation {
-    from {
-        opacity: 0;
-        margin-top: -50px;
-    }
-
-    to {
-        opacity: 1;
-        margin-top: 0;
-    }
-}
-
 @keyframes changingTheme {
     0% {
         opacity: 0;
@@ -699,4 +406,6 @@ button {
     100% {
         opacity: 0;
     }
-}</style>
+}
+
+</style>

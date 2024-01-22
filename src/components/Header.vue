@@ -53,7 +53,6 @@ export default {
     },
     methods: {
         upDropdown(event) {
-            
             const dropdown = document.querySelector('#mobile')
             if(event.currentTarget.classList[0] == 'links' && this.handle) {
                 dropdown.classList.add('openMenu')
