@@ -55,14 +55,10 @@
                 <p class="card__destaques">Destaques:</p>
             </div>
             <div class="card__grid--mobile">
-                <div class="card__grid" @touchmove="moveTouch" @touchstart="startCarrossel" @touchend="endCarrossel"
-                    style="transform: translateX(0vw)">
-                    <div v-for="(img, index) in imgs" :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`"
-                        :key="index" @click="upPopup($event, index, 'true')">
-                        <img v-if="img.thumb.default" class="card__img" loading="lazy"
-                            :src="`projetos/${img.thumb.default}`">
-                        <img v-else class="card__img" loading="lazy"
-                            :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`">
+                <div class="card__grid" @touchmove="moveTouch" @touchstart="startCarrossel" @touchend="endCarrossel" style="transform: translateX(0vw)">
+                    <div v-for="(img, index) in imgs" :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`" :key="index" @click="upPopup($event, index, 'true')">
+                        <img v-if="img.thumb.default" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`" :alt="img.alt">
+                        <img v-else class="card__img" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`" :alt="img.alt">
                         <div class="card__description">
                             <div class="card__data">
                                 <p> {{ img.name }}</p>
