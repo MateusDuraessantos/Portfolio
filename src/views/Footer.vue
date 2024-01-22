@@ -2,7 +2,7 @@
     <footer class="sky" id="contato">
         <!-- Os céus proclamam a glória de Jesus -->
         <span class="sky__container" v-if="footerVisible">
-            <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" autoplay loop muted />
+            <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" autoplay loop muted></video>
             <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky">
             <div class="sky__shadows" id="shadow"></div>
         </span>
@@ -15,17 +15,15 @@
             <div class="informacoes__container">
                 <address class="informacoes__content">
                     <div class="contatos__column">
-                        <a target="_blank" class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn"
-                            @click="copyText('(11) 96593-9822')">
+                        <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('(11) 96593-9822')">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/whatsapp.svg`" alt="WhatsApp">
                                 <p class="contato__email">whatsapp</p>
                             </div>
                             <p class="decoration__info">(11) 96593-9822</p>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar">
-                        </a>
-                        <a target="_blank" class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn"
-                            @click="copyText('mateusduraessantos@gmail.com')">
+                        </div>
+                        <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('mateusduraessantos@gmail.com')">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email">
                                 <p class="contato__email">e-mail</p>
@@ -34,9 +32,8 @@
                                 mateusduraessantos@gmail.com
                             </div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar">
-                        </a>
-                        <a target="_blank" class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn"
-                            href="https://www.behance.net/mateusduraes">
+                        </div>
+                        <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" href="https://www.behance.net/mateusduraes">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance">
                                 <p class=" contato__email">behance</p>
@@ -45,7 +42,7 @@
                                 Mateus Durães dos Santos
                             </div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar">
-                        </a>
+                        </div>
                     </div>
                 </address>
                 <div id="observador__footer"
@@ -64,22 +61,22 @@
                 </div>
             </div>
         </div>
-        <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/01.png`" alt="">
-        <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/02.png`" alt="">
-        <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/03.png`" alt="">
-        <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/05.png`" alt="" id="planet_05">
-        <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/06.png`" alt="">
-        <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/07.png`" alt="">
-        <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/08.png`" alt="">
-        <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/09.png`" alt="">
-        <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/10.png`" alt="">
+        <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/planet_01.webp`" alt="">
+        <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/planet_02.webp`" alt="">
+        <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/planet_03.webp`" alt="">
+        <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/planet_05.webp`" alt="" id="planet_05">
+        <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/planet_06.webp`" alt="">
+        <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/planet_07.webp`" alt="">
+        <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/planet_08.webp`" alt="">
+        <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/planet_09.webp`" alt="">
+        <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/planet_10.webp`" alt="">
         <div class="smile_cont sky__planet" id="planet_11">
-            <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/11.png`" alt="">
+            <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/planet_11.webp`" alt="">
             <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="">
         </div>
-        <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/12.png`" alt="" id="planet_12">
-        <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/13.png`" alt="" id="planet_13">
-        <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/14.png`" alt="" id="planet_14">
+        <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/planet_12.webp`" alt="" id="planet_12">
+        <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/planet_13.webp`" alt="" id="planet_13">
+        <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/planet_14.webp`" alt="" id="planet_14">
     </footer>
 </template>
 
@@ -185,9 +182,6 @@ export default {
     background-image: linear-gradient(transparent, black);
 }
 
-.whiteTheme .sky::before {
-    background-image: linear-gradient(transparent, rgb(232, 222, 222));
-}
 
 .sky__container {
     display: flex;
@@ -787,5 +781,13 @@ export default {
 
 .whiteTheme .sky__informacoes {
     mix-blend-mode: inherit;
+}
+
+.whiteTheme .contato__email, .whiteTheme .decoration__info {
+    color: black;
+}
+
+.whiteTheme .sky::before {
+    background-image: linear-gradient(transparent, rgb(232, 222, 222));
 }
 </style>

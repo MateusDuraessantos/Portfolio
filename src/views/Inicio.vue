@@ -36,7 +36,7 @@
 
         <!-- BACKGROUND -->
         <div class="background__parallax">
-            <img class="parallax--img" id="parallax" :src="`inicio/${whiteImages}/background__parallax.jpg`" alt="">
+            <img class="parallax--img" id="parallax" :src="`inicio/${whiteImages}/background__parallax.webp`" alt="">
         </div>
 
         <!-- POPUP -->
@@ -57,8 +57,8 @@
             <div class="card__grid--mobile">
                 <div class="card__grid" @touchmove="moveTouch" @touchstart="startCarrossel" @touchend="endCarrossel" style="transform: translateX(0vw)">
                     <div v-for="(img, index) in imgs" :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`" :key="index" @click="upPopup($event, index, 'true')">
-                        <img v-if="img.thumb.default" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`" :alt="img.alt">
-                        <img v-else class="card__img" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`" :alt="img.alt">
+                        <img v-if="img.thumb.default" width="400" height="300" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`" :alt="img.alt">
+                        <img v-else class="card__img" width="400" height="300" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`" :alt="img.alt">
                         <div class="card__description">
                             <div class="card__data">
                                 <p> {{ img.name }}</p>
@@ -94,12 +94,12 @@
                             <br>
                             <span>
                                 <span v-for="infos in cards.card">
-                                    <li>
+                                    <div class="li">
                                         <div style="display: flex; flex-direction: column; gap: 2px;">
                                             <p><strong>{{ infos.oferta }}</strong></p>
                                             <p style="font-size: 14px;">{{ infos.beneficio }}</p>
                                         </div>
-                                    </li>
+                                    </div>
                                 </span>
                             </span>
                         </div>
@@ -143,7 +143,7 @@
                             desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e
                             completo no campo do desenvolvimento web.
                         </p>
-                        <img class="sobre__mateus" src="mateus.jpg">
+                        <img class="sobre__mateus" src="mateus.jpg" alt="Mateus Durães dos Santos">
                     </div>
                     <div style="display: flex; justify-content: center;">
                         <h4>Conhecimentos:</h4>
@@ -450,7 +450,7 @@ export default {
                 parallaxScroll(element) // Define o valor inicia de acordo com o scroll inicial
                 window.addEventListener('scroll', () => {
                     parallaxScroll(element)
-                })
+                }, {passive: true})
             });
         }
     },
@@ -733,7 +733,7 @@ p {
     position: relative;
     display: flex;
     align-items: center;
-    background: #00A3FF;
+    background: #004ECC;
     font-size: 1rem;
     border: none;
     border-radius: 6px;
@@ -743,7 +743,7 @@ p {
 }
 
 .orcamento__btn:hover {
-    background: #067ec4;
+    background: rgb(13, 118, 255);
     transition: .2s
 }
 
@@ -822,7 +822,7 @@ p {
     text-shadow: none;
 }
 
-.orcamento__card li {
+.orcamento__card .li {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -834,7 +834,7 @@ p {
     margin-left: 20px;
 }
 
-.orcamento__card li::before {
+.orcamento__card .li::before {
     position: absolute;
     content: '';
     top: 2px;
@@ -1182,6 +1182,7 @@ p {
 
 .card__img {
     width: 100%;
+    height: 100%;
     transition: .3s;
     object-fit: cover;
 }

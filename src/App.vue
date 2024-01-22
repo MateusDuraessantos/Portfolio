@@ -104,6 +104,10 @@ export default {
             newLink.setAttribute('rel', 'icon')
             newLink.setAttribute('href', 'eu-favicon.png')
             document.head.appendChild(newLink)
+            /* Cache */
+            const cache = document.createElement("Cache")
+            cache.setAttribute('http-equiv', 'Cache-Control')
+            cache.setAttribute('content', 'max-age=31536000')
         }
     },
 }
