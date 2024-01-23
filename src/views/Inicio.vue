@@ -14,14 +14,13 @@
                     <br>
                     <div class="redes">
                         <a href="https://www.behance.net/mateusduraes" target="_blank">
-                            <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`"
-                                alt="logo Behance">
+                            <img class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`" width="58" height="34" alt="logo Behance" loading="lazy">
                         </a>
                         <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                            <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" alt="logo Linkedin">
+                            <img class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`" width="58" height="34" alt="logo Linkedin" loading="lazy">
                         </a>
                         <a href="https://github.com/MateusDuraessantos" target="_blank">
-                            <img class="redes__img" :src="`icons/${whiteIcons}/github__fill.svg`" alt="logo Github">
+                            <img class="redes__img" :src="`icons/${whiteIcons}/github__fill.svg`" width="58" height="34" alt="logo Github" loading="lazy">
                         </a>
                     </div>
                     <br>
@@ -55,7 +54,7 @@
                 <p class="card__destaques">Destaques:</p>
             </div>
             <div class="card__grid--mobile">
-                <div class="card__grid" @touchmove="moveTouch" @touchstart="startCarrossel" @touchend="endCarrossel" style="transform: translateX(0vw)">
+                <div class="card__grid" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel" @touchend="endCarrossel" style="transform: translateX(0vw)">
                     <div v-for="(img, index) in imgs" :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`" :key="index" @click="upPopup($event, index, 'true')">
                         <img v-if="img.thumb.default" width="400" height="300" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`" :alt="img.alt">
                         <img v-else class="card__img" width="400" height="300" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`" :alt="img.alt">
@@ -84,9 +83,9 @@
         <section class="max__width" id="facaumorcamento">
             <div class="orcamento">
                 <h1>Serviços:</h1>
-                <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors" alt="">
-                <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text" alt="">
-                <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools" alt="">
+                <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors" alt="" loading="lazy">
+                <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text" alt="" loading="lazy">
+                <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools" alt="" loading="lazy">
                 <div class="orcamento__card--container">
                     <div :class="`orcamento__card ${cards.class}`" v-for="cards in cardsOrcamento">
                         <div>
@@ -110,29 +109,26 @@
         </section>
 
         <section class="mensagem">
-            <h6>A arte imita a natureza.</h6>
+            <p>A arte imita a natureza.</p>
         </section>
 
         <!-- SOBRE -->
         <section class="section sobre" id="sobre">
             <div class="max__width">
-                <img src="inicio/black/red-planet.jpg" id="planets-red" loading="lazy" class="sobre__planet--1" alt="">
-                <img src="inicio/black/earth.png" id="planets-earth" loading="lazy" class="sobre__planet--2" alt="">
+                <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1" alt="" loading="lazy">
+                <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2" alt="" loading="lazy">
 
                 <div class="sobre__elements">
                     <div class="sobre__container">
                         <div class="sobre__redes">
                             <a href="https://www.behance.net/mateusduraes" target="_blank">
-                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`"
-                                    alt="logo Behance">
+                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`" width="40" height="40" alt="logo Behance" loading="lazy">
                             </a>
                             <a href="https://github.com/MateusDuraessantos" target="_blank">
-                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`"
-                                    alt="logo Github">
+                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" width="40" height="40" alt="logo Github" loading="lazy">
                             </a>
                             <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`"
-                                    alt="logo Linkedin">
+                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" width="40" height="40" alt="logo Linkedin" loading="lazy">
                             </a>
                         </div>
                         <p>
@@ -143,20 +139,20 @@
                             desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e
                             completo no campo do desenvolvimento web.
                         </p>
-                        <img class="sobre__mateus" src="mateus.jpg" alt="Mateus Durães dos Santos">
+                        <img class="sobre__mateus" src="mateus.jpg" alt="Mateus Durães dos Santos" width="200" height="200" loading="lazy">
                     </div>
                     <div style="display: flex; justify-content: center;">
-                        <h4>Conhecimentos:</h4>
+                        <h3>Conhecimentos:</h3>
                     </div>
                     <div class="sobre__experiencia">
                         <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
-                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt">
+                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
                             <p>{{ icons.skill }}</p>
                         </div>
                     </div>
                     <div class="sobre__experiencia">
                         <div class="sobre__ctn" v-for="icons in experienciaIcons[1]">
-                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt">
+                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
                             <p>{{ icons.skill }}</p>
                         </div>
                     </div>
@@ -191,7 +187,7 @@ export default {
             const element = document.querySelector('.card__grid')
             const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
             const slideHeight = event.touches[0].clientY - initialClickY.value
-            const widthSum = inicialTransform.value + slideWidth * .26
+            const widthSum = inicialTransform.value + slideWidth * .17
 
             if (parseInt(slideWidth / slideHeight).toString() != 0 && blockBodyScroll.value == true || blockBodyScroll.value == 'justVerticalScrollAllowed') { // Se o scroll começou na horizontal, bloqueia o scroll da vertical e vise-versa
                 document.querySelector('body').style.overflowY = 'hidden'
@@ -450,7 +446,7 @@ export default {
                 parallaxScroll(element) // Define o valor inicia de acordo com o scroll inicial
                 window.addEventListener('scroll', () => {
                     parallaxScroll(element)
-                }, {passive: true})
+                })
             });
         }
     },
@@ -594,7 +590,7 @@ export default {
     height: 800px;
 }
 
-.mensagem h6 {
+.mensagem p {
     text-align: center;
     font-size: 20px;
     font-weight: 400;
@@ -944,6 +940,8 @@ p {
 
 .sobre__icon--redes {
     width: 40px;
+    height: 40px;
+    object-fit: contain;
     transition: .2s;
 }
 
@@ -964,6 +962,8 @@ p {
 
 .sobre__icon {
     width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 /*  */
@@ -1340,7 +1340,7 @@ p {
     }
 
     .parallax--img {
-        transform: translate(-400px, 1400px);
+        transform: translate(-600px, 1000px);
         width: 1400px;
     }
 

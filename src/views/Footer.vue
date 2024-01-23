@@ -2,12 +2,12 @@
     <footer class="sky" id="contato">
         <!-- Os céus proclamam a glória de Jesus -->
         <span class="sky__container" v-if="footerVisible">
-            <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" autoplay loop muted></video>
-            <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky">
+            <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
+            <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky" loading="lazy">
             <div class="sky__shadows" id="shadow"></div>
         </span>
         <span class="sky__container" v-else>
-            <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky">
+            <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky" loading="lazy">
             <div class="sky__shadows--white" id="shadow"></div>
         </span>
         <!-- Infos -->
@@ -17,31 +17,31 @@
                     <div class="contatos__column">
                         <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('(11) 96593-9822')">
                             <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/whatsapp.svg`" alt="WhatsApp">
+                                <img :src="`icons/${iconsTheme}/whatsapp.svg`" alt="WhatsApp" loading="lazy">
                                 <p class="contato__email">whatsapp</p>
                             </div>
                             <p class="decoration__info">(11) 96593-9822</p>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar">
+                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
                         </div>
                         <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('mateusduraessantos@gmail.com')">
                             <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email">
+                                <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email" loading="lazy">
                                 <p class="contato__email">e-mail</p>
                             </div>
                             <div class="decoration__info">
                                 mateusduraessantos@gmail.com
                             </div>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar">
+                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
                         </div>
                         <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" href="https://www.behance.net/mateusduraes">
                             <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance">
+                                <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance" loading="lazy">
                                 <p class=" contato__email">behance</p>
                             </div>
                             <div class="decoration__info">
                                 Mateus Durães dos Santos
                             </div>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar">
+                            <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
                         </div>
                     </div>
                 </address>
@@ -61,22 +61,22 @@
                 </div>
             </div>
         </div>
-        <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/planet_01.webp`" alt="">
-        <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/planet_02.webp`" alt="">
-        <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/planet_03.webp`" alt="">
-        <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/planet_05.webp`" alt="" id="planet_05">
-        <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/planet_06.webp`" alt="">
-        <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/planet_07.webp`" alt="">
-        <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/planet_08.webp`" alt="">
-        <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/planet_09.webp`" alt="">
-        <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/planet_10.webp`" alt="">
+        <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/planet_01.webp`" alt="" loading="lazy">
+        <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/planet_02.webp`" alt="" loading="lazy">
+        <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/planet_03.webp`" alt="" loading="lazy">
+        <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/planet_05.webp`" alt="" id="planet_05" loading="lazy">
+        <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/planet_06.webp`" alt="" loading="lazy">
+        <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/planet_07.webp`" alt="" loading="lazy">
+        <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/planet_08.webp`" alt="" loading="lazy">
+        <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/planet_09.webp`" alt="" loading="lazy">
+        <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/planet_10.webp`" alt="" loading="lazy">
         <div class="smile_cont sky__planet" id="planet_11">
-            <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/planet_11.webp`" alt="">
-            <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="">
+            <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/planet_11.webp`" alt="" loading="lazy">
+            <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="" loading="lazy">
         </div>
-        <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/planet_12.webp`" alt="" id="planet_12">
-        <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/planet_13.webp`" alt="" id="planet_13">
-        <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/planet_14.webp`" alt="" id="planet_14">
+        <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/planet_12.webp`" alt="" id="planet_12" loading="lazy">
+        <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/planet_13.webp`" alt="" id="planet_13" loading="lazy">
+        <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/planet_14.webp`" alt="" id="planet_14" loading="lazy">
     </footer>
 </template>
 
@@ -307,8 +307,8 @@ export default {
 }
 
 .informacoes__contato img {
-
     width: 34px;
+    height: 34px;
     margin-top: 3px;
 }
 

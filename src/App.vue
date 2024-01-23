@@ -34,7 +34,6 @@ export default {
     },
     mounted() {
         this.isDay()
-        this.favIcon()
         this.turnBackgroundWhite(0)
         this.overflow(0)
     },
@@ -98,16 +97,6 @@ export default {
         },
         tratarEvento(showingup) {
             this.hiddenHeader = showingup ? false : true
-        },
-        favIcon() {
-            const newLink = document.createElement("link")
-            newLink.setAttribute('rel', 'icon')
-            newLink.setAttribute('href', 'eu-favicon.png')
-            document.head.appendChild(newLink)
-            /* Cache */
-            const cache = document.createElement("Cache")
-            cache.setAttribute('http-equiv', 'Cache-Control')
-            cache.setAttribute('content', 'max-age=31536000')
         }
     },
 }
@@ -332,50 +321,6 @@ img {
 
 .popup__close--animation-blur .popup__overflow {
     overflow: hidden;
-}
-
-.popup__close--animation-blur {
-    animation-name: close-popup-blur;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes close-popup-blur {
-    0% {
-        backdrop-filter: blur(20px);
-        background: rgba(0, 0, 0, 0.8);
-        overflow: hidden;
-    }
-
-    50% {
-        backdrop-filter: blur(0px);
-    }
-
-    100% {
-        overflow: hidden;
-        backdrop-filter: blur(0px);
-        background: rgba(0, 0, 0, 0);
-        opacity: 0;
-    }
-}
-
-.popup__close--animation-opacity {
-    animation-name: close-popup-opacity;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    backdrop-filter: blur(20px);
-}
-
-@keyframes close-popup-opacity {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateY(-60px);
-        opacity: 0;
-    }
 }
 
 @keyframes loading {

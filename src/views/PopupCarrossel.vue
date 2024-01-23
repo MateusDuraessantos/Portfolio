@@ -16,11 +16,11 @@
             <div class="link__grid">
                 <a :href="imgs[indexImgPopup].link" target="_blank" v-if="imgs[indexImgPopup].link" class="link__container">
                     Website online
-                    <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto">
+                    <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
                 </a>
                 <a :href="imgs[indexImgPopup].github" target="_blank" v-if="imgs[indexImgPopup].github" class="link__container">
                     GitHub
-                    <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto">
+                    <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
                 </a>
             </div>
             <div class="description">
@@ -37,8 +37,7 @@
 
                     </div>
                     <div class="popup__carrossel">
-                        <img class="popup__img" loading="lazy" v-for="coisas in imgs[indexImgPopup].paths" :alt="coisas.alt"
-                            @load="loadingImg" :src="`projetos/${coisas.img}`">
+                        <img class="popup__img" v-for="coisas in imgs[indexImgPopup].paths" width="300" height="600" :alt="coisas.alt" @load="loadingImg" :src="`projetos/${coisas.img}`" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -131,6 +130,7 @@ export default {
     animation-name: animation_opacity;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+    opacity: 0;
 }
 
 .popup__content {
@@ -229,7 +229,7 @@ button {
 }
 
 .popup__overflow {
-    display: flex;
+    display: none;
     align-items: flex-start;
     justify-content: center;
     overflow-y: overlay;
@@ -389,6 +389,8 @@ button {
     animation-name: popup__background--animation;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+    opacity: 1;
+    display: flex;
 }
 
 @keyframes popup__background--animation {
@@ -400,6 +402,50 @@ button {
     to {
         opacity: 1;
         margin-top: 0;
+    }
+}
+.popup__close--animation-blur {
+    animation-name: close-popup-blur;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes close-popup-blur {
+    0% {
+        opacity: 1;
+        backdrop-filter: blur(20px);
+        background: rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+    }
+    
+    50% {
+        backdrop-filter: blur(0px);
+    }
+    
+    100% {
+        overflow: hidden;
+        backdrop-filter: blur(0px);
+        background: rgba(0, 0, 0, 0);
+        opacity: 0;
+    }
+}
+
+.popup__close--animation-opacity {
+    animation-name: close-popup-opacity;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    backdrop-filter: blur(20px);
+}
+
+@keyframes close-popup-opacity {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-60px);
+        opacity: 0;
     }
 }
 </style>

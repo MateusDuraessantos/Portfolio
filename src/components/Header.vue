@@ -12,11 +12,11 @@
             <div id="mobile">
                 <div class="dropdown__inicio">Menu</div>
                 <div class="dropdown__container" @click="scrollDown">
-                    <a class="dropdown nav" ancora="inicio">Início</a>
-                    <a class="dropdown nav" ancora="portfolio">Portfólio</a>
-                    <a class="dropdown nav" ancora="facaumorcamento">Faça um orçamento</a>
-                    <a class="dropdown nav" ancora="sobre">Sobre</a>
-                    <a class="dropdown nav" ancora="contato">Contato</a>
+                    <div class="dropdown nav" ancora="inicio">Início</div>
+                    <div class="dropdown nav" ancora="portfolio">Portfólio</div>
+                    <div class="dropdown nav" ancora="facaumorcamento">Faça um orçamento</div>
+                    <div class="dropdown nav" ancora="sobre">Sobre</div>
+                    <div class="dropdown nav" ancora="contato">Contato</div>
                 </div>
             </div>
         </div>
@@ -143,7 +143,7 @@ nav {
     background: rgb(255 255 255 / 40%);
 }
 
-[theme="white"] a {
+[theme="white"] .dropdown {
     color: #1f1f1f;
 }
 
