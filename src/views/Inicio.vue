@@ -47,6 +47,9 @@
         <!-- PORTFÓLIO -->
         <Carrossel :whiteImages="whiteImages" />
 
+        <!-- POPUP -->
+        <Popup v-if="this.$store.state.popup" />
+
         <!-- FAÇA UM ORÇAMENTO -->
         <section class="max__width" id="facaumorcamento">
             <div class="orcamento">
@@ -138,6 +141,7 @@
 <script>
 import FooterElements from './Footer.vue'
 import Carrossel from './Carrossel.vue'
+import Popup from './Popup.vue'
 
 export default {
     name: 'Inicio',
@@ -147,6 +151,7 @@ export default {
     components: {
         FooterElements,
         Carrossel,
+        Popup
     },
     data() {
         return {
@@ -541,13 +546,6 @@ p {
     position: absolute;
     bottom: -25px;
     right: 30px;
-    height: 50px;
-}
-
-.orcamento__tools {
-    position: absolute;
-    top: 25px;
-    left: 30px;
     height: 50px;
 }
 
@@ -988,9 +986,7 @@ p {
 }
 
 @media screen and (max-width: 850px) {
-
     /* Mim */
-
     .inicio__container {
         gap: 12px;
         line-height: 24px;
@@ -1000,6 +996,9 @@ p {
     .mim__ola {
         font-size: 1.2rem;
     }
+    .orcamento__tools {
+        display: none;
+    } 
 
 }
 

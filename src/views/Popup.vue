@@ -1,70 +1,90 @@
 <template>
-    <div class="popup__overflow" id="animation">
-        <div class="container-button">
-            <button class="changeProject back" @click="changeProjectDesign('back')">
-                <p>←</p>
-            </button>
-            <button class="changeProject next" @click="changeProjectDesign('next')">
-                <p>→</p>
-            </button>
-        </div>
-        <div class="container-loading" v-if="loading">
-            <span>carregando</span>
-            <div class="loading"></div>
-        </div>
-        <div class="popup__content" id="img_portrato">
-            <div class="link__grid">
-                <a :href="imgs[indexImgPopup].link" target="_blank" v-if="imgs[indexImgPopup].link" class="link__container">
-                    Website online
-                    <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
-                </a>
-                <a :href="imgs[indexImgPopup].github" target="_blank" v-if="imgs[indexImgPopup].github" class="link__container">
-                    GitHub
-                    <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
-                </a>
+    <div class="popup__background" @click="close">
+        <div class="popup__overflow popup__animation" id="animation">
+            <div class="container-button">
+                <button class="changeProject back" @click="changeProjectDesign('back')">
+                    <p>←</p>
+                </button>
+                <button class="changeProject next" @click="changeProjectDesign('next')">
+                    <p>→</p>
+                </button>
             </div>
-            <div class="description">
-                <h1 class="h1__popup">{{ imgs[indexImgPopup].name }}</h1>
+            <div class="container-loading" v-if="loading">
+                <span>carregando</span>
+                <div class="loading"></div>
             </div>
-            <div class="popup__container--mobile">
+            <div class="popup__content" id="img_portrato">
+                <div class="link__grid">
+                    <a :href="imgs[indexImgPopup].link" target="_blank" v-if="imgs[indexImgPopup].link"
+                        class="link__container">
+                        Website online
+                        <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
+                    </a>
+                    <a :href="imgs[indexImgPopup].github" target="_blank" v-if="imgs[indexImgPopup].github"
+                        class="link__container">
+                        GitHub
+                        <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
+                    </a>
+                </div>
                 <div class="description">
-                    <p>{{ imgs[indexImgPopup].description }}</p>
+                    <h1 class="h1__popup">{{ imgs[indexImgPopup].name }}</h1>
                 </div>
-                <div class="popup__mobile">
-                    <div class="popup__carrossel--count">
-                        <p>{{ indexImgPopup }}</p>/
-                        <p>{{ imgs[indexImgPopup].paths.length }}</p>
-
+                <div class="popup__container--mobile">
+                    <div class="description">
+                        <p>{{ imgs[indexImgPopup].description }}</p>
                     </div>
-                    <div class="popup__carrossel">
-                        <img class="popup__img" v-for="coisas in imgs[indexImgPopup].paths" width="300" height="600" :alt="coisas.alt" @load="loadingImg" :src="`projetos/${coisas.img}`" loading="lazy">
+                    <div class="popup__mobile">
+                        <div class="popup__carrossel--count">
+                            <p>{{ indexImgPopup }}</p>/
+                            <p>{{ imgs[indexImgPopup].paths.length }}</p>
+                        </div>
+                        <div class="popup__carrossel">
+                            <img class="popup__img" v-for="coisas in imgs[indexImgPopup].paths" width="300" height="600"
+                                :alt="coisas.alt" @load="loadingImg" :src="`projetos/${coisas.img}`" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
+            <button class="popup__close">✕</button>
         </div>
-        <button class="popup__close">✕</button>
     </div>
 </template>
 
 <script>
 import { imagens } from './destaque.js'
+import { useStore } from 'vuex'
 export default {
+    name: 'popup',
     props: {
         indexImg: Number
     },
     data() {
         return {
+            store: useStore(),
             imgs: imagens,
             removeTimer: null,
-            indexImgPopup: this.indexImg,
+            indexImgPopup: 0,
             number: 0,
             loading: true,
         }
     },
-    mounted(){
-        this.number = 0
+    mounted() {
+        this.indexImgPopup = this.$store.state.popupIndex
+        document.body.style.overflow = 'hidden'
     },
     methods: {
+        close(event) {
+            const closers = ['popup__close', 'popup__overflow']
+            if(this.store.state.popup && closers.some(obj => event.target.classList[0] === obj)){
+                document.body.style.overflow = ''
+                document.querySelector('#img_portrato').classList.add('popup__close--animation-opacity')
+                document.querySelector('.popup__background').classList.add('popup__close--animation-blur')
+                setTimeout(() => {
+                    this.loading = true
+                    this.$store.commit('upPopup', false)
+                }, 1000);
+            }
+        },
         loadingImg() {
             this.number = this.number + 1
             if (this.number == this.imgs[this.indexImgPopup].paths.length) {
@@ -229,7 +249,7 @@ button {
 }
 
 .popup__overflow {
-    display: none;
+    /* display: none; */
     align-items: flex-start;
     justify-content: center;
     overflow-y: overlay;
@@ -404,6 +424,7 @@ button {
         margin-top: 0;
     }
 }
+
 .popup__close--animation-blur {
     animation-name: close-popup-blur;
     animation-duration: 1s;
@@ -417,11 +438,11 @@ button {
         background: rgba(0, 0, 0, 0.8);
         overflow: hidden;
     }
-    
+
     50% {
         backdrop-filter: blur(0px);
     }
-    
+
     100% {
         overflow: hidden;
         backdrop-filter: blur(0px);
@@ -447,5 +468,4 @@ button {
         transform: translateY(-60px);
         opacity: 0;
     }
-}
-</style>
+}</style>

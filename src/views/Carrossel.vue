@@ -8,8 +8,16 @@
             <div class="card__grid--mobile">
                 <div class="card__grid" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel"
                     @touchend="endCarrossel" style="transform: translateX(0vw)">
-                    <div v-for="(img, index) in imgs" :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`"
-                        :key="index" @click="upPopup($event, index, 'true')">
+                    <div
+                        v-for="(img, index) in imgs"
+                        :class="`
+                            card ${img.class} 
+                            card-carrossel card-carrossel-id-${index}`
+                        "
+                        :key="index" @click="
+                            $store.commit('upPopup', true),
+                            indexToUpPopup(index)"
+                        >
                         <img v-if="img.thumb.default" width="400" height="300" class="card__img" loading="lazy"
                             :src="`projetos/${img.thumb.default}`" :alt="img.alt">
                         <img v-else class="card__img" width="400" height="300" loading="lazy"
@@ -31,15 +39,12 @@
                 <button class="carrossel__controlls carrossel--right" @click="startCarrossel('avancar')">Avançar</button>
             </div>
         </section>
-        <PopupCarrossel class="popup__background" v-if="popup" @click="upPopup" :indexImg="indexImg" />
     </div>
 </template>
 
-
 <script>
-import { ref, onMounted } from 'vue' 
+import { ref, onMounted } from 'vue'
 import { imagens } from './destaque.js'
-import PopupCarrossel from './PopupCarrossel.vue'
 
 export default {
     setup() {
@@ -128,49 +133,25 @@ export default {
             }
         }
 
+        const indexToUpPopup = (index) => {
+            this.$store.commit('indexToPopup', index)
+        }
+
         return {
             imgs,
+            indexToUpPopup,
             moveTouch,
             endCarrossel,
             startCarrossel,
         }
     },
-    components: {
-        PopupCarrossel
-    },
     props: {
         whiteImages: String
     },
-    data() {
-        return {
-            indexImg: 0,
-            popup: false,
-            loading: true,
-        }
-    },
     methods: {
-        upPopup(event, index) {
-            const elementos = ['popup__close',  'container-button', 'card']
-            const clicked = event.target.classList[0]
-            elementos.forEach(obj => {
-                if (event.currentTarget.classList[0] == obj) {
-                    this.indexImg = index
-                    document.body.style.overflow = 'hidden'
-                    this.popup = !this.popup
-                } else if (document.body.style.overflow == 'hidden' && clicked == obj) {
-                    this.blockTimer = false
-                    document.querySelector('#img_portrato').classList.add('popup__close--animation-opacity')
-                    document.querySelector('.popup__background').classList.add('popup__close--animation-blur')
-                    setTimeout(() => {
-                        document.body.style.overflow = ''
-                        this.popup = !this.popup
-                        this.loading = true
-                        document.querySelector('.popup__background').classList.remove('popup__close--animation-blur')
-                        document.querySelector('#img_portrato').classList.remove('popup__close--animation-opacity')
-                    }, 1000);
-                }
-            })
-        },
+        indexToUpPopup(index) {
+            this.$store.commit('indexToPopup', index)
+        }
     }
 }
 </script>
@@ -259,6 +240,7 @@ export default {
 .experiencia strong {
     font-weight: 600;
 }
+
 .card__description {
     opacity: 0;
     transition: .2s;
@@ -386,16 +368,17 @@ export default {
 }
 
 @media screen and (max-width: 1000px) {
-    
+
     .experiencia {
         padding: 8px 18px;
     }
-    
+
     .card__description {
         display: none;
     }
 
 }
+
 @media screen and (max-width: 850px) {
 
     .card__data {
@@ -444,5 +427,4 @@ export default {
     background: #E7E7E7;
     color: var(--text-color);
 }
-
 </style>
