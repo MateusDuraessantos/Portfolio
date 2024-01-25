@@ -220,18 +220,6 @@ img {
 }
 
 
-@media only screen and (max-width: 900px) {
-
-    .description {
-        padding: 20px;
-    }
-
-    .container-button {
-        display: none;
-    }
-
-}
-
 /* white theme */
 
 .blackOverflow {
@@ -366,12 +354,12 @@ img {
     .max__width {
         width: calc(100% - 50px);
     }
+
 }
 @media only screen and (max-width: 400px) {
 
     .max__width {
         width: calc(100% - 10px);
     }
-
 }
 </style>

@@ -75,7 +75,7 @@ export default {
     methods: {
         close(event) {
             const closers = ['popup__close', 'popup__overflow']
-            if(this.store.state.popup && closers.some(obj => event.target.classList[0] === obj)){
+            if (this.store.state.popup && closers.some(obj => event.target.classList[0] === obj)) {
                 document.body.style.overflow = ''
                 document.querySelector('#img_portrato').classList.add('popup__close--animation-opacity')
                 document.querySelector('.popup__background').classList.add('popup__close--animation-blur')
@@ -124,8 +124,6 @@ export default {
 </script>
 
 <style>
-/* Popup  */
-
 .description h1,
 .description p {
     padding: 1.2vw;
@@ -249,7 +247,6 @@ button {
 }
 
 .popup__overflow {
-    /* display: none; */
     align-items: flex-start;
     justify-content: center;
     overflow-y: overlay;
@@ -316,11 +313,80 @@ button {
     display: none;
 }
 
+.popup__animation {
+    animation-name: popup__background--animation;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+    display: flex;
+}
 
+@keyframes popup__background--animation {
+    from {
+        opacity: 0;
+        margin-top: -50px;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+
+.popup__close--animation-blur {
+    animation-name: close-popup-blur;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes close-popup-blur {
+    0% {
+        opacity: 1;
+        backdrop-filter: blur(20px);
+        background: rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+    }
+
+    50% {
+        backdrop-filter: blur(0px);
+    }
+
+    100% {
+        overflow: hidden;
+        backdrop-filter: blur(0px);
+        background: rgba(0, 0, 0, 0);
+        opacity: 0;
+    }
+}
+
+.popup__close--animation-opacity {
+    animation-name: close-popup-opacity;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    backdrop-filter: blur(20px);
+}
+
+@keyframes close-popup-opacity {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-60px);
+        opacity: 0;
+    }
+}
 
 @media only screen and (max-width: 900px) {
 
-    /* Popup */
+    .description {
+        padding: 20px;
+    }
+
+    .container-button {
+        display: none;
+    }
 
     .container-button {
         z-index: 11;
@@ -334,8 +400,6 @@ button {
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
     }
-
-    /* Popup */
 
     .popup__content {
         display: flex;
@@ -403,69 +467,6 @@ button {
         height: max-content;
         z-index: 1;
     }
+
 }
-
-.popup__animation {
-    animation-name: popup__background--animation;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    opacity: 1;
-    display: flex;
-}
-
-@keyframes popup__background--animation {
-    from {
-        opacity: 0;
-        margin-top: -50px;
-    }
-
-    to {
-        opacity: 1;
-        margin-top: 0;
-    }
-}
-
-.popup__close--animation-blur {
-    animation-name: close-popup-blur;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes close-popup-blur {
-    0% {
-        opacity: 1;
-        backdrop-filter: blur(20px);
-        background: rgba(0, 0, 0, 0.8);
-        overflow: hidden;
-    }
-
-    50% {
-        backdrop-filter: blur(0px);
-    }
-
-    100% {
-        overflow: hidden;
-        backdrop-filter: blur(0px);
-        background: rgba(0, 0, 0, 0);
-        opacity: 0;
-    }
-}
-
-.popup__close--animation-opacity {
-    animation-name: close-popup-opacity;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    backdrop-filter: blur(20px);
-}
-
-@keyframes close-popup-opacity {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateY(-60px);
-        opacity: 0;
-    }
-}</style>
+</style>

@@ -581,11 +581,9 @@ export default {
 
 @media screen and (max-width: 1000px) {
 
-    @media screen and (max-width: 1000px) {
-        :root {
-            --sky-scale: 1.4
+    :root {
+        --sky-scale: 1.4
         }
-    }
 
     .informacoes__content {
         gap: 20px;
@@ -593,10 +591,6 @@ export default {
 
     .contatos__column {
         flex-direction: column;
-    }
-
-    .max__width {
-        width: calc(100% - 50px);
     }
 
     .informacoes__container {

@@ -51,85 +51,16 @@
         <Popup v-if="this.$store.state.popup" />
 
         <!-- FAÇA UM ORÇAMENTO -->
-        <section class="max__width" id="facaumorcamento">
-            <div class="orcamento">
-                <h1>Serviços:</h1>
-                <img :src="`inicio/${whiteImages}/colors.svg`" class="orcamento__colors" alt="" loading="lazy">
-                <img :src="`inicio/${whiteImages}/texts.svg`" class="orcamento__text" alt="" loading="lazy">
-                <img :src="`inicio/${whiteImages}/tools.svg`" class="orcamento__tools" alt="" loading="lazy">
-                <div class="orcamento__card--container">
-                    <div :class="`orcamento__card ${cards.class}`" v-for="cards in cardsOrcamento">
-                        <div>
-                            <p><strong>{{ cards.title }}</strong></p>
-                            <br>
-                            <span>
-                                <span v-for="infos in cards.card">
-                                    <div class="li">
-                                        <div style="display: flex; flex-direction: column; gap: 2px;">
-                                            <p><strong>{{ infos.oferta }}</strong></p>
-                                            <p style="font-size: 14px;">{{ infos.beneficio }}</p>
-                                        </div>
-                                    </div>
-                                </span>
-                            </span>
-                        </div>
-                        <button href="#contato" class="orcamento__btn" @click="scrollDown('contato')">Contate-me</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <Servicos :whiteImages="whiteImages" />
+
+        <!--  -->
 
         <section class="mensagem">
             <p>A arte imita a natureza.</p>
         </section>
 
         <!-- SOBRE -->
-        <section class="section sobre" id="sobre">
-            <div class="max__width">
-                <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1" alt="" loading="lazy">
-                <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2" alt="" loading="lazy">
-
-                <div class="sobre__elements">
-                    <div class="sobre__container">
-                        <div class="sobre__redes">
-                            <a href="https://www.behance.net/mateusduraes" target="_blank">
-                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`" width="40" height="40" alt="logo Behance" loading="lazy">
-                            </a>
-                            <a href="https://github.com/MateusDuraessantos" target="_blank">
-                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" width="40" height="40" alt="logo Github" loading="lazy">
-                            </a>
-                            <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                                <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" width="40" height="40" alt="logo Linkedin" loading="lazy">
-                            </a>
-                        </div>
-                        <p>
-                            Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI. Com
-                            dois anos de experiência profissional, utilizando tecnologias como CSS, JavaScript e Vue.js.
-                            Atualmente, ocupo a posição de Desenvolvedor Frontend Júnior, mas estou em uma jornada contínua
-                            de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o
-                            desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e
-                            completo no campo do desenvolvimento web.
-                        </p>
-                        <img class="sobre__mateus" src="mateus.jpg" alt="Mateus Durães dos Santos" width="200" height="200" loading="lazy">
-                    </div>
-                    <div style="display: flex; justify-content: center;">
-                        <h3>Conhecimentos:</h3>
-                    </div>
-                    <div class="sobre__experiencia">
-                        <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
-                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
-                            <p>{{ icons.skill }}</p>
-                        </div>
-                    </div>
-                    <div class="sobre__experiencia">
-                        <div class="sobre__ctn" v-for="icons in experienciaIcons[1]">
-                            <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
-                            <p>{{ icons.skill }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <Sobre :whiteIcons="whiteIcons" />
 
         <!-- FOOTER -->
 
@@ -141,7 +72,9 @@
 <script>
 import FooterElements from './Footer.vue'
 import Carrossel from './Carrossel.vue'
+import Sobre from './Sobre.vue'
 import Popup from './Popup.vue'
+import Servicos from './Servicos.vue'
 
 export default {
     name: 'Inicio',
@@ -151,7 +84,9 @@ export default {
     components: {
         FooterElements,
         Carrossel,
-        Popup
+        Popup,
+        Sobre,
+        Servicos,
     },
     data() {
         return {
@@ -160,139 +95,6 @@ export default {
             blurTimeout: '',
             whiteIcons: 'whiteicons',
             whiteImages: 'black',
-            experienciaIcons: [
-                [
-                    {
-                        img: 'software0',
-                        skill: 'Illustrator',
-                        alt: 'Logo Adobe Illustrator'
-                    },
-                    {
-                        img: 'software1',
-                        skill: 'cinema 4D',
-                        alt: 'Logo cinema 4D'
-                    },
-                    {
-                        img: 'software2',
-                        skill: 'Photoshop',
-                        alt: 'Logo Adobe Photoshop'
-                    },
-                    {
-                        img: 'software3',
-                        skill: 'Miro',
-                        alt: 'Logo Miro'
-                    },
-                    {
-                        img: 'software4',
-                        skill: 'Figma',
-                        alt: 'Logo Figma'
-                    }
-                ],
-                [
-                    {
-                        img: 'tech0',
-                        skill: 'Firebase',
-                        alt: 'Logo Firebase'
-                    },
-                    {
-                        img: 'tech1',
-                        skill: 'CSS',
-                        alt: 'Logo CSS'
-                    },
-                    {
-                        img: 'tech2',
-                        skill: 'HTML',
-                        alt: 'Logo HTML'
-                    },
-                    {
-                        img: 'tech3',
-                        skill: 'Javascript',
-                        alt: 'Logo Javascript'
-                    },
-                    {
-                        img: 'tech4',
-                        skill: 'Vue  JS',
-                        alt: 'Logo Vuejs 3'
-                    }
-                ],
-            ],
-            blackTools: {
-                tools: [
-                    'paint3',
-                    'paint5',
-                ],
-                jpg: [
-                    'paint4',
-                    'paint1',
-                    'paint2',
-                    'paint0',
-                ],
-                align: [
-                    'aling1',
-                    'aling2',
-                    'aling3',
-                    'aling4',
-                ],
-            },
-            cardsOrcamento: [
-                {
-                    title: 'Design',
-                    card: [
-                        {
-                            oferta: 'Protótipo navegável',
-                            beneficio: 'Você terá acesso a um protótipo navegavel, para entender melhor como o produto final será, antes de ser desenvolvido os códigos.',
-                        },
-                        {
-                            oferta: 'Mobile first',
-                            beneficio: 'Trabalho com designs tanto desktops quanto mobiles.'
-                        },
-                        {
-                            oferta: 'Design único',
-                            beneficio: 'Cada projeto é único, não utilizo layouts pré montados (salvo alguma necessidade do cliente).'
-                        },
-                    ],
-                },
-                {
-                    title: 'Seu website online',
-                    class: 'orcamento__card--2',
-                    card: [
-                        {
-                            oferta: 'Hospedagem',
-                            beneficio: 'Você não precisa se preocupar em colocar seu website online, eu cuido disso!'
-                        },
-                        {
-                            oferta: 'Domínio próprio',
-                            beneficio: 'Você escolhe o domínio desejado, exemplo: www.meusite.com.br, e eu implemento.'
-                        },
-                        {
-                            oferta: 'Programação',
-                            beneficio: 'Já tem um design de website pronto? eu posso fazer os códigos desse site para você.'
-                        },
-                        {
-                            oferta: 'Otimização',
-                            beneficio: ' Otimizado para carregar rapidamente.'
-                        },
-                    ],
-                },
-                {
-                    title: 'Outros diferências',
-                    class: 'orcamento__card--3',
-                    card: [
-                        {
-                            oferta: '1 Mês de assistência',
-                            beneficio: 'Após a entrega do projeto, ofereço 1 mês de assistencia para pequenas alterações, sem custo adicional.'
-                        },
-                        {
-                            oferta: 'Códigos do website',
-                            beneficio: 'Você terá acesso a todos os códigos desenvolvidos, para fazer alterações caso desejar.'
-                        },
-                        {
-                            oferta: 'Responsividade Mobile/Desktop',
-                            beneficio: 'O site será entrega com responsividade para todos dispositivos móveis.'
-                        },
-                    ],
-                },
-            ],
             footerVisible: true,
             saldacao: null
         }
@@ -512,290 +314,6 @@ p {
 
 /* Orçamento */
 
-#facaumorcamento {
-    padding-top: 10px;
-}
-
-.orcamento {
-    position: relative;
-    background: rgba(40, 71, 83, 0.418);
-    backdrop-filter: blur(10px);
-    width: 100%;
-    margin-top: 120px;
-    padding: 80px;
-    z-index: 1;
-}
-
-.orcamento h1 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-}
-
-.whiteTheme .orcamento {
-    background: rgba(255, 255, 255, 0.6);
-}
-
-.orcamento__colors {
-    position: absolute;
-    right: 30px;
-    top: -100px;
-    height: 200px;
-}
-
-.orcamento__text {
-    position: absolute;
-    bottom: -25px;
-    right: 30px;
-    height: 50px;
-}
-
-.orcamento__tools {
-    position: absolute;
-    top: -25px;
-    left: 50px;
-    height: 50px;
-}
-
-.orcamento__btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #004ECC;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    padding: 4px 10px;
-    color: white !important;
-    transition: .2s
-}
-
-.orcamento__btn:hover {
-    background: rgb(13, 118, 255);
-    transition: .2s
-}
-
-.orcamento__btn::after {
-    position: absolute;
-    content: '';
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    right: 12px;
-    background-image: url('../../public/icons/whiteicons/arrow.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.orcamento__tools img {
-    width: 24px;
-    margin: 0 2px;
-    object-fit: contain;
-}
-
-.orcamento__card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
-    background: white;
-    border-radius: 26px;
-    padding: 30px;
-    width: 100%;
-    height: max-content;
-    max-height: 630px;
-}
-
-.orcamento__card * {
-    color: black;
-}
-
-.orcamento__card--container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    width: 100%;
-    height: max-content;
-    margin: auto;
-}
-
-.orcamento__card--2 {
-    margin-top: 25%;
-}
-
-.orcamento__card--3 {
-    margin-top: 50%;
-}
-
-@media screen and (max-width: 1380px) {
-
-    .orcamento__card--2,
-    .orcamento__card--3 {
-        margin-top: 0;
-    }
-
-    .orcamento__card {
-        height: 100%;
-    }
-
-}
-
-.orcamento__card p {
-    align-self: flex-start;
-}
-
-.orcamento__card p,
-.orcamento__card strong {
-    text-shadow: none;
-}
-
-.orcamento__card .li {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    gap: 20px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-}
-
-.orcamento__card .li::before {
-    position: absolute;
-    content: '';
-    top: 2px;
-    left: -26px;
-    height: 22px;
-    width: 22px;
-    border-radius: 50%;
-    background-image: url('../../public/icons/blackicons/check.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: top;
-    /* background: black; */
-}
-
-.orcamento__card img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    object-position: right;
-}
-
-.orcamento__icons {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    align-self: flex-start;
-}
-
-/* Sobre */
-
-.sobre {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 200px 0;
-    padding-bottom: 400px;
-}
-
-.sobre__planet--1 {
-    position: absolute;
-    bottom: -400px;
-    left: -100px;
-    width: 800px;
-    height: 800px;
-    object-fit: contain;
-    z-index: 1;
-    filter: blur(4px);
-}
-
-.sobre__planet--2 {
-    position: absolute;
-    filter: blur(4px);
-    top: -400px;
-    right: -3vw;
-    width: 550px;
-    height: 550px;
-    object-fit: contain;
-}
-
-.whiteTheme .sobre__planet--1,
-.whiteTheme .sobre__planet--2 {
-    display: none;
-}
-
-.sobre__elements {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    -webkit-backdrop-filter: blur(50px) !important;
-    backdrop-filter: blur(50px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
-    gap: 40px;
-    border-radius: 36px;
-    padding: 40px;
-    padding-bottom: 80px;
-    max-width: 1000px;
-    margin: auto;
-    z-index: 2;
-}
-
-.sobre__container {
-    display: flex;
-    gap: 40px;
-    border-radius: 36px;
-    align-items: center;
-}
-
-.whiteTheme .sobre__container {
-    color: black;
-}
-
-.sobre__mateus {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-}
-
-.sobre__redes {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 20px 0;
-}
-
-.sobre__icon--redes {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    transition: .2s;
-}
-
-.sobre__icon--redes:hover {
-    transform: scale(1.2);
-    transition: .2s;
-}
-
-.sobre__experiencia {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    margin: auto;
-}
-
-.sobre__icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
 
 /*  */
 
@@ -816,7 +334,6 @@ p {
     content: '';
     position: absolute;
     width: 100%;
-
 }
 
 .inicio::before {
@@ -903,20 +420,6 @@ p {
     transition: .2s;
 }
 
-@media screen and (max-width: 1280px) {
-    .orcamento {
-        padding: 80px 20px;
-    }
-
-    .orcamento__card {
-        padding: 20px;
-    }
-
-    .orcamento__card li {
-        gap: 4px;
-    }
-
-}
 
 @media screen and (max-width: 1000px) {
 
@@ -939,54 +442,9 @@ p {
     .bubble {
         display: none;
     }
-
-
-    /* Orçamento */
-
-    .orcamento__card--container {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Orcamentos */
-    .sobre__container {
-        flex-direction: column;
-    }
-
-    .sobre__redes {
-        flex-direction: row;
-    }
-
-    /* sobre */
-    .sobre__elements {
-        padding: 30px;
-    }
-
-    .sobre__icon {
-        width: 30px;
-    }
-
-    .sobre__icon p {
-        font-size: 14px;
-    }
-
-    .sobre__ctn {
-        width: 88px !important;
-    }
-
-    .sobre__planet--1 {
-        width: 500px;
-        transform: translateY(200px);
-    }
-
-    .sobre__planet--2 {
-        right: -8px;
-    }
-
 }
 
 @media screen and (max-width: 850px) {
-    /* Mim */
     .inicio__container {
         gap: 12px;
         line-height: 24px;
@@ -996,76 +454,16 @@ p {
     .mim__ola {
         font-size: 1.2rem;
     }
-    .orcamento__tools {
-        display: none;
-    } 
 
 }
 
 /* Mobile version */
 
 @media only screen and (max-width: 500px) {
-
     .inicio {
         display: flex;
         justify-content: center;
         margin: 0;
-    }
-
-    .orcamento__text {
-        height: 30px;
-        bottom: -15px;
-    }
-
-    /* Planets background */
-    .sobre__planet--1 {
-        width: 400px;
-        bottom: -315px;
-    }
-    
-    .sobre__planet--2 {
-        width: 400px;
-        right: -70px;
-    }
-
-}
-
-@media only screen and (max-width: 400px) {
-    /* Orcamentos */
-
-    .orcamento {
-        padding: 80px 5px;
-    }
-
-    .sobre__elements {
-        padding: 20px 10px 30px 10px;
-    }
-
-    .sobre__container {
-        gap: 10px;
-    }
-
-    .sobre__redes {
-        padding: 10px 0;
-    }
-
-    .sobre__mateus {
-        width: 140px;
-        height: 140px;
-    }
-
-    .orcamento__colors {
-        height: 140px;
-    }
-
-    .orcamento h1 {
-        margin-left: 12px;
-        /* font-size: 1.2rem; */
-    }
-
-    .orcamento__card {
-        padding: 14px;
-        border-radius: 12px;
     }
 }
 
@@ -1084,14 +482,8 @@ p {
     background-image: url('../../public/inicio/white/banner__white.jpg');
 }
 
-
 .whiteTheme .frase {
     color: #a87c7c !important;
-}
-
-.sobre__ctn {
-    text-align: center;
-    width: 124px;
 }
 
 .inicio {

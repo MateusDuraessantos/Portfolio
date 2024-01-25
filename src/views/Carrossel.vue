@@ -416,12 +416,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 400px) {
 
-    .max__width {
-        width: calc(100% - 10px);
-    }
-}
 
 .whiteTheme .experiencia {
     background: #E7E7E7;
