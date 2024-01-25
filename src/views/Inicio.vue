@@ -38,9 +38,6 @@
             <img class="parallax--img" id="parallax" :src="`inicio/${whiteImages}/background__parallax.webp`" alt="">
         </div>
 
-        <!-- POPUP -->
-        <PopupCarrossel class="popup__background" v-if="popup" @click="upPopup" :indexImg="indexImg" />
-
         <!-- BUBBLES -->
         <div class="bubble__container" id="bubbles__observer">
             <img class="bubble bubble__left" src="bubble1.svg" alt="">
@@ -48,36 +45,7 @@
         </div>
 
         <!-- PORTFÓLIO -->
-        <section class="programacao section" id="portfolio">
-            <div class="max__width">
-                <p class="experiencia">Alguns trabalhos que fiz</p>
-                <p class="card__destaques">Destaques:</p>
-            </div>
-            <div class="card__grid--mobile">
-                <div class="card__grid" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel" @touchend="endCarrossel" style="transform: translateX(0vw)">
-                    <div v-for="(img, index) in imgs" :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`" :key="index" @click="upPopup($event, index, 'true')">
-                        <img v-if="img.thumb.default" width="400" height="300" class="card__img" loading="lazy" :src="`projetos/${img.thumb.default}`" :alt="img.alt">
-                        <img v-else class="card__img" width="400" height="300" loading="lazy" :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`" :alt="img.alt">
-                        <div class="card__description">
-                            <div class="card__data">
-                                <p> {{ img.name }}</p>
-                            </div>
-                            <button class="card__btn">ver</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carrossel__count">
-                    <div :class="`carrossel__current carrossel--${index}`" v-for="(count, index) in imgs" />
-                </div>
-
-            </div>
-
-            <div class="carrossel">
-                <button class="carrossel__controlls carrossel--left" @click="startCarrossel('voltar')">Voltar</button>
-                <button class="carrossel__controlls carrossel--right" @click="startCarrossel('avancar')">Avançar</button>
-            </div>
-        </section>
+        <Carrossel :whiteImages="whiteImages" />
 
         <!-- FAÇA UM ORÇAMENTO -->
         <section class="max__width" id="facaumorcamento">
@@ -168,112 +136,17 @@
 </template>
 
 <script>
-import { imagens } from './destaque.js'
-import { ref, onMounted } from 'vue'
-import PopupCarrossel from './PopupCarrossel.vue'
 import FooterElements from './Footer.vue'
+import Carrossel from './Carrossel.vue'
 
 export default {
-    setup() {
-        let initialClickX = ref(0)
-        let initialClickY = ref(0)
-        let inicialTransform = ref(0)
-        let willchange = ref(false)
-        let positionInicial = ref(0)
-        let blockBodyScroll = ref(true)
-        const imgs = imagens
-
-        const moveTouch = (event) => {
-            const element = document.querySelector('.card__grid')
-            const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
-            const slideHeight = event.touches[0].clientY - initialClickY.value
-            const widthSum = inicialTransform.value + slideWidth * .17
-
-            if (parseInt(slideWidth / slideHeight).toString() != 0 && blockBodyScroll.value == true || blockBodyScroll.value == 'justVerticalScrollAllowed') { // Se o scroll começou na horizontal, bloqueia o scroll da vertical e vise-versa
-                document.querySelector('body').style.overflowY = 'hidden'
-                widthSum <= 0 && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
-                blockBodyScroll.value = 'justVerticalScrollAllowed'
-            } else if (blockBodyScroll.value || blockBodyScroll.value == 'justHorizontalScrollAllowed') {
-                blockBodyScroll.value = 'justHorizontalScrollAllowed'
-            }
-        }
-
-        let carrosselSelected = ref(0)
-        const more = (value) => document.querySelector(`.carrossel--${value}`).classList.add('carrossel__current--gray')
-        const less = (value) => document.querySelector(`.carrossel--${value}`).classList.remove('carrossel__current--gray')
-
-        const carrosselFocus = (changer) => {
-            if (changer == 'right') less(carrosselSelected.value), carrosselSelected.value++, more(carrosselSelected.value)
-            if (changer == 'left') less(carrosselSelected.value), carrosselSelected.value--, more(carrosselSelected.value)
-            if (changer == 'init') document.querySelector('.carrossel__current').classList.add('carrossel__current--gray')
-        }
-
-        onMounted(() => {
-            carrosselFocus('init')
-        })
-
-        const endCarrossel = (e) => {
-            const element = document.querySelector('.card__grid')
-
-            const arrastoCursor = 20 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
-            let widthScroll = Number(element.style.transform.split('(')[1].split('vw)')[0]) // Distancia que a imagem foi arrastada
-            let stopScroll = widthScroll > imgs.length * 100 * -1 + 100 // Impede o scroll No final
-
-            if (widthScroll && stopScroll) {
-                if (initialClickX.value > e.changedTouches[0].clientX && initialClickX.value - e.changedTouches[0].clientX > arrastoCursor) {
-                    positionInicial.value += -100
-                    carrosselFocus('right')
-                }
-                else if (initialClickX.value - e.changedTouches[0].clientX < -arrastoCursor) {
-                    positionInicial.value += 100
-                    carrosselFocus('left')
-                }
-            }
-            element.style.transform = `translateX(${positionInicial.value}vw)`
-            willchange.value = false
-            initialClickX.value = 0
-            inicialTransform.value = 0
-            blockBodyScroll.value = true
-            document.querySelector('body').style.overflowY = 'initial'
-        }
-
-        const startCarrossel = (e) => {
-            const element = document.querySelector('.card__grid')
-            positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
-
-            if (e != 'avancar' && e != 'voltar') {
-                initialClickY.value = Number(String(e.touches[0].clientY).split('.')[0])
-                initialClickX.value = Number(String(e.touches[0].clientX).split('.')[0])
-                inicialTransform.value = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
-            }
-
-            if (e == 'avancar' && imgs.length - 1 > carrosselSelected.value) {
-                less(carrosselSelected.value)
-                carrosselSelected.value++
-                more(carrosselSelected.value)
-                document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
-            } else if (e == 'voltar' && carrosselSelected.value > 0) {
-                less(carrosselSelected.value)
-                carrosselSelected.value--
-                more(carrosselSelected.value)
-                document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
-            }
-        }
-
-        return {
-            imgs,
-            moveTouch,
-            endCarrossel,
-            startCarrossel,
-        }
-    },
     name: 'Inicio',
     props: {
         booleanTheme: Boolean
     },
     components: {
-        PopupCarrossel,
         FooterElements,
+        Carrossel,
     },
     data() {
         return {
@@ -415,9 +288,6 @@ export default {
                     ],
                 },
             ],
-            popup: false,
-            loading: true,
-            indexImg: 0,
             footerVisible: true,
             saldacao: null
         }
@@ -497,29 +367,6 @@ export default {
                 }
             }, timer);
         },
-        upPopup(event, index) {
-            const elementos = ['popup__close',  'container-button', 'card']
-            const clicked = event.target.classList[0]
-            elementos.forEach(obj => {
-                if (event.currentTarget.classList[0] == obj) {
-                    this.indexImg = index
-                    document.body.style.overflow = 'hidden'
-                    this.popup = !this.popup
-                    console.log(obj);
-                } else if (document.body.style.overflow == 'hidden' && clicked == obj) {
-                    this.blockTimer = false
-                    document.querySelector('#img_portrato').classList.add('popup__close--animation-opacity')
-                    document.querySelector('.popup__background').classList.add('popup__close--animation-blur')
-                    setTimeout(() => {
-                        document.body.style.overflow = ''
-                        this.popup = !this.popup
-                        this.loading = true
-                        document.querySelector('.popup__background').classList.remove('popup__close--animation-blur')
-                        document.querySelector('#img_portrato').classList.remove('popup__close--animation-opacity')
-                    }, 1000);
-                }
-            })
-        },
     }
 }
 </script>
@@ -544,14 +391,6 @@ export default {
 #main {
     position: relative;
     transition: .2s;
-    /* overflow-x: hidden; */
-}
-
-.max__width {
-    position: relative;
-    max-width: 1300px;
-    width: calc(100% - 200px);
-    margin: auto;
 }
 
 .background__parallax {
@@ -611,12 +450,6 @@ export default {
 
 /*  */
 
-.programacao {
-    position: relative;
-    z-index: 1;
-    padding-top: 120px;
-    margin-bottom: 300px
-}
 
 a {
     cursor: pointer;
@@ -1008,13 +841,6 @@ p {
     background-image: linear-gradient(black, transparent);
 }
 
-.section__sobre {
-    display: flex;
-    align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .inicio__description {
     width: 100%;
     margin: auto;
@@ -1079,242 +905,6 @@ p {
     transition: .2s;
 }
 
-/*  */
-
-.container-table {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: 'null des des';
-    align-items: center;
-    gap: 24px;
-    z-index: 1;
-}
-
-.figure__design {
-    grid-area: des;
-    width: 76%;
-    margin: auto;
-}
-
-.experiencia {
-    max-width: max-content;
-    width: 100%;
-    padding: 12px 20px;
-    background: #1f1f1f;
-    border-radius: 10vw;
-    text-align: center;
-}
-
-.experiencia strong {
-    font-weight: 600;
-}
-
-.card__description {
-    opacity: 0;
-    transition: .2s;
-}
-
-.card:hover .card__description {
-    opacity: 1;
-    transition: .2s;
-}
-
-.card__destaques {
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    height: 60px;
-    padding-left: 12px;
-    color: rgb(172, 172, 172);
-    z-index: 2;
-}
-
-.card {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.2);
-}
-
-.card:hover .card__img {
-    transform: scale(1.04);
-    transition: .3s;
-}
-
-.card__grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 100%;
-    margin: auto;
-    transition: .2s;
-    grid-template-areas:
-        'mesa mesa teclakey'
-        ' .   tre  teclakey'
-        'tcc  tre     .    '
-        'tcc   .      .    '
-}
-
-.grid-area-height {
-    height: 1000px;
-}
-
-.tcc {
-    grid-area: tcc;
-}
-
-.tre {
-    grid-area: tre;
-}
-
-.mesa {
-    grid-area: mesa;
-    height: 500px;
-}
-
-.teclakey {
-    grid-area: teclakey;
-}
-
-.card__img {
-    width: 100%;
-    height: 100%;
-    transition: .3s;
-    object-fit: cover;
-}
-
-.card__description {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: absolute;
-    border-radius: 10vw;
-    padding: 0 4px;
-    bottom: 10px;
-    height: 52px;
-    width: calc(100% - 20px);
-    margin: auto;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(9px);
-    z-index: 2;
-}
-
-.card__btn {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10vw;
-    width: max-content;
-    padding: 0 24px;
-    font-size: 14px;
-    height: 44px;
-    transition: .3s;
-    border: none;
-}
-
-.card__btn:hover {
-    background: rgba(255, 255, 255, 0.7);
-    color: black !important;
-    transition: .3s
-}
-
-.card__data {
-    display: flex;
-    flex-direction: column;
-    padding: 0 0 0 1.6vw;
-}
-
-.card__data p {
-    font-size: 14px;
-}
-
-/* Carrossel */
-
-.carrossel {
-    display: none;
-    justify-content: center;
-    gap: 20px;
-    margin: auto;
-    margin-top: 20px;
-}
-
-.carrossel__count {
-    display: flex;
-    position: absolute;
-    margin: auto;
-    gap: 10px;
-    bottom: 20px;
-    justify-content: center;
-    width: 100%;
-}
-
-.carrossel__current {
-    background: #d7d7d7;
-    border-radius: 50%;
-    width: 6px;
-    height: 6px;
-}
-
-.carrossel__current--gray {
-    background: #414141;
-}
-
-.carrossel__controlls {
-    position: relative;
-    background: #2c2c2c;
-    width: 100px;
-    padding: 10px 20px;
-    z-index: 2;
-    border: none;
-    transition: .2s;
-    cursor: pointer;
-}
-
-.whiteTheme .carrossel__controlls {
-    background: white;
-}
-
-.carrossel__controlls:hover {
-    background: rgb(74, 74, 74);
-    color: white;
-    transition: .2s;
-}
-
-.carrossel--left {
-    border-radius: 50px 0 0 50px;
-}
-
-.carrossel--right {
-    border-radius: 0 50px 50px 0;
-}
-
-/* Front end */
-
-.container-front {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: 'img img';
-    align-items: center;
-    gap: 24px;
-}
-
-.figure__front {
-    display: flex;
-    grid-area: img;
-}
-
-.img_front {
-    width: 70%;
-    height: 70%;
-    margin: auto;
-    object-fit: contain;
-    mix-blend-mode: screen;
-    position: relative;
-    z-index: 1;
-}
-
 @media screen and (max-width: 1280px) {
     .orcamento {
         padding: 80px 20px;
@@ -1328,16 +918,9 @@ p {
         gap: 4px;
     }
 
-    .max__width {
-        width: calc(100% - 100px);
-    }
 }
 
 @media screen and (max-width: 1000px) {
-
-    .max__width {
-        width: calc(100% - 50px);
-    }
 
     .parallax--img {
         transform: translate(-600px, 1000px);
@@ -1359,23 +942,6 @@ p {
         display: none;
     }
 
-    /*  */
-    .experiencia {
-        padding: 8px 18px;
-    }
-
-    .container-table {
-        grid-template-columns: 1.3fr 1fr;
-    }
-
-    .container-front {
-        grid-template-columns: 1fr 1.2fr;
-        grid-template-areas: 'img';
-    }
-
-    .card__description {
-        display: none;
-    }
 
     /* Orçamento */
 
@@ -1423,23 +989,6 @@ p {
 
 @media screen and (max-width: 850px) {
 
-    .img_front,
-    .orcamento__tools {
-        display: none;
-    }
-
-    /*  */
-
-    .card__data {
-        padding-left: 20px;
-    }
-
-    .container-front,
-    .container-table {
-        display: flex;
-        flex-direction: column;
-    }
-
     /* Mim */
 
     .inicio__container {
@@ -1450,39 +999,6 @@ p {
     .mim__nome,
     .mim__ola {
         font-size: 1.2rem;
-    }
-
-    /* CARD MOBILE */
-
-    .grid-area-height,
-    .card__img,
-    .card__grid {
-        height: 60vh;
-    }
-
-    .card__grid--mobile {
-        position: relative;
-        width: 100vw;
-        overflow: hidden;
-    }
-
-    .card__grid {
-        display: flex;
-        width: max-content;
-    }
-
-    .card__grid {
-        position: relative;
-    }
-
-    .card {
-        overflow: initial;
-        width: 100vw
-    }
-
-    /*  */
-    .carrossel {
-        display: flex;
     }
 
 }
@@ -1516,11 +1032,6 @@ p {
 }
 
 @media only screen and (max-width: 400px) {
-
-    .max__width {
-        width: calc(100% - 10px);
-    }
-
     /* Orcamentos */
 
     .orcamento {
@@ -1570,28 +1081,13 @@ p {
     transition: .2s;
 }
 
-.whiteTheme .experiencia {
-    background: #E7E7E7;
-    color: var(--text-color);
-}
-
 .whiteTheme .inicio {
     background-image: url('../../public/inicio/white/banner__white.jpg');
 }
 
-.card__data p,
-.card__btn {
-    color: var(--creme) !important;
-}
 
 .whiteTheme .frase {
     color: #a87c7c !important;
-}
-
-.section__sobre {
-    z-index: 222;
-    min-height: 84vh;
-    width: 100%;
 }
 
 .sobre__ctn {
@@ -1610,44 +1106,4 @@ p {
     position: relative;
     height: 100vh;
 }
-
-.background__sun {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 300vh;
-    width: 100%;
-    color: wheat;
-    background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2111&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover;
-    background-position: center;
-}
-
-.whiteTheme .section__sobre {
-    position: relative;
-    background-image: url('https://images.unsplash.com/photo-1553882951-9c3dab4a50cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-position: top;
-    background-size: cover;
-}
-
-.whiteTheme .section__sobre::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 260px;
-    bottom: -6px;
-    background-image: linear-gradient(transparent, #789dc7);
-    transform: translateY(-1px);
-}
-
-.whiteTheme .background__sun {
-    background-image: none;
-}
-
-.whiteTheme .background__sun__h4 {
-    color: white;
-}
-
 </style>

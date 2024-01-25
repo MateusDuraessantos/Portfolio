@@ -166,6 +166,13 @@ img {
     border-radius: 6px;
 }
 
+.max__width {
+    position: relative;
+    max-width: 1300px;
+    width: calc(100% - 200px);
+    margin: auto;
+}
+
 /* link popup */
 
 .link__grid {
@@ -248,17 +255,6 @@ img {
     animation-name: changingTheme;
     animation-duration: 2s;
     pointer-events: none;
-}
-
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 1s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-    transition: 1s;
-    opacity: 0;
 }
 
 /* Animação ao carregar a página */
@@ -357,4 +353,25 @@ img {
     }
 }
 
+
+@media screen and (max-width: 1280px) {
+    .max__width {
+        width: calc(100% - 100px);
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+    .max__width {
+        width: calc(100% - 50px);
+    }
+}
+@media only screen and (max-width: 400px) {
+
+    .max__width {
+        width: calc(100% - 10px);
+    }
+
+}
 </style>
