@@ -14,35 +14,50 @@
                 <div class="loading"></div>
             </div>
             <div class="popup__content" id="img_portrato">
-                <div class="link__grid">
-                    <a :href="imgs[indexImgPopup].link" target="_blank" v-if="imgs[indexImgPopup].link"
-                        class="link__container">
-                        Website online
-                        <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
-                    </a>
-                    <a :href="imgs[indexImgPopup].github" target="_blank" v-if="imgs[indexImgPopup].github"
-                        class="link__container">
-                        GitHub
-                        <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
-                    </a>
-                </div>
-                <div class="description">
-                    <h1 class="h1__popup">{{ imgs[indexImgPopup].name }}</h1>
+                <div class="popup__mobile--description">
+                    <div class="link__grid">
+                        <a :href="imgs[indexImgPopup].link" target="_blank" v-if="imgs[indexImgPopup].link"
+                            class="link__container">
+                            Website online
+                            <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
+                        </a>
+                        <a :href="imgs[indexImgPopup].github" target="_blank" v-if="imgs[indexImgPopup].github"
+                            class="link__container">
+                            GitHub
+                            <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="description">
+                        <h1 class="h1__popup">{{ imgs[indexImgPopup].name }}</h1>
+                    </div>
                 </div>
                 <div class="popup__container--mobile">
                     <div class="description">
                         <p>{{ imgs[indexImgPopup].description }}</p>
                     </div>
-                    <div class="popup__mobile">
-                        <div class="popup__carrossel--count">
-                            <p>{{ indexImgPopup }}</p>/
-                            <p>{{ imgs[indexImgPopup].paths.length }}</p>
-                        </div>
-                        <div class="popup__carrossel">
-                            <img class="popup__img" v-for="coisas in imgs[indexImgPopup].paths" width="300" height="600"
-                                :alt="coisas.alt" @load="loadingImg" :src="`projetos/${coisas.img}`" loading="lazy">
-                        </div>
+
+                    <!-- REATIVAR LOADING -->
+                    <!-- REATIVAR LOADING -->
+                    <!-- REATIVAR LOADING -->
+                    <!-- REATIVAR LOADING -->
+                    <!-- REATIVAR LOADING -->
+
+                <Carrossel
+                    :index="indexImgPopup"
+                    :whiteImages="whiteImages"
+                    :keyComponent="'popup'"
+                />
+
+                <!--  <div class="popup__mobile">
+                    <div class="popup__carrossel--count">
+                        <p>{{ indexImgPopup }}</p>/
+                        <p>{{ imgs[indexImgPopup].paths.length }}</p>
                     </div>
+                    <div class="popup__carrossel">
+                        <img class="popup__img" v-for="coisas in imgs[indexImgPopup].paths" width="300" height="600"
+                            :alt="coisas.alt" @load="loadingImg" :src="`projetos/${coisas.img}`" loading="lazy">
+                    </div>
+                </div> -->
                 </div>
             </div>
             <button class="popup__close">✕</button>
@@ -52,11 +67,17 @@
 
 <script>
 import { imagens } from './destaque.js'
+import Carrossel from './Carrossel'
+
 import { useStore } from 'vuex'
 export default {
     name: 'popup',
     props: {
-        indexImg: Number
+        indexImg: Number,
+        whiteImages: String,
+    },
+    components: {
+        Carrossel
     },
     data() {
         return {
@@ -64,8 +85,9 @@ export default {
             imgs: imagens,
             removeTimer: null,
             indexImgPopup: 0,
-            number: 0,
+            number: 0, // Verifica quantas imagens foram carregadas
             loading: true,
+
         }
     },
     mounted() {
@@ -126,7 +148,7 @@ export default {
 <style>
 .description h1,
 .description p {
-    padding: 1.2vw;
+    padding: 20px 0;
     color: #E0D9CE !important;
 }
 
@@ -409,8 +431,29 @@ button {
         margin: 0;
     }
 
+    .popup__mobile--description {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 10px 0;
+        gap: 10px;
+    }
+
     .popup__background {
-        padding: 10px 6px;
+        padding: 0;
+    }
+
+    .description p {
+        padding-bottom: 20px;
+    }
+
+    .description {
+        padding: 0 20px;
+    }
+
+    .link__grid {
+        height: initial;
+        justify-content: flex-start;
+        transform: none;
     }
 
     .popup__overflow {
@@ -424,10 +467,6 @@ button {
 
     .popup__overflow {
         padding-top: 0;
-    }
-
-    .description {
-        padding: 20px;
     }
 
     .popup__container--mobile {

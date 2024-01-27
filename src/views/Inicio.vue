@@ -45,10 +45,22 @@
         </div>
 
         <!-- PORTFÓLIO -->
-        <Carrossel :whiteImages="whiteImages" />
+        <div class="max__width">
+            <p class="experiencia">Alguns trabalhos que fiz</p>
+            <p class="card__destaques">Destaques:</p>
+        </div>
+        
+        <Carrossel
+            :whiteImages="whiteImages"
+            :keyComponent="'inicio'"
+        />
 
         <!-- POPUP -->
-        <Popup v-if="this.$store.state.popup" />
+        <Popup
+            v-if="this.$store.state.popup"
+            :indexImg="this.$store.state.popup"
+            :whiteImages="whiteImages"
+        />
 
         <!-- FAÇA UM ORÇAMENTO -->
         <Servicos :whiteImages="whiteImages" />

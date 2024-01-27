@@ -126,9 +126,6 @@ export default {
                 .then(() => {
                     alert("Texto copiado: " + textToCopy);
                 })
-                .catch((error) => {
-                    console.error("Erro ao copiar texto:", error);
-                });
         },
         observador() { // Altear o estilo do header ao chegar no footer
             const header = document.getElementById('header')

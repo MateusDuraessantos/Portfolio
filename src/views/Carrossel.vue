@@ -1,27 +1,35 @@
 <template>
-    <div>
+    <div :class="`${keyComponent == 'popup' ? `carrossel__modifier` : ''}`">
         <section class="programacao section" id="portfolio">
-            <div class="max__width">
-                <p class="experiencia">Alguns trabalhos que fiz</p>
-                <p class="card__destaques">Destaques:</p>
-            </div>
+           
             <div class="card__grid--mobile">
-                <div class="card__grid" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel"
+                <div :class="`card__grid card__grid--${keyComponent}`" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel"
                     @touchend="endCarrossel" style="transform: translateX(0vw)">
                     <div
-                        v-for="(img, index) in imgs"
-                        :class="`
-                            card ${img.class} 
-                            card-carrossel card-carrossel-id-${index}`
-                        "
-                        :key="index" @click="
-                            $store.commit('upPopup', true),
-                            indexToUpPopup(index)"
+                        v-for="(img, index) in imagens"
+                        :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`"
+                        :key="index"
+                        @click="
+                        keyComponent == 'inicio' ? 
+                            ($store.commit('upPopup', true),
+                            indexToUpPopup(index)) :
+                            null"
+                    >
+                        <img
+                            class="card__img"
+                            loading="lazy"
+                            :src="`projetos/${img.thumb.default ? `${img.thumb.default}` : `${img.thumb.white}-${whiteImages}.jpg`}`"
+                            :alt="img.alt"
                         >
-                        <img v-if="img.thumb.default" width="400" height="300" class="card__img" loading="lazy"
-                            :src="`projetos/${img.thumb.default}`" :alt="img.alt">
-                        <img v-else class="card__img" width="400" height="300" loading="lazy"
-                            :src="`projetos/${img.thumb.white}-${whiteImages}.jpg`" :alt="img.alt">
+                        
+                        <!-- CARROSSEL POPUP -->
+                        <div class="popup__container--popup" v-if="keyComponent == 'popup'">
+                            <span v-for="(imgs, index) in imagens[indexImgPopup].paths">
+                                <img v-if="index > 0" class="carrossel__img--popup" :src="`projetos/${imgs.img}`" alt="">
+                            </span>
+                        </div>
+
+                        <!-- FAIXA COM NOME DO PROJETO -->
                         <div class="card__description">
                             <div class="card__data">
                                 <p> {{ img.name }}</p>
@@ -31,7 +39,7 @@
                     </div>
                 </div>
                 <div class="carrossel__count">
-                    <div :class="`carrossel__current carrossel--${index}`" v-for="(count, index) in imgs" />
+                    <div :class="`carrossel__current carrossel__current--${keyComponent} carrossel--${index}--${keyComponent}`" v-for="(count, index) in imagens" />
                 </div>
             </div>
             <div class="carrossel">
@@ -43,28 +51,30 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { imagens } from './destaque.js'
-
+import { useStore } from 'vuex'
 export default {
-    setup() {
+    setup(props) {
         let initialClickX = ref(0)
         let initialClickY = ref(0)
         let inicialTransform = ref(0)
         let willchange = ref(false)
         let positionInicial = ref(0)
         let blockBodyScroll = ref(true)
-        const imgs = imagens
-
+        let keyComponentElement = `.card__grid--${props.keyComponent}`
+        let store = useStore()
+        let indexImgPopup = ref(props.index)
+        
         const moveTouch = (event) => {
-            const element = document.querySelector('.card__grid')
+            const element = document.querySelector(keyComponentElement)
             const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
             const slideHeight = event.touches[0].clientY - initialClickY.value
             const widthSum = inicialTransform.value + slideWidth * .17
 
             if (parseInt(slideWidth / slideHeight).toString() != 0 && blockBodyScroll.value == true || blockBodyScroll.value == 'justVerticalScrollAllowed') { // Se o scroll começou na horizontal, bloqueia o scroll da vertical e vise-versa
                 document.querySelector('body').style.overflowY = 'hidden'
-                widthSum <= 0 && element.style.transform.split('(')[1].split('vw)')[0] > imgs.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
+                widthSum <= 0 && element.style.transform.split('(')[1].split('vw)')[0] > imagens.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
                 blockBodyScroll.value = 'justVerticalScrollAllowed'
             } else if (blockBodyScroll.value || blockBodyScroll.value == 'justHorizontalScrollAllowed') {
                 blockBodyScroll.value = 'justHorizontalScrollAllowed'
@@ -72,32 +82,42 @@ export default {
         }
 
         let carrosselSelected = ref(0)
-        const more = (value) => document.querySelector(`.carrossel--${value}`).classList.add('carrossel__current--gray')
-        const less = (value) => document.querySelector(`.carrossel--${value}`).classList.remove('carrossel__current--gray')
+        const more = (value) => document.querySelector(`.carrossel--${value}--${props.keyComponent}`).classList.add('carrossel__current--gray')
+        const less = (value) => document.querySelector(`.carrossel--${value}--${props.keyComponent}`).classList.remove('carrossel__current--gray')
 
         const carrosselFocus = (changer) => {
             if (changer == 'right') less(carrosselSelected.value), carrosselSelected.value++, more(carrosselSelected.value)
             if (changer == 'left') less(carrosselSelected.value), carrosselSelected.value--, more(carrosselSelected.value)
-            if (changer == 'init') document.querySelector('.carrossel__current').classList.add('carrossel__current--gray')
+            if (changer == 'init') document.querySelector(`.carrossel__current--${props.keyComponent}`).classList.add('carrossel__current--gray')
         }
 
         onMounted(() => {
             carrosselFocus('init')
+            if(props.keyComponent == 'popup') {
+                indexImgPopup.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
+                carrosselSelected.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
+                positionInicial.value = Number(store.state.popupIndex + '00') // Atualiza a var para as próximas transições 
+                
+                document.querySelector(keyComponentElement).style.transform = `translateX(-${store.state.popupIndex}00vw)` // Atualiza a posição inicial 
+                document.querySelector('.carrossel__current--popup').classList.remove('carrossel__current--gray')
+                document.querySelector(`.carrossel--${store.state.popupIndex}--${props.keyComponent}`).classList.add('carrossel__current--gray') // Atualiza o marcador da imagem selecionada
+            }
         })
-
+        
         const endCarrossel = (e) => {
-            const element = document.querySelector('.card__grid')
-
+            const element = document.querySelector(keyComponentElement)
             const arrastoCursor = 20 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
             let widthScroll = Number(element.style.transform.split('(')[1].split('vw)')[0]) // Distancia que a imagem foi arrastada
-            let stopScroll = widthScroll > imgs.length * 100 * -1 + 100 // Impede o scroll No final
+            let stopScroll = widthScroll > imagens.length * 100 * -1 + 100 // Impede o scroll No final
 
             if (widthScroll && stopScroll) {
                 if (initialClickX.value > e.changedTouches[0].clientX && initialClickX.value - e.changedTouches[0].clientX > arrastoCursor) {
                     positionInicial.value += -100
                     carrosselFocus('right')
+                    indexImgPopup.value++
                 }
                 else if (initialClickX.value - e.changedTouches[0].clientX < -arrastoCursor) {
+                    indexImgPopup.value--
                     positionInicial.value += 100
                     carrosselFocus('left')
                 }
@@ -107,29 +127,31 @@ export default {
             initialClickX.value = 0
             inicialTransform.value = 0
             blockBodyScroll.value = true
-            document.querySelector('body').style.overflowY = 'initial'
+            props.keyComponent != 'popup' ? document.body.style.overflowY = 'initial' : null
         }
 
-        const startCarrossel = (e) => {
-            const element = document.querySelector('.card__grid')
+        const startCarrossel = (e) => { // Muda os projetos pelos botões
+            const element = document.querySelector(keyComponentElement)
             positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
 
             if (e != 'avancar' && e != 'voltar') {
                 initialClickY.value = Number(String(e.touches[0].clientY).split('.')[0])
                 initialClickX.value = Number(String(e.touches[0].clientX).split('.')[0])
-                inicialTransform.value = Number(document.querySelector('.card__grid').style.transform.split('vw')[0].split('translateX(')[1])
+                inicialTransform.value = Number(document.querySelector(keyComponentElement).style.transform.split('vw')[0].split('translateX(')[1])
             }
 
-            if (e == 'avancar' && imgs.length - 1 > carrosselSelected.value) {
+            if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
                 less(carrosselSelected.value)
                 carrosselSelected.value++
+                indexImgPopup.value++
                 more(carrosselSelected.value)
-                document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
+                document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
             } else if (e == 'voltar' && carrosselSelected.value > 0) {
                 less(carrosselSelected.value)
                 carrosselSelected.value--
+                indexImgPopup.value--
                 more(carrosselSelected.value)
-                document.querySelector('.card__grid').style.transform = `translateX(-${carrosselSelected.value}00vw)`
+                document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
             }
         }
 
@@ -138,7 +160,8 @@ export default {
         }
 
         return {
-            imgs,
+            imagens,
+            indexImgPopup,
             indexToUpPopup,
             moveTouch,
             endCarrossel,
@@ -146,7 +169,9 @@ export default {
         }
     },
     props: {
-        whiteImages: String
+        whiteImages: String,
+        keyComponent: String,
+        index: Number,
     },
     methods: {
         indexToUpPopup(index) {
@@ -160,8 +185,6 @@ export default {
 .programacao {
     position: relative;
     z-index: 1;
-    padding-top: 120px;
-    margin-bottom: 300px
 }
 
 .carrossel {
@@ -367,6 +390,53 @@ export default {
     color: var(--creme) !important;
 }
 
+/* POPUP CARROSSEL */
+
+.carrossel__modifier .carrossel__count {
+    position: fixed;
+    bottom: 40px;
+}
+
+.popup__container--popup {
+    display: flex;
+    flex-direction: column;
+}
+
+.carrossel__img--popup {
+    width: 100%;
+}    
+
+.carrossel__modifier .grid-area-height {
+    flex-direction: column !important;
+}
+.carrossel__modifier .card__grid--mobile {
+    height: 100%;
+}
+
+.carrossel__modifier .carrossel {
+    display: flex;
+    position: fixed;
+    bottom: 25px;
+    justify-content: space-between;
+    width: calc(100% - 200px);
+}
+
+.carrossel__modifier .programacao {
+    display: flex;
+    justify-content: center;
+}
+
+.carrossel__modifier .grid-area-height,
+.carrossel__modifier .card__img,
+.carrossel__modifier .card__grid,
+.carrossel__modifier .card {
+    height: max-content;
+}
+
+.carrossel__modifier .card {
+    flex-direction: column;
+}
+
 @media screen and (max-width: 1000px) {
 
     .experiencia {
@@ -415,8 +485,6 @@ export default {
         display: flex;
     }
 }
-
-
 
 .whiteTheme .experiencia {
     background: #E7E7E7;
