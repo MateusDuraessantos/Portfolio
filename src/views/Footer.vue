@@ -590,14 +590,6 @@ export default {
         flex-direction: column;
     }
 
-    .informacoes__container {
-        width: 90%;
-    }
-
-    .informacoes__container {
-        width: calc(100% - 100px);
-    }
-
     @keyframes sky_01 {
         0% {
             transform: scale(var(--sky-scale)) translate(0, 0);
@@ -718,25 +710,11 @@ export default {
             transform: scale(var(--sky-scale)) translatey(0);
         }
     }
-}
-
-@media screen and (max-width: 850px) {
-
-    .informacoes__container {
-        padding: 140px 0;
-    }
-
-    .informacoes__contato img {
-        width: 30px;
-    }
-
-    .informacoes__contato {
-        font-size: 1rem;
-    }
 
     .informacoes__container {
         width: 100%;
         gap: 0;
+        padding: 140px 0;
     }
 
     .informacoes__contato img {
@@ -749,10 +727,9 @@ export default {
 
     .informacoes__contato {
         gap: 6px;
+        font-size: 1rem;
     }
-}
-
-@media screen and (max-height: 800px) {
+    
     :root {
         --sky-scale: 1
     }

@@ -295,9 +295,7 @@ export default {
         display: flex;
         flex-direction: column;
     }
-}
 
-@media screen and (max-width: 850px) {
     .orcamento__tools {
         display: none;
     }

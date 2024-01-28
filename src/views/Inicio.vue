@@ -51,6 +51,7 @@
         </div>
         
         <Carrossel
+            style="position: relative;"
             :whiteImages="whiteImages"
             :keyComponent="'inicio'"
         />
@@ -60,6 +61,7 @@
             v-if="this.$store.state.popup"
             :indexImg="this.$store.state.popup"
             :whiteImages="whiteImages"
+            :widthSize="widthSize"
         />
 
         <!-- FAÇA UM ORÇAMENTO -->
@@ -108,7 +110,8 @@ export default {
             whiteIcons: 'whiteicons',
             whiteImages: 'black',
             footerVisible: true,
-            saldacao: null
+            saldacao: null,
+            widthSize: undefined,
         }
     },
     watch: {
@@ -138,8 +141,15 @@ export default {
                 })
             });
         }
+        
+        window.addEventListener('resize', this.widthScreen)
+        this.widthSize = window.screen.availWidth
+        
     },
     methods: {
+        widthScreen(){ // Verifica o tamanho da tela para trocar entre o popup padrão ou carrossel
+            this.widthSize = window.screen.availWidth
+        },
         scrollDown(ancora) {
             window.scrollTo({
                 top: document.getElementById(ancora).offsetTop,
@@ -436,7 +446,7 @@ p {
 @media screen and (max-width: 1000px) {
 
     .parallax--img {
-        transform: translate(-600px, 1000px);
+        transform: translate(-300px, 1000px);
         width: 1400px;
     }
 
@@ -454,9 +464,6 @@ p {
     .bubble {
         display: none;
     }
-}
-
-@media screen and (max-width: 850px) {
     .inicio__container {
         gap: 12px;
         line-height: 24px;

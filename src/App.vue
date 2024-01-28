@@ -123,6 +123,10 @@ body {
     overflow-x: hidden;
 }
 
+button {
+    cursor: pointer;
+}
+
 :root {
     --creme: #E0D9CE
 }
@@ -305,16 +309,6 @@ img {
 
 .popup__close--animation-blur .popup__overflow {
     overflow: hidden;
-}
-
-@keyframes loading {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 @keyframes animation_opacity {

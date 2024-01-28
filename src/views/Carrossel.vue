@@ -1,32 +1,113 @@
 <template>
-    <div :class="`${keyComponent == 'popup' ? `carrossel__modifier` : ''}`">
-        <section class="programacao section" id="portfolio">
-           
+    <div :class="`${keyComponent == 'popup' ? `modifier` : ''}`">
+        <!-- DESCRIÇÃO DE CADA PROJETO -->
+
+        <span v-if="keyComponent == 'popup' && widthSize > 900">
+            <div class="popup__mobile--description">
+                <div class="link__grid">
+                    <a :href="imagens[indexImgPopup].link" target="_blank" v-if="imagens[indexImgPopup].link"
+                        class="link__container">
+                        Website online
+                        <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
+                    </a>
+                    <a :href="imagens[indexImgPopup].github" target="_blank" v-if="imagens[indexImgPopup].github"
+                        class="link__container">
+                        GitHub
+                        <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
+                    </a>
+                </div>
+                <div class="description">
+                    <h1 class="h1__popup">{{ imagens[indexImgPopup].name }}</h1>
+                </div>
+            </div>
+            <div class="description">
+                <p>{{ imagens[indexImgPopup].description }}</p>
+            </div>
+        </span>
+
+        <!--  -->
+        <section class="programacao section" id="portfolio" v-if="keyComponent == 'inicio' || widthSize < 900">
+            <div class="carrossel">
+                <button class="carrossel__controlls" @click="startCarrossel('voltar')">←</button>
+                <button class="carrossel__controlls" @click="startCarrossel('avancar')">→</button>
+            </div>
             <div class="card__grid--mobile">
                 <div :class="`card__grid card__grid--${keyComponent}`" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel"
                     @touchend="endCarrossel" style="transform: translateX(0vw)">
                     <div
                         v-for="(img, index) in imagens"
                         :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`"
-                        :key="index"
-                        @click="
-                        keyComponent == 'inicio' ? 
-                            ($store.commit('upPopup', true),
-                            indexToUpPopup(index)) :
-                            null"
+                        @click="keyComponent == 'inicio' ? ($store.commit('upPopup', true), indexToUpPopup(index)) : null"
                     >
-                        <img
-                            class="card__img"
-                            loading="lazy"
-                            :src="`projetos/${img.thumb.default ? `${img.thumb.default}` : `${img.thumb.white}-${whiteImages}.jpg`}`"
-                            :alt="img.alt"
-                        >
-                        
-                        <!-- CARROSSEL POPUP -->
-                        <div class="popup__container--popup" v-if="keyComponent == 'popup'">
-                            <span v-for="(imgs, index) in imagens[indexImgPopup].paths">
-                                <img v-if="index > 0" class="carrossel__img--popup" :src="`projetos/${imgs.img}`" alt="">
-                            </span>
+                        <span v-if="keyComponent == 'inicio'" class="inicio__ctn--loading">
+                            <!-- LOADING -->
+                              <div
+                                    class="loading__container"
+                                    :id="`loading__id_inicio--${index + 100}_${index}`"
+                                >
+                                <p>carregando</p>
+                                <div class="loading"></div>
+                            </div>
+                            <!-- IMAGENS -->>
+                            
+                            <img
+                                class="card__img primeira"
+                                loading="lazy"
+                                height="500"
+                                width="500"
+                                @load="loadingImg(`loading__id_inicio--${index + 100}_${index}`, 'Primeira')"
+                                :src="`projetos/${img.thumb.default ? `${img.thumb.default}` : `${img.thumb.white}-${whiteImages}.jpg`}`"
+                                :alt="img.alt"
+                            >
+                        </span>
+                        <div v-else-if="rechargeOnPass">
+                            <div class="inicio__ctn--loading" v-for="(coisas, indexPop) in imagens[indexImgPopup].paths">
+                                <!-- LOADING -->
+                                <div
+                                    class="loading__container"
+                                    :id="`loading__id_desk--${indexPop}_${index}`"
+                                >
+                                    <p>carregando</p>
+                                    <div class="loading"></div>
+                                </div>
+                            
+                                <!--  -->
+
+                                <div v-if="indexPop == 0" style="height: max-content;"> <!-- Bloqueia que faça vários v-fors em cima da descrição -->
+                                    <div class="popup__mobile--description">
+                                        <div class="link__grid">
+                                            <a :href="img.link" target="_blank" v-if="img.link"
+                                                class="link__container">
+                                                Website online
+                                                <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
+                                            </a>
+                                            <a :href="img.github" target="_blank" v-if="img.github"
+                                                class="link__container">
+                                                GitHub
+                                                <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
+                                            </a>
+                                        </div>
+                                        <div class="description">
+                                            <h1 class="h1__popup">{{ img.name }}</h1>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        <p>{{ img.description }}</p>
+                                    </div>
+                                </div>
+
+
+                                
+                                <!-- IMAGENS -->
+                                <img
+                                    :class="`popup__img segunda`"
+                                    @load="loadingImg(`loading__id_desk--${indexPop}_${index}`), 'Segunda'"
+                                    :src="`projetos/${coisas.img}`"
+                                    height="500"
+                                    width="500"
+                                    loading="lazy"
+                                >
+                            </div>
                         </div>
 
                         <!-- FAIXA COM NOME DO PROJETO -->
@@ -42,11 +123,37 @@
                     <div :class="`carrossel__current carrossel__current--${keyComponent} carrossel--${index}--${keyComponent}`" v-for="(count, index) in imagens" />
                 </div>
             </div>
-            <div class="carrossel">
-                <button class="carrossel__controlls carrossel--left" @click="startCarrossel('voltar')">Voltar</button>
-                <button class="carrossel__controlls carrossel--right" @click="startCarrossel('avancar')">Avançar</button>
-            </div>
         </section>
+        
+        <!-- <div v-else-if="widthSize > 900 || keyComponent == 'popup'"> -->
+        <div v-else-if="widthSize > 900 && keyComponent == 'popup'" class="popup__desktop">
+            <div class="carrossel">
+                <button class="carrossel__controlls" @click="startCarrossel('voltar')">←</button>
+                <button class="carrossel__controlls" @click="startCarrossel('avancar')">→</button>
+            </div>
+            <div v-if="rechargeOnPass">
+                <div style="position: relative;" v-for="(coisas, testesxte) in imagens[indexImgPopup].paths">
+                    <!-- LOADING -->
+                    <div
+                        class="loading__container"
+                        :id="`loading__id--${testesxte}`"
+                    >
+                        <p>carregando</p>
+                        <div class="loading"></div>
+                    </div>
+                    
+                    <!-- IMAGENS -->
+                    <img
+                        :class="`popup__img`"
+                        @load="loadingImg(`loading__id--${testesxte}`, 'Terceira')"
+                        :src="`projetos/${coisas.img}`"
+                        height="500"
+                        width="500"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -61,27 +168,36 @@ export default {
         let inicialTransform = ref(0)
         let willchange = ref(false)
         let positionInicial = ref(0)
+        let carrosselSelected = ref(0)
         let blockBodyScroll = ref(true)
         let keyComponentElement = `.card__grid--${props.keyComponent}`
         let store = useStore()
-        let indexImgPopup = ref(props.index)
+        let indexImgPopup = ref(0)
+        let block = ref(true)
+        let rechargeOnPass = ref(true)
         
-        const moveTouch = (event) => {
-            const element = document.querySelector(keyComponentElement)
-            const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
-            const slideHeight = event.touches[0].clientY - initialClickY.value
-            const widthSum = inicialTransform.value + slideWidth * .17
-
-            if (parseInt(slideWidth / slideHeight).toString() != 0 && blockBodyScroll.value == true || blockBodyScroll.value == 'justVerticalScrollAllowed') { // Se o scroll começou na horizontal, bloqueia o scroll da vertical e vise-versa
-                document.querySelector('body').style.overflowY = 'hidden'
-                widthSum <= 0 && element.style.transform.split('(')[1].split('vw)')[0] > imagens.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
-                blockBodyScroll.value = 'justVerticalScrollAllowed'
-            } else if (blockBodyScroll.value || blockBodyScroll.value == 'justHorizontalScrollAllowed') {
-                blockBodyScroll.value = 'justHorizontalScrollAllowed'
+        onMounted(() => {
+            indexImgPopup.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
+            blockTouch()
+            if(block.value){
+                carrosselFocus('init')
+                if(props.keyComponent == 'popup') {
+                    carrosselSelected.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
+                    positionInicial.value = Number(store.state.popupIndex + '00') // Atualiza a var para as próximas transições 
+                    
+                    document.querySelector(keyComponentElement).style.transform = `translateX(-${store.state.popupIndex}00vw)` // Atualiza a posição inicial 
+                    document.querySelector('.carrossel__current--popup').classList.remove('carrossel__current--gray')
+                    document.querySelector(`.carrossel--${store.state.popupIndex}--${props.keyComponent}`).classList.add('carrossel__current--gray') // Atualiza o marcador da imagem selecionada
+                }
             }
+        })
+
+        const blockTouch = () => {
+            window.screen.availWidth > 900 && props.keyComponent == 'popup' ? block.value = false : block.value = true
         }
 
-        let carrosselSelected = ref(0)
+        window.addEventListener('resize', blockTouch)
+
         const more = (value) => document.querySelector(`.carrossel--${value}--${props.keyComponent}`).classList.add('carrossel__current--gray')
         const less = (value) => document.querySelector(`.carrossel--${value}--${props.keyComponent}`).classList.remove('carrossel__current--gray')
 
@@ -91,19 +207,71 @@ export default {
             if (changer == 'init') document.querySelector(`.carrossel__current--${props.keyComponent}`).classList.add('carrossel__current--gray')
         }
 
-        onMounted(() => {
-            carrosselFocus('init')
-            if(props.keyComponent == 'popup') {
-                indexImgPopup.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
-                carrosselSelected.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
-                positionInicial.value = Number(store.state.popupIndex + '00') // Atualiza a var para as próximas transições 
-                
-                document.querySelector(keyComponentElement).style.transform = `translateX(-${store.state.popupIndex}00vw)` // Atualiza a posição inicial 
-                document.querySelector('.carrossel__current--popup').classList.remove('carrossel__current--gray')
-                document.querySelector(`.carrossel--${store.state.popupIndex}--${props.keyComponent}`).classList.add('carrossel__current--gray') // Atualiza o marcador da imagem selecionada
+        const moveTouch = (event) => {
+            if(block.value){
+                const element = document.querySelector(keyComponentElement)
+                const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
+                const slideHeight = event.touches[0].clientY - initialClickY.value
+                const widthSum = inicialTransform.value + slideWidth * .17
+
+                if (parseInt(slideWidth / slideHeight).toString() != 0 && blockBodyScroll.value == true || blockBodyScroll.value == 'justVerticalScrollAllowed') { // Se o scroll começou na horizontal, bloqueia o scroll da vertical e vise-versa
+                    document.querySelector('body').style.overflowY = 'hidden'
+                    widthSum <= 0 && element.style.transform.split('(')[1].split('vw)')[0] > imagens.length * 100 * -1 + 90 ? element.style.transform = `translateX(${widthSum}vw)` : null
+                    blockBodyScroll.value = 'justVerticalScrollAllowed'
+                } else if (blockBodyScroll.value || blockBodyScroll.value == 'justHorizontalScrollAllowed') {
+                    blockBodyScroll.value = 'justHorizontalScrollAllowed'
+                }
             }
-        })
-        
+        }
+
+        const startCarrossel = (e) => { // Muda os projetos pelos botões
+            if(block.value){ // Bloqueia touch
+                const element = document.querySelector(keyComponentElement)
+                positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
+
+                if (e != 'avancar' && e != 'voltar') {
+                    initialClickY.value = Number(String(e.touches[0].clientY).split('.')[0])
+                    initialClickX.value = Number(String(e.touches[0].clientX).split('.')[0])
+                    inicialTransform.value = Number(document.querySelector(keyComponentElement).style.transform.split('vw')[0].split('translateX(')[1])
+                }
+
+                if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
+                    less(carrosselSelected.value)
+                    carrosselSelected.value++
+                    indexImgPopup.value++
+                    more(carrosselSelected.value)
+                    document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
+                } else if (e == 'voltar' && carrosselSelected.value > 0) {
+                    less(carrosselSelected.value)
+                    carrosselSelected.value--
+                    indexImgPopup.value--
+                    more(carrosselSelected.value)
+                    document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
+                }
+            } else { // Se for versão desktop, apenas os botões alteram as imagens
+                if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
+                    carrosselSelected.value++
+                    indexImgPopup.value++
+                    
+                } else if (e == 'voltar' && carrosselSelected.value > 0) {
+                    carrosselSelected.value--
+                    indexImgPopup.value--
+                }
+            }
+            
+            if(e.target == undefined && props.keyComponent == 'popup'){ // Ativa apenas no popup
+                rechargeOnPass.value = false // Destroi o componente para refazer as animações
+                document.getElementById('img_portrato').classList.remove('popup__animation')
+                document.getElementById('img_portrato').style.opacity = 0
+                setTimeout(() => {
+                    document.getElementById('img_portrato').style.opacity = 1
+                    console.log(document.getElementById('img_portrato').classList.add('popup__animation'));
+                    rechargeOnPass.value = true
+                    document.querySelector('.popup__content').classList.add('popup__animation')
+                }, 500);
+            }
+        }
+
         const endCarrossel = (e) => {
             const element = document.querySelector(keyComponentElement)
             const arrastoCursor = 20 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
@@ -129,37 +297,13 @@ export default {
             blockBodyScroll.value = true
             props.keyComponent != 'popup' ? document.body.style.overflowY = 'initial' : null
         }
-
-        const startCarrossel = (e) => { // Muda os projetos pelos botões
-            const element = document.querySelector(keyComponentElement)
-            positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
-
-            if (e != 'avancar' && e != 'voltar') {
-                initialClickY.value = Number(String(e.touches[0].clientY).split('.')[0])
-                initialClickX.value = Number(String(e.touches[0].clientX).split('.')[0])
-                inicialTransform.value = Number(document.querySelector(keyComponentElement).style.transform.split('vw')[0].split('translateX(')[1])
-            }
-
-            if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
-                less(carrosselSelected.value)
-                carrosselSelected.value++
-                indexImgPopup.value++
-                more(carrosselSelected.value)
-                document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
-            } else if (e == 'voltar' && carrosselSelected.value > 0) {
-                less(carrosselSelected.value)
-                carrosselSelected.value--
-                indexImgPopup.value--
-                more(carrosselSelected.value)
-                document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
-            }
-        }
-
+     
         const indexToUpPopup = (index) => {
             this.$store.commit('indexToPopup', index)
         }
 
         return {
+            rechargeOnPass,
             imagens,
             indexImgPopup,
             indexToUpPopup,
@@ -172,11 +316,32 @@ export default {
         whiteImages: String,
         keyComponent: String,
         index: Number,
+        widthSize: Number,
+    },
+    data() {
+        return {
+            store: useStore(),
+            imgs: imagens,
+            removeTimer: null,
+            blockLoadingVFor: ''
+        }
+    },
+    mounted() {
+    },
+    watch: {
+     
     },
     methods: {
         indexToUpPopup(index) {
             this.$store.commit('indexToPopup', index)
-        }
+        },
+        loadingImg(id, whithOne) {
+            if(this.blockLoadingVFor != id) {
+                console.log(id);
+                console.log(whithOne);
+                document.getElementById(id).classList.add('loading__stop')
+            }
+        },
     }
 }
 </script>
@@ -188,15 +353,19 @@ export default {
 }
 
 .carrossel {
-    display: none;
-    justify-content: center;
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
     gap: 20px;
     margin: auto;
-    margin-top: 20px;
+    width: 100%;
+    bottom: 20px;
+    z-index: 11;
+    padding: 0 50px;
 }
 
 .carrossel__count {
-    display: flex;
+    display: none;
     position: absolute;
     margin: auto;
     gap: 10px;
@@ -217,32 +386,26 @@ export default {
 }
 
 .carrossel__controlls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    background: #2c2c2c;
-    width: 100px;
-    padding: 10px 20px;
+    background: rgb(67 67 67 / 20%);
+    backdrop-filter: blur(7px);
+    width: 60px;
+    height: 60px;
+    padding-bottom: 4px;
     z-index: 2;
-    border: none;
     transition: .2s;
     cursor: pointer;
-}
-
-.whiteTheme .carrossel__controlls {
-    background: white;
+    border-radius: 50%;
+    font-size: 24px !important;
 }
 
 .carrossel__controlls:hover {
     background: rgb(74, 74, 74);
     color: white;
     transition: .2s;
-}
-
-.carrossel--left {
-    border-radius: 50px 0 0 50px;
-}
-
-.carrossel--right {
-    border-radius: 0 50px 50px 0;
 }
 
 .figure__design {
@@ -285,9 +448,9 @@ export default {
 }
 
 .card {
+    position: relative;
     display: flex;
     justify-content: center;
-    position: relative;
     width: 100%;
     height: 500px;
     overflow: hidden;
@@ -340,6 +503,7 @@ export default {
     height: 100%;
     transition: .3s;
     object-fit: cover;
+    background: #1f1f1f;
 }
 
 .card__description {
@@ -390,55 +554,96 @@ export default {
     color: var(--creme) !important;
 }
 
-/* POPUP CARROSSEL */
+/* Loading */
 
-.carrossel__modifier .carrossel__count {
-    position: fixed;
-    bottom: 40px;
-}
-
-.popup__container--popup {
+.loading__container {
+    position: absolute;
     display: flex;
-    flex-direction: column;
-}
-
-.carrossel__img--popup {
-    width: 100%;
-}    
-
-.carrossel__modifier .grid-area-height {
-    flex-direction: column !important;
-}
-.carrossel__modifier .card__grid--mobile {
-    height: 100%;
-}
-
-.carrossel__modifier .carrossel {
-    display: flex;
-    position: fixed;
-    bottom: 25px;
-    justify-content: space-between;
-    width: calc(100% - 200px);
-}
-
-.carrossel__modifier .programacao {
-    display: flex;
+    align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    z-index: 6;
 }
 
-.carrossel__modifier .grid-area-height,
-.carrossel__modifier .card__img,
-.carrossel__modifier .card__grid,
-.carrossel__modifier .card {
-    height: max-content;
+.loading__container p {
+    font-size: 15px;
+    font-weight: 400;
+    color: #b5b5b5 !important;
 }
 
-.carrossel__modifier .card {
-    flex-direction: column;
+.loading__stop {
+    display: none;
+}
+
+.loading {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 9px dotted rgb(183 183 183);
+    z-index: 1;
+    animation-name: loading;
+    animation-duration: 12s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    border-spacing: 17px;
+}
+
+.loading__container::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 2000px;
+    border-radius: 50px;
+    filter: blur(44px);
+    background: rgb(56, 56, 56);
+    transform: rotate(14deg);
+    animation: loadingAnime 2s infinite;
+}
+
+.loading__ctn {
+    position: relative;
+}
+
+.popup__desktop .carrossel {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: calc(50vh - 18px);
+    justify-content: space-between;
+    gap: 20px;
+    margin: auto;
+    width: 100%;
+    z-index: 11;
+    padding: 0 50px;
+}
+
+.popup__mobile .carrossel {
+    position: fixed;
+}
+
+@import './modifier.css';
+
+.inicio__ctn--loading {
+    position: relative;
+    width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
 
+    .carrossel__count {
+        display: flex;
+    }
+    
     .experiencia {
         padding: 8px 18px;
     }
@@ -447,10 +652,6 @@ export default {
         display: none;
     }
 
-}
-
-@media screen and (max-width: 850px) {
-
     .card__data {
         padding-left: 20px;
     }
@@ -458,7 +659,7 @@ export default {
     .grid-area-height,
     .card__img,
     .card__grid {
-        height: 60vh;
+        height: 80vh;
     }
 
     .card__grid--mobile {
@@ -481,9 +682,6 @@ export default {
         width: 100vw
     }
 
-    .carrossel {
-        display: flex;
-    }
 }
 
 .whiteTheme .experiencia {
