@@ -1,116 +1,47 @@
 <template>
     <div :class="`${keyComponent == 'popup' ? `modifier` : ''}`">
-        <!-- DESCRIÇÃO DE CADA PROJETO -->
 
-        <span v-if="keyComponent == 'popup' && widthSize > 900">
-            <div class="popup__mobile--description">
-                <div class="link__grid">
-                    <a :href="imagens[indexImgPopup].link" target="_blank" v-if="imagens[indexImgPopup].link"
-                        class="link__container">
-                        Website online
-                        <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
-                    </a>
-                    <a :href="imagens[indexImgPopup].github" target="_blank" v-if="imagens[indexImgPopup].github"
-                        class="link__container">
-                        GitHub
-                        <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
-                    </a>
-                </div>
-                <div class="description">
-                    <h1 class="h1__popup">{{ imagens[indexImgPopup].name }}</h1>
-                </div>
-            </div>
-            <div class="description">
-                <p>{{ imagens[indexImgPopup].description }}</p>
-            </div>
-        </span>
+        <!-- DESCRIÇÃO DE CADA PROJETO -->
+        <div v-if="keyComponent == 'popup' && widthSize > 900">
+            <DescriptionPopup :VIf="imagens[indexImgPopup]" />
+        </div>
 
         <!--  -->
-        <section class="programacao section" id="portfolio" v-if="keyComponent == 'inicio' || widthSize < 900">
+        <section class="programacao" id="portfolio" v-if="keyComponent == 'inicio' || widthSize < 900">
             <div class="carrossel">
                 <button class="carrossel__controlls" @click="startCarrossel('voltar')">←</button>
                 <button class="carrossel__controlls" @click="startCarrossel('avancar')">→</button>
             </div>
             <div class="card__grid--mobile">
-                <div :class="`card__grid card__grid--${keyComponent}`" @touchmove.passive="moveTouch" @touchstart.passive="startCarrossel"
-                    @touchend="endCarrossel" style="transform: translateX(0vw)">
-                    <div
-                        v-for="(img, index) in imagens"
+                <div :class="`card__grid card__grid--${keyComponent}`" @touchmove.passive="moveTouch"
+                    @touchstart.passive="startCarrossel" @touchend="endCarrossel" style="transform: translateX(0vw)">
+                    <div v-for="(img, index) in imagens"
                         :class="`card ${img.class} card-carrossel card-carrossel-id-${index}`"
-                        @click="keyComponent == 'inicio' ? ($store.commit('upPopup', true), indexToUpPopup(index)) : null"
-                    >
+                        @click="keyComponent == 'inicio' ? ($store.commit('upPopup', true), indexToUpPopup(index)) : null">
                         <span v-if="keyComponent == 'inicio'" class="inicio__ctn--loading">
-                            <!-- LOADING -->
-                              <div
-                                    class="loading__container"
-                                    :id="`loading__id_inicio--${index + 100}_${index}`"
-                                >
-                                <p>carregando</p>
-                                <div class="loading"></div>
-                            </div>
-                            <!-- IMAGENS -->>
-                            
-                            <img
-                                class="card__img primeira"
-                                loading="lazy"
-                                height="500"
-                                width="500"
-                                @load="loadingImg(`loading__id_inicio--${index + 100}_${index}`, 'Primeira')"
-                                :src="`projetos/${img.thumb.default ? `${img.thumb.default}` : `${img.thumb.white}-${whiteImages}.jpg`}`"
-                                :alt="img.alt"
-                            >
+                            <Loadings
+                                :loadId="`loading__id_inicio--${index + 100}_${index}`"
+                                :loadAlt="img"
+                                :loadSrc="`projetos/${img.thumb.default ? `${img.thumb.default}` : `${img.thumb.white}-${whiteImages}.jpg`}`"
+                                :loadClass="`card__img`"
+                            />
                         </span>
                         <div v-else-if="rechargeOnPass">
                             <div class="inicio__ctn--loading" v-for="(coisas, indexPop) in imagens[indexImgPopup].paths">
-                                <!-- LOADING -->
-                                <div
-                                    class="loading__container"
-                                    :id="`loading__id_desk--${indexPop}_${index}`"
-                                >
-                                    <p>carregando</p>
-                                    <div class="loading"></div>
-                                </div>
-                            
-                                <!--  -->
-
-                                <div v-if="indexPop == 0" style="height: max-content;"> <!-- Bloqueia que faça vários v-fors em cima da descrição -->
-                                    <div class="popup__mobile--description">
-                                        <div class="link__grid">
-                                            <a :href="img.link" target="_blank" v-if="img.link"
-                                                class="link__container">
-                                                Website online
-                                                <img class="link__img" src="external.svg" alt="Link para o webiste desse projeto" loading="lazy">
-                                            </a>
-                                            <a :href="img.github" target="_blank" v-if="img.github"
-                                                class="link__container">
-                                                GitHub
-                                                <img class="link__img" src="github_logo.svg" alt="Link para o Github desse projeto" loading="lazy">
-                                            </a>
-                                        </div>
-                                        <div class="description">
-                                            <h1 class="h1__popup">{{ img.name }}</h1>
-                                        </div>
-                                    </div>
-                                    <div class="description">
-                                        <p>{{ img.description }}</p>
-                                    </div>
+                                <div v-if="indexPop == 0" style="height: max-content;">
+                                    <!-- Bloqueia que faça vários v-fors em cima da descrição -->
+                                    <DescriptionPopup :VIf="img" />
                                 </div>
 
-
-                                
-                                <!-- IMAGENS -->
-                                <img
-                                    :class="`popup__img segunda`"
-                                    @load="loadingImg(`loading__id_desk--${indexPop}_${index}`), 'Segunda'"
-                                    :src="`projetos/${coisas.img}`"
-                                    height="500"
-                                    width="500"
-                                    loading="lazy"
-                                >
+                                 <Loadings
+                                    :loadId="`loading__id_desk--${indexPop}_${index}`"
+                                    :loadAlt="coisas"
+                                    :loadSrc="`projetos/${coisas.img}`"
+                                    :loadClass="`popup__img segundo`"
+                                />
                             </div>
                         </div>
-
-                        <!-- FAIXA COM NOME DO PROJETO -->
+                        <!-- HOVER FAIXA COM NOME DO PROJETO -->
                         <div class="card__description">
                             <div class="card__data">
                                 <p> {{ img.name }}</p>
@@ -120,12 +51,12 @@
                     </div>
                 </div>
                 <div class="carrossel__count">
-                    <div :class="`carrossel__current carrossel__current--${keyComponent} carrossel--${index}--${keyComponent}`" v-for="(count, index) in imagens" />
+                    <div :class="`carrossel__current carrossel__current--${keyComponent} carrossel--${index}--${keyComponent}`"
+                        v-for="(count, index) in imagens" />
                 </div>
             </div>
         </section>
-        
-        <!-- <div v-else-if="widthSize > 900 || keyComponent == 'popup'"> -->
+
         <div v-else-if="widthSize > 900 && keyComponent == 'popup'" class="popup__desktop">
             <div class="carrossel">
                 <button class="carrossel__controlls" @click="startCarrossel('voltar')">←</button>
@@ -133,24 +64,12 @@
             </div>
             <div v-if="rechargeOnPass">
                 <div style="position: relative;" v-for="(coisas, testesxte) in imagens[indexImgPopup].paths">
-                    <!-- LOADING -->
-                    <div
-                        class="loading__container"
-                        :id="`loading__id--${testesxte}`"
-                    >
-                        <p>carregando</p>
-                        <div class="loading"></div>
-                    </div>
-                    
-                    <!-- IMAGENS -->
-                    <img
-                        :class="`popup__img`"
-                        @load="loadingImg(`loading__id--${testesxte}`, 'Terceira')"
-                        :src="`projetos/${coisas.img}`"
-                        height="500"
-                        width="500"
-                        loading="lazy"
-                    >
+                    <Loadings
+                        :loadId="`loading__id--${testesxte}`"
+                        :loadAlt="coisas"
+                        :loadSrc="`projetos/${coisas.img}`"
+                        :loadClass="`popup__img terceiro`"
+                    />
                 </div>
             </div>
         </div>
@@ -161,7 +80,14 @@
 import { ref, onMounted, watch } from 'vue'
 import { imagens } from './destaque.js'
 import { useStore } from 'vuex'
+import DescriptionPopup from '../components/DescriptionPopup.vue'
+import Loadings from '../components/Loadings.vue'
+
 export default {
+    components: {
+        DescriptionPopup,
+        Loadings,
+    },
     setup(props) {
         let initialClickX = ref(0)
         let initialClickY = ref(0)
@@ -175,16 +101,16 @@ export default {
         let indexImgPopup = ref(0)
         let block = ref(true)
         let rechargeOnPass = ref(true)
-        
+
         onMounted(() => {
             indexImgPopup.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
             blockTouch()
-            if(block.value){
+            if (block.value) {
                 carrosselFocus('init')
-                if(props.keyComponent == 'popup') {
+                if (props.keyComponent == 'popup') {
                     carrosselSelected.value = store.state.popupIndex //  Atualiza a varriável para as próximas transições
                     positionInicial.value = Number(store.state.popupIndex + '00') // Atualiza a var para as próximas transições 
-                    
+
                     document.querySelector(keyComponentElement).style.transform = `translateX(-${store.state.popupIndex}00vw)` // Atualiza a posição inicial 
                     document.querySelector('.carrossel__current--popup').classList.remove('carrossel__current--gray')
                     document.querySelector(`.carrossel--${store.state.popupIndex}--${props.keyComponent}`).classList.add('carrossel__current--gray') // Atualiza o marcador da imagem selecionada
@@ -208,7 +134,7 @@ export default {
         }
 
         const moveTouch = (event) => {
-            if(block.value){
+            if (block.value) {
                 const element = document.querySelector(keyComponentElement)
                 const slideWidth = String(event.touches[0].clientX).split('.')[0] - initialClickX.value
                 const slideHeight = event.touches[0].clientY - initialClickY.value
@@ -225,7 +151,7 @@ export default {
         }
 
         const startCarrossel = (e) => { // Muda os projetos pelos botões
-            if(block.value){ // Bloqueia touch
+            if (block.value) { // Bloqueia touch
                 const element = document.querySelector(keyComponentElement)
                 positionInicial.value = Number(element.style.transform.split('(')[1].split('vw)')[0])
 
@@ -252,20 +178,20 @@ export default {
                 if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
                     carrosselSelected.value++
                     indexImgPopup.value++
-                    
+
                 } else if (e == 'voltar' && carrosselSelected.value > 0) {
                     carrosselSelected.value--
                     indexImgPopup.value--
                 }
             }
-            
-            if(e.target == undefined && props.keyComponent == 'popup'){ // Ativa apenas no popup
+
+            if (e.target == undefined && props.keyComponent == 'popup') { // Ativa apenas no popup
                 rechargeOnPass.value = false // Destroi o componente para refazer as animações
                 document.getElementById('img_portrato').classList.remove('popup__animation')
                 document.getElementById('img_portrato').style.opacity = 0
                 setTimeout(() => {
                     document.getElementById('img_portrato').style.opacity = 1
-                    console.log(document.getElementById('img_portrato').classList.add('popup__animation'));
+                    document.getElementById('img_portrato').classList.add('popup__animation')
                     rechargeOnPass.value = true
                     document.querySelector('.popup__content').classList.add('popup__animation')
                 }, 500);
@@ -297,12 +223,13 @@ export default {
             blockBodyScroll.value = true
             props.keyComponent != 'popup' ? document.body.style.overflowY = 'initial' : null
         }
-     
+
         const indexToUpPopup = (index) => {
             this.$store.commit('indexToPopup', index)
         }
 
         return {
+            store,
             rechargeOnPass,
             imagens,
             indexImgPopup,
@@ -318,29 +245,9 @@ export default {
         index: Number,
         widthSize: Number,
     },
-    data() {
-        return {
-            store: useStore(),
-            imgs: imagens,
-            removeTimer: null,
-            blockLoadingVFor: ''
-        }
-    },
-    mounted() {
-    },
-    watch: {
-     
-    },
     methods: {
         indexToUpPopup(index) {
             this.$store.commit('indexToPopup', index)
-        },
-        loadingImg(id, whithOne) {
-            if(this.blockLoadingVFor != id) {
-                console.log(id);
-                console.log(whithOne);
-                document.getElementById(id).classList.add('loading__stop')
-            }
         },
     }
 }
@@ -362,6 +269,12 @@ export default {
     bottom: 20px;
     z-index: 11;
     padding: 0 50px;
+    pointer-events: none;
+}
+@media screen and (min-width: 1001px) {
+    .carrossel {
+        display: none;
+    }
 }
 
 .carrossel__count {
@@ -390,7 +303,7 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: rgb(67 67 67 / 20%);
+    background: rgb(67 67 67 / 50%);
     backdrop-filter: blur(7px);
     width: 60px;
     height: 60px;
@@ -398,8 +311,11 @@ export default {
     z-index: 2;
     transition: .2s;
     cursor: pointer;
+    border: none;
     border-radius: 50%;
     font-size: 24px !important;
+    pointer-events: initial !important;
+    text-shadow: 0 0 8px black;
 }
 
 .carrossel__controlls:hover {
@@ -556,64 +472,6 @@ export default {
 
 /* Loading */
 
-.loading__container {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(20px);
-    width: 100%;
-    top: 0;
-    left: 0;
-    height: 100%;
-    overflow: hidden;
-    z-index: 6;
-}
-
-.loading__container p {
-    font-size: 15px;
-    font-weight: 400;
-    color: #b5b5b5 !important;
-}
-
-.loading__stop {
-    display: none;
-}
-
-.loading {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 9px dotted rgb(183 183 183);
-    z-index: 1;
-    animation-name: loading;
-    animation-duration: 12s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    border-spacing: 17px;
-}
-
-.loading__container::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 2000px;
-    border-radius: 50px;
-    filter: blur(44px);
-    background: rgb(56, 56, 56);
-    transform: rotate(14deg);
-    animation: loadingAnime 2s infinite;
-}
-
-.loading__ctn {
-    position: relative;
-}
-
 .popup__desktop .carrossel {
     display: flex;
     position: fixed;
@@ -643,7 +501,7 @@ export default {
     .carrossel__count {
         display: flex;
     }
-    
+
     .experiencia {
         padding: 8px 18px;
     }
@@ -679,9 +537,9 @@ export default {
 
     .card {
         overflow: initial;
-        width: 100vw
+        width: 100vw;
+        height: 100%;
     }
-
 }
 
 .whiteTheme .experiencia {

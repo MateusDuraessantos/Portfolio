@@ -109,7 +109,7 @@ export default {
     background: rgba(40, 71, 83, 0.418);
     backdrop-filter: blur(10px);
     width: 100%;
-    margin-top: 120px;
+    margin-top: 200px;
     padding: 80px;
     z-index: 1;
 }
@@ -313,12 +313,12 @@ export default {
         padding: 80px 5px;
     }
 
-    .orcamento__colors {
-        height: 140px;
-    }
-
     .orcamento h1 {
         margin-left: 12px;
+    }
+
+    .orcamento__colors {
+        height: 140px;
     }
 
     .orcamento__card {

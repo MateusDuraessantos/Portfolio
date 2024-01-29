@@ -179,50 +179,6 @@ img {
 
 /* link popup */
 
-.link__grid {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 14px;
-    gap: 14px;
-    position: sticky;
-    margin-left: 14px;
-    top: -88px;
-    transform: translatey(12px);
-    height: 0;
-}
-
-.link__grid a {
-    color: var(--creme) !important;
-}
-
-.link__container {
-    height: 38px;
-    opacity: 1;
-    display: flex;
-    align-items: center;
-    width: max-content;
-    padding: 0 14px 0 16px;
-    text-decoration: none;
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10vw;
-    backdrop-filter: blur(15px);
-    transition: .2s;
-}
-
-.link__container:hover {
-    background: rgba(107, 107, 107, 0.6);
-    transition: .2s;
-}
-
-.link__img {
-    width: 20px;
-    min-width: 20px;
-    margin: auto;
-    z-index: 2;
-    transition: .2s;
-}
-
 
 /* white theme */
 

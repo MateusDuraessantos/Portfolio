@@ -47,3 +47,6 @@
 .modifier .controlls {
     display: none;
 }
+.modifier .carrossel {
+    position: fixed;
+}

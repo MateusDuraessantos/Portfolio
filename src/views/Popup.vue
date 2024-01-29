@@ -34,7 +34,6 @@ export default {
         return {
             store: useStore(),
             imgs: imagens,
-            removeTimer: null,
             indexImgPopup: 0,
             number: 0, // Verifica quantas imagens foram carregadas
             loading: true,
@@ -62,17 +61,7 @@ export default {
 </script>
 
 <style>
-.description h1,
-.description p {
-    padding: 20px 0;
-    color: #E0D9CE !important;
-}
 
-.h1__popup {
-    font-size: 1.4rem;
-    font-weight: 600;
-    width: 70%;
-}
 
 .popup__background {
     position: fixed;
@@ -182,6 +171,7 @@ export default {
     background: none;
     color: var(--creme) !important;
     z-index: 2;
+    text-shadow: 0 0 8px black;
 }
 
 .popup__animation {
@@ -251,10 +241,6 @@ export default {
 
 @media only screen and (max-width: 900px) {
 
-    .description {
-        padding: 20px;
-    }
-
     .popup__content {
         display: flex;
         flex-direction: column;
@@ -263,23 +249,8 @@ export default {
         margin: 0;
     }
 
-    .popup__mobile--description {
-        display: flex;
-        flex-direction: column-reverse;
-        padding: 10px 0;
-        gap: 10px;
-    }
-
     .popup__background {
         padding: 0;
-    }
-
-    .description p {
-        padding-bottom: 20px;
-    }
-
-    .description {
-        padding: 0 20px;
     }
 
     .link__grid {
@@ -307,10 +278,6 @@ export default {
         overflow: auto;
         width: 100%;
         height: 100%;
-    }
-
-    .h1__popup {
-        font-size: 16px;
     }
 
     .popup__mobile {
