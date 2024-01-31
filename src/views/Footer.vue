@@ -15,15 +15,15 @@
             <div class="informacoes__container">
                 <address class="informacoes__content">
                     <div class="contatos__column">
-                        <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('(11) 96593-9822')">
+                        <a class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('(11) 96593-9822')">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/whatsapp.svg`" alt="WhatsApp" loading="lazy">
                                 <p class="contato__email">whatsapp</p>
                             </div>
                             <p class="decoration__info">(11) 96593-9822</p>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
-                        </div>
-                        <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('mateusduraessantos@gmail.com')">
+                        </a>
+                        <a class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('mateusduraessantos@gmail.com')">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email" loading="lazy">
                                 <p class="contato__email">e-mail</p>
@@ -32,8 +32,8 @@
                                 mateusduraessantos@gmail.com
                             </div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
-                        </div>
-                        <div class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" href="https://www.behance.net/mateusduraes">
+                        </a>
+                        <a class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" href="https://www.behance.net/mateusduraes" target="_blank">
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance" loading="lazy">
                                 <p class=" contato__email">behance</p>
@@ -42,7 +42,7 @@
                                 Mateus Durães dos Santos
                             </div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
-                        </div>
+                        </a>
                     </div>
                 </address>
                 <div id="observador__footer"
@@ -121,11 +121,10 @@ export default {
             addBlur(enter == 'enter' ? 1 : -1)
         },
         copyText(content) {
-            const textToCopy = content; // Texto a ser copiado
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    alert("Texto copiado: " + textToCopy);
-                })
+            navigator.clipboard.writeText(content)
+            .then(() => {
+                alert("Texto copiado: " + content);
+            })
         },
         observador() { // Altear o estilo do header ao chegar no footer
             const header = document.getElementById('header')
@@ -267,6 +266,7 @@ export default {
     right: -28px;
     opacity: 0;
     width: 0;
+    cursor: pointer;
     transition: .2s;
 }
 

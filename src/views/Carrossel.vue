@@ -161,7 +161,7 @@ export default {
                     inicialTransform.value = Number(document.querySelector(keyComponentElement).style.transform.split('vw')[0].split('translateX(')[1])
                 }
 
-                if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
+                if (e == 'avancar' && carrosselSelected.value < imagens.length - 1) {
                     less(carrosselSelected.value)
                     carrosselSelected.value++
                     indexImgPopup.value++
@@ -175,17 +175,17 @@ export default {
                     document.querySelector(keyComponentElement).style.transform = `translateX(-${carrosselSelected.value}00vw)`
                 }
             } else { // Se for versão desktop, apenas os botões alteram as imagens
-                if (e == 'avancar' && imagens.length - 1 > carrosselSelected.value) {
+                if (e == 'avancar' && indexImgPopup.value < imagens.length - 1) {
                     carrosselSelected.value++
                     indexImgPopup.value++
 
-                } else if (e == 'voltar' && carrosselSelected.value > 0) {
+                } else if (e == 'voltar' && indexImgPopup.value > 0) {
                     carrosselSelected.value--
                     indexImgPopup.value--
                 }
             }
 
-            if (e.target == undefined && props.keyComponent == 'popup') { // Ativa apenas no popup
+            if (e.target == undefined && props.keyComponent == 'popup' && carrosselSelected.value > 0 && indexImgPopup.value < imagens.length - 1 ) { // Ativa apenas no popup
                 rechargeOnPass.value = false // Destroi o componente para refazer as animações
                 document.getElementById('img_portrato').classList.remove('popup__animation')
                 document.getElementById('img_portrato').style.opacity = 0

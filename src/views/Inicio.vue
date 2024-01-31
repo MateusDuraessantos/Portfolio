@@ -382,7 +382,7 @@ p {
     width: 100%;
     margin: auto;
     z-index: 1;
-    margin-left: 100px;
+    text-align: center;
 }
 
 .inicio__container {
@@ -424,13 +424,15 @@ p {
 .redes {
     display: flex;
     width: max-content;
+    margin: auto;
+    gap: 20px;
 }
 
 .redes__img {
     cursor: pointer;
     transition: .2s;
-    padding: 0 max(12px, 1vw);
-    height: max(34px, 2.4vw);
+    width: 40px;
+    height: 40px;
 }
 
 .img--1 {
@@ -453,12 +455,6 @@ p {
     .inicio {
         grid-template-columns: 100px 1fr 100px;
     }
-
-    .inicio__description {
-        width: calc(100% - 20px);
-        margin-left: 0;
-    }
-
     .square__left,
     .square__right,
     .bubble {
