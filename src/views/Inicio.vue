@@ -444,7 +444,6 @@ p {
     transition: .2s;
 }
 
-
 @media screen and (max-width: 1000px) {
 
     .parallax--img {

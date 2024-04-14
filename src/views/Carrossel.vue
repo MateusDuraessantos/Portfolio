@@ -200,7 +200,7 @@ export default {
 
         const endCarrossel = (e) => {
             const element = document.querySelector(keyComponentElement)
-            const arrastoCursor = 20 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
+            const arrastoCursor = 90 // Define quantos pixeis o touch tem que arrastado para mudar de imagem
             let widthScroll = Number(element.style.transform.split('(')[1].split('vw)')[0]) // Distancia que a imagem foi arrastada
             let stopScroll = widthScroll > imagens.length * 100 * -1 + 100 // Impede o scroll No final
 

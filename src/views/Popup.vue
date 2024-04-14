@@ -261,15 +261,13 @@ export default {
 
     .popup__overflow {
         height: 100%;
+        padding-top: 0;
+        overflow: hidden;
     }
 
     .popup__img {
         height: 100%;
         height: 100%;
-    }
-
-    .popup__overflow {
-        padding-top: 0;
     }
 
     .popup__container--mobile {
@@ -285,6 +283,5 @@ export default {
         height: 100%;
     }
 }
-
 
 </style>
