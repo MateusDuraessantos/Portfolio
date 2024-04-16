@@ -25,7 +25,7 @@
 
 <script>
 export default {
-    name: 'Header',
+    name: 'Navegacao',
     props: {
         dadoBol: String,
         booleanTheme: Boolean,
