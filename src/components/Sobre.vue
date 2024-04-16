@@ -28,8 +28,6 @@
                         desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e
                         completo no campo do desenvolvimento web.
                     </p>
-                    <img class="sobre__mateus" src="mateus.jpg" alt="Mateus Durães dos Santos" width="200" height="200"
-                        loading="lazy">
                 </div>
                 <div style="display: flex; justify-content: center;">
                     <h3>Conhecimentos:</h3>
@@ -187,12 +185,6 @@ export default {
     color: black;
 }
 
-.sobre__mateus {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-}
-
 .sobre__redes {
     display: flex;
     flex-direction: column;
@@ -298,12 +290,6 @@ export default {
     .sobre__redes {
         padding: 10px 0;
     }
-
-    .sobre__mateus {
-        width: 140px;
-        height: 140px;
-    }
-
 
 }
 

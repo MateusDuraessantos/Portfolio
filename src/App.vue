@@ -67,9 +67,9 @@
             <div class="carrossel">
                 <h1>Carrossel</h1>
                 <div class="carrossel__content" >
-                    <div class="carrossel__item"  v-for="cois in 5">
-                        <h1>item</h1>
-                        <img class="carrossel__phone" src="../public/inicio/phone__iframe.png" alt="">
+                    <div :class="`carrossel__item ${image.class}`"  v-for="image in carrosselItems">
+                        <img class="carrossel__phone" src="inicio/phone__iframe.png" alt="">
+                        <img class="carrossel__imagem" :src="image.path" alt="">
                     </div>
                 </div>
 
@@ -120,6 +120,29 @@ export default {
             footerVisible: true,
             saldacao: null,
             widthSize: undefined,
+            carrosselItems: [
+                {
+                    path: '/projetos/website.jpg',
+                    class: 'carrossel__item--borders',
+                },
+                {
+                    path: '/projetos/website.jpg',
+                    class: 'carrossel__item--between',
+                },
+                {
+                    path: '/projetos/website.jpg',
+                    class: 'carrossel__item--center',
+                },
+                {
+                    path: '/projetos/website.jpg',
+                    class: 'carrossel__item--between',
+                },
+                {
+                    path: '/projetos/website.jpg',
+                    class: 'carrossel__item--borders',
+                },
+            ]
+            
         }
     },
     watch: {
@@ -552,34 +575,63 @@ img {
 <style scoped>
 
 .carrossel {
+    position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: 500px 0;
+    z-index: 2;
 }
-
-.carrossel__phone {
-    width: 400px;
-}
-
 
 .carrossel__content {
     display: flex;
+    width: 100vw;
     justify-content: space-between;
+    align-items: center
+}
+
+.carrossel__item {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    overflow: hidden;    
 }
 
 
 
+.carrossel__phone, .carrossel__imagem {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
+.carrossel__phone {
+    z-index: 2;
+}
 
+.carrossel__imagem {
+    z-index: 1;
+    border-radius: 120px;
+}
 
+.carrossel__item--between {
+    width: 300px;
+    height: 500px;
+}
 
+.carrossel__item--borders {
+    width: 250px;
+    height: 400px;
+}
 
+.carrossel__item--between .carrossel__imagem {
+    border-radius: 80px;
+}
 
-
-
-
-
-
+.carrossel__item--borders .carrossel__imagem {
+    border-radius: 60px;
+}
 
 
 
