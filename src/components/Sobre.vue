@@ -84,11 +84,6 @@ export default {
                 ],
                 [
                     {
-                        img: 'tech0',
-                        skill: 'Firebase',
-                        alt: 'Logo Firebase'
-                    },
-                    {
                         img: 'tech1',
                         skill: 'CSS',
                         alt: 'Logo CSS'
@@ -107,7 +102,12 @@ export default {
                         img: 'tech4',
                         skill: 'Vue  JS',
                         alt: 'Logo Vuejs 3'
-                    }
+                    },
+                    {
+                        img: 'tech0',
+                        skill: 'Firebase',
+                        alt: 'Logo Firebase'
+                    },
                 ],
             ],
         }
@@ -150,6 +150,7 @@ export default {
     width: 550px;
     height: 550px;
     object-fit: contain;
+    z-index: 4;
 }
 
 .whiteTheme .sobre__planet--1,
@@ -163,7 +164,7 @@ export default {
     flex-direction: column;
     -webkit-backdrop-filter: blur(50px) !important;
     backdrop-filter: blur(50px);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
     gap: 40px;
     border-radius: 36px;
