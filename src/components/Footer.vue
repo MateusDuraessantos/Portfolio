@@ -1,5 +1,15 @@
 <template>
-    <footer class="sky" id="contato">
+    <footer class="sky " id="contato">
+
+        <div class="forms__overlay" id="forms">
+            <forms class="sky__forms">
+                <button class="sky__close" @click="openForms">✕</button>
+                <input class="forms__field" placeholder="Digite aqui" type="text" required>
+                <textarea class="forms__textarea" placeholder="Digite aqui" type="text" required></textarea>
+                <button class="forms__button" type="button">Enviar</button>
+            </forms>
+        </div>
+
         <!-- Os céus proclamam a glória de Jesus -->
         <span class="sky__container" v-if="footerVisible">
             <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
@@ -43,6 +53,10 @@
                             </div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
                         </a>
+                        <button @click="openForms" href="#">
+                            forms
+                        </button>
+
                     </div>
                 </address>
                 <div id="observador__footer"
@@ -105,6 +119,18 @@ export default {
         }
     },
     methods: {
+        openForms(){
+            const open = document.getElementById('contato')
+            const forms = document.getElementById('forms')
+
+            if(open.classList[1] == ('open')){
+                open.classList.remove('open')
+                forms.classList.remove('sky__overlay--open')
+            }else{
+                open.classList.add('open')
+                forms.classList.add('sky__overlay--open')
+            }
+        },
         blurIn(enter) {
             clearTimeout(this.blurTimeout)
             const footer = document.querySelector('.sky__informacoes')
@@ -141,7 +167,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+    transition: .5s !important;
+}
+
 :root {
     --shadow-color: black;
     --sky-scale: 0.9;
@@ -157,6 +187,88 @@ export default {
     height: 100vh;
     width: 100vw;
     z-index: 2;
+    overflow: hidden;
+}
+
+.sky__close {
+    position: absolute;
+    top: -34px;
+    right: -26px;
+    background: none;
+    border: none;
+    font-size: 24px;
+}
+
+.forms__overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.sky__overlay--open {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.sky__forms {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;    
+    width: 300px;
+}
+
+.forms__field {
+    padding-top: 12px;
+    height: 36px;
+    padding: 0 14px;
+    background: #1c1c1c;
+    border-radius: 50px;
+    border: none;
+    width: 100%;
+}
+
+.forms__textarea {
+    height: 160px;
+}
+
+.sky input, textarea {
+    height: 36px;
+    background: #1c1c1c;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    padding: 12px 14px 14px 14px;
+    transition: .2s;
+}
+
+.sky input:focus, textarea {
+    outline: none;
+}
+
+.sky input:focus, textarea {
+    transition: .2s;
+}
+
+.forms__button {
+    height: 36px;
+    background: #1c1c1c;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    transition: .5s;
+}
+
+.forms__button:hover {
+    transition: .5s;
 }
 
 .sky::after {
@@ -407,7 +519,7 @@ export default {
 
 .sky__planet_10 {
     width: 17%;
-    bottom: 18%;
+    bottom: 30%;
     left: 26%;
     z-index: 3;
     animation-name: sky_04;
@@ -417,6 +529,7 @@ export default {
     width: 100%;
     z-index: 2;
     bottom: 4vh;
+    left: 0;
     animation-name: sky_11;
 }
 
@@ -757,5 +870,71 @@ export default {
 
 .whiteTheme .sky::before {
     background-image: linear-gradient(transparent, rgb(232, 222, 222));
+}
+
+
+.open .sky__planet_01 {
+    left: 10%;
+    top: 8%;
+}
+
+.open .sky__planet_02 {
+    bottom: 0%;
+    right: 27vw;
+}
+
+.open .sky__planet_03 {
+    top: 0%;
+    left: 25%;
+}
+
+.open .sky__planet_05 {
+    top: 18%;
+    right: 1%;
+}
+
+.open .sky__planet_06 {
+    bottom: 24%;
+    right: 1%;
+}
+
+.open .sky__planet_07 {
+    top: 4%;
+    right: 44%;
+}
+
+.open .sky__planet_08 {
+    top: -10%;
+    left: 32%;
+}
+
+.open .sky__planet_09 {
+    top: 27%;
+    left: 7%;
+}
+
+.open .sky__planet_10 {
+    bottom: -8%;
+    left: 34%;
+}
+
+.open .sky__planet_11 {
+    bottom: 4vh;
+    left: -48%;
+}
+
+.open .sky__planet_12 {
+    right: 12%;
+    top: -10%;
+}
+
+.open .sky__planet_13 {
+    left: 0;
+    bottom: 30%;
+}
+
+.open .sky__planet_14 {
+    right: 0;
+    bottom: 45%;
 }
 </style>

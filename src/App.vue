@@ -21,18 +21,7 @@
     <div id="main">
 
       <header class="inicio">
-          <!-- <img 
-            class="parallax--img" 
-            id="parallax" 
-            :src="`inicio/${whiteImages}/background__parallax.webp`" 
-            alt=""
-          > -->
-          <img 
-            class="inicio__img" 
-            id="parallax" 
-            :src="`inicio/black/background__parallax.webp`" 
-            alt=""
-          >
+        
         <div class="inicio__ctn max__width" id="inicio">
           <br>
           <div class="inicio__column--2">
@@ -81,16 +70,6 @@
         </div>
       </header>
 
-      <!-- BACKGROUND -->
-      <!-- <div class="background__parallax">
-        <img 
-          class="parallax--img" 
-          id="parallax" 
-          :src="`inicio/${whiteImages}/background__parallax.webp`" 
-          alt=""
-        >
-      </div> -->
-
       <!-- BUBBLES -->
       <div class="bubble__container" id="bubbles__observer">
         <img class="bubble bubble__left" src="bubble1.svg" alt="">
@@ -104,12 +83,12 @@
         <div class="abordo__container max__width">
           <p>Aperte os cintos e entre abordo</p>
         </div>
-        <img class="abordo__img" src="inicio/black/abordo.webp" alt="">
+        <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" alt="">
       </div>
 
 
       <!-- PORTFÓLIO -->
-      <div class="experiencia">
+      <div class="experiencia" id="portfolio">
 
         <img class="experiencia__rocha experiencia__rocha--0" src="\inicio\black\rochas\intersect-0.png" alt="">
         <img class="experiencia__rocha experiencia__rocha--1" src="\inicio\black\rochas\intersect-1.png" alt="">
@@ -133,20 +112,47 @@
             <div class="carrossel__slide">
               <div
                 :id="`carrossel__${index}`"
-                v-for="(image, index) in carrosselItems"
+                v-for="(el, index) in imagens.carrossel_01"
                 @click="carrossel"
                 carrossel__item
                 >
-                  <div class="carrossel__popup">Clique aqui</div>
-                  <img class="carrossel__iframe" src="inicio/phone__iframe.png" alt="">
-                  <img class="carrossel__background" :src="image.path" alt="">
+                  <div class="carrossel__popup"
+                    @click="upPopup(el, 'carrossel_01')"
+                  >
+                    Clique aqui
+                  </div>
+                  <div class="carrossel__background">
+                    <img class="" :src="`projetos/${el.thumb.default}`" alt="">
+                  </div>
                 </div>
             </div>
           </div>
-
         </div>
       </div>
 
+      <!-- OUTROS -->
+
+      <div class="outros">
+        <div class="outros__grid max__width">
+
+            <!-- Cards -->
+
+            <div
+              :class="`${item.class} outros__card`"
+              v-for="item in imagens.carrossel_02"
+            >
+              <div
+                class="outros__clique"
+                @click="upPopup(item, 'carrossel_02')"
+              >
+                Clique aqui
+              </div>
+              <img class="outros__img" :src="`projetos/${item.thumb.white}-${smile}.jpg`" alt="">
+            </div>
+
+        </div>
+      </div>
+      
       <!-- SOBRE -->
 
       <Sobre :whiteIcons="whiteIcons" />
@@ -164,6 +170,13 @@
       <FooterElements :whiteImages="whiteImages" :footerVisible="footerVisible" :blockClicked="blockClicked" />
 
     </div>
+
+    <Popup
+      v-if="handleUpPopup"
+      :elemento="imageIndex"
+      @close-popup="handleUpPopup = false"
+    />
+
   </div>
 </template>
 
@@ -171,18 +184,24 @@
 import Navegacao from './components/Navegacao'
 import FooterElements from './components/Footer.vue'
 import Sobre from './components/Sobre.vue'
+import Popup from './components/Popup.vue'
+import { imagens } from './components/destaque.js'
 
 export default {
   name: 'App',
   components: {
     Navegacao,
+    Popup,
     FooterElements,
     Sobre,
 
   },
   data() {
     return {
+      imagens: imagens,
       removeLinkVer: true,
+      imageIndex: Object,
+      handleUpPopup: false,
       whatTimeIs: null,
       hiddenHeader: true,
       booleanTheme: true,
@@ -195,33 +214,6 @@ export default {
       footerVisible: true,
       saldacao: null,
       widthSize: undefined,
-      carrosselItems: [
-        {
-          path: '/projetos/cajuina/website.jpg',
-        },
-        {
-          path: '/projetos/caju/website.jpg',
-        },
-        {
-          path: '/projetos/music/music_sp-webiste.jpg',
-        },
-        {
-          path: '/projetos/tre/website-tre-studio-design.jpg',
-        },
-        {
-          path: '/projetos/tcc/pagina_inicial_do_projeto.jpg',
-        },
-        {
-          path: '/projetos/teclakey/teclakey-webiste-de-design.jpg',
-        },
-        {
-          path: '/projetos/music/music_sp-webiste.jpg',
-        },
-        {
-          path: '/projetos/datamachina/datamachina_website_onepage.jpg',
-        },
-      ]
-
     }
   },
   watch: {
@@ -236,20 +228,18 @@ export default {
     this.keepWhiteOnReload(0)
     this.changeImagens(0)
     this.haveAGoodDay()
-
-    const scrolling = [ //elementos que serão ativados
-      { id: 'planets-earth', value: 0.4, position: -2200 },
-      { id: 'planets-red', value: 0.4, position: -1700 },
-      { id: 'parallax', value: 0.4, position: -200 },
-      { id: 'bubbles__observer', value: 0.4, position: 1200 },
-    ]
-
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
-
     this.carrossel()
   },
   methods: {
+    upPopup(obj, array){
+      this.imageIndex = {
+        obj: obj,
+        array: array
+      }
+      this.handleUpPopup = !this.handleUpPopup
+    },
     removeLinkVerFunc() {
       this.removeLinkVer = !this.removeLinkVer
     },
@@ -286,8 +276,6 @@ export default {
         event.currentTarget.removeAttribute('class') 
         event.currentTarget.classList.add('carrossel--center')
       } else {
-        console.log('opi');
-        console.log(document.getElementById(`carrossel__${elementOnSpot}`));
         document.getElementById(`carrossel__${elementOnSpot}`).classList.add('carrossel--center')
       }
     },
@@ -630,31 +618,6 @@ img {
   transition: .2s;
 }
 
-.background__parallax {
-  position: absolute;
-  display: flex;
-  align-items: flex-start;
-  top: 100vh;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 100vh);
-  transform: translateY(-400px);
-  overflow: hidden;
-}
-
-.parallax--img {
-  position: absolute;
-  width: 1700px;
-  object-fit: cover;
-  filter: blur(4px);
-}
-
-.whiteTheme .parallax--img {
-  width: 100%;
-  height: 100%;
-  filter: blur(0);
-}
-
 /* Mensagem */
 
 .mensagem {
@@ -681,24 +644,22 @@ img {
 </style>
 
 <style scoped>
-
-
 /* Abordo */
 
 .abordo {
   position: relative;
+  display: flex;
+  justify-content: center;
   height: 90vh;
-  min-height: 860px;
-  background: black;
+  min-height: 1000px;
   z-index: 1;
 }
 
 .abordo__img {
   position: absolute;
-  left: 0;
   top: 0;
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -719,7 +680,6 @@ img {
 
 .experiencia {
   position: relative;
-  background: black;
   padding: 400px 0;
 }
 
@@ -846,8 +806,6 @@ img {
   align-items: center;
   min-width: 200px;
   height: 400px;
-  border-radius: 30px;
-  overflow: hidden;
   cursor: pointer;
 }
 
@@ -855,25 +813,40 @@ img {
   overflow: initial;
 }
 
-.carrossel__iframe {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+[carrossel__item] .carrossel__background img, .carrossel__background::before {
+  border-radius: 40px;
 }
 
+
+
 .carrossel__background {
+  display: flex;
+  justify-content: center;
   position: absolute;
   width: 95%;
   height: 100%;
+  pointer-events: none;
+}
+
+.carrossel__background::before {
+  position: absolute;
+  content: '';
+  box-shadow: inset 1px 2px 2px gray;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.carrossel__background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   object-position: top;
   object-fit: cover;
+  box-shadow: 3px 3px 12px rgba(0, 0, 0, 1);
+  outline: 3px solid #363636;
+  border: 8px black solid;
 }
-
-.carrossel__iframe {
-  z-index: 2;
-}
-
 .carrossel--between {
   min-width: 248px;
   height: 500px;
@@ -886,16 +859,22 @@ img {
 
 .carrossel__popup {
   position: absolute;
-  top: -70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
   font-size: 24px;
   margin: auto;
-  height: 90px;
+  height: 100%;
   text-align: center;
-  width: 100%;
+  width: calc(100% - 16px);
+  border-radius: 60px;
   z-index: 2;
   text-decoration: underline;
   opacity: 0;
   transition: .2s;
+  pointer-events: none;
 }
 
 .carrossel__popup:hover {
@@ -907,51 +886,32 @@ img {
   pointer-events: initial;
   opacity: 1;
   transition: .2s;
+  transition-delay: 0.15s;
 }
 
-.carrossel--center .carrossel__background {
-  z-index: 1;
+.carrossel--center .carrossel__background img,
+.carrossel--center .carrossel__background::before {
   border-radius: 60px;
 }
 
-.carrossel--between .carrossel__background {
-  border-radius: 40px;
-  z-index: 1;
+.carrossel--between .carrossel__background img,
+.carrossel--between .carrossel__background::before {
+  border-radius: 50px;
 }
 
-.carrossel--borders .carrossel__background {
-  border-radius: 30px;
-  z-index: 1;
+.carrossel__background::after {
+  position: absolute;
+  content: '';
+  margin: auto;
+  background: black;
+  height: 18px;
+  box-shadow: inset 0px -1px 2px gray;
+  border-radius: 0 0 10px 10px;
+  width: 58px;
+  z-index: 2;
+  top: 8px;
+  width: 89px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .linkPadding {
   padding-top: 120px;
@@ -1013,8 +973,64 @@ p {
   background-size: contain;
 }
 
-/* Orçamento */
+/* OUTROS */
 
+.outros {
+  width: 100%;
+}
+
+.outros__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  grid-template: 
+  'butterfly null'
+  'butterfly mesa';
+  padding: 100px;
+}
+
+.outros__card {
+  position: relative;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+}
+.mesa {
+  grid-area: mesa;
+}
+
+.butterfly {
+  grid-area: butterfly;
+  height: 100%;
+}
+
+.outros__clique {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  z-index: 1;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.outros__card:hover .outros__clique {
+  transition: .2s;
+  opacity: 1;
+}
+
+.outros__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /*  */
 
@@ -1023,7 +1039,6 @@ p {
   align-items: center;
   min-height: 600px;
   position: relative;
-  margin-bottom: 100px;
   gap: 4vw;
   background-image: url('../public/inicio/black/banner_sky.jpg');
   background-size: cover;
@@ -1044,8 +1059,8 @@ p {
 
 .inicio__img {
   position: absolute;  
-  left: 0;
-  width: 62vw;
+  left: -10vw;
+  width: 55vw;
 }
 
 .inicio::after,
@@ -1135,11 +1150,6 @@ p {
 }
 
 @media screen and (max-width: 1000px) {
-
-  .parallax--img {
-    transform: translate(-300px, 1000px);
-    width: 1400px;
-  }
 
   .inicio {
     grid-template-columns: 100px 1fr 100px;

@@ -14,7 +14,6 @@
                 <div class="dropdown__container" @click="scrollDown">
                     <div class="dropdown nav" ancora="inicio">Início</div>
                     <div class="dropdown nav" ancora="portfolio">Portfólio</div>
-                    <div class="dropdown nav" ancora="facaumorcamento">Faça um orçamento</div>
                     <div class="dropdown nav" ancora="sobre">Sobre</div>
                     <div class="dropdown nav" ancora="contato">Contato</div>
                 </div>

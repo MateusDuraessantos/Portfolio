@@ -164,7 +164,6 @@ export default {
     flex-direction: column;
     -webkit-backdrop-filter: blur(50px) !important;
     backdrop-filter: blur(50px);
-    background: rgba(0, 0, 0, 0.1);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
     gap: 40px;
     border-radius: 36px;
@@ -172,7 +171,7 @@ export default {
     padding-bottom: 80px;
     max-width: 1000px;
     margin: auto;
-    z-index: 2;
+    z-index: 4;
 }
 
 .sobre__container {
@@ -182,7 +181,7 @@ export default {
     align-items: center;
 }
 
-.whiteTheme .sobre__container {
+.whiteTheme p, .whiteTheme h3 {
     color: black;
 }
 
