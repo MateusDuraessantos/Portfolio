@@ -1,12 +1,13 @@
 <template>
     <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
-        <button class="turnWhite" @click="emitFunction">
+        <!-- <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith" id="whiteThemeBtn">
                 <p class="claro"><div class="emoji">☀️</div> <text-btn>Tema</text-btn></p>
                 <p class="escuro"><text-btn>Tema</text-btn> <div class="emoji">🌙</div></p>
             </div>
-        </button>
+        </button> -->
+        <span></span>
 
         <div class="links" @click="upDropdown">
             <div id="mobile">
@@ -38,17 +39,17 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.turnWhite(0)
-        }, 0);
+        }, 0); */
     },
     watch: {
-        booleanTheme() {
+      /*   booleanTheme() {
             this.turnWhite(1000)
         },
         removeLinkVer() {
             this.removeLink()
-        }
+        } */
     },
     methods: {
         upDropdown(event) {
@@ -64,12 +65,8 @@ export default {
         emitFunction() {
             if (this.blockClick) {
                 this.$emit('tunOn')
-
                 this.blockClick = false
-                setTimeout(() => {
-                    //Bloqueia a troca de tema 2x seguidas antes de 2s
-                    this.blockClick = true
-                }, 2000);
+                setTimeout(() => this.blockClick = true, 2000); //Bloqueia a troca de tema 2x seguidas antes de 2s
             }
         },
         turnWhite(timer) {
@@ -94,12 +91,8 @@ export default {
         },
         removeLink() {
             this.$emit('removeLink')
-            if (document.querySelector('[activeLink]') != null) {
-                document.querySelector('[activeLink]').removeAttribute('activeLink')
-            }
-            if (document.querySelector('.hiddenHeader') != null) {
-                document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
-            }
+            if (document.querySelector('[activeLink]') != null) document.querySelector('[activeLink]').removeAttribute('activeLink')
+            if (document.querySelector('.hiddenHeader') != null) document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
         },
         scrollDown(e) {
             let ancora = e.target.getAttribute('ancora')
@@ -129,7 +122,7 @@ nav {
     backdrop-filter: blur(14px) !important;
     width: 100vw;
     height: 80px;
-    z-index: 5;
+    z-index: 6;
 }
 
 /*  */
@@ -168,7 +161,7 @@ nav {
 }
 
 button {
-    color: white;
+    color: var(--creme);
     font-size: 1rem;
     background: none;
     border: none;
@@ -190,10 +183,11 @@ button {
 .nav {
     cursor: pointer;
     transition: .2s;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.575);
 }
 
 .nav:hover {
-    color: rgb(255, 54, 54);
+    color: var(--vermelho);
     transition: .2s;
 }
 
@@ -357,7 +351,7 @@ text-btn {
 
     #mobile .nav:hover {
         transition: .3s;
-        color: rgb(234, 69, 69);
+        color: var(--vermelho);
     }
 
     #mobile .dropdown__option {

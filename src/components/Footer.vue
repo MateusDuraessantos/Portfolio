@@ -2,12 +2,20 @@
     <footer class="sky " id="contato">
 
         <div class="forms__overlay" id="forms">
-            <forms class="sky__forms">
-                <button class="sky__close" @click="openForms">✕</button>
-                <input class="forms__field" placeholder="Digite aqui" type="text" required>
-                <textarea class="forms__textarea" placeholder="Digite aqui" type="text" required></textarea>
-                <button class="forms__button" type="button">Enviar</button>
-            </forms>
+            <div class="forms__container">
+                <button class="forms__close" @click="openForms">✕</button>
+                <form
+                    class="sky__forms"
+                    action="https://formspree.io/f/mqkrnqyn"
+                    method="POST"
+                >
+                
+                    <input type="text" name="nome" placeholder="Digite aqui seu nome" required>
+                    <input class="forms__field" type="email" name="email" placeholder="Digite aqui seu email" required>
+                    <textarea class="forms__textarea" name="message" placeholder="Digite aqui alguma mensagem" type="text" required></textarea>
+                    <button class="forms__button--send" type="submit">Enviar</button>
+                </form>
+            </div>
         </div>
 
         <!-- Os céus proclamam a glória de Jesus -->
@@ -25,38 +33,60 @@
             <div class="informacoes__container">
                 <address class="informacoes__content">
                     <div class="contatos__column">
-                        <a class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('(11) 96593-9822')">
+
+                        <!-- Whatsapp -->
+                        
+                        <a
+                            class="decoration"
+                            @mouseenter="blurIn('enter')"
+                            @mouseleave="blurIn"
+                            href="https://wa.me/5511965939822"
+                            target="_blank"
+                        >
                             <div class="informacoes__contato">
                                 <img :src="`icons/${iconsTheme}/whatsapp.svg`" alt="WhatsApp" loading="lazy">
-                                <p class="contato__email">whatsapp</p>
+                                <p class="contato__email">Whatsapp</p>
                             </div>
                             <p class="decoration__info">(11) 96593-9822</p>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
-                        </a>
-                        <a class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" @click="copyText('mateusduraessantos@gmail.com')">
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email" loading="lazy">
-                                <p class="contato__email">e-mail</p>
-                            </div>
-                            <div class="decoration__info">
-                                mateusduraessantos@gmail.com
-                            </div>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
-                        </a>
-                        <a class="decoration" @mouseenter="blurIn('enter')" @mouseleave="blurIn" href="https://www.behance.net/mateusduraes" target="_blank">
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance" loading="lazy">
-                                <p class=" contato__email">behance</p>
-                            </div>
-                            <div class="decoration__info">
-                                Mateus Durães dos Santos
-                            </div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
                         </a>
-                        <button @click="openForms" href="#">
-                            forms
-                        </button>
 
+                        <!-- E-mail -->
+
+                        <a
+                            class="decoration"
+                            @mouseenter="blurIn('enter')"
+                            @mouseleave="blurIn"
+                            @click="copyText('mateusduraessantos@gmail.com')"
+                        >
+                            <div class="informacoes__contato">
+                                <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email" loading="lazy">
+                                <p class="contato__email">E-mail</p>
+                            </div>
+                            <div class="decoration__info">mateusduraessantos@gmail.com</div>
+                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
+                        </a>
+
+                        <!-- Behance -->
+
+                        <a
+                            class="decoration"
+                            @mouseenter="blurIn('enter')"
+                            @mouseleave="blurIn"
+                            href="https://www.behance.net/mateusduraes"
+                            target="_blank"
+                        >
+                            <div class="informacoes__contato">
+                                <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance" loading="lazy">
+                                <p class=" contato__email">Behance</p>
+                            </div>
+                            <div class="decoration__info">Mateus Durães dos Santos</div>
+                            <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
+                        </a>
+                        
+                        <button class="forms__button" @click="openForms" href="#">
+                            Enviar mensagem agora!
+                        </button>
                     </div>
                 </address>
                 <div id="observador__footer"
@@ -69,8 +99,7 @@
                     "
                 >
                     <p class="frase">Quem disse que rodapés precisam ser chatos?
-                        <br>
-                        <br>
+                        <br><br>
                     </p>
                 </div>
             </div>
@@ -98,7 +127,7 @@
 export default {
     data() {
         return {
-            iconsTheme: 'blackicons',
+            iconsTheme: 'whiteicons',
             footerVideo: Boolean
         }
     },
@@ -147,6 +176,12 @@ export default {
             addBlur(enter == 'enter' ? 1 : -1)
         },
         copyText(content) {
+            // Só funciona quando está online, HTTPS precisa ser seguro            
+            if (!navigator.clipboard) {
+                console.error('Clipboard API not available');
+                alert('Copying not supported in this browser');
+                return;
+            }
             navigator.clipboard.writeText(content)
             .then(() => {
                 alert("Texto copiado: " + content);
@@ -167,11 +202,7 @@ export default {
 }
 </script>
 
-<style scoped>
-* {
-    transition: .5s !important;
-}
-
+<style>
 :root {
     --shadow-color: black;
     --sky-scale: 0.9;
@@ -180,6 +211,8 @@ export default {
 .contato__email {
     padding-right: 10px;
     font-size: 20px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.575);
 }
 
 .sky {
@@ -190,13 +223,26 @@ export default {
     overflow: hidden;
 }
 
-.sky__close {
+/* Formulário */
+
+.forms__container {
+    position: absolute;    
+}
+
+.forms__close {
     position: absolute;
     top: -34px;
     right: -26px;
     background: none;
     border: none;
     font-size: 24px;
+    transition: .5s;
+    opacity: 1;
+}
+
+.forms__close:hover {
+    opacity: 0.4;
+    transition: .5s;
 }
 
 .forms__overlay {
@@ -210,6 +256,7 @@ export default {
     opacity: 0;
     pointer-events: none;
     z-index: 5;
+    transition: .5s;
 }
 
 .sky__overlay--open {
@@ -221,15 +268,52 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    position: absolute;    
     width: 300px;
 }
 
-.forms__field {
+
+.forms__button--send {
+    height: 36px;
+    border-radius: 50px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .5s;
+    color: black;
+    background: var(--creme);
+}
+
+.forms__button--send:hover {
+    transition: .5s;
+    background: var(--vermelho);
+    color: var(--creme);
+}
+
+.forms__button {
+    position: absolute;
+    border: none;
+    font-size: 16px;
+    background: #fffcf6;
+    border-radius: 50px;
+    color: #1c1c1c;
+    padding: 0 22px;
+    height: 46px;
+    bottom: -120px;
+    z-index: 22;
+    transition: .2s;
+    width: max-content !important;
+}
+
+.forms__button:hover {
+    transition: .2s;
+    background: var(--vermelho);
+}
+
+.forms__field, input, textarea, .forms__button {
     padding-top: 12px;
     height: 36px;
     padding: 0 14px;
-    background: #1c1c1c;
+    background: var(--creme);
     border-radius: 50px;
     border: none;
     width: 100%;
@@ -237,39 +321,36 @@ export default {
 
 .forms__textarea {
     height: 160px;
+    max-width: 300px;
+    min-width: 300px;
 }
 
-.sky input, textarea {
+input, textarea {
     height: 36px;
-    background: #1c1c1c;
     border-radius: 20px;
     border: none;
     width: 100%;
     padding: 12px 14px 14px 14px;
-    transition: .2s;
-}
-
-.sky input:focus, textarea {
-    outline: none;
-}
-
-.sky input:focus, textarea {
-    transition: .2s;
-}
-
-.forms__button {
-    height: 36px;
-    background: #1c1c1c;
-    border-radius: 50px;
-    border: none;
-    color: white;
-    font-size: 14px;
     transition: .5s;
 }
 
-.forms__button:hover {
-    transition: .5s;
+
+input::placeholder, textarea::placeholder, .forms__button {
+    color: black;
 }
+
+input, textarea {
+    transition: .5s;
+    outline: transparent 1px solid;
+}
+
+input:focus, textarea:focus,
+input:hover, textarea:hover {
+    transition: .5s;
+    outline: rgb(255, 54, 54) 1px solid;
+    color: var(--vermelho);
+}
+
 
 .sky::after {
     position: absolute;
@@ -332,7 +413,7 @@ export default {
 }
 
 .sky__informacoes {
-    mix-blend-mode: difference;
+    /* mix-blend-mode: difference; */
     width: 100%;
     height: 100%;
     position: absolute;
@@ -354,8 +435,10 @@ export default {
 }
 
 .contatos__column {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 100px;
 }
 
@@ -383,7 +466,7 @@ export default {
 }
 
 .decoration__copy:hover {
-    opacity: 0.6 !important;
+    opacity: 0.6;
     transition: .2s;
 }
 
@@ -435,7 +518,6 @@ export default {
     text-align: center;
 }
 
-
 .smile_cont {
     position: absolute;
     left: 18%;
@@ -458,6 +540,11 @@ export default {
     animation-duration: 32s;
     animation-iteration-count: infinite;
 }
+
+.sky__planet_01, .sky__planet_02, .sky__planet_03, .sky__planet_04, .sky__planet_05, .sky__planet_06, .sky__planet_07, .sky__planet_08, .sky__planet_09, .sky__planet_10, .sky__planet_11, .sky__planet_12, .sky__planet_13, .sky__planet_14 {
+    transition: 2s;
+}
+
 
 .sky__planet_01 {
     width: 11%;
@@ -488,7 +575,7 @@ export default {
 }
 
 .sky__planet_06 {
-    bottom: 35%;
+    bottom: 25%;
     width: 24%;
     right: 10%;
     animation-name: sky_08;
@@ -506,13 +593,11 @@ export default {
     top: 17%;
     left: 30%;
     animation-name: sky_08;
-
 }
 
 .sky__planet_09 {
     animation-name: sky_01;
     top: 40%;
-
     left: 20%;
     width: 9%;
 }
@@ -528,7 +613,7 @@ export default {
 .sky__planet_11 {
     width: 100%;
     z-index: 2;
-    bottom: 4vh;
+    bottom: -14vh;
     left: 0;
     animation-name: sky_11;
 }

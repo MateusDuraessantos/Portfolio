@@ -20,14 +20,12 @@
                                 alt="logo Linkedin" loading="lazy">
                         </a>
                     </div>
-                    <p>
-                        Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI. Com
-                        dois anos de experiência profissional, utilizando tecnologias como CSS, JavaScript e Vue.js.
-                        Atualmente, ocupo a posição de Desenvolvedor Frontend Júnior, mas estou em uma jornada contínua
-                        de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o
-                        desenvolvimento Full Stack, com foco no backend, para me tornar um profissional mais versátil e
-                        completo no campo do desenvolvimento web.
-                    </p>
+                    <div class="sobre__text">
+                        <p>&nbsp;Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI.</p>
+                        <p>&nbsp;Tenho dois anos de experiência profissional utilizando tecnologias como CSS, JavaScript e Vue.js dentre outras.</p>
+                        <p>&nbsp;Atualmente, estou em uma jornada contínua de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o
+                        desenvolvimento Full Stack e me tornar um profissional mais completo para o desenvolvimento web.</p>
+                    </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
                     <h3>Conhecimentos:</h3>
@@ -37,8 +35,6 @@
                         <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
                         <p>{{ icons.skill }}</p>
                     </div>
-                </div>
-                <div class="sobre__experiencia">
                     <div class="sobre__ctn" v-for="icons in experienciaIcons[1]">
                         <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
                         <p>{{ icons.skill }}</p>
@@ -129,6 +125,12 @@ export default {
     width: 100%;
     padding: 200px 0;
     padding-bottom: 400px;
+}
+
+.sobre__text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .sobre__planet--1 {
@@ -290,7 +292,5 @@ export default {
     .sobre__redes {
         padding: 10px 0;
     }
-
 }
-
 </style>

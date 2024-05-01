@@ -50,15 +50,12 @@ export default {
     },
     methods: {
         stopLoading(id){
-            const element = document.getElementById(id)
-            console.log(element);
-            element.classList.remove('loading--on')
+            document.getElementById(id).classList.remove('loading--on')
         },
         closeThisPopup(event) {
-            const eventTarget = event.target
             let clickable = ['popup__close', 'popup']
             clickable.forEach(obj => {
-                if (obj == eventTarget.classList[0]) {
+                if (obj == event.target.classList[0]) {
                     document.querySelector('.popup').classList.add('popup__closing')
                     setTimeout(() => {
                         this.$emit('closePopup')
@@ -71,11 +68,9 @@ export default {
             this.clearPopup = false
             setTimeout(() => this.clearPopup = true, 500)
 
-            if (param == 'next') {
-                this.indexImg = this.indexImg < this.imagens[this.elemento.array].length - 1 ? this.indexImg + 1 : 0
-            } else if (param == 'back') {
-                this.indexImg = this.indexImg == 0 ? this.imagens[this.elemento.array].length : this.indexImg - 1
-            }
+            if(param == 'next') this.indexImg = this.indexImg < this.imagens[this.elemento.array].length - 1 ? this.indexImg + 1 : 0
+            if(param == 'back') this.indexImg = this.indexImg == 0 ? this.imagens[this.elemento.array].length - 1 : this.indexImg - 1
+            
             this.renderImg = this.imagens[this.elemento.array][this.indexImg] // Re atribui os valores 
         }
     }
@@ -100,12 +95,8 @@ export default {
 }
 
 @keyframes openPopup {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0 }
+    to { opacity: 1 }
 }
 
 .popup__closing {
@@ -113,12 +104,8 @@ export default {
 }
 
 @keyframes closingPopup {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+    from { opacity: 1 }
+    to { opacity: 0 }
 }
 
 .popup__overlay {
@@ -126,7 +113,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 1000px;
+    max-width: 1000px;
+    min-height: 1000px;
     height: max-content;
     top: 0;
     background: #1f1f1f;
@@ -143,6 +131,10 @@ export default {
         transform: translatey(0);
         opacity: 1;
     }
+}
+
+.popup__overlay {
+    width: calc(100% - 10px);
 }
 
 .popup__imgs {
@@ -180,19 +172,14 @@ export default {
     height: 140px;
     border-radius: 50%;
     border-style: dotted;
-    border-color: white;
+    border-color: var(--creme);
     border-width: 5px;
     animation: rotation 14s infinite linear;
 }
 
 @keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg) }
+    to { transform: rotate(360deg) }
 }
 
 /* Espada */
@@ -209,12 +196,8 @@ export default {
 }
 
 @keyframes repet {
-    from {
-        left: -100px;
-    }
-    to {
-        left: calc(100% + 100px);
-    }
+    from { left: -100px }
+    to { left: calc(100% + 100px) }
 }
 
 .loading--on::before {
@@ -231,13 +214,8 @@ export default {
 }
 
 @keyframes loading {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360);
-    }
+    from { transform: rotate(0) }
+    to { transform: rotate(360) }
 }
 
 .popup__close {
@@ -249,6 +227,8 @@ export default {
     font-weight: 300;
     border: none;
     transition: .2s;
+    z-index: 2;
+    text-shadow: 1px 1px 2px black;
 }
 
 .popup__close:hover {
@@ -272,7 +252,7 @@ export default {
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    color: white;
+    color: var(--creme);
     font-size: 22px;
     cursor: pointer;
 }
@@ -305,4 +285,20 @@ export default {
     gap: 10px;
     padding: 29px;
 }
+
+@media screen and (max-width: 700px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .popup_head p {
+        font-size: 14px;
+    }
+
+    .popup_head {
+        padding: 20px;
+    }
+    
+}
+
 </style>

@@ -45,7 +45,7 @@ export default {
     font-size: 1.4rem;
     font-weight: 600;
     width: 100%;
-    color: #E0D9CE !important;
+    color: var(--creme) !important;
 }
 
 

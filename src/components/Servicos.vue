@@ -153,7 +153,7 @@ export default {
     border: none;
     border-radius: 6px;
     padding: 4px 10px;
-    color: white !important;
+    color: var(--creme) !important;
     transition: .2s
 }
 
@@ -186,7 +186,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     gap: 20px;
-    background: white;
+    background: var(--creme);
     border-radius: 26px;
     padding: 30px;
     width: 100%;
@@ -326,4 +326,6 @@ export default {
         border-radius: 12px;
     }
 }
+
+
 </style>

@@ -20,44 +20,44 @@
     <!-- Se booleanTheme for true o tema fica branco  -->
     <div id="main">
 
-      <header class="inicio">
-        
-        <div class="inicio__ctn max__width" id="inicio">
+      <header class="banner">
+        <p class="designed_by">
+          Designed by Mateus Durães dos Santos - {{ new Date().getFullYear() }}
+        </p>
+        <div class="banner__ctn max__width" id="inicio">
           <br>
-          <div class="inicio__column--2">
-            <p class="designed_by">
-              Designed by Mateus Durães dos Santos - 2023
-            </p>
-            <div class="inicio__description">
-              <div class="inicio__container">
-                <p class="mim__ola">{{ saldacao }}</p>
-                <h2 class="mim__nome">Meu nome é Mateus,</h2>
+          <div class="banner__column--2">
+           
+            <div class="banner__description">
+              <div class="banner__container">
+                <p class="banner__ola">{{ saldacao }}</p>
+                <h2 class="banner__nome">Meu nome é Mateus,</h2>
               </div>
-              <div class="inicio__content">
-                <p>E trabalho design e programação.</p>
+              <div class="banner__content">
+                <p>E trabalho com design e programação.</p>
               </div>
-              <div class="redes">
-                <a href="https://www.behance.net/mateusduraes" target="_blank">
+              <div class="banner__social">
+                <a class="banner__redes img--1" href="https://www.behance.net/mateusduraes" target="_blank">
                   <img
-                    class="redes__img img--1" :src="`icons/${whiteIcons}/behance__fill.svg`"
+                    class="banner__redes--img" :src="`icons/${whiteIcons}/behance__fill.svg`"
                     width="58"
                     height="34"
                     alt="logo Behance"
                     loading="lazy"
                   >
                 </a>
-                <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
+                <a class="banner__redes" href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
                   <img
-                    class="redes__img" :src="`icons/${whiteIcons}/linkedin.svg`"
+                    class="banner__redes--img" :src="`icons/${whiteIcons}/linkedin.svg`"
                     width="58"
                     height="34"
                     alt="logo Linkedin"
                     loading="lazy"
                   >
                 </a>
-                <a href="https://github.com/MateusDuraessantos" target="_blank">
+                <a class="banner__redes" href="https://github.com/MateusDuraessantos" target="_blank">
                   <img
-                    class="redes__img"
+                    class="banner__redes--img"
                     :src="`icons/${whiteIcons}/github__fill.svg`"
                     width="58"
                     height="34"
@@ -70,18 +70,11 @@
         </div>
       </header>
 
-      <!-- BUBBLES -->
-      <div class="bubble__container" id="bubbles__observer">
-        <img class="bubble bubble__left" src="bubble1.svg" alt="">
-        <div class="bubble bubble__right"></div>
-      </div>
-
-
       <!-- ABORDO -->
 
       <div class="abordo">
         <div class="abordo__container max__width">
-          <p>Aperte os cintos e entre abordo</p>
+          <p class="abordo__p"><strong>Aperte os cintos e entre abordo</strong></p>
         </div>
         <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" alt="">
       </div>
@@ -104,7 +97,7 @@
         <img class="experiencia__rocha experiencia__rocha--11" src="\inicio\black\rochas\intersect-11.png" alt="">
 
         <div class="max__width">
-          <p class="experiencia__container">Alguns web projetos que trabalhei</p>
+          <p class="experiencia__container"><strong>Alguns web projetos que trabalhei</strong></p>
         </div>
 
         <div class="carrossel">
@@ -114,6 +107,9 @@
                 :id="`carrossel__${index}`"
                 v-for="(el, index) in imagens.carrossel_01"
                 @click="carrossel"
+                @touchstart="touthPositions"
+                @touchend="touthPositions"
+
                 carrossel__item
                 >
                   <div class="carrossel__popup"
@@ -133,6 +129,9 @@
       <!-- OUTROS -->
 
       <div class="outros">
+
+        <p class="outros__alguns"><b>Alguns outros</b></p>
+
         <div class="outros__grid max__width">
 
             <!-- Cards -->
@@ -145,7 +144,7 @@
                 class="outros__clique"
                 @click="upPopup(item, 'carrossel_02')"
               >
-                Clique aqui
+                Ver projeto
               </div>
               <img class="outros__img" :src="`projetos/${item.thumb.white}-${smile}.jpg`" alt="">
             </div>
@@ -160,10 +159,8 @@
       <!--  -->
 
       <section class="mensagem">
-        <p>
-          Curtiu o passeio? <br>
-          Entre em contato para mais!
-        </p>
+        <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
+        <p class="mensagem__arrow">Entre em contato para mais!</p>
       </section>
       <!-- FOOTER -->
 
@@ -214,6 +211,9 @@ export default {
       footerVisible: true,
       saldacao: null,
       widthSize: undefined,
+      touchSlided: [],
+      initItem: 2,
+      blockClickWhileTouch: true,
     }
   },
   watch: {
@@ -231,6 +231,8 @@ export default {
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
     this.carrossel()
+
+    console.clear()
   },
   methods: {
     upPopup(obj, array){
@@ -243,42 +245,66 @@ export default {
     removeLinkVerFunc() {
       this.removeLinkVer = !this.removeLinkVer
     },
-    carrossel(event) {
-      const elementOnSpot = 2 // Altera qual o item em destaque
-      const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
-      const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
-      all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
-      const itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
+    /* Carrossel */
+    touthPositions(event){
+      this.blockClickWhileTouch = false
+      if(event.type == 'touchend') this.blockClickWhileTouch = true
 
-      const R = eventID == itemsLength ? eventID : eventID + 1
-      const L = eventID == 0 ? eventID : eventID - 1
+      this.touchSlided.push(event.changedTouches[0].clientX)
+      const limiteSlide = 50 // Define quantos pixeis o touch deve alcançar para poder ativar a animação 
+      let gSlide = this.touchSlided[0] - this.touchSlided[1] > limiteSlide || this.touchSlided[0] - this.touchSlided[1] < -limiteSlide
 
-      let slideR 
-      R == itemsLength ? null : slideR = R + 1
-
-      let slideL 
-      L == 0 ? L : slideL = L - 1
-
-      let position
-
-      if(slideR == 4 && slideL == 0) position = 0
-      else if(slideR <= 4) {
-        let positionL
-        if(slideR == 3) positionL = -1
-        if(slideR == 2) positionL = -2.3 // .3 = Ajuste fino de posicionamento
-        position = -197 * positionL
+      if(this.touchSlided[0] > this.touchSlided[1] && gSlide) { // Avança um item no carrossel
+        this.initItem = this.initItem < imagens.carrossel_01.length - 1 ? this.initItem + 1 : this.initItem
+        this.carrossel(null, this.initItem)
       }
-      else if(slideL >= 1) position = -197 * (slideL + 0.025 /* 0.025 = Ajuste fino de posicionamento */)
-      document.querySelector('.carrossel__slide').style.transform = `translatex(${position}px)`
-      document.getElementById(`carrossel__${R}`).classList.add('carrossel--between')
-      document.getElementById(`carrossel__${L}`).classList.add('carrossel--between')
-      if(event){
-        event.currentTarget.removeAttribute('class') 
-        event.currentTarget.classList.add('carrossel--center')
-      } else {
-        document.getElementById(`carrossel__${elementOnSpot}`).classList.add('carrossel--center')
+      if(this.touchSlided[0] < this.touchSlided[1] && gSlide) { // Retrocede um item no carrossel
+        this.carrossel()
+        this.initItem = this.initItem != 0 ? this.initItem - 1 : this.initItem
+        this.carrossel(null, this.initItem)
+      };
+    },
+    carrossel(event, touch) {
+      if(this.blockClickWhileTouch) {
+        this.touchSlided = []
+        const elementOnSpot = touch != undefined ? touch : 2 // Altera qual o item em destaque
+        const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
+        const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
+        all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
+        const itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
+
+        const R = eventID == itemsLength ? eventID : eventID + 1
+        const L = eventID == 0 ? eventID : eventID - 1
+
+        let slideR 
+        R == itemsLength ? null : slideR = R + 1
+
+        let slideL 
+        L == 0 ? L : slideL = L - 1
+
+        let position
+
+        if(slideR == 4 && slideL == 0) position = 0
+        else if(slideR <= 4) {
+          let positionL
+          if(slideR == 3) positionL = -1
+          if(slideR == 2) positionL = -2.3 // .3 = Ajuste fino de posicionamento
+          position = -197 * positionL
+        }
+        else if(slideL >= 1) position = -197 * (slideL + 0.025 /* 0.025 = Ajuste fino de posicionamento */)
+        document.querySelector('.carrossel__slide').style.transform = `translatex(${position}px)`
+        document.getElementById(`carrossel__${R}`).classList.add('carrossel--between')
+        document.getElementById(`carrossel__${L}`).classList.add('carrossel--between')
+        if(event){
+          event.currentTarget.removeAttribute('class') 
+          event.currentTarget.classList.add('carrossel--center')
+        }
+        else document.getElementById(`carrossel__${elementOnSpot}`).classList.add('carrossel--center')
       }
     },
+
+    /*  */
+
     isDay() {
       this.whatTimeIs = new Date().getHours()
       // this.booleanTheme = this.whatTimeIs < 5 || this.whatTimeIs > 18 ? false : true
@@ -287,15 +313,11 @@ export default {
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
         this.smile = 'white'
-        setTimeout(() => {
-          overflow.classList.remove('whiteoverflows')
-        }, 1250);
+        setTimeout(() => overflow.classList.remove('whiteoverflows'), 1250);
       } else {
         overflow.classList.add('blackoverflows')
         this.smile = 'black'
-        setTimeout(() => {
-          overflow.classList.remove('blackoverflows')
-        }, 1250);
+        setTimeout(() => overflow.classList.remove('blackoverflows'), 1250);
       }
     },
     turnOn() {
@@ -308,31 +330,19 @@ export default {
       const overflow = document.getElementById('themeOverflow')
       overflow.setAttribute('class', 'blackOverflow')
 
-      if (this.booleanTheme == true) {
-        setTimeout(() => {
-          overflow.removeAttribute('class')
-        }, timer);
-      } else {
+      if (this.booleanTheme == true) setTimeout(() => overflow.removeAttribute('class'), timer);
+      else {
         overflow.setAttribute('class', 'whiteOverflow')
-        setTimeout(() => {
-          overflow.removeAttribute('class')
-        }, timer);
+        setTimeout(() => overflow.removeAttribute('class'), timer);
       }
     },
     turnBackgroundWhite(timer) {
       // Altera a cor do background global 
-      if (this.booleanTheme == true) {
-        setTimeout(() => {
-          document.body.style.background = '#e8dede'
-        }, timer);
-      } else {
-        setTimeout(() => {
-          document.body.removeAttribute('style')
-        }, timer);
-      }
+      if (this.booleanTheme == true)  setTimeout(() => document.body.style.background = '#e8dede', timer);
+      else setTimeout(() => document.body.removeAttribute('style'), timer);
     },
     removeClass() {
-      document.getElementById('header').classList.remove('show')
+      document.getElementById('header').classList.remove('header__show')
     },
     tratarEvento(showingup) {
       this.hiddenHeader = showingup ? false : true
@@ -348,15 +358,10 @@ export default {
     },
     haveAGoodDay() {
       const date = new Date().getHours()
-      if (date >= 0 && date < 5) {
-        this.saldacao = 'Olá,'
-      } else if (date >= 5 && date < 12) {
-        this.saldacao = 'Bom dia!'
-      } else if (date >= 12 && date < 18) {
-        this.saldacao = 'Boa tarde!'
-      } else {
-        this.saldacao = 'Boa noite!'
-      }
+      if (date >= 0 && date < 5) this.saldacao = 'Olá,'
+      else if (date >= 5 && date < 12) this.saldacao = 'Bom dia!'
+      else if (date >= 12 && date < 18) this.saldacao = 'Boa tarde!'
+      else this.saldacao = 'Boa noite!'
     },
     changeImagens(timer) {
       if (this.booleanTheme == true) {
@@ -415,24 +420,26 @@ button {
   cursor: pointer;
 }
 
-:root {
-  --creme: #E0D9CE
-}
-
 img {
   user-select: none;
 }
 
-/*  */
-
-.header {
-  opacity: 1;
-  transition: .5s;
+:root {
+  --border-color: #2c2c2c;
+  --shadow-color: black;
+  --text-color: black;
+  --creme: #E0D9CE;
+  --vermelho: rgb(255, 54, 54);
 }
 
-.show {
-  opacity: 0;
-  transition: .2s
+a {
+  cursor: pointer;
+  position: relative;
+}
+
+p {
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
 }
 
 * {
@@ -472,7 +479,7 @@ img {
 }
 
 .whiteOverflow {
-  background: white;
+  background: var(--creme);
 }
 
 .whiteOverflow,
@@ -488,6 +495,12 @@ img {
   animation-name: changingTheme;
   animation-duration: 2s;
   pointer-events: none;
+}
+
+@keyframes changingTheme {
+  0% { opacity: 0 } 
+  50% { opacity: 1 }
+  100% { opacity: 0 }
 }
 
 /* Animação ao carregar a página */
@@ -520,88 +533,39 @@ img {
   width: 100vw;
 }
 
+@keyframes animationOverflow {
+  0% { opacity: 1 }
+
+  50% { opacity: 1 }
+
+  100% { opacity: 0 }
+}
+
 .blackoverflows .overflowPort {
   background: black;
 }
 
 .whiteoverflows {
-  background: white;
-}
-
-@media only screen and (max-width: 400px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@keyframes animationOverflow {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  background: var(--creme);
 }
 
 .popup__close--animation-blur .popup__overflow {
   overflow: hidden;
 }
 
-@keyframes animation_opacity {
-  from {
-    opacity: 0;
-  }
+/* Header */
 
-  to {
-    opacity: 1;
-  }
+.header {
+  opacity: 1;
+  transition: .5s;
 }
 
-@keyframes changingTheme {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+.header__show {
+  opacity: 0;
+  transition: .2s
 }
 
-@media screen and (max-width: 1280px) {
-  .max__width {
-    width: calc(100% - 100px);
-  }
-}
-
-@media screen and (max-width: 1000px) {
-
-  .max__width {
-    width: calc(100% - 50px);
-  }
-
-}
-
-@media only screen and (max-width: 400px) {
-
-  .max__width {
-    width: calc(100% - 10px);
-  }
-}
-
-:root {
-  --border-color: #2c2c2c;
-  --shadow-color: black;
-  --text-color: black;
-}
+/*  */
 
 .designed_by {
   position: absolute;
@@ -621,29 +585,51 @@ img {
 /* Mensagem */
 
 .mensagem {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  position: relative;
   height: 400px;
 }
 
-.mensagem p {
+.mensagem__title {
   text-align: center;
   font-size: 20px;
   font-weight: 400;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
   z-index: 1;
+  font-size: 28px;
+}
+
+.mensagem__arrow {
+  display: flex;
+  justify-content: center;
+  position: relative;  
+  z-index: 2;
+  font-size: 22px;
+}
+
+.mensagem__arrow::before {
+  content: '>';
+  font-size: 30px;
+  position: absolute;
+  bottom: -40px;
+  animation: arrow 2s infinite;
+}
+
+@keyframes arrow {
+  0% { transform: translateY(0) rotate(90deg) }
+  50%{ transform: translateY(20px) rotate(90deg) }
+  100% { transform: translateY(0) rotate(90deg) }
 }
 
 .whiteTheme .mensagem h6 {
   text-shadow: none;
   color: #8f5245;
 }
-</style>
 
-<style scoped>
 /* Abordo */
 
 .abordo {
@@ -671,10 +657,10 @@ img {
   height: 100%;
 }
 
-.abordo__container p {
-  color: white;
+.abordo__p {
+  color: var(--creme);
+  /* font-size: 22px; */
 }
-
 
 /* Expêriencia */
 
@@ -695,11 +681,11 @@ img {
 }
 
 .experiencia__container {
-  color: #e2e0e7;
+  color: var(--creme);
   font-size: 22px;
   width: 100%;
   text-align: center;
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 }
 
 .experiencia__rocha {
@@ -707,64 +693,76 @@ img {
 }
 
 .experiencia__rocha--0 {
-  width: 200px;
+  width: 20%;
+  max-width: 300px;
   top: 0;
   right: 40vw;
 }
 .experiencia__rocha--1 {
-  width: 100px;
-  top: 25%;
-  right: 45vw;
+  width: 10%;
+  max-width: 200px;
+  top: 34%;
+  right: 27vw;
 }
 .experiencia__rocha--2 {
-  width: 150px;
+  width: 15%;
+  max-width: 250px;
   right: 19vw;
   top: 10%;
 }
 .experiencia__rocha--3 {
-  width: 160px;
+  width: 16%;
+  max-width: 260px;
   left: 4vw;
   top: 27%;
 }
 .experiencia__rocha--4 {
-  width: 300px;
+  width: 30%;
+  max-width: 400px;
   bottom: -30%;
   left: 20vw;
 }
 .experiencia__rocha--5 {
-  width: 300px;
+  width: 30%;
+  max-width: 400px;
   right: -130px;
   top: 10%;
 }
 .experiencia__rocha--6 {
-  width: 130px;
+  width: 13%;
+  max-width: 230px;
   bottom: 0;
   left: 45vw;
 }
 .experiencia__rocha--7 {
-  width: 300px;
+  width: 30%;
+  max-width: 400px;
   left: -150px;
   top: 4%;
 }
 .experiencia__rocha--8 {
-  width: 300px;
-  left: 9vw;
-  bottom: 15%;
+  width: 30%;
+  max-width: 400px;
+  left: -7vw;
+  bottom: 2%;
 }
 .experiencia__rocha--9 {
-  width: 300px;
-    left: 19vw;
-    top: 16%;
+  width: 30%;
+  max-width: 400px;
+  left: 19vw;
+  top: 16%;
 }
 .experiencia__rocha--10 {
-  width: 300px;
+  width: 30%;
+  max-width: 400px;
   bottom: 100px;
   right: 3vw;
 }
 .experiencia__rocha--11 {
-  width: 200px;
-  top: 556px;
-  left: 21vw;
+  width: 20%;
+  max-width: 300px;
+  top: 1156px;
+  left: 26vw;
 }
 
 /* Carrossel */
@@ -816,8 +814,6 @@ img {
 [carrossel__item] .carrossel__background img, .carrossel__background::before {
   border-radius: 40px;
 }
-
-
 
 .carrossel__background {
   display: flex;
@@ -913,70 +909,19 @@ img {
   width: 89px;
 }
 
-.linkPadding {
-  padding-top: 120px;
-}
-
-/*  */
-
-
-a {
-  cursor: pointer;
-  position: relative;
-}
-
-p {
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
-  font-size: 1rem;
-}
-
-/* Bubbles */
-
-.bubble__container {
-  position: absolute;
-  width: 100vw;
-  left: 0;
-  top: 0;
-  z-index: 0;
-}
-
-.bubble {
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 100vw;
-  object-fit: contain;
-  height: 550px;
-  position: absolute;
-  z-index: 0;
-}
-
-.whiteTheme .bubble__right {
-  background-image: url('../public/inicio/white/birds.svg');
-  margin-top: 300px;
-  width: 300px;
-}
-
-.bubble__left {
-  left: 0;
-  width: 140px;
-  top: 100px;
-}
-
-.bubble__right {
-  width: 140px;
-  right: 0;
-  object-fit: contain;
-  background-image: url('../public/inicio/black/lua.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
 /* OUTROS */
 
 .outros {
+  position: relative;
   width: 100%;
+  z-index: 5;
+}
+
+.outros__alguns {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  color: var(--creme);
 }
 
 .outros__grid {
@@ -996,6 +941,7 @@ p {
   width: 100%;
   height: 400px;
 }
+
 .mesa {
   grid-area: mesa;
 }
@@ -1032,9 +978,9 @@ p {
   object-fit: cover;
 }
 
-/*  */
+/* Banner */
 
-.inicio {
+.banner {
   display: flex;
   align-items: center;
   min-height: 600px;
@@ -1042,9 +988,11 @@ p {
   gap: 4vw;
   background-image: url('../public/inicio/black/banner_sky.jpg');
   background-size: cover;
+  min-height: 100vh;
+  z-index: 1;
 }
 
-.inicio__column--2 {
+.banner__column--2 {
   display: flex;
   align-items: center;
   min-height: 600px;
@@ -1052,88 +1000,73 @@ p {
   margin-bottom: 100px;
 }
 
-.inicio__ctn {
+.banner__ctn {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.inicio__img {
+.banner__img {
   position: absolute;  
   left: -10vw;
   width: 55vw;
 }
 
-.inicio::after,
-.inicio::before {
+.banner::after,
+.banner::before {
   content: '';
   position: absolute;
   width: 100%;
 }
 
-.inicio::before {
+.banner::before {
   background-image: linear-gradient(transparent, black);
   height: 100px;
   bottom: 0;
 }
 
-.whiteTheme .inicio::before {
+.whiteTheme .banner::before {
   background-image: linear-gradient(transparent, #e2e0e7);
 }
 
-.whiteTheme .inicio::after {
+.whiteTheme .banner::after {
   background-image: linear-gradient(#e2e0e7, transparent);
 }
 
 
-.inicio__description {
+.banner__description {
   width: 100%;
   margin: auto;
   z-index: 1;
 }
 
-.inicio__container {
+.banner__container {
   display: flex;
   flex-direction: column;
   font-size: 1.9rem;
 }
 
-.inicio__content {
+.banner__content {
   font-weight: 400;
   font-size: 1rem;
 }
 
-.mim__ola {
+.banner__ola {
   font-size: 1.6rem;
 }
 
-.mim__nome {
+.banner__nome {
   font-size: 2.3rem;
-}
-
-.square__right {
-  right: 0;
-}
-
-.square__left {
-  left: 0;
-}
-
-.square__right,
-.square__left {
-  position: absolute;
-  width: 80px;
-  z-index: 1;
 }
 
 /*  */
 
-.redes {
+.banner__social {
   display: flex;
   width: max-content;
-  gap: 20px;
+  margin-top: 20px;
 }
 
-.redes__img {
+.banner__redes--img {
   cursor: pointer;
   transition: .2s;
   width: 40px;
@@ -1144,42 +1077,119 @@ p {
   padding-left: 0;
 }
 
-.redes:hover .redes__img:not(:hover) {
-  opacity: 0.6;
+.banner__redes {
+  padding: 10px;
   transition: .2s;
+}
+
+.banner__social:hover .banner__redes:not(:hover) {
+  opacity: 0.2;
+  transition: .2s;
+}
+
+@media screen and (max-width: 1280px) {
+  .max__width {
+    width: calc(100% - 100px) !important;
+  }
 }
 
 @media screen and (max-width: 1000px) {
 
-  .inicio {
+  .max__width {
+    width: calc(100% - 50px) !important;
+  }
+
+  /* Banner */
+  .banner__ctn {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .banner__description {
+      text-align: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+  }
+  .banner__social {
+    align-items: center;
+  }
+
+  .banner {
     grid-template-columns: 100px 1fr 100px;
   }
 
-  .square__left,
-  .square__right,
-  .bubble {
-    display: none;
-  }
-
-  .inicio__container {
+  .banner__container {
     gap: 12px;
     line-height: 24px;
   }
 
-  .mim__nome,
-  .mim__ola {
-    font-size: 1.2rem;
+  .banner__nome,
+  .banner__ola {
+    font-size: 28px;
+  }
+  
+  /* Abordo */
+
+  .abordo__container {
+    justify-content: center;
+    align-items: initial;
+  }
+
+  .abordo__p {
+    font-size: 18px;
+    margin-top: 60px;
+  }
+
+  /* Outro */
+
+  .outros__grid {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 8px;
+  }
+
+  .outros__card {
+    border-radius: 20px;
+  }
+
+  /* Carrossel */
+
+  .experiencia {
+    position: relative;
+    padding: 200px 0;
+  }
+
+  .carrossel__slide {
+    justify-content: center;
+    margin-left: 200px;
   }
 
 }
 
 /* Mobile version */
 
-@media only screen and (max-width: 500px) {
-  .inicio {
+@media screen and (max-width: 700px) {
+
+  .max__width {
+    width: calc(100% - 14px) !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .banner {
     display: flex;
     justify-content: center;
     margin: 0;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html {
+    font-size: 14px;
   }
 }
 
@@ -1194,7 +1204,7 @@ p {
   transition: .2s;
 }
 
-.whiteTheme .inicio {
+.whiteTheme .banner {
   background-image: url('../public/inicio/white/banner__white.jpg');
 }
 
@@ -1202,9 +1212,5 @@ p {
   color: #a87c7c !important;
 }
 
-.inicio {
-  min-height: 100vh;
-  z-index: 1;
-}
 
 </style>
