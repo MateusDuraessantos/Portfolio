@@ -1,6 +1,9 @@
 <template>
     <section class="section sobre" id="sobre">
+
         <div class="max__width">
+            <h3 class="sobre__title">Um pouco sobre mim</h3>
+
             <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1" alt="" loading="lazy">
             <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2" alt="" loading="lazy">
 
@@ -28,7 +31,7 @@
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <h3>Conhecimentos:</h3>
+                    <h4>Conhecimentos:</h4>
                 </div>
                 <div class="sobre__experiencia">
                     <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
@@ -124,7 +127,15 @@ export default {
     align-items: center;
     width: 100%;
     padding: 200px 0;
-    padding-bottom: 400px;
+    padding-bottom: 200px;
+}
+
+.sobre__title {
+    position: relative;
+    font-size: 22px;
+    font-size: 700; 
+    text-align: center;
+    z-index: 5;
 }
 
 .sobre__text {

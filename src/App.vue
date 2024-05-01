@@ -22,7 +22,7 @@
 
       <header class="banner">
         <p class="designed_by">
-          Designed by Mateus Durães dos Santos - {{ new Date().getFullYear() }}
+          Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
         </p>
         <div class="banner__ctn max__width" id="inicio">
           <br>
@@ -31,10 +31,10 @@
             <div class="banner__description">
               <div class="banner__container">
                 <p class="banner__ola">{{ saldacao }}</p>
-                <h2 class="banner__nome">Meu nome é Mateus,</h2>
+                <h1 class="banner__nome">Meu nome é Mateus,</h1>
               </div>
               <div class="banner__content">
-                <p>E trabalho com design e programação.</p>
+                <p>e trabalho com design e programação.</p>
               </div>
               <div class="banner__social">
                 <a class="banner__redes img--1" href="https://www.behance.net/mateusduraes" target="_blank">
@@ -83,18 +83,18 @@
       <!-- PORTFÓLIO -->
       <div class="experiencia" id="portfolio">
 
-        <img class="experiencia__rocha experiencia__rocha--0" src="\inicio\black\rochas\intersect-0.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--1" src="\inicio\black\rochas\intersect-1.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--2" src="\inicio\black\rochas\intersect-2.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--3" src="\inicio\black\rochas\intersect-3.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--4" src="\inicio\black\rochas\intersect-4.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--5" src="\inicio\black\rochas\intersect-5.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--6" src="\inicio\black\rochas\intersect-6.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--7" src="\inicio\black\rochas\intersect-7.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--8" src="\inicio\black\rochas\intersect-8.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--9" src="\inicio\black\rochas\intersect-9.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--10" src="\inicio\black\rochas\intersect-10.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--11" src="\inicio\black\rochas\intersect-11.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--0" src="inicio\black\rochas\intersect_00.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--1" src="inicio\black\rochas\intersect_01.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--2" src="inicio\black\rochas\intersect_02.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--3" src="inicio\black\rochas\intersect_03.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--4" src="inicio\black\rochas\intersect_04.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--5" src="inicio\black\rochas\intersect_05.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--6" src="inicio\black\rochas\intersect_06.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--7" src="inicio\black\rochas\intersect_07.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--8" src="inicio\black\rochas\intersect_08.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--9" src="inicio\black\rochas\intersect_09.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--10" src="inicio\black\rochas\intersect_10.png" alt="">
+        <img class="experiencia__rocha experiencia__rocha--11" src="inicio\black\rochas\intersect_11.png" alt="">
 
         <div class="max__width">
           <p class="experiencia__container"><strong>Alguns web projetos que trabalhei</strong></p>
@@ -156,17 +156,22 @@
 
       <Sobre :whiteIcons="whiteIcons" />
       
-      <!--  -->
+      <!-- CONTATO -->
 
-      <section class="mensagem">
-        <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
-        <p class="mensagem__arrow">Entre em contato para mais!</p>
+      <section>
+        <h5 class="mensagem">
+          <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
+          <p class="mensagem__arrow">Entre em contato para mais!</p>
+        </h5>
       </section>
+
       <!-- FOOTER -->
 
       <FooterElements :whiteImages="whiteImages" :footerVisible="footerVisible" :blockClicked="blockClicked" />
 
     </div>
+
+    <!-- POPUP -->
 
     <Popup
       v-if="handleUpPopup"
@@ -566,15 +571,21 @@ p {
 }
 
 /*  */
-
 .designed_by {
   position: absolute;
+}
+
+.designed_by, .designed_by strong {
   width: 100%;
   text-align: center;
   bottom: 10px;
   font-size: 12px;
   color: rgb(105, 110, 128);
   font-weight: 400;
+}
+
+.designed_by strong {
+  font-weight: 600;
 }
 
 #main {
@@ -586,12 +597,12 @@ p {
 
 .mensagem {
   position: relative;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 400px;
 }
 
 .mensagem__title {
@@ -608,6 +619,7 @@ p {
   justify-content: center;
   position: relative;  
   z-index: 2;
+  font-weight: 400;
   font-size: 22px;
 }
 
@@ -636,23 +648,21 @@ p {
   position: relative;
   display: flex;
   justify-content: center;
-  height: 90vh;
-  min-height: 1000px;
+  height: max-content;
   z-index: 1;
 }
 
 .abordo__img {
-  position: absolute;
-  top: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  min-height: 800px;
   object-fit: cover;
 }
 
 .abordo__container {
+  position: absolute;
   display: flex;
   align-items: center;
-  position: relative;
   z-index: 2;
   height: 100%;
 }

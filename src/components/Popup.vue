@@ -7,8 +7,8 @@
         </div>
 
         <div class="popup__overlay" id="overlay" v-if="clearPopup">
-            <div class="popup_head">
-                <h1>{{ renderImg.name }}</h1>
+            <div class="popup__head">
+                <h2 class="popup__title">{{ renderImg.name }}</h2>
                 <p>{{ renderImg.description }}</p>
             </div>
             <div class="popup__container">
@@ -279,11 +279,16 @@ export default {
     left: 34px;
 }
 
-.popup_head {
+.popup__head {
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 29px;
+}
+
+.popup__title {
+    font-size: 32px;
+    font-weight: 700;
 }
 
 @media screen and (max-width: 700px) {
@@ -291,11 +296,11 @@ export default {
         font-size: 20px;
     }
 
-    .popup_head p {
+    .popup__head p {
         font-size: 14px;
     }
 
-    .popup_head {
+    .popup__head {
         padding: 20px;
     }
     
