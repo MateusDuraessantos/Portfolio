@@ -357,6 +357,7 @@ input:hover, textarea:hover {
     content: '';
     top: 0;
     width: 100vw;
+    background-image: linear-gradient(var(--body_color), transparent);
     height: 200px;
     z-index: 2;
 }

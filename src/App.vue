@@ -322,8 +322,7 @@ export default {
       this.turnBackgroundWhite(1000)
       this.overflow(2000)
     },
-    overflow(timer) {
-      // Aciona o overflow para alteração do tema 
+    overflow(timer) { // Aciona o overflow para alteração do tema 
       const overflow = document.getElementById('themeOverflow')
       overflow.setAttribute('class', 'blackOverflow')
 
@@ -335,7 +334,7 @@ export default {
     },
     turnBackgroundWhite(timer) {
       // Altera a cor do background global 
-      if (this.booleanTheme == true)  setTimeout(() => document.body.style.background = '#e8dede', timer);
+      if (this.booleanTheme == true)  setTimeout(() => document.body.style.background = 'var(--body_color)', timer);
       else setTimeout(() => document.body.removeAttribute('style'), timer);
     },
     removeClass() {
@@ -423,6 +422,7 @@ img {
 
 :root {
   --linear-after-1: #f1f1f1;
+  --body_color: rgb(224 205 204);
   --linear-after: rgb(168 171 192);
   --border-color: #2c2c2c;
   --shadow-color: black;
@@ -477,7 +477,7 @@ p {
 }
 
 .whiteOverflow {
-  background: var(--creme);
+  background: white;
 }
 
 .whiteOverflow,
@@ -545,6 +545,7 @@ p {
 
 .whiteoverflows {
   background: var(--creme);
+  background: white;
 }
 
 .popup__close--animation-blur .popup__overflow {
@@ -1276,7 +1277,7 @@ p {
 .whiteTheme .container__background::before {
   position: absolute;
   content: '';
-  background-image: linear-gradient(transparent, rgb(232, 222, 222));
+  background-image: linear-gradient(transparent, var(--body_color));
   bottom: 0;
   height: 400px;
   width: 100%;
