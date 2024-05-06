@@ -135,6 +135,7 @@ export default {
     font-size: 22px;
     font-size: 700; 
     text-align: center;
+    margin-bottom: 40px;
     z-index: 5;
 }
 

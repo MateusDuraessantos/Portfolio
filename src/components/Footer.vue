@@ -953,10 +953,6 @@ input:hover, textarea:hover {
     color: black;
 }
 
-.whiteTheme .sky::before {
-    background-image: linear-gradient(transparent, rgb(232, 222, 222));
-}
-
 
 .open .sky__planet_01 {
     left: 10%;

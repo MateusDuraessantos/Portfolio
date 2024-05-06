@@ -3,31 +3,31 @@ export const imagens =
     carrossel_01: [
         {
             id: 'mgrwmplkfgfewplo,',
-            name: 'cajuina',
-            link: '',
+            name: 'Cajuina - Front End',
+            github: 'https://github.com/MateusDuraessantos/LP-Cajuina',
+            link: 'https://lp-cajuina.web.app/',
             paths: [
                 {
                     img: 'cajuina/website.jpg',
-                    alt: '',
+                    alt: 'Website Cajuina',
                 },
             ],
             thumb: { default: 'cajuina/website.jpg' },
-            description: '',
-            alt: '',
+            description: 'Nesse projeto, desenvolvi todos os códigos para construção do website, aplicando responsividade para dispositivos móveis.',
         },
         {
             id: 'mvrgwpemgrpoklewgre',
-            name: 'Caju',
-            link: '',
+            name: 'Caju | Front End',
+            link: 'https://caju-multi-beneficios-visa.web.app/',
+            github: 'https://github.com/MateusDuraessantos/caju-multi-beneficios',
             paths: [
                 {
                     img: 'caju/website.jpg',
-                    alt: '',
+                    alt: 'Website Caju Visa',
                 },
             ],
             thumb: { default: 'caju/website.jpg' },
-            description: '',
-            alt: '',
+            description: 'Nesse projeto, com design desenvolvido pela equipe da Caju, fiquei responsável por desenvolver os códigos da página e deixa-lá responsiva para dispositivos móveis.',
         },
         {
             id: 'molaergmplreg',
@@ -119,14 +119,14 @@ export const imagens =
             ],
             description: 'TeclaKey é um estudio de design. Na criação do website para o estúdio, junto a uma equipe de 3 pessoas, eu coordenador o desenvolvimento da identidade visual. Também fiquei 100% responsável pelo frontend, responsiveidade, implementação no domínio e otimização dos conteúdos para web.',
             thumb: { default: 'teclakey/teclakey-webiste-de-design.jpg' },
-            link: 'https://teclakey.com/',
+            link: 'https://tecla-key.web.app/',
             github: 'https://github.com/MateusDuraessantos/teclakeygit',
             alt: 'Website teclakey - UX/UI - Firebase',
             class: 'teclakey grid-area-height',
         },
         {
             id: 'gtrnieogvreoifg',
-            name: 'Data Machina | Trabalhos Front End',
+            name: 'Data Machina | Front End',
             link: 'https://data-machina.web.app/',
             paths: [
                 {

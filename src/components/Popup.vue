@@ -7,18 +7,26 @@
         </div>
 
         <div class="popup__overlay" id="overlay" v-if="clearPopup">
-            <div class="popup__head">
-                <h2 class="popup__title">{{ renderImg.name }}</h2>
-                <p>{{ renderImg.description }}</p>
-            </div>
-            <div class="popup__container">
-                <div
-                    v-for="img in renderImg.paths"
-                    class="loading loading--on"
-                    :id="img.img"
-                >
-                    <p class="loading__loader">Carregando</p>
-                    <img class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)">
+            <div class="popup__content">
+                <div class="popup__action--ctn" v-if="renderImg.link">
+                    <div class="popup__action">
+                        <a class="popup__action--button" :href="renderImg.link" target="_blank">Ver online</a>
+                        <a class="popup__action--button" :href="renderImg.github" target="_blank">Github</a>
+                    </div>
+                </div>
+                <div class="popup__head">
+                    <h2 class="popup__title">{{ renderImg.name }}</h2>
+                    <p>{{ renderImg.description }}</p>
+                </div>
+                <div class="popup__container">
+                    <div
+                        v-for="img in renderImg.paths"
+                        class="loading loading--on"
+                        :id="img.img"
+                    >
+                        <p class="loading__loader">Carregando</p>
+                        <img class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)">
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,7 +61,7 @@ export default {
             document.getElementById(id).classList.remove('loading--on')
         },
         closeThisPopup(event) {
-            let clickable = ['popup__close', 'popup']
+            let clickable = ['popup__close', 'popup', 'popup__overlay']
             clickable.forEach(obj => {
                 if (obj == event.target.classList[0]) {
                     document.querySelector('.popup').classList.add('popup__closing')
@@ -86,10 +94,10 @@ export default {
     align-items: center;
     justify-content: center;
     background: rgb(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
     width: 100%;
     height: 100vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
     z-index: 6;
     animation: openPopup forwards 1s;
 }
@@ -109,17 +117,11 @@ export default {
 }
 
 .popup__overlay {
-    position: absolute;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 1000px;
-    min-height: 1000px;
-    height: max-content;
-    top: 0;
-    background: #1f1f1f;
-    margin-top: 50px;
-    animation: popup .5s forwards;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
 }
 
 @keyframes popup {
@@ -133,8 +135,15 @@ export default {
     }
 }
 
-.popup__overlay {
-    width: calc(100% - 10px);
+.popup__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 1000px;
+    height: 100%;
+    background: #1f1f1f;
+    margin-top: 50px;
+    animation: popup-6be7b2a8 .5s forwards;
 }
 
 .popup__imgs {
@@ -286,7 +295,42 @@ export default {
     padding: 29px;
 }
 
+.popup__action--ctn {
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+.popup__action {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    right: 0;
+    margin: 20px;
+    gap: 10px;
+}
+
+.popup__action--button {
+    background: black;
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 16px;
+    color: var(--creme);
+    transition: .2s;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.popup__action--button:hover {
+    transition: .2s;
+    background: var(--vermelho);
+    color: black;
+}
+
 .popup__title {
+    width: calc(100% - 220px);
     font-size: 32px;
     font-weight: 700;
 }

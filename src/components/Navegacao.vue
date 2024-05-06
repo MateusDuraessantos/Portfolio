@@ -1,12 +1,12 @@
 <template>
     <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
-        <!-- <button class="turnWhite" @click="emitFunction">
+        <button class="turnWhite" @click="emitFunction">
             <div class="turnWhite__swith" id="whiteThemeBtn">
                 <p class="claro"><div class="emoji">☀️</div> <text-btn>Tema</text-btn></p>
                 <p class="escuro"><text-btn>Tema</text-btn> <div class="emoji">🌙</div></p>
             </div>
-        </button> -->
+        </button>
         <span></span>
 
         <div class="links" @click="upDropdown">
@@ -39,17 +39,17 @@ export default {
         }
     },
     mounted() {
-        /* setTimeout(() => {
+        setTimeout(() => {
             this.turnWhite(0)
-        }, 0); */
+        }, 0);
     },
     watch: {
-      /*   booleanTheme() {
+        booleanTheme() {
             this.turnWhite(1000)
         },
         removeLinkVer() {
             this.removeLink()
-        } */
+        }
     },
     methods: {
         upDropdown(event) {
@@ -183,7 +183,6 @@ button {
 .nav {
     cursor: pointer;
     transition: .2s;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.575);
 }
 
 .nav:hover {

@@ -80,90 +80,82 @@
       </div>
 
 
-      <!-- PORTFÓLIO -->
-      <div class="experiencia" id="portfolio">
+      <div class="container__background">
 
-        <img class="experiencia__rocha experiencia__rocha--0" src="inicio\black\rochas\intersect_00.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--1" src="inicio\black\rochas\intersect_01.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--2" src="inicio\black\rochas\intersect_02.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--3" src="inicio\black\rochas\intersect_03.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--4" src="inicio\black\rochas\intersect_04.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--5" src="inicio\black\rochas\intersect_05.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--6" src="inicio\black\rochas\intersect_06.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--7" src="inicio\black\rochas\intersect_07.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--8" src="inicio\black\rochas\intersect_08.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--9" src="inicio\black\rochas\intersect_09.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--10" src="inicio\black\rochas\intersect_10.png" alt="">
-        <img class="experiencia__rocha experiencia__rocha--11" src="inicio\black\rochas\intersect_11.png" alt="">
+        <img class="container__background--img" src="inicio/white/background__parallax.webp" alt="">
 
-        <div class="max__width">
-          <p class="experiencia__container"><strong>Alguns web projetos que trabalhei</strong></p>
-        </div>
-
-        <div class="carrossel">
-          <div class="carrossel__content">
-            <div class="carrossel__slide">
-              <div
-                :id="`carrossel__${index}`"
-                v-for="(el, index) in imagens.carrossel_01"
-                @click="carrossel"
-                @touchstart="touthPositions"
-                @touchend="touthPositions"
-
-                carrossel__item
-                >
-                  <div class="carrossel__popup"
-                    @click="upPopup(el, 'carrossel_01')"
+        <!-- PORTFÓLIO -->
+        <div class="experiencia" id="portfolio">
+          <img class="experiencia__rocha experiencia__rocha--0" src="inicio\black\rochas\intersect_00.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--1" src="inicio\black\rochas\intersect_01.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--2" src="inicio\black\rochas\intersect_02.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--3" src="inicio\black\rochas\intersect_03.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--4" src="inicio\black\rochas\intersect_04.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--5" src="inicio\black\rochas\intersect_05.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--6" src="inicio\black\rochas\intersect_06.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--7" src="inicio\black\rochas\intersect_07.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--8" src="inicio\black\rochas\intersect_08.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--9" src="inicio\black\rochas\intersect_09.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--10" src="inicio\black\rochas\intersect_10.png" alt="">
+          <img class="experiencia__rocha experiencia__rocha--11" src="inicio\black\rochas\intersect_11.png" alt="">
+          <div class="max__width">
+            <p class="experiencia__container"><strong>Alguns web projetos que trabalhei</strong></p>
+          </div>
+          <div class="carrossel">
+            <div class="carrossel__content">
+              <div class="carrossel__slide">
+                <div
+                  :id="`carrossel__${index}`"
+                  v-for="(el, index) in imagens.carrossel_01"
+                  @click="carrossel"
+                  @touchstart="touthPositions"
+                  @touchend="touthPositions"
+                  carrossel__item
                   >
-                    Clique aqui
+                    <div class="carrossel__popup"
+                      @click="upPopup(el, 'carrossel_01')"
+                    >
+                      Clique aqui
+                    </div>
+                    <div class="carrossel__background">
+                      <img class="" :src="`projetos/${el.thumb.default}`" alt="">
+                    </div>
                   </div>
-                  <div class="carrossel__background">
-                    <img class="" :src="`projetos/${el.thumb.default}`" alt="">
-                  </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- OUTROS -->
-
-      <div class="outros">
-
-        <p class="outros__alguns"><b>Alguns outros</b></p>
-
-        <div class="outros__grid max__width">
-
-            <!-- Cards -->
-
-            <div
-              :class="`${item.class} outros__card`"
-              v-for="item in imagens.carrossel_02"
-            >
+        <!-- OUTROS -->
+        <div class="outros">
+          <p class="outros__alguns"><b>Alguns outros</b></p>
+          <div class="outros__grid max__width">
+              <!-- Cards -->
               <div
-                class="outros__clique"
-                @click="upPopup(item, 'carrossel_02')"
+                :class="`${item.class} outros__card`"
+                v-for="item in imagens.carrossel_02"
               >
-                Ver projeto
+                <div
+                  class="outros__clique"
+                  @click="upPopup(item, 'carrossel_02')"
+                >
+                  Ver projeto
+                </div>
+                <img class="outros__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
               </div>
-              <img class="outros__img" :src="`projetos/${item.thumb.white}-${smile}.jpg`" alt="">
-            </div>
-
+          </div>
         </div>
+        
+        <!-- SOBRE -->
+        <Sobre :whiteIcons="whiteIcons" />
+        
+        <!-- CONTATO -->
+        <section>
+          <h5 class="mensagem">
+            <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
+            <p class="mensagem__arrow">Entre em contato para mais!</p>
+          </h5>
+        </section>
       </div>
-      
-      <!-- SOBRE -->
-
-      <Sobre :whiteIcons="whiteIcons" />
-      
-      <!-- CONTATO -->
-
-      <section>
-        <h5 class="mensagem">
-          <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
-          <p class="mensagem__arrow">Entre em contato para mais!</p>
-        </h5>
-      </section>
 
       <!-- FOOTER -->
 
@@ -313,7 +305,7 @@ export default {
     isDay() {
       this.whatTimeIs = new Date().getHours()
       // this.booleanTheme = this.whatTimeIs < 5 || this.whatTimeIs > 18 ? false : true
-      this.booleanTheme = false // Se booleanTheme for true o tema fica branco
+      this.booleanTheme = true // Se booleanTheme for true o tema fica branco
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -430,6 +422,8 @@ img {
 }
 
 :root {
+  --linear-after-1: #f1f1f1;
+  --linear-after: rgb(168 171 192);
   --border-color: #2c2c2c;
   --shadow-color: black;
   --text-color: black;
@@ -443,7 +437,6 @@ a {
 }
 
 p {
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
   font-size: 1rem;
 }
 
@@ -603,6 +596,7 @@ p {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  z-index: 11;
 }
 
 .mensagem__title {
@@ -667,39 +661,35 @@ p {
   height: 100%;
 }
 
-.abordo__p {
-  color: var(--creme);
-  /* font-size: 22px; */
+.abordo__p, .abordo__p * {
+  color: var(--creme) !important;
+  font-size: 22px;
 }
 
 /* Expêriencia */
 
 .experiencia {
   position: relative;
-  padding: 400px 0;
-}
-
-.experiencia::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(90deg,black, rgba(0,0,0,0.5), transparent, transparent, rgba(0,0,0,0.5), black);
-  z-index: 3;
-  pointer-events: none;
+  padding: 400px 0 100px 0;
 }
 
 .experiencia__container {
+  position: relative;
   color: var(--creme);
   font-size: 22px;
   width: 100%;
   text-align: center;
   margin-bottom: 100px;
+  z-index: 2;
+}
+
+.whiteTheme .experiencia__rocha {
+  display: none !important;
 }
 
 .experiencia__rocha {
   position: absolute;
+  z-index: 1;
 }
 
 .experiencia__rocha--0 {
@@ -730,7 +720,7 @@ p {
   width: 30%;
   max-width: 400px;
   bottom: -30%;
-  left: 20vw;
+  left: 0;
 }
 .experiencia__rocha--5 {
   width: 30%;
@@ -874,6 +864,7 @@ p {
   margin: auto;
   height: 100%;
   text-align: center;
+  color: var(--creme) !important;
   width: calc(100% - 16px);
   border-radius: 60px;
   z-index: 2;
@@ -971,6 +962,7 @@ p {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
+  color: var(--creme) !important;
   opacity: 0;
   z-index: 1;
   transition: .2s;
@@ -1021,27 +1013,38 @@ p {
   width: 55vw;
 }
 
-.banner::after,
-.banner::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-}
-
-.banner::before {
-  background-image: linear-gradient(transparent, black);
-  height: 100px;
-  bottom: 0;
-}
-
 .whiteTheme .banner::before {
-  background-image: linear-gradient(transparent, #e2e0e7);
+  content: '';
+  background-image: linear-gradient(transparent, var(--linear-after-1));
+  height: 200px;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
 }
 
 .whiteTheme .banner::after {
   background-image: linear-gradient(#e2e0e7, transparent);
 }
 
+.whiteTheme .abordo::after {
+  content: '';
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  top: 0;
+  z-index: 20;
+  background-image: linear-gradient(var(--linear-after-1), transparent);
+}
+
+.whiteTheme .abordo::before {
+  content: '';
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  top: 100%;
+  z-index: 20;
+  background-image: linear-gradient(var(--linear-after), transparent);
+}
 
 .banner__description {
   width: 100%;
@@ -1222,5 +1225,62 @@ p {
   color: #a87c7c !important;
 }
 
+ .experiencia::before {
+  display: none;
+}
 
+.whiteTheme .experiencia::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(90deg,black, rgba(0,0,0,0.5), transparent, transparent, rgba(0,0,0,0.5), black);
+  z-index: 3;
+  pointer-events: none;
+}
+
+
+.whiteTheme .carrossel__background img  {
+  box-shadow: none;
+}
+
+.container__background {
+  position: relative;
+}
+
+.container__background--img {
+  display: none;
+}
+
+.whiteTheme .container__background--img {
+  position: absolute;
+  display: initial;
+  top: -200px;
+  left: 0;
+  height: calc(100% + 200px);
+  width: 100%;
+}
+
+.whiteTheme .container__background::after {
+  content: '';
+  display: initial;
+  position: absolute;
+  height: 200px;
+  bottom: 100%;
+  width: 100%;
+  background-image: linear-gradient(transparent, var(--linear-after));
+  z-index: 20;
+}
+
+.whiteTheme .container__background::before {
+  position: absolute;
+  content: '';
+  background-image: linear-gradient(transparent, rgb(232, 222, 222));
+  bottom: 0;
+  height: 400px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
 </style>
