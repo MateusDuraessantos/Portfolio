@@ -1,18 +1,79 @@
 <template>
     <footer class="sky " id="contato">
 
+        <!-- Mensagem de sucesso -->
+        
+        <div class="sucesso" v-if="success" id="sucesso">
+            <div class="sucesso__message">
+                <div>
+                    <p class="sucesso__p sucesso__p--1">Email enviado com sucesso.</p>
+                    <p class="sucesso__p">Em breve entrarei em contato!</p>
+                </div>
+                <button class="sucesso__close" @click="fecharSuccess">Fechar</button>
+            </div>
+        </div>
+        
+        <!-- Mensagem de erro -->
+
+        <div class="sucesso" v-if="error" id="error">
+            <div class="sucesso__message">
+                <div>
+                    <p class="sucesso__p error__p--1">Ops, desculpe. mensagem não enviada.</p>
+                    <p class="sucesso__p">Tente novamente ou entre em contato pelas outras redes socias!</p>
+                </div>
+                <button class="error__close" @click="fecharError">Fechar</button>
+            </div>
+        </div>
+
         <div class="forms__overlay" id="forms">
             <div class="forms__container">
                 <button class="forms__close" @click="openForms">✕</button>
+
+                <!-- Formulário -->
+
                 <form
+                    @submit.prevent="handleSubmit"
                     class="sky__forms"
-                    action="https://formspree.io/f/mqkrnqyn"
-                    method="POST"
                 >
-                
-                    <input type="text" name="nome" placeholder="Digite aqui seu nome" required>
-                    <input class="forms__field" type="email" name="email" placeholder="Digite aqui seu email" required>
-                    <textarea class="forms__textarea" name="message" placeholder="Digite aqui alguma mensagem" type="text" required></textarea>
+                    <!-- Nome -->
+                    
+                    <label for="nome">Nome</label>
+                    <input
+                        class="forms__field"
+                        v-model="nome" 
+                        type="text"
+                        name="nome"
+                        id="nome"
+                        placeholder="Digite aqui"
+                        required
+                    >
+
+                    <!-- Email -->
+                    
+                    <label for="email">E-mail</label>
+                    <input class="forms__field"
+                        v-model="email"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite aqui"
+                        required
+                    >
+
+                    <!-- Mensagem -->
+                    
+                    <label for="message">Mensagem</label>
+                    <textarea
+                        class="forms__textarea"
+                        v-model="mensagem" 
+                        type="text"
+                        id="message"
+                        name="message"
+                        placeholder="Digite aqui"
+                        required
+                    ></textarea>
+                    
+                    <!-- Button -->
                     <button class="forms__button--send" type="submit">Enviar</button>
                 </form>
             </div>
@@ -128,7 +189,12 @@ export default {
     data() {
         return {
             iconsTheme: 'whiteicons',
-            footerVideo: Boolean
+            footerVideo: Boolean,
+            success: false,
+            error: false,
+            nome: '',
+            email: '',
+            mensagem: '',
         }
     },
     props: {
@@ -141,6 +207,7 @@ export default {
         if (window.screen.availWidth < 1000) {
             this.footerVideo = false
         }
+
     },
     watch: {
         blockClicked(){
@@ -148,6 +215,53 @@ export default {
         }
     },
     methods: {
+        handleSubmit() {
+            const formData = {
+                nome: this.nome,
+                email: this.email,
+                mensagem: this.mensagem
+            };
+
+            fetch('https://formspree.io/f/mqkrnqyn', {
+                method: 'POST',
+                body: JSON.stringify(formData), // Converte os dados para string JSON
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // processa a resposta como JSON
+            })
+            .then(data => {
+                console.log('Success:', data);
+                this.success = true; // Supõe que você tem uma propriedade 'success' para controle de estado
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                this.error = true; // Supõe que você tem uma propriedade 'error' para controle de estado
+            });
+        },
+        fecharSuccess(){
+            document.getElementById('sucesso').classList.add('sucesso--close')
+            setTimeout(() => {
+                this.success = false
+                console.log(this.success);
+            }, 1000)
+            this.openForms()
+        },
+        fecharError(){
+            document.getElementById('error').classList.add('sucesso--close')
+            setTimeout(() => {
+                this.error = false
+                console.log(this.success);
+            }, 1000)
+            
+            this.openForms()
+        },
         openForms(){
             const open = document.getElementById('contato')
             const forms = document.getElementById('forms')
@@ -223,6 +337,82 @@ export default {
     overflow: hidden;
 }
 
+
+/* Sucesso */
+
+.sucesso {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 40;
+    backdrop-filter: blur(16px);
+}
+
+.sucesso__message {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 444px;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.sucesso__p {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.sucesso__p--1 {
+    font-weight: 400;
+    color: #005a00 !important;
+}
+
+.error__p--1 {
+    font-weight: 400;
+    color: var(--vermelho) !important;
+}
+
+.error__close, .sucesso__close {
+    border: none;
+    font-size: 16px;
+    border-radius: 50px;
+    color: white !important;
+    padding: 0 13px;
+    height: 36px;
+    transition: .2s;
+    margin: auto;
+    margin-top: 20px;
+    width: 78%;
+    transition: .2s;
+}
+
+.sucesso__close {
+    background: #409640;
+}
+
+.error__close {
+    background: var(--vermelho);
+}
+
+.sucesso__close:hover {
+    background: rgb(154, 241, 24);
+    transition: .2s;
+}
+
+.sucesso--close {
+    animation: closeSuccess 1s forwards;
+}
+
+@keyframes closeSuccess {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
 /* Formulário */
 
 .forms__container {
@@ -259,6 +449,8 @@ export default {
     transition: .5s;
 }
 
+/*  */
+
 .sky__overlay--open {
     opacity: 1;
     pointer-events: initial;
@@ -267,10 +459,9 @@ export default {
 .sky__forms {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     width: 300px;
+    gap: 10px;
 }
-
 
 .forms__button--send {
     height: 36px;
@@ -281,6 +472,7 @@ export default {
     transition: .5s;
     color: black;
     background: var(--creme);
+    box-shadow: 1px 1px 32px rgb(114 35 35 / 50%);
 }
 
 .forms__button--send:hover {
@@ -302,6 +494,7 @@ export default {
     z-index: 22;
     transition: .2s;
     width: max-content !important;
+    box-shadow: 1px 1px 32px rgb(114 35 35 / 50%);
 }
 
 .forms__button:hover {
@@ -336,12 +529,13 @@ input, textarea {
 
 
 input::placeholder, textarea::placeholder, .forms__button {
-    color: black;
+    color: gray;
 }
 
 input, textarea {
     transition: .5s;
     outline: transparent 1px solid;
+    box-shadow: 1px 1px 12px rgb(114 35 35 / 50%);
 }
 
 input:focus, textarea:focus,
@@ -352,7 +546,7 @@ input:hover, textarea:hover {
 }
 
 
-.sky::after {
+.whiteTheme .sky::after {
     position: absolute;
     content: '';
     top: 0;
@@ -642,144 +836,106 @@ input:hover, textarea:hover {
 }
 
 @keyframes sky_01 {
-    0% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
-
-    20% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
-
-    45% {
-        transform: scale(var(--sky-scale)) translate(-30px, -40px);
-    }
-
-    75% {
-        transform: scale(var(--sky-scale)) translate(10px, -60px);
-    }
-
-    100% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    20% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    45% { transform: scale(var(--sky-scale)) translate(-30px, -40px) }
+    75% { transform: scale(var(--sky-scale)) translate(10px, -60px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
 }
 
 @keyframes sky_02 {
-    0% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
-
-    15% {
-        transform: scale(var(--sky-scale)) translate(-60px, 0);
-    }
-
-    35% {
-        transform: scale(var(--sky-scale)) translate(-60px, -20px);
-    }
-
-    75% {
-        transform: scale(var(--sky-scale)) translate(-60px, 20px);
-    }
-
-    100% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    15% { transform: scale(var(--sky-scale)) translate(-60px, 0) }
+    35% { transform: scale(var(--sky-scale)) translate(-60px, -20px) }
+    75% { transform: scale(var(--sky-scale)) translate(-60px, 20px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
 }
 
 @keyframes sky_04 {
-    0% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
-
-    50% {
-        transform: scale(var(--sky-scale)) translate(30px, 40px);
-    }
-
-    100% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    50% { transform: scale(var(--sky-scale)) translate(30px, 40px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
 }
 
 @keyframes sky_08 {
-    0% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
-
-    35% {
-        transform: scale(var(--sky-scale)) translate(20px, 50px);
-    }
-
-    70% {
-        transform: scale(var(--sky-scale)) translate(-35px, 60px);
-    }
-
-    100% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    35% { transform: scale(var(--sky-scale)) translate(20px, 50px) }
+    70% { transform: scale(var(--sky-scale)) translate(-35px, 60px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
 }
 
 @keyframes sky_11 {
-    0% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
-
-    50% {
-        transform: scale(var(--sky-scale)) translate(20px, 0);
-    }
-
-    75% {
-        transform: scale(var(--sky-scale)) translate(0px, -30px);
-    }
-
-    90% {
-        transform: scale(var(--sky-scale)) translate(20px, 0);
-    }
-
-    100% {
-        transform: scale(var(--sky-scale)) translate(0, 0);
-    }
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    50% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+    75% { transform: scale(var(--sky-scale)) translate(0px, -30px) }
+    90% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
 }
 
 @keyframes sky_13 {
-    0% {
-        transform: scale(var(--sky-scale)) translatey(0);
-    }
-
-    10% {
-        transform: scale(var(--sky-scale)) translatey(0);
-    }
-
-    35% {
-        transform: scale(var(--sky-scale)) translatey(60px);
-    }
-
-    90% {
-        transform: scale(var(--sky-scale)) translatey(0);
-    }
-
-    100% {
-        transform: scale(var(--sky-scale)) translatey(0);
-    }
+    0% { transform: scale(var(--sky-scale)) translatey(0) }
+    10% { transform: scale(var(--sky-scale)) translatey(0) }
+    35% { transform: scale(var(--sky-scale)) translatey(60px) }
+    90% { transform: scale(var(--sky-scale)) translatey(0) }
+    100% { transform: scale(var(--sky-scale)) translatey(0) }
 }
 
 @keyframes sky_y {
-    0% {
-        transform: translatey(0);
-    }
-
-    50% {
-        transform: translatey(60px);
-    }
-
-    100% {
-        transform: translatey(0);
-    }
+    0% { transform: translatey(0) }
+    50% { transform: translatey(60px) }
+    100% { transform: translatey(0) }
 }
 
 @media screen and (max-width: 1000px) {
 
     :root {
         --sky-scale: 1.4
-        }
+    }
+
+    @keyframes sky_01 {
+        0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+        20% { transform: scale(var(--sky-scale)) translate(0, 0) }
+        45% { transform: scale(var(--sky-scale)) translate(-30px, -40px) }
+        75% { transform: scale(var(--sky-scale)) translate(10px, -60px) }
+        100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    }
+
+    @keyframes sky_02 {
+        0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+        15% { transform: scale(var(--sky-scale)) translate(-60px, 0) }
+        35% { transform: scale(var(--sky-scale)) translate(-60px, -20px) }
+        75% { transform: scale(var(--sky-scale)) translate(-60px, 20px) }
+        100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    }
+
+    @keyframes sky_04 {
+        0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+        50% { transform: scale(var(--sky-scale)) translate(30px, 40px) }
+        100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    }
+
+    @keyframes sky_08 {
+        0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+        35% { transform: scale(var(--sky-scale)) translate(20px, 50px) }
+        70% { transform: scale(var(--sky-scale)) translate(-35px, 60px) }
+        100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    }
+
+    @keyframes sky_11 {
+        0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+        50% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+        75% { transform: scale(var(--sky-scale)) translate(0px, -30px) }
+        90% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+        100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    }
+
+    @keyframes sky_13 {
+        0% { transform: scale(var(--sky-scale)) translatey(0) }
+        10% { transform: scale(var(--sky-scale)) translatey(0) }
+        35% { transform: scale(var(--sky-scale)) translatey(60px) }
+        90% { transform: scale(var(--sky-scale)) translatey(0) }
+        100% { transform: scale(var(--sky-scale)) translatey(0) }
+    }
 
     .informacoes__content {
         gap: 20px;
@@ -788,128 +944,7 @@ input:hover, textarea:hover {
     .contatos__column {
         flex-direction: column;
     }
-
-    @keyframes sky_01 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        20% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        45% {
-            transform: scale(var(--sky-scale)) translate(-30px, -40px);
-        }
-
-        75% {
-            transform: scale(var(--sky-scale)) translate(10px, -60px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_02 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        15% {
-            transform: scale(var(--sky-scale)) translate(-60px, 0);
-        }
-
-        35% {
-            transform: scale(var(--sky-scale)) translate(-60px, -20px);
-        }
-
-        75% {
-            transform: scale(var(--sky-scale)) translate(-60px, 20px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_04 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        50% {
-            transform: scale(var(--sky-scale)) translate(30px, 40px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-
-        }
-    }
-
-    @keyframes sky_08 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        35% {
-            transform: scale(var(--sky-scale)) translate(20px, 50px);
-        }
-
-        70% {
-            transform: scale(var(--sky-scale)) translate(-35px, 60px);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_11 {
-        0% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-
-        50% {
-            transform: scale(var(--sky-scale)) translate(20px, 0);
-        }
-
-        75% {
-            transform: scale(var(--sky-scale)) translate(0px, -30px);
-        }
-
-        90% {
-            transform: scale(var(--sky-scale)) translate(20px, 0);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translate(0, 0);
-        }
-    }
-
-    @keyframes sky_13 {
-        0% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-
-        10% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-
-        35% {
-            transform: scale(var(--sky-scale)) translatey(60px);
-        }
-
-        90% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-
-        100% {
-            transform: scale(var(--sky-scale)) translatey(0);
-        }
-    }
-
+    
     .informacoes__container {
         width: 100%;
         gap: 0;

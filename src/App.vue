@@ -20,11 +20,11 @@
     <!-- Se booleanTheme for true o tema fica branco  -->
     <div id="main">
 
-      <header class="banner">
+      <header class="banner" id="inicio">
         <p class="designed_by">
           Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
         </p>
-        <div class="banner__ctn max__width" id="inicio">
+        <div class="banner__ctn max__width">
           <br>
           <div class="banner__column--2">
            
@@ -79,25 +79,27 @@
         <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" alt="">
       </div>
 
-
-      <div class="container__background">
-
-        <img class="container__background--img" src="inicio/white/background__parallax.webp" alt="">
+      <div class="container__background" id="portfolio">
+          <div class="container__background--img">
+            <div class="container__background--body">
+              <img class="container__background--img" src="inicio/white/background__parallax.webp" alt="">
+          </div>
+        </div>
 
         <!-- PORTFÓLIO -->
-        <div class="experiencia" id="portfolio">
-          <img class="experiencia__rocha experiencia__rocha--0" src="inicio\black\rochas\intersect_00.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--1" src="inicio\black\rochas\intersect_01.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--2" src="inicio\black\rochas\intersect_02.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--3" src="inicio\black\rochas\intersect_03.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--4" src="inicio\black\rochas\intersect_04.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--5" src="inicio\black\rochas\intersect_05.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--6" src="inicio\black\rochas\intersect_06.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--7" src="inicio\black\rochas\intersect_07.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--8" src="inicio\black\rochas\intersect_08.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--9" src="inicio\black\rochas\intersect_09.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--10" src="inicio\black\rochas\intersect_10.png" alt="">
-          <img class="experiencia__rocha experiencia__rocha--11" src="inicio\black\rochas\intersect_11.png" alt="">
+        <div class="experiencia">
+          <img class="experiencia__rocha experiencia__rocha--0" :src="`inicio/${whiteImages}/rochas/intersect_00.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--1" :src="`inicio/${whiteImages}/rochas/intersect_01.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--2" :src="`inicio/${whiteImages}/rochas/intersect_02.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--3" :src="`inicio/${whiteImages}/rochas/intersect_03.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--4" :src="`inicio/${whiteImages}/rochas/intersect_04.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--5" :src="`inicio/${whiteImages}/rochas/intersect_05.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--6" :src="`inicio/${whiteImages}/rochas/intersect_06.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--7" :src="`inicio/${whiteImages}/rochas/intersect_07.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--8" :src="`inicio/${whiteImages}/rochas/intersect_08.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--9" :src="`inicio/${whiteImages}/rochas/intersect_09.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--10" :src="`inicio/${whiteImages}/rochas/intersect_10.png`" alt="">
+          <img class="experiencia__rocha experiencia__rocha--11" :src="`inicio/${whiteImages}/rochas/intersect_11.png`" alt="">
           <div class="max__width">
             <p class="experiencia__container"><strong>Alguns web projetos que trabalhei</strong></p>
           </div>
@@ -210,7 +212,6 @@ export default {
       widthSize: undefined,
       touchSlided: [],
       initItem: 2,
-      blockClickWhileTouch: true,
     }
   },
   watch: {
@@ -219,7 +220,7 @@ export default {
     },
   },
   mounted() {
-    this.isDay()
+    this.isDay() // Verifica o horário para setar o tema dos elementos
     this.turnBackgroundWhite(0)
     this.overflow(0)
     this.keepWhiteOnReload(0)
@@ -228,8 +229,6 @@ export default {
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
     this.carrossel()
-
-    console.clear()
   },
   methods: {
     upPopup(obj, array){
@@ -244,8 +243,7 @@ export default {
     },
     /* Carrossel */
     touthPositions(event){
-      this.blockClickWhileTouch = false
-      if(event.type == 'touchend') this.blockClickWhileTouch = true
+      if(event.type == 'touchstart') this.touchSlided = []
 
       this.touchSlided.push(event.changedTouches[0].clientX)
       const limiteSlide = 50 // Define quantos pixeis o touch deve alcançar para poder ativar a animação 
@@ -253,59 +251,56 @@ export default {
 
       if(this.touchSlided[0] > this.touchSlided[1] && gSlide) { // Avança um item no carrossel
         this.initItem = this.initItem < imagens.carrossel_01.length - 1 ? this.initItem + 1 : this.initItem
-        this.carrossel(null, this.initItem)
+        if(event.type == 'touchend') this.carrossel(null, this.initItem)
       }
+      console.log(this.touchSlided[0] < this.touchSlided[1] && gSlide);
       if(this.touchSlided[0] < this.touchSlided[1] && gSlide) { // Retrocede um item no carrossel
-        this.carrossel()
         this.initItem = this.initItem != 0 ? this.initItem - 1 : this.initItem
-        this.carrossel(null, this.initItem)
+        if(event.type == 'touchend') this.carrossel(null, this.initItem)
       };
     },
     carrossel(event, touch) {
-      if(this.blockClickWhileTouch) {
-        this.touchSlided = []
-        const elementOnSpot = touch != undefined ? touch : 2 // Altera qual o item em destaque
-        const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
-        const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
-        all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
-        const itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
+      const elementOnSpot = touch != undefined ? touch : 2 // Altera qual o item em destaque
+      const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
+      const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
+      all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
+      const itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
 
-        const R = eventID == itemsLength ? eventID : eventID + 1
-        const L = eventID == 0 ? eventID : eventID - 1
+      const R = eventID == itemsLength ? eventID : eventID + 1
+      const L = eventID == 0 ? eventID : eventID - 1
 
-        let slideR 
-        R == itemsLength ? null : slideR = R + 1
+      let slideR 
+      R == itemsLength ? null : slideR = R + 1
 
-        let slideL 
-        L == 0 ? L : slideL = L - 1
+      let slideL 
+      L == 0 ? L : slideL = L - 1
 
-        let position
+      let position
 
-        if(slideR == 4 && slideL == 0) position = 0
-        else if(slideR <= 4) {
-          let positionL
-          if(slideR == 3) positionL = -1
-          if(slideR == 2) positionL = -2.3 // .3 = Ajuste fino de posicionamento
-          position = -197 * positionL
-        }
-        else if(slideL >= 1) position = -197 * (slideL + 0.025 /* 0.025 = Ajuste fino de posicionamento */)
-        document.querySelector('.carrossel__slide').style.transform = `translatex(${position}px)`
-        document.getElementById(`carrossel__${R}`).classList.add('carrossel--between')
-        document.getElementById(`carrossel__${L}`).classList.add('carrossel--between')
-        if(event){
-          event.currentTarget.removeAttribute('class') 
-          event.currentTarget.classList.add('carrossel--center')
-        }
-        else document.getElementById(`carrossel__${elementOnSpot}`).classList.add('carrossel--center')
+      if(slideR == 4 && slideL == 0) position = 0
+      else if(slideR <= 4) {
+        let positionL
+        if(slideR == 3) positionL = -1
+        if(slideR == 2) positionL = -2.3 // .3 = Ajuste fino de posicionamento
+        position = -197 * positionL
       }
+      else if(slideL >= 1) position = -197 * (slideL + 0.025) // 0.025 = Ajuste fino de posicionamento 
+      document.querySelector('.carrossel__slide').style.transform = `translatex(${position}px)`
+      document.getElementById(`carrossel__${R}`).classList.add('carrossel--between')
+      document.getElementById(`carrossel__${L}`).classList.add('carrossel--between')
+      if(event){
+        event.currentTarget.removeAttribute('class') 
+        event.currentTarget.classList.add('carrossel--center')
+      }
+      else document.getElementById(`carrossel__${elementOnSpot}`).classList.add('carrossel--center')
     },
 
     /*  */
 
     isDay() {
       this.whatTimeIs = new Date().getHours()
-      // this.booleanTheme = this.whatTimeIs < 5 || this.whatTimeIs > 18 ? false : true
-      this.booleanTheme = true // Se booleanTheme for true o tema fica branco
+      this.booleanTheme = this.whatTimeIs < 6 || this.whatTimeIs >= 18 ? false : true // Se for true o tema fica branco
+      // this.booleanTheme = false
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -429,6 +424,7 @@ img {
   --text-color: black;
   --creme: #E0D9CE;
   --vermelho: rgb(255, 54, 54);
+  --sky-scale: 0.9;
 }
 
 a {
@@ -597,7 +593,7 @@ p {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  z-index: 11;
+  z-index: 2;
 }
 
 .mensagem__title {
@@ -644,7 +640,7 @@ p {
   display: flex;
   justify-content: center;
   height: max-content;
-  z-index: 1;
+  z-index: 2;
 }
 
 .abordo__img {
@@ -658,8 +654,8 @@ p {
   position: absolute;
   display: flex;
   align-items: center;
-  z-index: 2;
   height: 100%;
+  z-index: 3;
 }
 
 .abordo__p, .abordo__p * {
@@ -668,7 +664,6 @@ p {
 }
 
 /* Expêriencia */
-
 .experiencia {
   position: relative;
   padding: 400px 0 100px 0;
@@ -681,16 +676,15 @@ p {
   width: 100%;
   text-align: center;
   margin-bottom: 100px;
-  z-index: 2;
-}
-
-.whiteTheme .experiencia__rocha {
-  display: none !important;
+  z-index: 5;
 }
 
 .experiencia__rocha {
   position: absolute;
-  z-index: 1;
+  z-index: 4;
+  animation-duration: 32s;
+  animation-iteration-count: infinite;
+  pointer-events: none;
 }
 
 .experiencia__rocha--0 {
@@ -698,73 +692,192 @@ p {
   max-width: 300px;
   top: 0;
   right: 40vw;
+  animation-name: sky_04;
 }
 .experiencia__rocha--1 {
   width: 10%;
   max-width: 200px;
   top: 34%;
   right: 27vw;
+  animation-name: sky_01;
 }
 .experiencia__rocha--2 {
   width: 15%;
   max-width: 250px;
   right: 19vw;
   top: 10%;
+  animation-name: sky_02;
 }
 .experiencia__rocha--3 {
   width: 16%;
   max-width: 260px;
   left: 4vw;
   top: 27%;
+  animation-name: sky_02;
 }
 .experiencia__rocha--4 {
   width: 30%;
   max-width: 400px;
   bottom: -30%;
   left: 0;
+  animation-name: sky_08;
 }
 .experiencia__rocha--5 {
   width: 30%;
   max-width: 400px;
   right: -130px;
   top: 10%;
+  animation-name: sky_13;
 }
 .experiencia__rocha--6 {
   width: 13%;
   max-width: 230px;
   bottom: 0;
   left: 45vw;
+  animation-name: sky_11;
 }
 .experiencia__rocha--7 {
   width: 30%;
   max-width: 400px;
   left: -150px;
   top: 4%;
+  animation-name: sky_08;
 }
 .experiencia__rocha--8 {
   width: 30%;
   max-width: 400px;
   left: -7vw;
   bottom: 2%;
+  animation-name: sky_01;
 }
 .experiencia__rocha--9 {
   width: 30%;
   max-width: 400px;
   left: 19vw;
   top: 16%;
+  animation-name: sky_04;
 }
 .experiencia__rocha--10 {
   width: 30%;
   max-width: 400px;
-  bottom: 100px;
+  bottom: 0;
   right: 3vw;
+  animation-name: sky_11;
 }
 .experiencia__rocha--11 {
   width: 20%;
   max-width: 300px;
   top: 1156px;
   left: 26vw;
+  animation-name: sky_08;
 }
+
+
+
+@keyframes sky_01 {
+  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  20% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  45% { transform: scale(var(--sky-scale)) translate(-30px, -40px) }
+  75% { transform: scale(var(--sky-scale)) translate(10px, -60px) }
+  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+}
+
+@keyframes sky_02 {
+  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  15% { transform: scale(var(--sky-scale)) translate(-60px, 0) }
+  35% { transform: scale(var(--sky-scale)) translate(-60px, -20px) }
+  75% { transform: scale(var(--sky-scale)) translate(-60px, 20px) }
+  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+}
+
+@keyframes sky_04 {
+  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  50% { transform: scale(var(--sky-scale)) translate(30px, 40px) }
+  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+}
+
+@keyframes sky_08 {
+  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  35% { transform: scale(var(--sky-scale)) translate(20px, 50px) }
+  70% { transform: scale(var(--sky-scale)) translate(-35px, 60px) }
+  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+}
+
+@keyframes sky_11 {
+  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  50% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+  75% { transform: scale(var(--sky-scale)) translate(0px, -30px) }
+  90% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+}
+
+@keyframes sky_13 {
+  0% { transform: scale(var(--sky-scale)) translatey(0) }
+  10% { transform: scale(var(--sky-scale)) translatey(0) }
+  35% { transform: scale(var(--sky-scale)) translatey(60px) }
+  90% { transform: scale(var(--sky-scale)) translatey(0) }
+  100% { transform: scale(var(--sky-scale)) translatey(0) }
+}
+
+@keyframes sky_y {
+  0% { transform: translatey(0) }
+  50% { transform: translatey(60px) }
+  100% { transform: translatey(0) }
+}
+
+@media screen and (max-width: 1000px) {
+
+  :root {
+      --sky-scale: 1.4
+  }
+
+  @keyframes sky_01 {
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    20% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    45% { transform: scale(var(--sky-scale)) translate(-30px, -40px) }
+    75% { transform: scale(var(--sky-scale)) translate(10px, -60px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  }
+
+  @keyframes sky_02 {
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    15% { transform: scale(var(--sky-scale)) translate(-60px, 0) }
+    35% { transform: scale(var(--sky-scale)) translate(-60px, -20px) }
+    75% { transform: scale(var(--sky-scale)) translate(-60px, 20px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  }
+
+  @keyframes sky_04 {
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    50% { transform: scale(var(--sky-scale)) translate(30px, 40px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  }
+
+  @keyframes sky_08 {
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    35% { transform: scale(var(--sky-scale)) translate(20px, 50px) }
+    70% { transform: scale(var(--sky-scale)) translate(-35px, 60px) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  }
+
+  @keyframes sky_11 {
+    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
+    50% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+    75% { transform: scale(var(--sky-scale)) translate(0px, -30px) }
+    90% { transform: scale(var(--sky-scale)) translate(20px, 0) }
+    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
+  }
+
+  @keyframes sky_13 {
+    0% { transform: scale(var(--sky-scale)) translatey(0) }
+    10% { transform: scale(var(--sky-scale)) translatey(0) }
+    35% { transform: scale(var(--sky-scale)) translatey(60px) }
+    90% { transform: scale(var(--sky-scale)) translatey(0) }
+    100% { transform: scale(var(--sky-scale)) translatey(0) }
+  }
+}
+
+
 
 /* Carrossel */
 
@@ -992,7 +1105,7 @@ p {
   background-image: url('../public/inicio/black/banner_sky.jpg');
   background-size: cover;
   min-height: 100vh;
-  z-index: 1;
+  z-index: 3;
 }
 
 .banner__column--2 {
@@ -1033,7 +1146,7 @@ p {
   height: 200px;
   width: 100%;
   top: 0;
-  z-index: 20;
+  z-index: 2;
   background-image: linear-gradient(var(--linear-after-1), transparent);
 }
 
@@ -1043,13 +1156,14 @@ p {
   height: 200px;
   width: 100%;
   top: 100%;
-  z-index: 20;
+  z-index: 2;
   background-image: linear-gradient(var(--linear-after), transparent);
 }
 
 .banner__description {
   width: 100%;
   margin: auto;
+  padding-top: 60px;
   z-index: 1;
 }
 
@@ -1113,6 +1227,12 @@ p {
     width: calc(100% - 50px) !important;
   }
 
+  *::-webkit-scrollbar {
+    width: 0;
+    height: 7px;
+    background: transparent;
+  }
+
   /* Banner */
   .banner__ctn {
     display: flex;
@@ -1147,6 +1267,10 @@ p {
   
   /* Abordo */
 
+  .abordo__p, .abordo__p * {
+    color: black !important;
+  }
+
   .abordo__container {
     justify-content: center;
     align-items: initial;
@@ -1163,6 +1287,7 @@ p {
     display: flex;
     flex-direction: column;
     padding: 0;
+    padding-top: 60px;
     gap: 8px;
   }
 
@@ -1207,6 +1332,18 @@ p {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 /* White Theme */
 
 .whiteTheme * {
@@ -1250,17 +1387,56 @@ p {
   position: relative;
 }
 
-.container__background--img {
+.container__background--container {
+  position: relative;
   display: none;
 }
 
-.whiteTheme .container__background--img {
+.whiteTheme .container__background--container {
   position: absolute;
   display: initial;
-  top: -200px;
-  left: 0;
-  height: calc(100% + 200px);
   width: 100%;
+  height: 100%;
+}
+
+
+.whiteTheme .container__background--body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(var(--body_color), transparent);
+  z-index: 1;
+}
+
+.container__background--body {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  bottom: 0;
+  width: 100%;
+}
+
+.container__background--img {
+  display: none;
+  width: 100%;
+  min-height: max-content;
+  min-width: 1200px;
+}
+
+.whiteTheme .container__background--img{
+  display: initial;
+}
+
+.grneowg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 200px;
+  width: 100%;
+  background: yellow;
+  z-index: 2;
 }
 
 .whiteTheme .container__background::after {
@@ -1271,7 +1447,7 @@ p {
   bottom: 100%;
   width: 100%;
   background-image: linear-gradient(transparent, var(--linear-after));
-  z-index: 20;
+  z-index: 3;
 }
 
 .whiteTheme .container__background::before {
@@ -1282,6 +1458,6 @@ p {
   height: 400px;
   width: 100%;
   pointer-events: none;
-  z-index: 10;
+  z-index: 1;
 }
 </style>

@@ -7,18 +7,23 @@
         </div>
 
         <div class="popup__overlay" id="overlay" v-if="clearPopup">
+
+            <!-- Imagens -->
+            
             <div class="popup__content">
-                <div class="popup__action--ctn" v-if="renderImg.link">
-                    <div class="popup__action">
-                        <a class="popup__action--button" :href="renderImg.link" target="_blank">Ver online</a>
-                        <a class="popup__action--button" :href="renderImg.github" target="_blank">Github</a>
-                    </div>
-                </div>
+                
+                
                 <div class="popup__head">
                     <h2 class="popup__title">{{ renderImg.name }}</h2>
                     <p>{{ renderImg.description }}</p>
                 </div>
                 <div class="popup__container">
+                    <div class="popup__action--ctn" v-if="renderImg.link">
+                        <div class="popup__action">
+                            <a class="popup__action--button" :href="renderImg.link" target="_blank">Ver online</a>
+                            <a class="popup__action--button" :href="renderImg.github" target="_blank">Github</a>
+                        </div>
+                    </div>
                     <div
                         v-for="img in renderImg.paths"
                         class="loading loading--on"
@@ -156,6 +161,11 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+
+.popup__container {
+    height: max-content;
+    margin-bottom: 100px;
 }
 
 /* Texto carregando */
@@ -298,21 +308,21 @@ export default {
 .popup__action--ctn {
     position: sticky;
     width: 100%;
-    top: 0;
+    padding-top: 20px;
+    height: 0;
+    top: -18px;
     z-index: 1;
 }
 
 .popup__action {
     position: absolute;
     display: flex;
-    justify-content: flex-end;
-    right: 0;
     margin: 20px;
     gap: 10px;
 }
 
 .popup__action--button {
-    background: black;
+    background: #1f1f1f;
     border-radius: 50px;
     padding: 6px 14px;
     font-size: 16px;
@@ -330,9 +340,28 @@ export default {
 }
 
 .popup__title {
-    width: calc(100% - 220px);
+    width: 100%;
     font-size: 32px;
     font-weight: 700;
+}
+
+@media screen and (max-width: 1000px){
+    .popup__title {
+        font-size: 20px;
+    }
+
+    .popup__action {
+        position: relative;
+        justify-content: flex-start;
+    }
+
+    .popup__content {
+        margin: 0;
+    }
+
+    .popup__pass--container {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 700px) {
