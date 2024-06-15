@@ -22,7 +22,7 @@
 
       <header class="banner" id="inicio">
         <p class="designed_by">
-          Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
+          Design por <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
         </p>
         <div class="banner__ctn max__width">
           <br>
@@ -82,11 +82,35 @@
       <div class="container__background" id="portfolio">
           <div class="container__background--img">
             <div class="container__background--body">
-              <img class="container__background--img" src="inicio/white/background__parallax.webp" alt="">
+              <img class="container__background--img" v-if="this.widthSize > 1000" src="inicio/white/background__parallax.webp" alt="">
+              <img class="container__background--img" v-else src="inicio/white/mobile-background__parallax.webp" alt="">
+          </div>
+        </div>
+
+
+        <!-- DESTAQUES -->
+
+        <div class="outros">
+          <p class="outros__alguns"><b>Alguns destaques de web projetos que trabalhei</b></p>
+          <div class="destaque__grid_1 max__width">
+              <!-- Cards -->
+              <div
+                :class="`${item.class} destaque__card`"
+                v-for="item in imagens.carrossel_03"
+              >
+                <div
+                  class="outros__clique"
+                  @click="upPopup(item, 'carrossel_03')"
+                >
+                  Ver projeto
+                </div>
+                <img class="outros__img" :src="`projetos/${item.thumb.white}`" :alt="item.thumb.alt">
+              </div>
           </div>
         </div>
 
         <!-- PORTFÓLIO -->
+         
         <div class="experiencia">
           <img class="experiencia__rocha experiencia__rocha--0" :src="`inicio/${whiteImages}/rochas/intersect_00.png`" alt="">
           <img class="experiencia__rocha experiencia__rocha--1" :src="`inicio/${whiteImages}/rochas/intersect_01.png`" alt="">
@@ -100,9 +124,7 @@
           <img class="experiencia__rocha experiencia__rocha--9" :src="`inicio/${whiteImages}/rochas/intersect_09.png`" alt="">
           <img class="experiencia__rocha experiencia__rocha--10" :src="`inicio/${whiteImages}/rochas/intersect_10.png`" alt="">
           <img class="experiencia__rocha experiencia__rocha--11" :src="`inicio/${whiteImages}/rochas/intersect_11.png`" alt="">
-          <div class="max__width">
-            <p class="experiencia__container"><strong>Alguns web projetos que trabalhei</strong></p>
-          </div>
+          <p class="title--line">Alguns outros mais!</p>
           <div class="carrossel">
             <div class="carrossel__content">
               <div class="carrossel__slide">
@@ -127,9 +149,11 @@
             </div>
           </div>
         </div>
-        <!-- OUTROS -->
+
+        <!-- OUTROS DESIGNS -->
+
         <div class="outros">
-          <p class="outros__alguns"><b>Alguns outros</b></p>
+          <p class="title--line">Mais! de designs</p>
           <div class="outros__grid max__width">
               <!-- Cards -->
               <div
@@ -212,6 +236,8 @@ export default {
       widthSize: undefined,
       touchSlided: [],
       initItem: 2,
+      itemsLength: Number,
+      carrosselInterval: '',
     }
   },
   watch: {
@@ -228,7 +254,7 @@ export default {
     this.haveAGoodDay()
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
-    this.carrossel()
+    this.slideAutomatico()
   },
   methods: {
     upPopup(obj, array){
@@ -253,24 +279,35 @@ export default {
         this.initItem = this.initItem < imagens.carrossel_01.length - 1 ? this.initItem + 1 : this.initItem
         if(event.type == 'touchend') this.carrossel(null, this.initItem)
       }
-      console.log(this.touchSlided[0] < this.touchSlided[1] && gSlide);
       if(this.touchSlided[0] < this.touchSlided[1] && gSlide) { // Retrocede um item no carrossel
         this.initItem = this.initItem != 0 ? this.initItem - 1 : this.initItem
         if(event.type == 'touchend') this.carrossel(null, this.initItem)
       };
     },
-    carrossel(event, touch) {
-      const elementOnSpot = touch != undefined ? touch : 2 // Altera qual o item em destaque
+    slideAutomatico() {
+      let increase = 2
+      this.carrossel(undefined, undefined, increase)
+
+      this.carrosselInterval = setInterval(() => {
+        console.log('auto');
+        this.carrossel(undefined, undefined, increase)
+        if(this.itemsLength == increase) increase = 0
+        else increase++
+      }, 3000)
+    },
+    carrossel(event, touch, increase) {
+      if(event || touch) clearInterval(this.carrosselInterval)
+      const elementOnSpot = touch != undefined ? touch : increase // Altera qual o item em destaque
       const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
       const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
       all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
-      const itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
+      this.itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
 
-      const R = eventID == itemsLength ? eventID : eventID + 1
+      const R = eventID == this.itemsLength ? eventID : eventID + 1
       const L = eventID == 0 ? eventID : eventID - 1
 
       let slideR 
-      R == itemsLength ? null : slideR = R + 1
+      R == this.itemsLength ? null : slideR = R + 1
 
       let slideL 
       L == 0 ? L : slideL = L - 1
@@ -666,23 +703,27 @@ p {
 /* Expêriencia */
 .experiencia {
   position: relative;
-  padding: 400px 0 100px 0;
+  padding: 500px 0 100px 0;
 }
 
-.experiencia__container {
+.title--line {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--creme);
   font-size: 22px;
+  font-weight: 700;
   width: 100%;
   text-align: center;
-  margin-bottom: 100px;
+  height: 100px;
   z-index: 5;
 }
 
 .experiencia__rocha {
   position: absolute;
   z-index: 4;
-  animation-duration: 32s;
+  animation-duration: 12s;
   animation-iteration-count: infinite;
   pointer-events: none;
 }
@@ -896,6 +937,7 @@ p {
 .carrossel__content {
   position: relative;
   overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 5%, black 20%, black 80%, transparent 95%);
 }
 
 .carrossel__content, .carrossel__slide {
@@ -919,10 +961,12 @@ p {
   min-width: 200px;
   height: 400px;
   cursor: pointer;
+  filter: blur(4px);
 }
 
 [carrossel__item].carrossel--center{ /* Permite o hover aparecer */
   overflow: initial;
+  
 }
 
 [carrossel__item] .carrossel__background img, .carrossel__background::before {
@@ -955,16 +999,18 @@ p {
   object-fit: cover;
   box-shadow: 3px 3px 12px rgba(0, 0, 0, 1);
   outline: 3px solid #363636;
-  border: 8px black solid;
+  border: 4px black solid;
 }
 .carrossel--between {
   min-width: 248px;
   height: 500px;
+  filter: blur(2px);
 }
 
 .carrossel--center {
   min-width: 300px;
   height: 600px;
+  filter: blur(0);
 }
 
 .carrossel__popup {
@@ -1020,7 +1066,7 @@ p {
   border-radius: 0 0 10px 10px;
   width: 58px;
   z-index: 2;
-  top: 8px;
+  top: 2px;
   width: 89px;
 }
 
@@ -1037,6 +1083,13 @@ p {
   text-align: center;
   font-size: 22px;
   color: var(--creme);
+}
+ 
+.destaque__grid_1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 100px 100px 0 100px ;
 }
 
 .outros__grid {
@@ -1055,6 +1108,14 @@ p {
   overflow: hidden;
   width: 100%;
   height: 400px;
+}
+
+.destaque__card {
+  position: relative;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100%;
+  height: 800px;
 }
 
 .mesa {
@@ -1088,10 +1149,16 @@ p {
   opacity: 1;
 }
 
+.destaque__card:hover .outros__clique {
+  transition: .2s;
+  opacity: 1;
+}
+
 .outros__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
 }
 
 /* Banner */
@@ -1267,7 +1334,7 @@ p {
   
   /* Abordo */
 
-  .abordo__p, .abordo__p * {
+  .abordo__p, .whiteTheme .abordo__p * {
     color: black !important;
   }
 
@@ -1281,16 +1348,22 @@ p {
     margin-top: 60px;
   }
 
+
+  /* Destaque */
+  
+  .destaque__card {
+    height: 400px; 
+  }
+
   /* Outro */
 
-  .outros__grid {
+  .destaque__grid_1, .outros__grid {
     display: flex;
     flex-direction: column;
     padding: 0;
     padding-top: 60px;
     gap: 8px;
   }
-
   .outros__card {
     border-radius: 20px;
   }

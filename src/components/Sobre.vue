@@ -133,7 +133,7 @@ export default {
 .sobre__title {
     position: relative;
     font-size: 22px;
-    font-size: 700; 
+    font-weight: 700; 
     text-align: center;
     margin-bottom: 40px;
     z-index: 5;

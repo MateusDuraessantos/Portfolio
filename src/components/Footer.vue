@@ -732,14 +732,13 @@ input:hover, textarea:hover {
 .sky__planet {
     position: absolute;
     z-index: 2;
-    animation-duration: 32s;
+    animation-duration: 12s;
     animation-iteration-count: infinite;
 }
 
 .sky__planet_01, .sky__planet_02, .sky__planet_03, .sky__planet_04, .sky__planet_05, .sky__planet_06, .sky__planet_07, .sky__planet_08, .sky__planet_09, .sky__planet_10, .sky__planet_11, .sky__planet_12, .sky__planet_13, .sky__planet_14 {
-    transition: 2s;
+    transition: 2s; /* Quando abre o forms */
 }
-
 
 .sky__planet_01 {
     width: 11%;

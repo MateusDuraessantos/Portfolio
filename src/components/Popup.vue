@@ -11,8 +11,6 @@
             <!-- Imagens -->
             
             <div class="popup__content">
-                
-                
                 <div class="popup__head">
                     <h2 class="popup__title">{{ renderImg.name }}</h2>
                     <p>{{ renderImg.description }}</p>
@@ -21,7 +19,7 @@
                     <div class="popup__action--ctn" v-if="renderImg.link">
                         <div class="popup__action">
                             <a class="popup__action--button" :href="renderImg.link" target="_blank">Ver online</a>
-                            <a class="popup__action--button" :href="renderImg.github" target="_blank">Github</a>
+                            <a class="popup__action--button" v-if="renderImg.github" :href="renderImg.github" target="_blank">Github</a>
                         </div>
                     </div>
                     <div
@@ -30,7 +28,13 @@
                         :id="img.img"
                     >
                         <p class="loading__loader">Carregando</p>
-                        <img class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)">
+                        <img
+                            class="popup__imgs"
+                            :src="`projetos/${img.img}`"
+                            :alt="img.alt" @load="stopLoading(img.img)"
+                            height="500"
+                            width="600"
+                        >
                     </div>
                 </div>
             </div>
@@ -153,6 +157,7 @@ export default {
 
 .popup__imgs {
     width: 100%;
+    height: 100%;
 }
 
 .loading {

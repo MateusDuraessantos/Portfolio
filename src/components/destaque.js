@@ -12,7 +12,7 @@ export const imagens =
                     alt: 'Website Cajuina',
                 },
             ],
-            thumb: { default: 'cajuina/website.jpg' },
+            thumb: { default: 'cajuina/thumb.jpg' },
             description: 'Nesse projeto, desenvolvi todos os códigos para construção do website, aplicando responsividade para dispositivos móveis.',
         },
         {
@@ -22,11 +22,11 @@ export const imagens =
             github: 'https://github.com/MateusDuraessantos/caju-multi-beneficios',
             paths: [
                 {
-                    img: 'caju/website.jpg',
+                    img: 'caju/multibeneficios.svg',
                     alt: 'Website Caju Visa',
                 },
             ],
-            thumb: { default: 'caju/website.jpg' },
+            thumb: { default: 'caju/thumb.jpg' },
             description: 'Nesse projeto, com design desenvolvido pela equipe da Caju, fiquei responsável por desenvolver os códigos da página e deixa-lá responsiva para dispositivos móveis.',
         },
         {
@@ -93,7 +93,7 @@ export const imagens =
                 },
             ],
             description: 'Nesse projeto, que desenvolvi, busquei aprimorar a experiência do usuário para o website do curso de Design da Universidade Presbiteriana Mackenzie. Propus uma nova abordagem de UI (Interface do Usuário) e UX (Experiência do Usuário), utilizando a metodologia de Design HCD (Design Centrado no Humano) em conjunto com "Os 5 Elementos da Experiência do Usuário" como guias norteadores. O projeto levou cerca que 9 mêses até o resultado final e contou com pesquisas de campo. Para protipação foi utilizado o Figma, e para implementação real, HTML, CSS, Javascript, VueJs, Firebase, GitHub e Element Plus.',
-            thumb: { default: 'tcc/pagina_inicial_do_projeto.jpg' },
+            thumb: { default: 'tcc/thumb-pagina_inicial_do_projeto.jpg' },
             link: 'https://mackenzie-tcc.web.app/#/',
             github: 'https://github.com/MateusDuraessantos/TCC',
             alt: 'Website trabalho de conclusão de curso Mackenzie',
@@ -118,7 +118,7 @@ export const imagens =
                 },
             ],
             description: 'TeclaKey é um estudio de design. Na criação do website para o estúdio, junto a uma equipe de 3 pessoas, eu coordenador o desenvolvimento da identidade visual. Também fiquei 100% responsável pelo frontend, responsiveidade, implementação no domínio e otimização dos conteúdos para web.',
-            thumb: { default: 'teclakey/teclakey-webiste-de-design.jpg' },
+            thumb: { default: 'teclakey/thumb-teclakey-webiste-de-design.jpg' },
             link: 'https://tecla-key.web.app/',
             github: 'https://github.com/MateusDuraessantos/teclakeygit',
             alt: 'Website teclakey - UX/UI - Firebase',
@@ -143,7 +143,7 @@ export const imagens =
                 },
             ],
             description: 'Nesse projeto, com o design (para desktop) e conteúdos já desenvolvido préviamente por outros colaboradores, fiquei encarregado de desenvolver toda a etapa de HTML e CSS e torná-lo responsivo para dispositivos mobile.',
-            thumb: { default: 'datamachina/datamachina_website_onepage.jpg' },
+            thumb: { default: 'datamachina/thumb-datamachina_website_onepage.jpg' },
             alt: 'Data Machina / Projeto frontend css e html',
             link: 'https://data-machina.web.app/',
         },
@@ -257,5 +257,40 @@ export const imagens =
             ],
             description: 'Mun é uma arandela escamotiável. O projeto foi desenvolvido por mim, junto a uma equipe de 3 pessoas. Buscamos baser-se em elementos da cultura oriental e nas fases da lua. No projeto, fiquei 100% encarregado da prototipação de um modelog físico, modelagem 3D e renderizações.',
         },
-    ]
+    ],
+    carrossel_03: [
+        {
+            id: 'mjykjmyt5hj',
+            name: 'Transcendemos',
+            paths: [
+                {
+                    img: 'transcendemos/transcendemos.png',
+                    alt: 'Transcendemos Consultorias'
+                },
+               
+            ],
+            description: 'Nesse projeto, trabalhei no design do projeto. Após a finalização do desing, o projeto foi colocado online por meio da plataforma WordPress.',
+            thumb: {
+                white: 'transcendemos/transcendemos-consultorias-palestras.png',
+                alt: 'Webiste da Transcendemos',
+            },
+        },
+        {
+            id: 'hjtryjytrsw',
+            name: 'Mapalytics',
+            paths: [
+                {
+                    img: 'mapalytics/mapalytics.jpg',
+                    alt: 'mapalytics Consultorias'
+                },
+               
+            ],
+            description: 'Mapalytics é um painel web da Data Machina de geomarketing. Junto a uma equipe de designers, os quais desenvolveram o desing do website para divulgação do painel, fiquei responsável por colocar o website de pé, criando todos os códigos. Esse foi o resultado final!',
+            thumb: {
+                white: 'mapalytics/thumb-mapalytics.jpg',
+                alt: 'Webiste da mapalytics',
+            },
+            link: 'https://mapalytics.com.br/'
+        },
+    ],
 }
