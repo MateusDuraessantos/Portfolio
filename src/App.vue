@@ -1004,7 +1004,7 @@ p {
 .carrossel--between {
   min-width: 248px;
   height: 500px;
-  filter: blur(2px);
+  filter: blur(0px);
 }
 
 .carrossel--center {

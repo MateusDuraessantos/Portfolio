@@ -148,7 +148,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 1000px;
+    max-width: 1200px;
     height: 100%;
     background: #1f1f1f;
     margin-top: 50px;

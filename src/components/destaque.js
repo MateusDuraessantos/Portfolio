@@ -47,33 +47,6 @@ export const imagens =
             thumb: { default: 'music/music_sp-webiste.jpg' },
             alt: 'Music SP',
         },
-        /* Tre */
-        {
-            id: 'mp2rewfwbiuz',
-            name: 'Tre | One Page',
-            link: 'https://tre-art-4b66f.web.app/',
-            paths: [
-                {
-                    img: 'tre/mobile-tre-studio-design.jpg',
-                    alt: 'Versão mockup mobile do website dos studios Tre'
-                },
-                {
-                    img: 'tre/studio-tre.jpg',
-                    alt: 'Versão mockup dektop do website dos studios Tre'
-                },
-                {
-                    img: 'tre/website-tre-studio-design.jpg',
-                    alt: 'Versão desktop do website dos studios Tre'
-                },
-            ],
-            description: "A Tre Comunicação, é um estúdio de design. Eu, mais uma equipe de 3 pessoas, trabalhamos em uma nova prosta para o seu website. No projeto, além da minha participação no design, fiquei 100% responsável pela programação e hospedagem dos códigos no domínio da empresa.",
-            thumb: { default: 'tre/website-tre-studio-design.jpg' },
-            github: 'https://github.com/MateusDuraessantos/tre',
-            link: 'https://tre.art.br/',
-            alt: 'Onepage - Empresa Tre Designs | Vuejs html css',
-            class: 'tre grid-area-height'
-        },
-
         // TCC
         {
             id: 'dfrejmwopqfremn',
@@ -258,8 +231,35 @@ export const imagens =
             description: 'Mun é uma arandela escamotiável. O projeto foi desenvolvido por mim, junto a uma equipe de 3 pessoas. Buscamos baser-se em elementos da cultura oriental e nas fases da lua. No projeto, fiquei 100% encarregado da prototipação de um modelog físico, modelagem 3D e renderizações.',
         },
     ],
+    
     carrossel_03: [
+         /* Tre */
         {
+            id: 'mp2rewfwbiuz',
+            name: 'Tre | One Page',
+            link: 'https://tre-art-4b66f.web.app/',
+            paths: [
+                {
+                    img: 'tre/mobile-tre-studio-design.jpg',
+                    alt: 'Versão mockup mobile do website dos studios Tre'
+                },
+                {
+                    img: 'tre/studio-tre.jpg',
+                    alt: 'Versão mockup dektop do website dos studios Tre'
+                },
+                {
+                    img: 'tre/website-tre-studio-design.jpg',
+                    alt: 'Versão desktop do website dos studios Tre'
+                },
+            ],
+            description: "A Tre Comunicação, é um estúdio de design. Eu, mais uma equipe de 3 pessoas, trabalhamos em uma nova prosta para o seu website. No projeto, além da minha participação no design, fiquei 100% responsável pela programação e hospedagem dos códigos no domínio da empresa.",
+            thumb: { white: 'tre/website-tre-studio-design.jpg' },
+            github: 'https://github.com/MateusDuraessantos/tre',
+            link: 'https://tre.art.br/',
+            alt: 'Onepage - Empresa Tre Designs | Vuejs html css',
+            class: 'tre grid-area-height'
+        },
+        /* {
             id: 'mjykjmyt5hj',
             name: 'Transcendemos',
             paths: [
@@ -274,7 +274,7 @@ export const imagens =
                 white: 'transcendemos/transcendemos-consultorias-palestras.png',
                 alt: 'Webiste da Transcendemos',
             },
-        },
+        }, */
         {
             id: 'hjtryjytrsw',
             name: 'Mapalytics',
