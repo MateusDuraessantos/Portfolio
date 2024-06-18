@@ -235,7 +235,7 @@ export default {
       saldacao: null,
       widthSize: undefined,
       touchSlided: [],
-      initItem: 2,
+      initItem: Number,
       itemsLength: Number,
       carrosselInterval: '',
     }
@@ -286,6 +286,7 @@ export default {
     },
     slideAutomatico() {
       let increase = 2
+      this.initItem = increase
       this.carrossel(undefined, undefined, increase)
 
       this.carrosselInterval = setInterval(() => {
@@ -303,28 +304,13 @@ export default {
       all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
       this.itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
 
-      const R = eventID == this.itemsLength ? eventID : eventID + 1
-      const L = eventID == 0 ? eventID : eventID - 1
-
-      let slideR 
-      R == this.itemsLength ? null : slideR = R + 1
-
-      let slideL 
-      L == 0 ? L : slideL = L - 1
-
       let position
 
-      if(slideR == 4 && slideL == 0) position = 0
-      else if(slideR <= 4) {
-        let positionL
-        if(slideR == 3) positionL = -1
-        if(slideR == 2) positionL = -2.3 // .3 = Ajuste fino de posicionamento
-        position = -197 * positionL
-      }
-      else if(slideL >= 1) position = -197 * (slideL + 0.025) // 0.025 = Ajuste fino de posicionamento 
+      if(this.widthSize > 1000) position = eventID * -291.43
+      if(this.widthSize <=  1000) position = eventID * -240
+
       document.querySelector('.carrossel__slide').style.transform = `translatex(${position}px)`
-      document.getElementById(`carrossel__${R}`).classList.add('carrossel--between')
-      document.getElementById(`carrossel__${L}`).classList.add('carrossel--between')
+
       if(event){
         event.currentTarget.removeAttribute('class') 
         event.currentTarget.classList.add('carrossel--center')
@@ -437,6 +423,7 @@ html {
 }
 
 body {
+  position: relative;
   overflow: overlay;
   background: black;
   width: 100vw;
@@ -918,8 +905,6 @@ p {
   }
 }
 
-
-
 /* Carrossel */
 
 .carrossel {
@@ -935,20 +920,18 @@ p {
 }
 
 .carrossel__content {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: calc(50vw - 145.71px);
   position: relative;
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent 5%, black 20%, black 80%, transparent 95%);
-}
-
-.carrossel__content, .carrossel__slide {
-  height: 800px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,0.3) 5%, black 20%, black 80%, rgba(0,0,0,0.3) 95%);
 }
 
 .carrossel__slide {
   display: flex;
   width: 100vw;
   margin: auto;
-  max-width: 1200px;
   justify-content: space-between;
   align-items: center;
 }
@@ -958,15 +941,12 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 200px;
-  height: 400px;
   cursor: pointer;
   filter: blur(4px);
 }
 
 [carrossel__item].carrossel--center{ /* Permite o hover aparecer */
   overflow: initial;
-  
 }
 
 [carrossel__item] .carrossel__background img, .carrossel__background::before {
@@ -1001,15 +981,14 @@ p {
   outline: 3px solid #363636;
   border: 4px black solid;
 }
-.carrossel--between {
-  min-width: 248px;
-  height: 500px;
+
+[carrossel__item], .carrossel--between, .carrossel--center {
+  height: 600px;
+  min-width: 300px;
   filter: blur(0px);
 }
 
-.carrossel--center {
-  min-width: 300px;
-  height: 600px;
+.carrossel--between, .carrossel--center{
   filter: blur(0);
 }
 
@@ -1046,14 +1025,8 @@ p {
   transition-delay: 0.15s;
 }
 
-.carrossel--center .carrossel__background img,
-.carrossel--center .carrossel__background::before {
-  border-radius: 60px;
-}
-
-.carrossel--between .carrossel__background img,
-.carrossel--between .carrossel__background::before {
-  border-radius: 50px;
+[carrossel__item] .carrossel__background img, .carrossel__background::before {
+  border-radius: 40px;
 }
 
 .carrossel__background::after {
@@ -1282,6 +1255,15 @@ p {
   transition: .2s;
 }
 
+@media screen and (max-width: 1440px) {
+
+  .carrossel--between, .carrossel--center, [carrossel__item]{
+    height: 600px;
+    min-width: 291.43px;
+  }
+  
+}
+
 @media screen and (max-width: 1280px) {
   .max__width {
     width: calc(100% - 100px) !important;
@@ -1364,6 +1346,7 @@ p {
     padding-top: 60px;
     gap: 8px;
   }
+
   .outros__card {
     border-radius: 20px;
   }
@@ -1375,9 +1358,13 @@ p {
     padding: 200px 0;
   }
 
-  .carrossel__slide {
-    justify-content: center;
-    margin-left: 200px;
+  .carrossel__slide{
+    margin-left: 26px;
+  }
+
+  .carrossel--between, .carrossel--center, [carrossel__item]{
+    height: 450px;
+    min-width: 240px;
   }
 
 }
@@ -1404,18 +1391,6 @@ p {
     font-size: 14px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* White Theme */
 
