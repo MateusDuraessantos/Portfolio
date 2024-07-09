@@ -74,114 +74,114 @@
 
       <div class="abordo">
         <div class="abordo__container max__width">
-          <p class="abordo__p"><strong>Aperte os cintos e entre abordo</strong></p>
+          <p class="abordo__p">Aperte os cintos e entre abordo</p>
         </div>
         <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" alt="">
       </div>
 
-      <div class="container__background" id="portfolio">
-          <div class="container__background--img">
-            <div class="container__background--body">
-              <img class="container__background--img" v-if="this.widthSize > 1000" src="inicio/white/background__parallax.webp" alt="">
-              <img class="container__background--img" v-else src="inicio/white/mobile-background__parallax.webp" alt="">
-          </div>
-        </div>
+      <div class="container__background">
+        <img class="container__background--img" id="parallax_teste" v-if="this.widthSize > 1000" src="inicio/white/background__parallax.png" alt="">
+        <img class="container__background--img"  id="parallax_teste" v-else src="inicio/white/mobile-background__parallax.webp" alt="">
+      </div>
 
+      <!-- DESTAQUES -->
 
-        <!-- DESTAQUES -->
-
-        <div class="outros">
-          <p class="outros__alguns"><b>Alguns destaques de web projetos que trabalhei</b></p>
-          <div class="destaque__grid_1 max__width">
-              <!-- Cards -->
+      <div class="outros" id="portfolio">
+        <div class="destaque__grid_1 max__width">
+            <!-- Cards -->
+            <div
+              :class="`${item.class} destaque__card`"
+              v-for="item in imagens.carrossel_03"
+            >
               <div
-                :class="`${item.class} destaque__card`"
-                v-for="item in imagens.carrossel_03"
+                class="outros__clique"
+                @click="upPopup(item, 'carrossel_03')"
               >
-                <div
-                  class="outros__clique"
-                  @click="upPopup(item, 'carrossel_03')"
-                >
-                  Ver projeto
-                </div>
-                <img class="outros__img" :src="`projetos/${item.thumb.white}`" :alt="item.thumb.alt">
+                Ver projeto
               </div>
-          </div>
+              <img class="outros__img" :src="`projetos/${item.thumb.white}`" :alt="item.thumb.alt">
+            </div>
         </div>
+      </div>
 
-        <!-- PORTFÓLIO -->
-         
-        <div class="experiencia">
-          <img class="experiencia__rocha experiencia__rocha--0" :src="`inicio/${whiteImages}/rochas/intersect_00.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--1" :src="`inicio/${whiteImages}/rochas/intersect_01.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--2" :src="`inicio/${whiteImages}/rochas/intersect_02.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--3" :src="`inicio/${whiteImages}/rochas/intersect_03.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--4" :src="`inicio/${whiteImages}/rochas/intersect_04.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--5" :src="`inicio/${whiteImages}/rochas/intersect_05.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--6" :src="`inicio/${whiteImages}/rochas/intersect_06.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--7" :src="`inicio/${whiteImages}/rochas/intersect_07.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--8" :src="`inicio/${whiteImages}/rochas/intersect_08.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--9" :src="`inicio/${whiteImages}/rochas/intersect_09.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--10" :src="`inicio/${whiteImages}/rochas/intersect_10.png`" alt="">
-          <img class="experiencia__rocha experiencia__rocha--11" :src="`inicio/${whiteImages}/rochas/intersect_11.png`" alt="">
-          <p class="title--line">Alguns outros mais!</p>
-          <div class="carrossel">
-            <div class="carrossel__content">
-              <div class="carrossel__slide">
-                <div
-                  :id="`carrossel__${index}`"
-                  v-for="(el, index) in imagens.carrossel_01"
-                  @click="carrossel"
-                  @touchstart="touthPositions"
-                  @touchend="touthPositions"
-                  carrossel__item
-                  >
-                    <div class="carrossel__popup"
-                      @click="upPopup(el, 'carrossel_01')"
-                    >
-                      Clique aqui
-                    </div>
-                    <div class="carrossel__background">
-                      <img class="" :src="`projetos/${el.thumb.default}`" alt="">
-                    </div>
-                  </div>
+      <!-- PORTFÓLIO -->
+        
+      <div class="experiencia">
+        <img class="experiencia__rocha experiencia__rocha--0" :src="`inicio/${whiteImages}/rochas/intersect_00.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--1" :src="`inicio/${whiteImages}/rochas/intersect_01.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--2" :src="`inicio/${whiteImages}/rochas/intersect_02.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--3" :src="`inicio/${whiteImages}/rochas/intersect_03.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--4" :src="`inicio/${whiteImages}/rochas/intersect_04.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--5" :src="`inicio/${whiteImages}/rochas/intersect_05.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--6" :src="`inicio/${whiteImages}/rochas/intersect_06.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--7" :src="`inicio/${whiteImages}/rochas/intersect_07.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--8" :src="`inicio/${whiteImages}/rochas/intersect_08.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--9" :src="`inicio/${whiteImages}/rochas/intersect_09.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--10" :src="`inicio/${whiteImages}/rochas/intersect_10.png`" alt="">
+        <img class="experiencia__rocha experiencia__rocha--11" :src="`inicio/${whiteImages}/rochas/intersect_11.png`" alt="">
+
+        <!-- CARROSSEL -->
+        
+        <div class="carrossel">
+          <div class="carrossel__buttons">
+            <button class="carrossel--btn carrossel--btn-L" @click="slideCarrosselButton('left')">&#60;</button>
+            <button class="carrossel--btn carrossel--btn-R" @click="slideCarrosselButton('right')">&#62;</button>
+          </div>
+
+          <div class="carrossel__content">
+            <div class="carrossel__slide">
+              <div
+                :id="`carrossel__${index}`"
+                v-for="(el, index) in imagens.carrossel_01"
+                @click="carrossel"
+                @touchstart="touthPositions"
+                @touchend="touthPositions"
+                carrossel__item
+              >
+                <div class="carrossel__popup"
+                  @click="upPopup(el, 'carrossel_01')"
+                >
+                  Clique aqui
+                </div>
+                <div class="carrossel__background">
+                  <img class="" :src="`projetos/${el.thumb.default}`" alt="">
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- OUTROS DESIGNS -->
-
-        <div class="outros">
-          <p class="title--line">Mais! de designs</p>
-          <div class="outros__grid max__width">
-              <!-- Cards -->
-              <div
-                :class="`${item.class} outros__card`"
-                v-for="item in imagens.carrossel_02"
-              >
-                <div
-                  class="outros__clique"
-                  @click="upPopup(item, 'carrossel_02')"
-                >
-                  Ver projeto
-                </div>
-                <img class="outros__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
-              </div>
-          </div>
-        </div>
-        
-        <!-- SOBRE -->
-        <Sobre :whiteIcons="whiteIcons" />
-        
-        <!-- CONTATO -->
-        <section>
-          <h5 class="mensagem">
-            <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
-            <p class="mensagem__arrow">Entre em contato para mais!</p>
-          </h5>
-        </section>
       </div>
+
+      <!-- OUTROS DESIGNS -->
+
+      <div class="outros">
+        <div class="outros__grid max__width">
+            <!-- Cards -->
+            <div
+              :class="`${item.class} outros__card`"
+              v-for="item in imagens.carrossel_02"
+            >
+              <div
+                class="outros__clique"
+                @click="upPopup(item, 'carrossel_02')"
+              >
+                Ver projeto
+              </div>
+              <img class="outros__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
+            </div>
+        </div>
+      </div>
+      
+      <!-- SOBRE -->
+      <Sobre :whiteIcons="whiteIcons" />
+      
+      <!-- CONTATO -->
+      <section>
+        <h5 class="mensagem">
+          <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
+          <p class="mensagem__arrow">Entre em contato para mais!</p>
+        </h5>
+      </section>
 
       <!-- FOOTER -->
 
@@ -238,6 +238,7 @@ export default {
       initItem: Number,
       itemsLength: Number,
       carrosselInterval: '',
+      getCurrenteSlide: Number
     }
   },
   watch: {
@@ -246,6 +247,7 @@ export default {
     },
   },
   mounted() {
+    console.clear()
     this.isDay() // Verifica o horário para setar o tema dos elementos
     this.turnBackgroundWhite(0)
     this.overflow(0)
@@ -255,8 +257,16 @@ export default {
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
     this.slideAutomatico()
+    this.setParallaxHeight()
+    window.addEventListener('resize', this.setParallaxHeight)
   },
   methods: {
+    setParallaxHeight() {
+      setTimeout(() => {
+        const altura = document.getElementById('main').clientHeight
+        document.getElementById('parallax_teste').style.height = `calc(${altura}px - 260vh)`
+      }, 1000)
+    },
     upPopup(obj, array){
       this.imageIndex = {
         obj: obj,
@@ -286,20 +296,29 @@ export default {
     },
     slideAutomatico() {
       let increase = 2
+      this.getCurrenteSlide = increase
       this.initItem = increase
       this.carrossel(undefined, undefined, increase)
 
       this.carrosselInterval = setInterval(() => {
-        console.log('auto');
         this.carrossel(undefined, undefined, increase)
         if(this.itemsLength == increase) increase = 0
         else increase++
+        this.getCurrenteSlide = increase
       }, 3000)
+    },
+    slideCarrosselButton(direction){
+      if(direction == 'left' && this.getCurrenteSlide > 0) this.getCurrenteSlide = this.getCurrenteSlide -1
+      if(direction == 'right' && this.getCurrenteSlide < imagens.carrossel_01.length - 1) this.getCurrenteSlide = this.getCurrenteSlide +1
+
+      this.carrossel(undefined, undefined, this.getCurrenteSlide)
+      clearInterval(this.carrosselInterval)
     },
     carrossel(event, touch, increase) {
       if(event || touch) clearInterval(this.carrosselInterval)
       const elementOnSpot = touch != undefined ? touch : increase // Altera qual o item em destaque
       const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
+      this.getCurrenteSlide = eventID
       const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
       all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
       this.itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
@@ -323,7 +342,7 @@ export default {
     isDay() {
       this.whatTimeIs = new Date().getHours()
       this.booleanTheme = this.whatTimeIs < 6 || this.whatTimeIs >= 18 ? false : true // Se for true o tema fica branco
-      // this.booleanTheme = false
+      // this.booleanTheme = true
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -594,7 +613,6 @@ p {
   text-align: center;
   bottom: 10px;
   font-size: 12px;
-  color: rgb(105, 110, 128);
   font-weight: 400;
 }
 
@@ -682,6 +700,11 @@ p {
   z-index: 3;
 }
 
+.abordo__p {
+  text-shadow: 4px 3px 5px rgba(0, 0, 0, 0.2) !important;
+  font-weight: 700;
+}
+
 .abordo__p, .abordo__p * {
   color: var(--creme) !important;
   font-size: 22px;
@@ -718,7 +741,7 @@ p {
 .experiencia__rocha--0 {
   width: 20%;
   max-width: 300px;
-  top: 0;
+  top: -29%;
   right: 40vw;
   animation-name: sky_04;
 }
@@ -740,7 +763,7 @@ p {
   width: 16%;
   max-width: 260px;
   left: 4vw;
-  top: 27%;
+  top: 4%;
   animation-name: sky_02;
 }
 .experiencia__rocha--4 {
@@ -761,14 +784,14 @@ p {
   width: 13%;
   max-width: 230px;
   bottom: 0;
-  left: 45vw;
+  left: 54vw;
   animation-name: sky_11;
 }
 .experiencia__rocha--7 {
   width: 30%;
   max-width: 400px;
   left: -150px;
-  top: 4%;
+  top: -56%;
   animation-name: sky_08;
 }
 .experiencia__rocha--8 {
@@ -782,21 +805,21 @@ p {
   width: 30%;
   max-width: 400px;
   left: 19vw;
-  top: 16%;
+  top: -16%;
   animation-name: sky_04;
 }
 .experiencia__rocha--10 {
   width: 30%;
   max-width: 400px;
   bottom: 0;
-  right: 3vw;
-  animation-name: sky_11;
+  right: -5vw;
+  animation-name: sky_06
 }
 .experiencia__rocha--11 {
   width: 20%;
   max-width: 300px;
-  top: 1156px;
-  left: 26vw;
+  top: 1656px;
+  right: 1vw;
   animation-name: sky_08;
 }
 
@@ -915,6 +938,31 @@ p {
   z-index: 2;
 }
 
+.carrossel__buttons {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  gap: 30px;
+  top: calc(100% + 30px);
+}
+
+.carrossel--btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(114, 114, 114, 0.2);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  backdrop-filter: blur(6px);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  color: var(--creme);
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 2;
+}
+
 .carrossel__content * {
   transition: .5s;
 }
@@ -943,6 +991,7 @@ p {
   align-items: center;
   cursor: pointer;
   filter: blur(4px);
+  margin: 10px 0;
 }
 
 [carrossel__item].carrossel--center{ /* Permite o hover aparecer */
@@ -1005,7 +1054,7 @@ p {
   text-align: center;
   color: var(--creme) !important;
   width: calc(100% - 16px);
-  border-radius: 60px;
+  border-radius: 34px;
   z-index: 2;
   text-decoration: underline;
   opacity: 0;
@@ -1043,6 +1092,7 @@ p {
   width: 89px;
 }
 
+
 /* OUTROS */
 
 .outros {
@@ -1077,18 +1127,20 @@ p {
 
 .outros__card {
   position: relative;
-  border-radius: 50px;
+  border-radius: 30px;
   overflow: hidden;
   width: 100%;
   height: 400px;
+  box-shadow: 5px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .destaque__card {
   position: relative;
-  border-radius: 50px;
+  border-radius: 20px;
   overflow: hidden;
   width: 100%;
   height: 800px;
+  box-shadow: 5px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .mesa {
@@ -1131,7 +1183,6 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
 }
 
 /* Banner */
@@ -1335,6 +1386,7 @@ p {
   
   .destaque__card {
     height: 400px; 
+    border-radius: 20px;
   }
 
   /* Outro */
@@ -1345,10 +1397,6 @@ p {
     padding: 0;
     padding-top: 60px;
     gap: 8px;
-  }
-
-  .outros__card {
-    border-radius: 20px;
   }
 
   /* Carrossel */
@@ -1433,6 +1481,7 @@ p {
 
 .container__background {
   position: relative;
+  /* overflow: hidden; */
 }
 
 .container__background--container {
@@ -1447,28 +1496,12 @@ p {
   height: 100%;
 }
 
-
-.whiteTheme .container__background--body::before {
-  content: '';
+.container__background--img {
   position: absolute;
   top: 0;
-  width: 100%;
-  height: 200px;
-  background-image: linear-gradient(var(--body_color), transparent);
-  z-index: 1;
-}
-
-.container__background--body {
-  position: absolute;
-  display: flex;
-  align-items: flex-end;
-  bottom: 0;
-  width: 100%;
-}
-
-.container__background--img {
   display: none;
   width: 100%;
+  object-fit: cover;
   min-height: max-content;
   min-width: 1200px;
 }
@@ -1496,16 +1529,5 @@ p {
   width: 100%;
   background-image: linear-gradient(transparent, var(--linear-after));
   z-index: 3;
-}
-
-.whiteTheme .container__background::before {
-  position: absolute;
-  content: '';
-  background-image: linear-gradient(transparent, var(--body_color));
-  bottom: 0;
-  height: 400px;
-  width: 100%;
-  pointer-events: none;
-  z-index: 1;
 }
 </style>

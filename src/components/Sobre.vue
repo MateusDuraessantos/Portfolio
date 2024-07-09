@@ -180,7 +180,7 @@ export default {
     backdrop-filter: blur(50px);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
     gap: 40px;
-    border-radius: 36px;
+    border-radius: 20px;
     padding: 40px;
     padding-bottom: 80px;
     max-width: 1000px;
@@ -191,7 +191,7 @@ export default {
 .sobre__container {
     display: flex;
     gap: 40px;
-    border-radius: 36px;
+    border-radius: 20px;
     align-items: center;
 }
 

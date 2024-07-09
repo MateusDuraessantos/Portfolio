@@ -1,6 +1,6 @@
 <template>
-    <footer class="sky " id="contato">
-
+    <footer id="contato">
+        <div class="sky">
         <!-- Mensagem de sucesso -->
         
         <div class="sucesso" v-if="success" id="sucesso">
@@ -181,6 +181,7 @@
         <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/planet_12.webp`" alt="" id="planet_12" loading="lazy">
         <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/planet_13.webp`" alt="" id="planet_13" loading="lazy">
         <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/planet_14.webp`" alt="" id="planet_14" loading="lazy">
+        </div>
     </footer>
 </template>
 
@@ -331,10 +332,25 @@ export default {
 
 .sky {
     position: relative;
+    overflow: hidden;
     height: 100vh;
     width: 100vw;
     z-index: 2;
-    overflow: hidden;
+}
+
+footer {
+    position: relative;
+}
+
+.whiteTheme footer::before {
+  position: absolute;
+  content: '';
+  background-image: linear-gradient(transparent, var(--body_color));
+  bottom: 100%;
+  height: 400px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
 
@@ -546,7 +562,7 @@ input:hover, textarea:hover {
 }
 
 
-.whiteTheme .sky::after {
+.whiteTheme .sky__informacoes::after {
     position: absolute;
     content: '';
     top: 0;
@@ -556,7 +572,7 @@ input:hover, textarea:hover {
     z-index: 2;
 }
 
-.sky::before {
+.sky__informacoes::before {
     position: absolute;
     content: '';
     bottom: 100%;
@@ -608,10 +624,10 @@ input:hover, textarea:hover {
 }
 
 .sky__informacoes {
-    /* mix-blend-mode: difference; */
     width: 100%;
     height: 100%;
     position: absolute;
+    overflow: hidden;
     top: 0;
     left: 0;
     z-index: 4;
@@ -973,10 +989,6 @@ input:hover, textarea:hover {
     .decoration__info,
     .decoration__copy {
         display: none;
-    }
-
-    .sky {
-        width: calc(100% - 7px);
     }
 }
 
