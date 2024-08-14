@@ -246,72 +246,72 @@ export default {
                 this.error = true; // Supõe que você tem uma propriedade 'error' para controle de estado
             });
         },
+        
         fecharSuccess(){
             document.getElementById('sucesso').classList.add('sucesso--close')
-            setTimeout(() => {
-                this.success = false
-                console.log(this.success);
-            }, 1000)
+            setTimeout(() => this.success = false, 1000)
             this.openForms()
         },
+        
         fecharError(){
             document.getElementById('error').classList.add('sucesso--close')
-            setTimeout(() => {
-                this.error = false
-                console.log(this.success);
-            }, 1000)
+            setTimeout(() => this.error = false, 1000)
             
             this.openForms()
         },
+        
         openForms(){
             const open = document.getElementById('contato')
             const forms = document.getElementById('forms')
-
-            if(open.classList[1] == ('open')){
-                open.classList.remove('open')
-                forms.classList.remove('sky__overlay--open')
-            }else{
-                open.classList.add('open')
-                forms.classList.add('sky__overlay--open')
+            if(open.classList[1] == ('open') || open.classList['value']){
+              open.classList.remove('open')
+              forms.classList.remove('sky__overlay--open')
+              }
+            else {
+              open.classList.add('open')
+              forms.classList.add('sky__overlay--open')
             }
         },
+        
         blurIn(enter) {
             clearTimeout(this.blurTimeout)
             const footer = document.querySelector('.sky__informacoes')
             let blur = Number(footer.style.backdropFilter.split('(')[1][0])
             let y = blur
             const addBlur = (increment) => {
-                footer.setAttribute('style', `backdrop-filter: blur(${y}px)`);
-                y += increment
-                if ((increment === 1 && y < 10) || (increment === -1 && y >= 0)) {
-                    clearTimeout(this.blurTimeout)
-                    this.blurTimeout = setTimeout(() => addBlur(increment), 20);
-                }
+              footer.setAttribute('style', `backdrop-filter: blur(${y}px)`);
+              y += increment
+              if ((increment === 1 && y < 10) || (increment === -1 && y >= 0)) {
+                clearTimeout(this.blurTimeout)
+                this.blurTimeout = setTimeout(() => addBlur(increment), 20);
+              }
             }
             addBlur(enter == 'enter' ? 1 : -1)
         },
+        
         copyText(content) {
-            // Só funciona quando está online, HTTPS precisa ser seguro            
-            if (!navigator.clipboard) {
-                console.error('Clipboard API not available');
-                alert('Copying not supported in this browser');
-                return;
-            }
-            navigator.clipboard.writeText(content)
-            .then(() => {
-                alert("Texto copiado: " + content);
-            })
+          // Só funciona quando está online, HTTPS precisa ser seguro            
+          if (!navigator.clipboard) {
+            console.error('Clipboard API not available');
+            alert('Copying not supported in this browser');
+            return;
+          }
+          navigator.clipboard.writeText(content)
+          .then(() => {
+            alert("Texto copiado: " + content);
+          })
         },
+        
         observador() { // Altear o estilo do header ao chegar no footer
-            const header = document.getElementById('header')
-            const observer = new IntersectionObserver(entries => {
-                this.$emit('nomeEvento', entries[0].isIntersecting)
+          const header = document.getElementById('header')
+          const observer = new IntersectionObserver(entries => {
+            this.$emit('nomeEvento', entries[0].isIntersecting)
 
-                if (entries[0].isIntersecting) header.classList.add('hiddenHeader') 
-                else header.classList.remove('hiddenHeader')
-            
-            })
-            observer.observe(document.getElementById('observador__footer'))
+            if (entries[0].isIntersecting) header.classList.add('hiddenHeader') 
+            else header.classList.remove('hiddenHeader')
+          
+          })
+          observer.observe(document.getElementById('observador__footer'))
         },
     },
 }

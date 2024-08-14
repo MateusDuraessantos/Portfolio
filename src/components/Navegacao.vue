@@ -127,7 +127,7 @@ nav {
   backdrop-filter: blur(14px) !important;
   width: 100vw;
   height: 80px;
-  z-index: 6;
+  z-index: 8;
 }
 
 /* */

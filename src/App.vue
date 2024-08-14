@@ -86,27 +86,13 @@
 
       <!-- DESTAQUES -->
 
-      <div class="outros" id="portfolio">
-        <div class="destaque__grid_1 max__width">
-            <!-- Cards -->
-            <div
-              :class="`${item.class} destaque__card`"
-              v-for="item in imagens.carrossel_03"
-            >
-              <div
-                class="outros__clique"
-                @click="upPopup(item, 'carrossel_03')"
-              >
-                Ver projeto
-              </div>
-              <img class="outros__img" :src="`projetos/${item.thumb.white}`" :alt="item.thumb.alt">
-            </div>
-        </div>
-      </div>
+      <!-- 3D -->
+
+      <!-- <Animation /> -->
 
       <!-- PORTFÓLIO -->
         
-      <div class="experiencia">
+      <div class="experiencia" id="portfolio">
         <img class="experiencia__rocha experiencia__rocha--0" :src="`inicio/${whiteImages}/rochas/intersect_00.png`" alt="">
         <img class="experiencia__rocha experiencia__rocha--1" :src="`inicio/${whiteImages}/rochas/intersect_01.png`" alt="">
         <img class="experiencia__rocha experiencia__rocha--2" :src="`inicio/${whiteImages}/rochas/intersect_02.png`" alt="">
@@ -122,40 +108,15 @@
 
         <!-- CARROSSEL -->
         
-        <div class="carrossel">
-          <div class="carrossel__buttons">
-            <button class="carrossel--btn carrossel--btn-L" @click="slideCarrosselButton('left')">&#60;</button>
-            <button class="carrossel--btn carrossel--btn-R" @click="slideCarrosselButton('right')">&#62;</button>
-          </div>
+        <Carrossel @upPopup="upPopup" />
 
-          <div class="carrossel__content">
-            <div class="carrossel__slide">
-              <div
-                :id="`carrossel__${index}`"
-                v-for="(el, index) in imagens.carrossel_01"
-                @click="carrossel"
-                @touchstart="touthPositions"
-                @touchend="touthPositions"
-                carrossel__item
-              >
-                <div class="carrossel__popup"
-                  @click="upPopup(el, 'carrossel_01')"
-                >
-                  Clique aqui
-                </div>
-                <div class="carrossel__background">
-                  <img class="" :src="`projetos/${el.thumb.default}`" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- OUTROS DESIGNS -->
 
       <div class="outros">
         <div class="outros__grid max__width">
+            <img class="outros__shadow" src="/shadow.svg" alt="">
             <!-- Cards -->
             <div
               :class="`${item.class} outros__card`"
@@ -179,7 +140,7 @@
       <section>
         <h5 class="mensagem">
           <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
-          <p class="mensagem__arrow">Entre em contato para mais!</p>
+          <p class="mensagem__arrow">Entre em contatoh para mais!</p>
         </h5>
       </section>
 
@@ -205,6 +166,8 @@ import Navegacao from './components/Navegacao'
 import FooterElements from './components/Footer.vue'
 import Sobre from './components/Sobre.vue'
 import Popup from './components/Popup.vue'
+import Animation from './components/Animation.vue'
+import Carrossel from './components/Carrossel.vue'
 import { imagens } from './components/destaque.js'
 
 export default {
@@ -214,7 +177,8 @@ export default {
     Popup,
     FooterElements,
     Sobre,
-
+    Animation,
+    Carrossel,
   },
   data() {
     return {
@@ -227,18 +191,11 @@ export default {
       booleanTheme: true,
       smile: 'black',
       blockClicked: '',
-      blockTimer: true,
-      blurTimeout: '',
       whiteIcons: 'whiteicons',
       whiteImages: 'black',
       footerVisible: true,
       saldacao: null,
       widthSize: undefined,
-      touchSlided: [],
-      initItem: Number,
-      itemsLength: Number,
-      carrosselInterval: '',
-      getCurrenteSlide: Number
     }
   },
   watch: {
@@ -247,7 +204,6 @@ export default {
     },
   },
   mounted() {
-    console.clear()
     this.isDay() // Verifica o horário para setar o tema dos elementos
     this.turnBackgroundWhite(0)
     this.overflow(0)
@@ -256,7 +212,6 @@ export default {
     this.haveAGoodDay()
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
-    this.slideAutomatico()
     this.setParallaxHeight()
     window.addEventListener('resize', this.setParallaxHeight)
   },
@@ -277,72 +232,13 @@ export default {
     removeLinkVerFunc() {
       this.removeLinkVer = !this.removeLinkVer
     },
-    /* Carrossel */
-    touthPositions(event){
-      if(event.type == 'touchstart') this.touchSlided = []
-
-      this.touchSlided.push(event.changedTouches[0].clientX)
-      const limiteSlide = 50 // Define quantos pixeis o touch deve alcançar para poder ativar a animação 
-      let gSlide = this.touchSlided[0] - this.touchSlided[1] > limiteSlide || this.touchSlided[0] - this.touchSlided[1] < -limiteSlide
-
-      if(this.touchSlided[0] > this.touchSlided[1] && gSlide) { // Avança um item no carrossel
-        this.initItem = this.initItem < imagens.carrossel_01.length - 1 ? this.initItem + 1 : this.initItem
-        if(event.type == 'touchend') this.carrossel(null, this.initItem)
-      }
-      if(this.touchSlided[0] < this.touchSlided[1] && gSlide) { // Retrocede um item no carrossel
-        this.initItem = this.initItem != 0 ? this.initItem - 1 : this.initItem
-        if(event.type == 'touchend') this.carrossel(null, this.initItem)
-      };
-    },
-    slideAutomatico() {
-      let increase = 2
-      this.getCurrenteSlide = increase
-      this.initItem = increase
-      this.carrossel(undefined, undefined, increase)
-
-      this.carrosselInterval = setInterval(() => {
-        this.carrossel(undefined, undefined, increase)
-        if(this.itemsLength == increase) increase = 0
-        else increase++
-        this.getCurrenteSlide = increase
-      }, 3000)
-    },
-    slideCarrosselButton(direction){
-      if(direction == 'left' && this.getCurrenteSlide > 0) this.getCurrenteSlide = this.getCurrenteSlide -1
-      if(direction == 'right' && this.getCurrenteSlide < imagens.carrossel_01.length - 1) this.getCurrenteSlide = this.getCurrenteSlide +1
-
-      this.carrossel(undefined, undefined, this.getCurrenteSlide)
-      clearInterval(this.carrosselInterval)
-    },
-    carrossel(event, touch, increase) {
-      if(event || touch) clearInterval(this.carrosselInterval)
-      const elementOnSpot = touch != undefined ? touch : increase // Altera qual o item em destaque
-      const eventID = event ? Number(event.currentTarget.id.split('__')[1]) : elementOnSpot // Pega a posição do item clicado
-      this.getCurrenteSlide = eventID
-      const all = document.querySelectorAll('[carrossel__item]') // Pega todos os itens
-      all.forEach(obj => obj.removeAttribute('class')) // Limpa a classe de todos os itens
-      this.itemsLength = Number(all[all.length - 1].id.split('__')[1]) // Conta quantos itens tem
-
-      let position
-
-      if(this.widthSize > 1000) position = eventID * -291.43
-      if(this.widthSize <=  1000) position = eventID * -240
-
-      document.querySelector('.carrossel__slide').style.transform = `translatex(${position}px)`
-
-      if(event){
-        event.currentTarget.removeAttribute('class') 
-        event.currentTarget.classList.add('carrossel--center')
-      }
-      else document.getElementById(`carrossel__${elementOnSpot}`).classList.add('carrossel--center')
-    },
-
+   
     /*  */
 
     isDay() {
       this.whatTimeIs = new Date().getHours()
       this.booleanTheme = this.whatTimeIs < 6 || this.whatTimeIs >= 18 ? false : true // Se for true o tema fica branco
-      // this.booleanTheme = true
+      this.booleanTheme = true
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -354,11 +250,13 @@ export default {
         setTimeout(() => overflow.classList.remove('blackoverflows'), 1250);
       }
     },
+    
     turnOn() {
       this.booleanTheme = !this.booleanTheme
       this.turnBackgroundWhite(1000)
       this.overflow(2000)
     },
+    
     overflow(timer) { // Aciona o overflow para alteração do tema 
       const overflow = document.getElementById('themeOverflow')
       overflow.setAttribute('class', 'blackOverflow')
@@ -369,26 +267,28 @@ export default {
         setTimeout(() => overflow.removeAttribute('class'), timer);
       }
     },
+    
     turnBackgroundWhite(timer) {
       // Altera a cor do background global 
       if (this.booleanTheme == true)  setTimeout(() => document.body.style.background = 'var(--body_color)', timer);
       else setTimeout(() => document.body.removeAttribute('style'), timer);
     },
+    
     removeClass() {
       document.getElementById('header').classList.remove('header__show')
     },
+    
     tratarEvento(showingup) {
       this.hiddenHeader = showingup ? false : true
     },
-    widthScreen() { // Verifica o tamanho da tela para trocar entre o popup padrão ou carrossel
-      this.widthSize = window.screen.availWidth
-    },
+    
     scrollDown(ancora) {
       window.scrollTo({
         top: document.getElementById(ancora).offsetTop,
         behavior: 'smooth'
       })
     },
+    
     haveAGoodDay() {
       const date = new Date().getHours()
       if (date >= 0 && date < 5) this.saldacao = 'Olá,'
@@ -397,21 +297,21 @@ export default {
       else this.saldacao = 'Boa noite!'
     },
     changeImagens(timer) {
-      if (this.booleanTheme == true) {
+      this.booleanTheme == true ? 
         setTimeout(() => {
           this.blockClicked = 'blackicons'
           this.whiteImages = 'white'
           this.footerVisible = false
-        }, timer);
-      } else {
+        }, timer) :
         setTimeout(() => {
           this.blockClicked = 'whiteicons'
           this.whiteImages = 'black'
           this.footerVisible = true
         }, timer);
-      }
+
       this.keepWhiteOnReload(timer)
     },
+    
     keepWhiteOnReload(timer) {
       setTimeout(() => {
         //Altera o path das thumbs
@@ -430,6 +330,8 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Xanh+Mono:ital@0;1&display=swap');
 
 /* font-family: 'Poppins', sans-serif; */
 html {
@@ -713,7 +615,7 @@ p {
 /* Expêriencia */
 .experiencia {
   position: relative;
-  padding: 500px 0 100px 0;
+  padding: 200px 0 100px 0;
 }
 
 .title--line {
@@ -772,6 +674,7 @@ p {
   bottom: -30%;
   left: 0;
   animation-name: sky_08;
+  z-index: 6;
 }
 .experiencia__rocha--5 {
   width: 30%;
@@ -791,7 +694,7 @@ p {
   width: 30%;
   max-width: 400px;
   left: -150px;
-  top: -56%;
+  top: -160%;
   animation-name: sky_08;
 }
 .experiencia__rocha--8 {
@@ -928,171 +831,6 @@ p {
   }
 }
 
-/* Carrossel */
-
-.carrossel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 2;
-}
-
-.carrossel__buttons {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
-  gap: 30px;
-  top: calc(100% + 30px);
-}
-
-.carrossel--btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(114, 114, 114, 0.2);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  backdrop-filter: blur(6px);
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-  color: var(--creme);
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.carrossel__content * {
-  transition: .5s;
-}
-
-.carrossel__content {
-  display: flex;
-  justify-content: flex-start;
-  padding-left: calc(50vw - 145.71px);
-  position: relative;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, rgba(0,0,0,0.3) 5%, black 20%, black 80%, rgba(0,0,0,0.3) 95%);
-}
-
-.carrossel__slide {
-  display: flex;
-  width: 100vw;
-  margin: auto;
-  justify-content: space-between;
-  align-items: center;
-}
-
-[carrossel__item] {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  filter: blur(4px);
-  margin: 10px 0;
-}
-
-[carrossel__item].carrossel--center{ /* Permite o hover aparecer */
-  overflow: initial;
-}
-
-[carrossel__item] .carrossel__background img, .carrossel__background::before {
-  border-radius: 40px;
-}
-
-.carrossel__background {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  width: 95%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.carrossel__background::before {
-  position: absolute;
-  content: '';
-  box-shadow: inset 1px 2px 2px gray;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-}
-
-.carrossel__background img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-position: top;
-  object-fit: cover;
-  box-shadow: 3px 3px 12px rgba(0, 0, 0, 1);
-  outline: 3px solid #363636;
-  border: 4px black solid;
-}
-
-[carrossel__item], .carrossel--between, .carrossel--center {
-  height: 600px;
-  min-width: 300px;
-  filter: blur(0px);
-}
-
-.carrossel--between, .carrossel--center{
-  filter: blur(0);
-}
-
-.carrossel__popup {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-  background: rgba(0, 0, 0, 0.5);
-  font-size: 24px;
-  margin: auto;
-  height: 100%;
-  text-align: center;
-  color: var(--creme) !important;
-  width: calc(100% - 16px);
-  border-radius: 34px;
-  z-index: 2;
-  text-decoration: underline;
-  opacity: 0;
-  transition: .2s;
-  pointer-events: none;
-}
-
-.carrossel__popup:hover {
-  transition: .2s;
-  text-decoration: initial;
-}
-
-.carrossel--center:hover .carrossel__popup {
-  pointer-events: initial;
-  opacity: 1;
-  transition: .2s;
-  transition-delay: 0.15s;
-}
-
-[carrossel__item] .carrossel__background img, .carrossel__background::before {
-  border-radius: 40px;
-}
-
-.carrossel__background::after {
-  position: absolute;
-  content: '';
-  margin: auto;
-  background: black;
-  height: 18px;
-  box-shadow: inset 0px -1px 2px gray;
-  border-radius: 0 0 10px 10px;
-  width: 58px;
-  z-index: 2;
-  top: 2px;
-  width: 89px;
-}
-
-
 /* OUTROS */
 
 .outros {
@@ -1116,14 +854,20 @@ p {
 }
 
 .outros__grid {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  max-width: 1150px;
   grid-template: 
-  'butterfly null'
-  'butterfly mesa';
+    'butterfly null'
+    'butterfly mesa';
   padding: 100px;
 }
+
+.outros__shadow {
+  display: none;
+} 
 
 .outros__card {
   position: relative;
@@ -1131,7 +875,6 @@ p {
   overflow: hidden;
   width: 100%;
   height: 400px;
-  box-shadow: 5px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 .destaque__card {
@@ -1141,6 +884,19 @@ p {
   width: 100%;
   height: 800px;
   box-shadow: 5px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.whiteTheme .outros__shadow {
+  display: block;
+  position: absolute;
+  top: 90px;
+  left: 40px;
+  width: 1520px;
+  z-index: -1;
+}
+
+.whiteTheme .outros__card {
+  box-shadow: 25px 24px 45px rgb(59 25 25 / 28%);
 }
 
 .mesa {
@@ -1245,6 +1001,7 @@ p {
   content: '';
   position: absolute;
   height: 200px;
+  pointer-events: none;
   width: 100%;
   top: 100%;
   z-index: 2;
@@ -1304,15 +1061,6 @@ p {
 .banner__social:hover .banner__redes:not(:hover) {
   opacity: 0.2;
   transition: .2s;
-}
-
-@media screen and (max-width: 1440px) {
-
-  .carrossel--between, .carrossel--center, [carrossel__item]{
-    height: 600px;
-    min-width: 291.43px;
-  }
-  
 }
 
 @media screen and (max-width: 1280px) {
@@ -1398,23 +1146,6 @@ p {
     padding-top: 60px;
     gap: 8px;
   }
-
-  /* Carrossel */
-
-  .experiencia {
-    position: relative;
-    padding: 200px 0;
-  }
-
-  .carrossel__slide{
-    margin-left: 26px;
-  }
-
-  .carrossel--between, .carrossel--center, [carrossel__item]{
-    height: 450px;
-    min-width: 240px;
-  }
-
 }
 
 /* Mobile version */
@@ -1498,7 +1229,6 @@ p {
 
 .container__background--img {
   position: absolute;
-  top: 0;
   display: none;
   width: 100%;
   object-fit: cover;
@@ -1528,6 +1258,6 @@ p {
   bottom: 100%;
   width: 100%;
   background-image: linear-gradient(transparent, var(--linear-after));
-  z-index: 3;
+  z-index: 2;
 }
 </style>

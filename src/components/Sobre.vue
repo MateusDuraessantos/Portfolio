@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <h4>Conhecimentos:</h4>
+                    <h4>Experiência:</h4>
                 </div>
                 <div class="sobre__experiencia">
                     <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
@@ -167,6 +167,10 @@ export default {
     z-index: 4;
 }
 
+h4 {
+  font-weight: 500;
+}
+
 .whiteTheme .sobre__planet--1,
 .whiteTheme .sobre__planet--2 {
     display: none;
@@ -176,8 +180,8 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
-    -webkit-backdrop-filter: blur(50px) !important;
-    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px);
     box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
     gap: 40px;
     border-radius: 20px;
@@ -186,6 +190,7 @@ export default {
     max-width: 1000px;
     margin: auto;
     z-index: 4;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sobre__container {
