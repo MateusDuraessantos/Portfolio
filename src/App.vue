@@ -867,6 +867,7 @@ p {
 
 .outros__shadow {
   display: none;
+  pointer-events: none;
 } 
 
 .outros__card {

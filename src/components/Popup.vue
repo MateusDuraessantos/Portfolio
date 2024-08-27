@@ -13,7 +13,8 @@
       <div class="popup__content">
         <div class="popup__head">
           <h2 class="popup__title">{{ renderImg.name }}</h2>
-          <p>{{ renderImg.description }}</p>
+          <p v-html="renderImg.description"></p>
+          <p v-if="renderImg.ano">{{ renderImg.ano }}</p>
         </div>
         <div class="popup__container">
           <div class="popup__action--ctn" v-if="renderImg.link">

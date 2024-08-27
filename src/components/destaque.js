@@ -1,41 +1,33 @@
 export const imagens =
 {
   carrossel_01: [
+    /* Tre */
     {
-      /* CAJUINA */
-      id: 'mgrwmplkfgfewplo,',
-      name: 'Cajuina - Front End',
-      github: 'https://github.com/MateusDuraessantos/LP-Cajuina',
-      link: 'https://lp-cajuina.web.app/',
+      id: 'mp2rewfwbiuz',
+      name: 'Tre | One Page',
+      link: 'https://tre-art-4b66f.web.app/',
       paths: [
         {
-          img: 'cajuina/website.jpg',
-          alt: 'Website Cajuina',
+          img: 'tre/mobile-tre-studio-design.jpg',
+          alt: 'Versão mockup mobile do website dos studios Tre'
         },
-      ],
-      thumb: {
-        img: 'cajuina/thumb-website-cajuina.jpg',
-        alt: 'Website Cajuina'
-      },
-      description: 'Nesse projeto, desenvolvi todos os códigos para construção do website, aplicando responsividade para dispositivos móveis.',
-    },
-    {
-      /* CAJU */
-      id: 'mvrgwpemgrpoklewgre',
-      name: 'Caju | Front End',
-      link: 'https://caju-multi-beneficios-visa.web.app/',
-      github: 'https://github.com/MateusDuraessantos/caju-multi-beneficios',
-      paths: [
         {
-          img: 'caju/multibeneficios.svg',
-          alt: 'Website Caju Visa',
+          img: 'tre/studio-tre.jpg',
+          alt: 'Versão mockup dektop do website dos studios Tre'
+        },
+        {
+          img: 'tre/website-tre-studio-design.jpg',
+          alt: 'Versão desktop do website dos studios Tre'
         },
       ],
+      description: "A Tre Comunicação é um estúdio de design. Eu, mais uma equipe de 3 pessoas, trabalhamos em uma nova prosta para o website da empresa. No projeto, além da minha participação no design, assumi total responsabilidade pela programação e hospedagem dos códigos no domínio da Tre.",
       thumb: {
-        img: 'caju/thumb-multibeneficios.jpg',
-        alt: 'Website Caju Visa'
+        img: 'tre/thumb-website-tre-studio-design.jpg',
+        alt: 'Onepage - Empresa Tre Designs | Vuejs html css'
       },
-      description: 'Nesse projeto, com design desenvolvido pela equipe da Caju, fiquei responsável por desenvolver os códigos da página e deixa-lá responsiva para dispositivos móveis.',
+      github: 'https://github.com/MateusDuraessantos/tre',
+      ano: 'Fevereiro, 2023',
+      link: 'https://tre.art.br/',
     },
     {
       /* MUSIC */
@@ -53,6 +45,7 @@ export const imagens =
       ],
       description: 'Nesse projeto, focado na divulgação projetos músical (bandas, orquestras, artistas individuais), junto a uma equipe, participei da criação do design visual e usabilidade/experiência do usuário. Utilizando como ferramenta de prototipação o Figma.',
       categoria: 'website',
+      ano: 'Maio, 2020',
       thumb: {
         img: 'music/thumb-music_sp-webiste.jpg',
         alt: 'Website Music SP One Page'
@@ -76,7 +69,12 @@ export const imagens =
           alt: 'Árvore de navegação do website desenvolvido no TCC'
         },
       ],
-      description: 'Nesse projeto, que desenvolvi, busquei aprimorar a experiência do usuário para o website do curso de Design da Universidade Presbiteriana Mackenzie. Propus uma nova abordagem de UI (Interface do Usuário) e UX (Experiência do Usuário), utilizando a metodologia de Design HCD (Design Centrado no Humano) em conjunto com "Os 5 Elementos da Experiência do Usuário" como guias norteadores. O projeto levou cerca que 9 mêses até o resultado final e contou com pesquisas de campo. Para protipação foi utilizado o Figma, e para implementação real, HTML, CSS, Javascript, VueJs, Firebase, GitHub e Element Plus.',
+      description: `
+        &emsp;Nesse projeto, desenvolvido para o website do curso de Design da Universidade Presbiteriana Mackenzie, busquei aprimorar a experiência do usuário. Propus uma nova abordagem de UI (Interface do Usuário) e UX (Experiência do Usuário), utilizando a metodologia de Design HCD (Design Centrado no Humano) em conjunto com "Os 5 Elementos da Experiência do Usuário" como guias principais.
+        <br>&emsp;O projeto, que levou cerca de 9 meses para ser concluído, incluiu pesquisas de campo aprofundadas.
+        <br>&emsp;A protipação foi realizada no Figma, e a para implementação utilizou tecnologias como HTML, CSS, Javascript, VueJs, Firebase, GitHub e Element Plus.
+      `,
+      ano: 'Setembro, 2022',
       thumb: {
         img: 'tcc/thumb-pagina_inicial_do_projeto.jpg',
         alt: 'Website trabalho de conclusão de curso Mackenzie'
@@ -102,7 +100,8 @@ export const imagens =
           alt: 'Gif com animação do website mockup'
         },
       ],
-      description: 'TeclaKey é um estudio de design. Na criação do website para o estúdio, junto a uma equipe de 3 pessoas, eu coordenador o desenvolvimento da identidade visual. Também fiquei 100% responsável pelo frontend, responsiveidade, implementação no domínio e otimização dos conteúdos para web.',
+      description: 'TeclaKey é um estúdio de design. Na criação do website, em colaboração com uma equipe de três pessoas, coordenei o desenvolvimento da identidade visual. Além disso, fui responsável pelo frontend, pela responsividade, pela implementação no domínio e pela otimização dos conteúdos para a web.',
+      ano: 'Maio, 2022',
       thumb: {
         img: 'teclakey/thumb-teclakey-webiste-de-design.jpg',
         alt: 'Website teclakey - UX/UI - Firebase',
@@ -133,34 +132,8 @@ export const imagens =
         img: 'datamachina/thumb-datamachina_website_onepage.jpg',
         alt: 'Data Machina / Projeto frontend css e html',
       },
+      ano: 'Dezembro, 2021',
       link: 'https://data-machina.web.app/',
-    },
-    {
-      /* Tre */
-      id: 'mp2rewfwbiuz',
-      name: 'Tre | One Page',
-      link: 'https://tre-art-4b66f.web.app/',
-      paths: [
-        {
-          img: 'tre/mobile-tre-studio-design.jpg',
-          alt: 'Versão mockup mobile do website dos studios Tre'
-        },
-        {
-          img: 'tre/studio-tre.jpg',
-          alt: 'Versão mockup dektop do website dos studios Tre'
-        },
-        {
-          img: 'tre/website-tre-studio-design.jpg',
-          alt: 'Versão desktop do website dos studios Tre'
-        },
-      ],
-      description: "A Tre Comunicação, é um estúdio de design. Eu, mais uma equipe de 3 pessoas, trabalhamos em uma nova prosta para o seu website. No projeto, além da minha participação no design, fiquei 100% responsável pela programação e hospedagem dos códigos no domínio da empresa.",
-      thumb: {
-        img: 'tre/thumb-website-tre-studio-design.jpg',
-        alt: 'Onepage - Empresa Tre Designs | Vuejs html css'
-      },
-      github: 'https://github.com/MateusDuraessantos/tre',
-      link: 'https://tre.art.br/',
     },
     /* TRANCENDEMOS */
    /* {
@@ -179,8 +152,8 @@ export const imagens =
         alt: 'Webiste da Transcendemos',
       },
     }, */
-    {
       /* MAPALYTICS */
+    {
       id: 'hjtryjytrsw',
       name: 'Mapalytics',
       paths: [
@@ -194,7 +167,63 @@ export const imagens =
         img: 'mapalytics/thumb-mapalytics.jpg',
         alt: 'Webiste da mapalytics',
       },
+      ano: 'Março, 2024',
       link: 'https://mapalytics.com.br/'
+    },
+    /* BLUEWAVE */
+    {
+      id: 'fewtgt54432tr2',
+      name: 'Bluewave',
+      paths: [
+        {
+          img: 'bluewave/bluewave.jpg',
+          alt: 'bluewave Consultorias'
+        },
+      ],
+      description: 'No projeto, fui responsável pelo design, desenvolvendo a versão desktop no Figma.',
+      ano: 'Agosto, 2024',
+      thumb: {
+        img: 'bluewave/bluewave.jpg',
+        alt: 'Webiste da BlueWave',
+      },
+    },
+    /* CAJUINA */
+    {
+      id: 'mgrwmplkfgfewplo,',
+      name: 'Cajuina - Front End',
+      github: 'https://github.com/MateusDuraessantos/LP-Cajuina',
+      link: 'https://lp-cajuina.web.app/',
+      paths: [
+        {
+          img: 'cajuina/website.jpg',
+          alt: 'Website Cajuina',
+        },
+      ],
+      thumb: {
+        img: 'cajuina/thumb-website-cajuina.jpg',
+        alt: 'Website Cajuina'
+      },
+      ano: 'Novembro, 2023',
+      description: 'Nesse projeto, desenvolvi todos os códigos para construção do website e aplicando responsividade para dispositivos móveis.',
+    },
+    /* CAJU */
+    {
+      id: 'mvrgwpemgrpoklewgre',
+      name: 'Caju | Front End',
+      link: 'https://caju-multi-beneficios-visa.web.app/',
+      github: 'https://github.com/MateusDuraessantos/caju-multi-beneficios',
+      paths: [
+        {
+          img: 'caju/multibeneficios.svg',
+          alt: 'Website Caju Visa',
+        },
+      ],
+      thumb: {
+        img: 'caju/thumb-multibeneficios.jpg',
+        alt: 'Website Caju Visa'
+      },
+      ano: 'Maio, 2024',
+      description: 'Nesse projeto, com design desenvolvido pela equipe da Caju, fiquei responsável por desenvolver os códigos da página e deixa-lá responsiva para dispositivos móveis.',
     },
   ],
   carrossel_02: [
