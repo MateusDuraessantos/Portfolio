@@ -238,7 +238,7 @@ export default {
     isDay() {
       this.whatTimeIs = new Date().getHours()
       this.booleanTheme = this.whatTimeIs < 6 || this.whatTimeIs >= 18 ? false : true // Se for true o tema fica branco
-      this.booleanTheme = true
+      // this.booleanTheme = true
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
         overflow.classList.add('whiteoverflows')
@@ -525,6 +525,7 @@ p {
 #main {
   position: relative;
   transition: .2s;
+  overflow: hidden;
 }
 
 /* Mensagem */
