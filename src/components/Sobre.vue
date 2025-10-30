@@ -2,7 +2,7 @@
     <section class="section sobre" id="sobre">
 
         <div class="max__width">
-            <h3 class="sobre__title">Um pouco sobre mim</h3>
+            <h3 class="sobre__title">A little about me:</h3>
 
             <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1" alt="" loading="lazy">
             <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2" alt="" loading="lazy">
@@ -10,17 +10,13 @@
             <div class="sobre__elements">
                 <div class="sobre__container">
                     <div class="sobre__redes">
-                        <a href="https://www.behance.net/mateusduraes" target="_blank">
-                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/behance__fill.svg`" width="40"
-                                height="40" alt="logo Behance" loading="lazy">
+                        <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
+                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" width="40" height="40"
+                                alt="logo Linkedin" loading="lazy">
                         </a>
                         <a href="https://github.com/MateusDuraessantos" target="_blank">
                             <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" width="40"
                                 height="40" alt="logo Github" loading="lazy">
-                        </a>
-                        <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                            <img class="sobre__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" width="40" height="40"
-                                alt="logo Linkedin" loading="lazy">
                         </a>
                     </div>
                     <div class="sobre__text">
@@ -31,15 +27,15 @@
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <h4>Experiência:</h4>
+                    <h4>Experiences:</h4>
                 </div>
                 <div class="sobre__experiencia">
                     <div class="sobre__ctn" v-for="icons in experienciaIcons[0]">
-                        <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
+                        <img class="sobre__icon" :src="`${icons.img}`" :alt="icons.alt" loading="lazy">
                         <p>{{ icons.skill }}</p>
                     </div>
                     <div class="sobre__ctn" v-for="icons in experienciaIcons[1]">
-                        <img class="sobre__icon" :src="`${icons.img}.png`" :alt="icons.alt" loading="lazy">
+                        <img class="sobre__icon" :src="`${icons.img}`" :alt="icons.alt" loading="lazy">
                         <p>{{ icons.skill }}</p>
                     </div>
                 </div>
@@ -56,55 +52,48 @@ export default {
             experienciaIcons: [
                 [
                     {
-                        img: 'software0',
-                        skill: 'Illustrator',
-                        alt: 'Logo Adobe Illustrator'
-                    },
-                    {
-                        img: 'software1',
-                        skill: 'cinema 4D',
-                        alt: 'Logo cinema 4D'
-                    },
-                    {
-                        img: 'software2',
-                        skill: 'Photoshop',
-                        alt: 'Logo Adobe Photoshop'
-                    },
-                    {
-                        img: 'software3',
-                        skill: 'Miro',
-                        alt: 'Logo Miro'
-                    },
-                    {
-                        img: 'software4',
-                        skill: 'Figma',
-                        alt: 'Logo Figma'
-                    }
-                ],
-                [
-                    {
-                        img: 'tech1',
+                        img: 'css.png',
                         skill: 'CSS',
                         alt: 'Logo CSS'
                     },
                     {
-                        img: 'tech2',
+                        img: 'html.png',
                         skill: 'HTML',
                         alt: 'Logo HTML'
                     },
                     {
-                        img: 'tech3',
+                        img: 'javascript.png',
                         skill: 'Javascript',
                         alt: 'Logo Javascript'
                     },
                     {
-                        img: 'tech4',
+                        img: 'typescript.png',
+                        skill: 'Typescript',
+                        alt: 'Logo Javascript'
+                    },
+                    {
+                        img: 'vuejs.png',
                         skill: 'Vue  JS',
                         alt: 'Logo Vuejs 3'
                     },
                     {
-                        img: 'tech0',
+                        img: 'element_plus.png',
+                        skill: 'Element Plus',
+                        alt: 'Logo CSS'
+                    },
+                    {
+                        img: 'firebase.png',
                         skill: 'Firebase',
+                        alt: 'Logo Firebase'
+                    },
+                    {
+                        img: 'bootstrap.png',
+                        skill: 'Bootstrap',
+                        alt: 'Logo Firebase'
+                    },
+                    {
+                        img: 'figma.png',
+                        skill: 'Figma',
                         alt: 'Logo Firebase'
                     },
                 ],

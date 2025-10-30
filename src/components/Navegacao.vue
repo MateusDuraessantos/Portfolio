@@ -3,8 +3,8 @@
 
     <button class="turnWhite" @click="emitFunction">
       <div class="turnWhite__swith" id="whiteThemeBtn">
-        <p class="claro"><div class="emoji">☀️</div> <text-btn>Tema</text-btn></p>
-        <p class="escuro"><text-btn>Tema</text-btn> <div class="emoji">🌙</div></p>
+        <p class="claro"><div class="emoji">☀️</div> <text-btn>Theme</text-btn></p>
+        <p class="escuro"><text-btn>Theme</text-btn> <div class="emoji">🌙</div></p>
       </div>
     </button>
     <span></span>
@@ -13,10 +13,10 @@
       <div id="mobile">
         <div class="dropdown__inicio">Menu</div>
         <div class="dropdown__container" @click="scrollDown">
-          <div class="dropdown nav" ancora="inicio">Início</div>
-          <div class="dropdown nav" ancora="portfolio">Portfólio</div>
-          <div class="dropdown nav" ancora="sobre">Sobre</div>
-          <div class="dropdown nav" ancora="contato">Contato</div>
+          <div class="dropdown nav" ancora="inicio">Welcome</div>
+          <div class="dropdown nav" ancora="portfolio">Portfolio</div>
+          <div class="dropdown nav" ancora="sobre">About</div>
+          <div class="dropdown nav" ancora="contato">Contact</div>
         </div>
       </div>
     </div>

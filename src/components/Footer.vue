@@ -1,84 +1,6 @@
 <template>
     <footer id="contato">
         <div class="sky">
-        <!-- Mensagem de sucesso -->
-        
-        <div class="sucesso" v-if="success" id="sucesso">
-            <div class="sucesso__message">
-                <div>
-                    <p class="sucesso__p sucesso__p--1">Email enviado com sucesso.</p>
-                    <p class="sucesso__p">Em breve entrarei em contato!</p>
-                </div>
-                <button class="sucesso__close" @click="fecharSuccess">Fechar</button>
-            </div>
-        </div>
-        
-        <!-- Mensagem de erro -->
-
-        <div class="sucesso" v-if="error" id="error">
-            <div class="sucesso__message">
-                <div>
-                    <p class="sucesso__p error__p--1">Ops, desculpe. mensagem não enviada.</p>
-                    <p class="sucesso__p">Tente novamente ou entre em contato pelas outras redes socias!</p>
-                </div>
-                <button class="error__close" @click="fecharError">Fechar</button>
-            </div>
-        </div>
-
-        <div class="forms__overlay" id="forms">
-            <div class="forms__container">
-                <button class="forms__close" @click="openForms">✕</button>
-
-                <!-- Formulário -->
-
-                <form
-                    @submit.prevent="handleSubmit"
-                    class="sky__forms"
-                >
-                    <!-- Nome -->
-                    
-                    <label for="nome">Nome</label>
-                    <input
-                        class="forms__field"
-                        v-model="nome" 
-                        type="text"
-                        name="nome"
-                        id="nome"
-                        placeholder="Digite aqui"
-                        required
-                    >
-
-                    <!-- Email -->
-                    
-                    <label for="email">E-mail</label>
-                    <input class="forms__field"
-                        v-model="email"
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Digite aqui"
-                        required
-                    >
-
-                    <!-- Mensagem -->
-                    
-                    <label for="message">Mensagem</label>
-                    <textarea
-                        class="forms__textarea"
-                        v-model="mensagem" 
-                        type="text"
-                        id="message"
-                        name="message"
-                        placeholder="Digite aqui"
-                        required
-                    ></textarea>
-                    
-                    <!-- Button -->
-                    <button class="forms__button--send" type="submit">Enviar</button>
-                </form>
-            </div>
-        </div>
-
         <!-- Os céus proclamam a glória de Jesus -->
         <span class="sky__container" v-if="footerVisible">
             <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
@@ -95,59 +17,20 @@
                 <address class="informacoes__content">
                     <div class="contatos__column">
 
-                        <!-- Whatsapp -->
-                        
                         <a
                             class="decoration"
                             @mouseenter="blurIn('enter')"
                             @mouseleave="blurIn"
-                            href="https://wa.me/5511965939822"
+                            href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/"
                             target="_blank"
                         >
                             <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/whatsapp.svg`" alt="WhatsApp" loading="lazy">
-                                <p class="contato__email">Whatsapp</p>
-                            </div>
-                            <p class="decoration__info">(11) 96593-9822</p>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
-                        </a>
-
-                        <!-- E-mail -->
-
-                        <a
-                            class="decoration"
-                            @mouseenter="blurIn('enter')"
-                            @mouseleave="blurIn"
-                            @click="copyText('mateusduraessantos@gmail.com')"
-                        >
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/gmail.svg`" alt="Logo Email" loading="lazy">
-                                <p class="contato__email">E-mail</p>
-                            </div>
-                            <div class="decoration__info">mateusduraessantos@gmail.com</div>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/copy.svg`" alt="Icone de copiar" loading="lazy">
-                        </a>
-
-                        <!-- Behance -->
-
-                        <a
-                            class="decoration"
-                            @mouseenter="blurIn('enter')"
-                            @mouseleave="blurIn"
-                            href="https://www.behance.net/mateusduraes"
-                            target="_blank"
-                        >
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/behance.svg`" alt="Logo Behance" loading="lazy">
-                                <p class=" contato__email">Behance</p>
+                                <img :src="`icons/${iconsTheme}/linkedin.svg`" alt="Logo LinkedIn" loading="lazy">
+                                <p class=" contato__email">Linkedin</p>
                             </div>
                             <div class="decoration__info">Mateus Durães dos Santos</div>
                             <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
                         </a>
-                        
-                        <button class="forms__button" @click="openForms" href="#">
-                            Enviar mensagem agora!
-                        </button>
                     </div>
                 </address>
                 <div id="observador__footer"
@@ -216,62 +99,6 @@ export default {
         }
     },
     methods: {
-        handleSubmit() {
-            const formData = {
-                nome: this.nome,
-                email: this.email,
-                mensagem: this.mensagem
-            };
-
-            fetch('https://formspree.io/f/mqkrnqyn', {
-                method: 'POST',
-                body: JSON.stringify(formData), // Converte os dados para string JSON
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json(); // processa a resposta como JSON
-            })
-            .then(data => {
-                console.log('Success:', data);
-                this.success = true; // Supõe que você tem uma propriedade 'success' para controle de estado
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                this.error = true; // Supõe que você tem uma propriedade 'error' para controle de estado
-            });
-        },
-        
-        fecharSuccess(){
-            document.getElementById('sucesso').classList.add('sucesso--close')
-            setTimeout(() => this.success = false, 1000)
-            this.openForms()
-        },
-        
-        fecharError(){
-            document.getElementById('error').classList.add('sucesso--close')
-            setTimeout(() => this.error = false, 1000)
-            
-            this.openForms()
-        },
-        
-        openForms(){
-            const open = document.getElementById('contato')
-            const forms = document.getElementById('forms')
-            if(open.classList[1] == ('open') || open.classList['value']){
-              open.classList.remove('open')
-              forms.classList.remove('sky__overlay--open')
-              }
-            else {
-              open.classList.add('open')
-              forms.classList.add('sky__overlay--open')
-            }
-        },
         
         blurIn(enter) {
             clearTimeout(this.blurTimeout)
@@ -287,6 +114,14 @@ export default {
               }
             }
             addBlur(enter == 'enter' ? 1 : -1)
+            
+            const open = document.getElementById('contato')
+            if (enter == 'enter') {
+              open.classList.add('open')
+            } else {
+              
+              open.classList.remove('open')
+            }
         },
         
         copyText(content) {
@@ -341,7 +176,9 @@ export default {
 footer {
     position: relative;
 }
-
+footer.open * {
+  transition: 1.3s;
+}
 .whiteTheme footer::before {
   position: absolute;
   content: '';
@@ -352,119 +189,6 @@ footer {
   pointer-events: none;
   z-index: 1;
 }
-
-
-/* Sucesso */
-
-.sucesso {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 40;
-    backdrop-filter: blur(16px);
-}
-
-.sucesso__message {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 444px;
-    border-radius: 6px;
-    padding: 20px;
-}
-
-.sucesso__p {
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
-}
-
-.sucesso__p--1 {
-    font-weight: 400;
-    color: #005a00 !important;
-}
-
-.error__p--1 {
-    font-weight: 400;
-    color: var(--vermelho) !important;
-}
-
-.error__close, .sucesso__close {
-    border: none;
-    font-size: 16px;
-    border-radius: 50px;
-    color: white !important;
-    padding: 0 13px;
-    height: 36px;
-    transition: .2s;
-    margin: auto;
-    margin-top: 20px;
-    width: 78%;
-    transition: .2s;
-}
-
-.sucesso__close {
-    background: #409640;
-}
-
-.error__close {
-    background: var(--vermelho);
-}
-
-.sucesso__close:hover {
-    background: rgb(154, 241, 24);
-    transition: .2s;
-}
-
-.sucesso--close {
-    animation: closeSuccess 1s forwards;
-}
-
-@keyframes closeSuccess {
-    from { opacity: 1 }
-    to { opacity: 0 }
-}
-/* Formulário */
-
-.forms__container {
-    position: absolute;    
-}
-
-.forms__close {
-    position: absolute;
-    top: -34px;
-    right: -26px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    transition: .5s;
-    opacity: 1;
-}
-
-.forms__close:hover {
-    opacity: 0.4;
-    transition: .5s;
-}
-
-.forms__overlay {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    backdrop-filter: blur(4px);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 5;
-    transition: .5s;
-}
-
 /*  */
 
 .sky__overlay--open {
@@ -477,88 +201,6 @@ footer {
     flex-direction: column;
     width: 300px;
     gap: 10px;
-}
-
-.forms__button--send {
-    height: 36px;
-    border-radius: 50px;
-    border: none;
-    font-size: 15px;
-    font-weight: 600;
-    transition: .5s;
-    color: black;
-    background: var(--creme);
-    box-shadow: 1px 1px 32px rgb(114 35 35 / 50%);
-}
-
-.forms__button--send:hover {
-    transition: .5s;
-    background: var(--vermelho);
-    color: var(--creme);
-}
-
-.forms__button {
-    position: absolute;
-    border: none;
-    font-size: 16px;
-    background: #fffcf6;
-    border-radius: 50px;
-    color: #1c1c1c;
-    padding: 0 22px;
-    height: 46px;
-    bottom: -120px;
-    z-index: 22;
-    transition: .2s;
-    width: max-content !important;
-    box-shadow: 1px 1px 32px rgb(114 35 35 / 50%);
-}
-
-.forms__button:hover {
-    transition: .2s;
-    background: var(--vermelho);
-}
-
-.forms__field, input, textarea, .forms__button {
-    padding-top: 12px;
-    height: 36px;
-    padding: 0 14px;
-    background: var(--creme);
-    border-radius: 50px;
-    border: none;
-    width: 100%;
-}
-
-.forms__textarea {
-    height: 160px;
-    max-width: 300px;
-    min-width: 300px;
-}
-
-input, textarea {
-    height: 36px;
-    border-radius: 20px;
-    border: none;
-    width: 100%;
-    padding: 12px 14px 14px 14px;
-    transition: .5s;
-}
-
-
-input::placeholder, textarea::placeholder, .forms__button {
-    color: gray;
-}
-
-input, textarea {
-    transition: .5s;
-    outline: transparent 1px solid;
-    box-shadow: 1px 1px 12px rgb(114 35 35 / 50%);
-}
-
-input:focus, textarea:focus,
-input:hover, textarea:hover {
-    transition: .5s;
-    outline: rgb(255, 54, 54) 1px solid;
-    color: var(--vermelho);
 }
 
 
@@ -753,7 +395,7 @@ input:hover, textarea:hover {
 }
 
 .sky__planet_01, .sky__planet_02, .sky__planet_03, .sky__planet_04, .sky__planet_05, .sky__planet_06, .sky__planet_07, .sky__planet_08, .sky__planet_09, .sky__planet_10, .sky__planet_11, .sky__planet_12, .sky__planet_13, .sky__planet_14 {
-    transition: 2s; /* Quando abre o forms */
+    transition: 2s;
 }
 
 .sky__planet_01 {

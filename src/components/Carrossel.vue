@@ -19,7 +19,7 @@
       <div class="carousel__thumb" v-for="(img, index) in imagens" @click="upPopup(img, 'carrossel_01')" img_default
         :id="`app-${index}`">
         <div class="carousel__hover">
-          Abrir projeto
+          Open project
         </div>
         <img :src="`projetos/${img.thumb.img}`" :alt="img.thumb.alt">
       </div>

@@ -22,30 +22,20 @@
 
       <header class="banner" id="inicio">
         <p class="designed_by">
-          Design por <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
+          Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
         </p>
         <div class="banner__ctn max__width">
           <br>
           <div class="banner__column--2">
-           
             <div class="banner__description">
               <div class="banner__container">
                 <p class="banner__ola">{{ saldacao }}</p>
-                <h1 class="banner__nome">Meu nome é Mateus,</h1>
+                <h1 class="banner__nome">My name is Mateus,</h1>
               </div>
               <div class="banner__content">
-                <p>e trabalho com design e programação.</p>
+                <p>I'm a software engineer!</p>
               </div>
               <div class="banner__social">
-                <a class="banner__redes img--1" href="https://www.behance.net/mateusduraes" target="_blank">
-                  <img
-                    class="banner__redes--img" :src="`icons/${whiteIcons}/behance__fill.svg`"
-                    width="58"
-                    height="34"
-                    alt="logo Behance"
-                    loading="lazy"
-                  >
-                </a>
                 <a class="banner__redes" href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
                   <img
                     class="banner__redes--img" :src="`icons/${whiteIcons}/linkedin.svg`"
@@ -74,7 +64,7 @@
 
       <div class="abordo">
         <div class="abordo__container max__width">
-          <p class="abordo__p">Aperte os cintos e entre abordo</p>
+          <p class="abordo__p">Fasten your seatbeals and come aboard</p>
         </div>
         <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" alt="">
       </div>
@@ -126,7 +116,7 @@
                 class="outros__clique"
                 @click="upPopup(item, 'carrossel_02')"
               >
-                Ver projeto
+                See project
               </div>
               <img class="outros__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
             </div>
@@ -291,10 +281,10 @@ export default {
     
     haveAGoodDay() {
       const date = new Date().getHours()
-      if (date >= 0 && date < 5) this.saldacao = 'Olá,'
-      else if (date >= 5 && date < 12) this.saldacao = 'Bom dia!'
-      else if (date >= 12 && date < 18) this.saldacao = 'Boa tarde!'
-      else this.saldacao = 'Boa noite!'
+      if (date >= 0 && date < 5) this.saldacao = 'Hello,'
+      else if (date >= 5 && date < 12) this.saldacao = 'Good morning!'
+      else if (date >= 12 && date < 18) this.saldacao = 'Good afternoon!'
+      else this.saldacao = 'Good night!'
     },
     changeImagens(timer) {
       this.booleanTheme == true ? 
