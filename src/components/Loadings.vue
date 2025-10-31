@@ -25,10 +25,8 @@ export default {
         loadClass: String,
     },
     methods: {
-        loadingImg(id, whithOne) {
-            if (this.blockLoadingVFor != id) {
-                document.getElementById(id).classList.add('loading__stop')
-            }
+        loadingImg(id) {
+            if (this.blockLoadingVFor != id) document.getElementById(id).classList.add('loading__stop')
         },
     }
 }

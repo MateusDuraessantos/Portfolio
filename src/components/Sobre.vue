@@ -82,6 +82,16 @@ export default {
                         alt: 'Logo CSS'
                     },
                     {
+                        img: 'mapbox.png',
+                        skill: 'MapBox GL',
+                        alt: 'Logo Javascript'
+                    },
+                    {
+                      img: 'nvm.png',
+                      skill: 'NVM',
+                      alt: 'Logo Firebase'
+                    },
+                    {
                         img: 'firebase.png',
                         skill: 'Firebase',
                         alt: 'Logo Firebase'

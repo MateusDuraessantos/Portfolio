@@ -54,7 +54,7 @@ export const imagens =
     // TCC
     {
       id: 'dfrejmwopqfremn',
-      name: 'Redesign website do curso de Design Mackenzie',
+      name: 'Redesign of the website Design course at Universidade Presbiteriana Mackenzie',
       paths: [
         {
           img: 'tcc/webiste_mackenzie_curso_de_design.jpg',
@@ -70,15 +70,25 @@ export const imagens =
         },
       ],
       description: `
-        &emsp;Nesse projeto, desenvolvido para o website do curso de Design da Universidade Presbiteriana Mackenzie, busquei aprimorar a experiência do usuário. Propus uma nova abordagem de UI (Interface do Usuário) e UX (Experiência do Usuário), utilizando a metodologia de Design HCD (Design Centrado no Humano) em conjunto com "Os 5 Elementos da Experiência do Usuário" como guias principais.
-        <br>&emsp;O projeto, que levou cerca de 9 meses para ser concluído, incluiu pesquisas de campo aprofundadas.
-        <br>&emsp;A protipação foi realizada no Figma, e a para implementação utilizou tecnologias como HTML, CSS, Javascript, VueJs, Firebase, GitHub e Element Plus.
+        <b class="popup__b">Overview</b>
+        <br>
+        <p>This project is a redesign of the website for the undergraduate Design course at Universidade Presbiteriana Mackenzie.</p>
+        
+        <br>
+        <b class="popup__b">Design process</b>
+        <br>
+        <p>Two main methodologies ware used to guide the project: HCD (Human Centered Design) and Jesse James Garrett's 5 elements of UX design, addressing strategy, scope, structure, skeleton, and surface.</p>
+        
+        <br>
+        <b class="popup__b">Development kit</b>
+        <br>
+        <p>The project was launched online using Vue.js 2, Javascript, HTML, CSS, Firebase Hosting, GitHub and Element Plus.</p>
       `,
-      ano: 'Setembro, 2022',
+      ano: 'September, 2022',
       thumb: {
         img: 'tcc/thumb-pagina_inicial_do_projeto.jpg',
         alt: 'Website trabalho de conclusão de curso Mackenzie'
-       },
+      },
       link: 'https://mackenzie-tcc.web.app/#/',
       github: 'https://github.com/MateusDuraessantos/TCC',
     },
@@ -132,11 +142,11 @@ export const imagens =
         img: 'datamachina/thumb-datamachina_website_onepage.jpg',
         alt: 'Data Machina / Projeto frontend css e html',
       },
-      ano: 'Dezembro, 2021',
+      ano: 'December, 2021',
       link: 'https://data-machina.web.app/',
     },
     /* TRANCENDEMOS */
-   /* {
+    {
       id: 'mjykjmyt5hj',
       name: 'Transcendemos',
       paths: [
@@ -151,7 +161,7 @@ export const imagens =
         img: 'transcendemos/transcendemos-consultorias-palestras.png',
         alt: 'Webiste da Transcendemos',
       },
-    }, */
+    },
       /* MAPALYTICS */
     {
       id: 'hjtryjytrsw',
@@ -167,7 +177,7 @@ export const imagens =
         img: 'mapalytics/thumb-mapalytics.jpg',
         alt: 'Webiste da mapalytics',
       },
-      ano: 'Março, 2024',
+      ano: 'March, 2024',
       link: 'https://mapalytics.com.br/'
     },
     /* BLUEWAVE */
@@ -181,7 +191,7 @@ export const imagens =
         },
       ],
       description: 'No projeto, fui responsável pelo design, desenvolvendo a versão desktop no Figma.',
-      ano: 'Agosto, 2024',
+      ano: 'Agost, 2024',
       thumb: {
         img: 'bluewave/bluewave.jpg',
         alt: 'Webiste da BlueWave',
@@ -203,7 +213,7 @@ export const imagens =
         img: 'cajuina/thumb-website-cajuina.jpg',
         alt: 'Website Cajuina'
       },
-      ano: 'Novembro, 2023',
+      ano: 'November, 2023',
       description: 'Nesse projeto, desenvolvi todos os códigos para construção do website e aplicando responsividade para dispositivos móveis.',
     },
     /* CAJU */
@@ -222,10 +232,11 @@ export const imagens =
         img: 'caju/thumb-multibeneficios.jpg',
         alt: 'Website Caju Visa'
       },
-      ano: 'Maio, 2024',
+      ano: 'May, 2024',
       description: 'Nesse projeto, com design desenvolvido pela equipe da Caju, fiquei responsável por desenvolver os códigos da página e deixa-lá responsiva para dispositivos móveis.',
     },
   ],
+
   carrossel_02: [
     {
       id: 'omikgreoijnuwefrg',

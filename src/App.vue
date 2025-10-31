@@ -74,28 +74,12 @@
         <img class="container__background--img"  id="parallax_teste" v-else src="inicio/white/mobile-background__parallax.webp" alt="">
       </div>
 
-      <!-- DESTAQUES -->
+      <!-- SOBRE MIM -->
 
-      <!-- 3D -->
-
-      <!-- <Animation /> -->
-
-      <!-- PORTFÓLIO -->
-        
       <div class="experiencia" id="portfolio">
-        <img class="experiencia__rocha experiencia__rocha--0" :src="`inicio/${whiteImages}/rochas/intersect_00.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--1" :src="`inicio/${whiteImages}/rochas/intersect_01.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--2" :src="`inicio/${whiteImages}/rochas/intersect_02.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--3" :src="`inicio/${whiteImages}/rochas/intersect_03.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--4" :src="`inicio/${whiteImages}/rochas/intersect_04.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--5" :src="`inicio/${whiteImages}/rochas/intersect_05.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--6" :src="`inicio/${whiteImages}/rochas/intersect_06.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--7" :src="`inicio/${whiteImages}/rochas/intersect_07.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--8" :src="`inicio/${whiteImages}/rochas/intersect_08.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--9" :src="`inicio/${whiteImages}/rochas/intersect_09.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--10" :src="`inicio/${whiteImages}/rochas/intersect_10.png`" alt="">
-        <img class="experiencia__rocha experiencia__rocha--11" :src="`inicio/${whiteImages}/rochas/intersect_11.png`" alt="">
 
+        <img v-for="i in 11" :class="`experiencia__rocha experiencia__rocha--${i}`" :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" alt="">
+        
         <!-- CARROSSEL -->
         
         <Carrossel @upPopup="upPopup" />
@@ -129,8 +113,11 @@
       <!-- CONTATO -->
       <section>
         <h5 class="mensagem">
-          <p class="mensagem__title"><b>Curtiu o passeio?</b></p>
-          <p class="mensagem__arrow">Entre em contatoh para mais!</p>
+          <p class="mensagem__title"><b>Did you enjoyed the tour?</b></p>
+          <button class="mensagem__contact" @click="commons.scrollDown('contato')">
+            <p class="mensagem__me">Contact me!</p>
+            <p class="mensagem__arrow">></p>
+          </button>
         </h5>
       </section>
 
@@ -158,7 +145,8 @@ import Sobre from './components/Sobre.vue'
 import Popup from './components/Popup.vue'
 import Animation from './components/Animation.vue'
 import Carrossel from './components/Carrossel.vue'
-import { imagens } from './components/destaque.js'
+import { imagens } from './constants/destaque.js'
+import { commons } from '@/utils/commons'
 
 export default {
   name: 'App',
@@ -172,6 +160,7 @@ export default {
   },
   data() {
     return {
+      commons,
       imagens: imagens,
       removeLinkVer: true,
       imageIndex: Object,
@@ -268,23 +257,12 @@ export default {
       document.getElementById('header').classList.remove('header__show')
     },
     
-    tratarEvento(showingup) {
-      this.hiddenHeader = showingup ? false : true
-    },
-    
-    scrollDown(ancora) {
-      window.scrollTo({
-        top: document.getElementById(ancora).offsetTop,
-        behavior: 'smooth'
-      })
-    },
-    
     haveAGoodDay() {
       const date = new Date().getHours()
       if (date >= 0 && date < 5) this.saldacao = 'Hello,'
       else if (date >= 5 && date < 12) this.saldacao = 'Good morning!'
       else if (date >= 12 && date < 18) this.saldacao = 'Good afternoon!'
-      else this.saldacao = 'Good night!'
+      else this.saldacao = 'Good evening!'
     },
     changeImagens(timer) {
       this.booleanTheme == true ? 
@@ -344,6 +322,8 @@ body {
 
 button {
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 img {
@@ -540,27 +520,37 @@ p {
   font-size: 28px;
 }
 
-.mensagem__arrow {
+.mensagem__contact {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   position: relative;  
   z-index: 2;
+  transition: .2s;
+}
+.mensagem__me {
   font-weight: 400;
   font-size: 22px;
+  transition: .4s !important;
+}
+.mensagem__contact:hover .mensagem__me, .mensagem__contact:hover .mensagem__arrow {
+  color: gray;
+  transition: .3s !important;
 }
 
-.mensagem__arrow::before {
-  content: '>';
+.mensagem__arrow {
   font-size: 30px;
-  position: absolute;
-  bottom: -40px;
+  height: 40px;
+  width: 40px;
+  margin: auto;
+  overflow: hidden;
   animation: arrow 2s infinite;
 }
 
 @keyframes arrow {
-  0% { transform: translateY(0) rotate(90deg) }
-  50%{ transform: translateY(20px) rotate(90deg) }
-  100% { transform: translateY(0) rotate(90deg) }
+  0% { transform: translateY(-5px) rotate(90deg) }
+  50%{ transform: translateY(15px) rotate(90deg) }
+  100% { transform: translateY(-5px) rotate(90deg) }
 }
 
 .whiteTheme .mensagem h6 {
@@ -631,35 +621,35 @@ p {
   pointer-events: none;
 }
 
-.experiencia__rocha--0 {
+.experiencia__rocha--1 {
   width: 20%;
   max-width: 300px;
   top: -29%;
   right: 40vw;
   animation-name: sky_04;
 }
-.experiencia__rocha--1 {
+.experiencia__rocha--2 {
   width: 10%;
   max-width: 200px;
   top: 34%;
   right: 27vw;
   animation-name: sky_01;
 }
-.experiencia__rocha--2 {
+.experiencia__rocha--3 {
   width: 15%;
   max-width: 250px;
   right: 19vw;
   top: 10%;
   animation-name: sky_02;
 }
-.experiencia__rocha--3 {
+.experiencia__rocha--4 {
   width: 16%;
   max-width: 260px;
   left: 4vw;
   top: 4%;
   animation-name: sky_02;
 }
-.experiencia__rocha--4 {
+.experiencia__rocha--5 {
   width: 30%;
   max-width: 400px;
   bottom: -30%;
@@ -667,49 +657,49 @@ p {
   animation-name: sky_08;
   z-index: 6;
 }
-.experiencia__rocha--5 {
+.experiencia__rocha--6 {
   width: 30%;
   max-width: 400px;
   right: -130px;
   top: 10%;
   animation-name: sky_13;
 }
-.experiencia__rocha--6 {
+.experiencia__rocha--7 {
   width: 13%;
   max-width: 230px;
   bottom: 0;
   left: 54vw;
   animation-name: sky_11;
 }
-.experiencia__rocha--7 {
+.experiencia__rocha--8 {
   width: 30%;
   max-width: 400px;
   left: -150px;
   top: -160%;
   animation-name: sky_08;
 }
-.experiencia__rocha--8 {
+.experiencia__rocha--9 {
   width: 30%;
   max-width: 400px;
   left: -7vw;
   bottom: 2%;
   animation-name: sky_01;
 }
-.experiencia__rocha--9 {
+.experiencia__rocha--10 {
   width: 30%;
   max-width: 400px;
   left: 19vw;
   top: -16%;
   animation-name: sky_04;
 }
-.experiencia__rocha--10 {
+.experiencia__rocha--11 {
   width: 30%;
   max-width: 400px;
   bottom: 0;
   right: -5vw;
   animation-name: sky_06
 }
-.experiencia__rocha--11 {
+.experiencia__rocha--12 {
   width: 20%;
   max-width: 300px;
   top: 1656px;

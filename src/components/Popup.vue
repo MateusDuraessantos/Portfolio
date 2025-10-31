@@ -13,7 +13,7 @@
       <div class="popup__content">
         <div class="popup__head">
           <h2 class="popup__title">{{ renderImg.name }}</h2>
-          <p v-html="renderImg.description"></p>
+          <div v-html="renderImg.description"></div>
           <p v-if="renderImg.ano">{{ renderImg.ano }}</p>
         </div>
         <div class="popup__container">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { imagens } from './destaque.js'
+import { imagens } from '../constants/destaque.js'
 
 export default {
   name: 'popup',
@@ -86,6 +86,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.popup__b {
+  font-weight: 600;
+  font-size: 18px;
+}
+</style>
 
 <style scoped>
 .popup {
@@ -332,6 +339,7 @@ export default {
   flex-direction: column;
   gap: 10px;
   padding: 29px;
+  font-weight: 300;
 }
 
 .popup__action--ctn {
@@ -370,8 +378,8 @@ export default {
 
 .popup__title {
   width: 100%;
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 1000px) {

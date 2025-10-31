@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { imagens } from './destaque.js'
+import { imagens } from '../constants/destaque.js'
 export default {
   name: 'Carrossel',
   data() {

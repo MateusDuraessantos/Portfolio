@@ -12,11 +12,11 @@
     <div class="links" @click="upDropdown">
       <div id="mobile">
         <div class="dropdown__inicio">Menu</div>
-        <div class="dropdown__container" @click="scrollDown">
-          <div class="dropdown nav" ancora="inicio">Welcome</div>
-          <div class="dropdown nav" ancora="portfolio">Portfolio</div>
-          <div class="dropdown nav" ancora="sobre">About</div>
-          <div class="dropdown nav" ancora="contato">Contact</div>
+        <div class="dropdown__container">
+          <div class="dropdown nav" @click="commons.scrollDown('inicio')">Welcome</div>
+          <div class="dropdown nav" @click="commons.scrollDown('portfolio')">Portfolio</div>
+          <div class="dropdown nav" @click="commons.scrollDown('sobre')">About</div>
+          <div class="dropdown nav" @click="commons.scrollDown('contato')">Contact</div>
         </div>
       </div>
     </div>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { commons } from '@/utils/commons';
+
 export default {
   name: 'Navegacao',
   props: {
@@ -33,6 +35,7 @@ export default {
   },
   data() {
     return {
+      commons,
       blockClick: true,
       colorNav: '',
       handle: true,
@@ -99,16 +102,6 @@ export default {
       if (document.querySelector('[activeLink]') != null) document.querySelector('[activeLink]').removeAttribute('activeLink')
       if (document.querySelector('.hiddenHeader') != null) document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
     },
-    scrollDown(e) {
-      let ancora = e.target.getAttribute('ancora')
-      if(ancora) {
-        const obj = document.getElementById(ancora)
-        window.scrollTo({
-          top: obj.offsetTop,
-          behavior: 'smooth'
-        })
-      }
-    } 
   }
 }
 </script>

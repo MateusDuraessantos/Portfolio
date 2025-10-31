@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --host 192.168.18.22",
+    "serve": "vue-cli-service serve",
+    "mobile": "vue-cli-service serve --host 192.168.18.22",
     "build": "vue-cli-service build"
   },
   "dependencies": {

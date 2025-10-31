@@ -1,69 +1,56 @@
 <template>
     <footer id="contato">
         <div class="sky">
-        <!-- Os céus proclamam a glória de Jesus -->
-        <span class="sky__container" v-if="footerVisible">
-            <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
-            <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky" loading="lazy">
-            <div class="sky__shadows" id="shadow"></div>
-        </span>
-        <span class="sky__container" v-else>
-            <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky" loading="lazy">
-            <div class="sky__shadows--white" id="shadow"></div>
-        </span>
-        <!-- Infos -->
-        <div class="sky__informacoes" style="backdrop-filter: blur(0px);">
-            <div class="informacoes__container">
-                <address class="informacoes__content">
-                    <div class="contatos__column">
+            <!-- Os céus proclamam a glória de Jesus -->
+            <span class="sky__container" v-if="footerVisible">
+                <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
+                <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky" loading="lazy">
+                <div class="sky__shadows" id="shadow"></div>
+            </span>
+            <span class="sky__container" v-else>
+                <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky" loading="lazy">
+                <div class="sky__shadows--white" id="shadow"></div>
+            </span>
+            <!-- Infos -->
+            <div class="sky__informacoes" style="backdrop-filter: blur(0px);">
+                <div class="informacoes__container">
+                    <address class="informacoes__content">
+                        <div class="contatos__column">
 
-                        <a
-                            class="decoration"
-                            @mouseenter="blurIn('enter')"
-                            @mouseleave="blurIn"
-                            href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/"
-                            target="_blank"
-                        >
-                            <div class="informacoes__contato">
-                                <img :src="`icons/${iconsTheme}/linkedin.svg`" alt="Logo LinkedIn" loading="lazy">
-                                <p class=" contato__email">Linkedin</p>
-                            </div>
-                            <div class="decoration__info">Mateus Durães dos Santos</div>
-                            <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
-                        </a>
+                            <a
+                                class="decoration"
+                                @mouseenter="blurIn('enter')"
+                                @mouseleave="blurIn"
+                                href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/"
+                                target="_blank"
+                            >
+                                <div class="informacoes__contato">
+                                    <img :src="`icons/${iconsTheme}/linkedin.svg`" alt="Logo LinkedIn" loading="lazy">
+                                    <p class=" contato__email">Linkedin</p>
+                                </div>
+                                <div class="decoration__info">Mateus Durães dos Santos</div>
+                                <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
+                            </a>
+                        </div>
+                    </address>
+                    <div id="observador__footer"
+                        style="
+                            height: 200px;
+                            display: flex;
+                            align-items: flex-end;
+                            position: absolute;
+                            bottom: 0;
+                        "
+                    >
+                        <p class="frase">Quem disse que rodapés precisam ser chatos?
+                            <br><br>
+                        </p>
                     </div>
-                </address>
-                <div id="observador__footer"
-                    style="
-                        height: 200px;
-                        display: flex;
-                        align-items: flex-end;
-                        position: absolute;
-                        bottom: 0;
-                    "
-                >
-                    <p class="frase">Quem disse que rodapés precisam ser chatos?
-                        <br><br>
-                    </p>
                 </div>
             </div>
-        </div>
-        <img class="sky__planet_01 sky__planet" :src="`inicio/${whiteImages}/planet_01.webp`" alt="" loading="lazy">
-        <img class="sky__planet_02 sky__planet" :src="`inicio/${whiteImages}/planet_02.webp`" alt="" loading="lazy">
-        <img class="sky__planet_03 sky__planet" :src="`inicio/${whiteImages}/planet_03.webp`" alt="" loading="lazy">
-        <img class="sky__planet_05 sky__planet" :src="`inicio/${whiteImages}/planet_05.webp`" alt="" id="planet_05" loading="lazy">
-        <img class="sky__planet_06 sky__planet" :src="`inicio/${whiteImages}/planet_06.webp`" alt="" loading="lazy">
-        <img class="sky__planet_07 sky__planet" :src="`inicio/${whiteImages}/planet_07.webp`" alt="" loading="lazy">
-        <img class="sky__planet_08 sky__planet" :src="`inicio/${whiteImages}/planet_08.webp`" alt="" loading="lazy">
-        <img class="sky__planet_09 sky__planet" :src="`inicio/${whiteImages}/planet_09.webp`" alt="" loading="lazy">
-        <img class="sky__planet_10 sky__planet" :src="`inicio/${whiteImages}/planet_10.webp`" alt="" loading="lazy">
-        <div class="smile_cont sky__planet" id="planet_11">
-            <img class="sky__planet_11 sky__planet" :src="`inicio/${whiteImages}/planet_11.webp`" alt="" loading="lazy">
-            <img class="smile" :src="`inicio/${whiteImages}/smile.svg`" alt="" loading="lazy">
-        </div>
-        <img class="sky__planet_12 sky__planet" :src="`inicio/${whiteImages}/planet_12.webp`" alt="" id="planet_12" loading="lazy">
-        <img class="sky__planet_13 sky__planet" :src="`inicio/${whiteImages}/planet_13.webp`" alt="" id="planet_13" loading="lazy">
-        <img class="sky__planet_14 sky__planet" :src="`inicio/${whiteImages}/planet_14.webp`" alt="" id="planet_14" loading="lazy">
+
+            <img v-for="i in 14" :class="`sky__planet_${i} sky__planet`" :src="`inicio/${whiteImages}/planet_${i}.webp`" alt="" loading="lazy">
+            <img class="sky__smile sky__planet" :src="`inicio/${whiteImages}/smile.svg`" alt="" loading="lazy">
         </div>
     </footer>
 </template>
@@ -116,12 +103,7 @@ export default {
             addBlur(enter == 'enter' ? 1 : -1)
             
             const open = document.getElementById('contato')
-            if (enter == 'enter') {
-              open.classList.add('open')
-            } else {
-              
-              open.classList.remove('open')
-            }
+            open.classList[enter == 'enter' ? 'add': 'remove']('open')
         },
         
         copyText(content) {
@@ -132,9 +114,7 @@ export default {
             return;
           }
           navigator.clipboard.writeText(content)
-          .then(() => {
-            alert("Texto copiado: " + content);
-          })
+          .then(() => alert("Texto copiado: " + content))
         },
         
         observador() { // Altear o estilo do header ao chegar no footer
@@ -379,75 +359,74 @@ footer.open * {
     animation-name: sky_11;
 }
 
-.smile {
-    position: absolute;
-    right: 0;
-    width: 34%;
-    transform: translate(60%, -280%);
-    z-index: 1;
-}
-
 .sky__planet {
     position: absolute;
-    z-index: 2;
     animation-duration: 12s;
     animation-iteration-count: infinite;
-}
+    z-index: 2;
+  }
 
-.sky__planet_01, .sky__planet_02, .sky__planet_03, .sky__planet_04, .sky__planet_05, .sky__planet_06, .sky__planet_07, .sky__planet_08, .sky__planet_09, .sky__planet_10, .sky__planet_11, .sky__planet_12, .sky__planet_13, .sky__planet_14 {
+.sky__planet_1, .sky__planet_2, .sky__planet_3, .sky__planet_4, .sky__planet_5, .sky__planet_6, .sky__planet_7, .sky__planet_8, .sky__planet_9, .sky__planet_10, .sky__planet_11, .sky__planet_12, .sky__planet_13, .sky__planet_14, .sky__smile {
     transition: 2s;
 }
 
-.sky__planet_01 {
+.sky__smile {
+    left: 40%;
+    width: 7%;
+    bottom: 16%;
+    animation-name: sky_11;
+}
+
+.sky__planet_1 {
     width: 11%;
     left: 6%;
     top: 14%;
     animation-name: sky_04;
 }
 
-.sky__planet_02 {
+.sky__planet_2 {
     width: 13%;
     bottom: 4%;
     right: 32vw;
     animation-name: sky_01;
 }
 
-.sky__planet_03 {
+.sky__planet_3 {
     width: 16%;
     top: 6%;
     left: 28%;
     animation-name: sky_02;
 }
 
-.sky__planet_05 {
+.sky__planet_5 {
     top: 38%;
     right: 30%;
     width: 13%;
     animation-name: sky_02;
 }
 
-.sky__planet_06 {
+.sky__planet_6 {
     bottom: 25%;
     width: 24%;
     right: 10%;
     animation-name: sky_08;
 }
 
-.sky__planet_07 {
+.sky__planet_7 {
     width: 7.5%;
     top: 21%;
     right: 37%;
     animation-name: sky_11;
 }
 
-.sky__planet_08 {
+.sky__planet_8 {
     width: 15%;
     top: 17%;
     left: 30%;
     animation-name: sky_08;
 }
 
-.sky__planet_09 {
+.sky__planet_9 {
     animation-name: sky_01;
     top: 40%;
     left: 20%;
@@ -463,10 +442,11 @@ footer.open * {
 }
 
 .sky__planet_11 {
-    width: 100%;
+    width: 24%;
     z-index: 2;
     bottom: -14vh;
-    left: 0;
+    left: 20%;
+    bottom: -10%;
     animation-name: sky_11;
 }
 
@@ -642,43 +622,42 @@ footer.open * {
     color: black;
 }
 
-
-.open .sky__planet_01 {
+.open .sky__planet_1 {
     left: 10%;
     top: 8%;
 }
 
-.open .sky__planet_02 {
+.open .sky__planet_2 {
     bottom: 0%;
     right: 27vw;
 }
 
-.open .sky__planet_03 {
+.open .sky__planet_3 {
     top: 0%;
     left: 25%;
 }
 
-.open .sky__planet_05 {
+.open .sky__planet_5 {
     top: 18%;
     right: 1%;
 }
 
-.open .sky__planet_06 {
+.open .sky__planet_6 {
     bottom: 24%;
     right: 1%;
 }
 
-.open .sky__planet_07 {
+.open .sky__planet_7 {
     top: 4%;
     right: 44%;
 }
 
-.open .sky__planet_08 {
+.open .sky__planet_8 {
     top: -10%;
     left: 32%;
 }
 
-.open .sky__planet_09 {
+.open .sky__planet_9 {
     top: 27%;
     left: 7%;
 }
@@ -690,7 +669,7 @@ footer.open * {
 
 .open .sky__planet_11 {
     bottom: 4vh;
-    left: -48%;
+    left: 8%;
 }
 
 .open .sky__planet_12 {
