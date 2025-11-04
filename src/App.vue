@@ -77,7 +77,7 @@
       <!-- SOBRE MIM -->
 
       <div class="experiencia" id="portfolio">
-
+        <h2>My portfolio</h2>
         <img v-for="i in 11" :class="`experiencia__rocha experiencia__rocha--${i}`" :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" alt="">
         
         <!-- CARROSSEL -->
@@ -89,6 +89,7 @@
       <!-- OUTROS DESIGNS -->
 
       <div class="outros">
+        <h2>Some hobbies</h2>
         <div class="outros__grid max__width">
             <img class="outros__shadow" src="/shadow.svg" alt="">
             <!-- Cards -->
@@ -595,6 +596,9 @@ p {
 
 /* Expêriencia */
 .experiencia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   padding: 200px 0 100px 0;
 }
@@ -761,6 +765,10 @@ p {
 }
 
 @media screen and (max-width: 1000px) {
+  
+  .experiencia__rocha--5 { 
+    display: none;
+  }
 
   :root {
       --sky-scale: 1.4
@@ -815,6 +823,9 @@ p {
 /* OUTROS */
 
 .outros {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   width: 100%;
   z-index: 5;
@@ -840,9 +851,6 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   max-width: 1150px;
-  grid-template: 
-    'butterfly null'
-    'butterfly mesa';
   padding: 100px;
 }
 
@@ -883,11 +891,6 @@ p {
 
 .mesa {
   grid-area: mesa;
-}
-
-.butterfly {
-  grid-area: butterfly;
-  height: 100%;
 }
 
 .outros__clique {
@@ -1063,6 +1066,10 @@ p {
     background: transparent;
   }
 
+  .whiteTheme .outros__shadow {
+    display: none;
+  } 
+
   /* Banner */
   .banner__ctn {
     display: flex;
@@ -1122,11 +1129,21 @@ p {
   /* Outro */
 
   .destaque__grid_1, .outros__grid {
-    display: flex;
-    flex-direction: column;
     padding: 0;
     padding-top: 60px;
     gap: 8px;
+  }
+  
+  .outros__card {
+    height: 260px;
+  }
+
+  .outros__grid {
+    grid-template: initial;
+  }
+  
+  .mesa {
+    grid-area: initial;
   }
 }
 
@@ -1172,7 +1189,7 @@ p {
   color: #a87c7c !important;
 }
 
- .experiencia::before {
+.experiencia::before {
   display: none;
 }
 

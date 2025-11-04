@@ -1,11 +1,11 @@
 <template>
   <div class="carousel">
     <div class="carousel__buttons">
-      <button id="button__l" @click="slide('left', true)" class="carousel__button--left">
+      <button id="button__l" @click="slide('left')" class="carousel__button--left">
         &#60;
       </button>
 
-      <button id="button__r" @click="slide('right', true)" class="carousel__button--right">
+      <button id="button__r" @click="slide('right')" class="carousel__button--right">
         &#62;
       </button>
     </div>
@@ -13,11 +13,12 @@
     <div
       class="carousel__container"
       id="carousel__slide"
-      @touchstart="slideTouth"
-      @touchend="slideTouth"
+      @touchstart="slideOnTouth"
+      @touchend="slideOnTouth"
     >
       <div class="carousel__thumb" v-for="(img, index) in imagens" @click="upPopup(img, 'carrossel_01')" img_default
-        :id="`app-${index}`">
+        :id="index"
+      >
         <div class="carousel__hover">
           Open project
         </div>
@@ -37,117 +38,77 @@ export default {
       carrosselInterval: '',
       initItem: Number,
       touchSlided: [],
+      initial: 7,
+      slideAutomaticoTimer: null,
     }
   },
   mounted() {
-    let positions = 0
-    const initialIframe = 0
-    document.querySelectorAll('[img_default]').forEach(obj => {
-      const currentPositions = positions
-      positions += 25
-      const index = Number(obj.id.split('app-')[1])
-      let classTag
-      if (index == initialIframe || index - 4 == initialIframe) classTag = ''
-      if (index - 1 == initialIframe || index - 3 == initialIframe) classTag = 'img_b'
-      if (index - 2 == initialIframe) classTag = 'img_c'
-
-      obj.style.left = `${currentPositions}%`
-      obj.setAttribute('frame_size', classTag)
-    })
-
-    this.littleAjustmentOnSpacing()
+    this.slide()
     // this.slideAutomatico()
   },
   methods: {
-    slide(param, stopSlideAutomatic) {
-      if (stopSlideAutomatic) clearInterval(this.carrosselInterval)
+    slide(param) {
+      clearInterval(this.slideAutomaticoTimer)
+      if(param != undefined) this.initial += param == 'left' ? -1 : 1
 
-      const centerElement = document.querySelector('[frame_size="img_c"]')
-      const centerIndex = Number(centerElement.id.split('app-')[1])
-      const imagensConst = document.querySelectorAll('[img_default]')
-
-      imagensConst.forEach(obj => { // Limpa os estilos
+      let positions = (2 - this.initial) * 25
+      this.img_defaults()?.forEach(obj => {
         obj.removeAttribute('frame_size')
         obj.style.transform = ''
+        const index = Number(obj.id)
+        let classTag = ''
+        if (index == this.initial) classTag = 'big'
+        if (index == this.initial - 1 || index == this.initial + 1) classTag = 'middle'
+
+        obj.style.left = `${positions}%`
+        positions += 25
+        obj?.setAttribute('frame_size', classTag)
       })
-
-      const [less1, less2] = [centerIndex - 1, centerIndex - 2]
-      const [plus1, plus2] = [centerIndex + 1, centerIndex + 2]
-
-      const whitchSide = param == 'left'
-
-      const getIndexValue = (obj) => {
-        const value = Number(obj.style.left.replace('%', ''))
-        return whitchSide ? value + 25 : value - 25
-      }
-
-      imagensConst.forEach(obj => {
-        obj.style.left = `${getIndexValue(obj)}%`
-      })
-
-      try {
-        document.getElementById(`app-${whitchSide ? less1 : plus1}`).setAttribute('frame_size', 'img_c')
-        document.getElementById(`app-${centerIndex}`).setAttribute('frame_size', 'img_b')
-        document.getElementById(`app-${whitchSide ? less2 : plus2}`).setAttribute('frame_size', 'img_b')
-      } catch { }
-
-      const indexCurrentCenter = Number(document.querySelector('[frame_size="img_c"]').id.split('app-')[1])
-
-      this.slideStop(indexCurrentCenter, imagensConst)
-      this.littleAjustmentOnSpacing(indexCurrentCenter == 0)
+      
+      this.littleAjustmentOnSpacing()
+      this.slideStop()
     },
     
-    slideTouth(event) {
+    slideOnTouth(event) {
       if (event.type == 'touchstart') this.touchSlided = []
-      const indexCurrentCenter = Number(document.querySelector('[frame_size="img_c"]').id.split('app-')[1])
-      const imagensConst = document.querySelectorAll('[img_default]')
-     
-      
-      
       this.touchSlided.push(event.changedTouches[0].clientX)
       const limiteSlide = 50 // Define quantos pixeis o touch deve alcançar para poder ativar a animação 
       let gSlide = this.touchSlided[0] - this.touchSlided[1] > limiteSlide || this.touchSlided[0] - this.touchSlided[1] < -limiteSlide
-
-      if (this.touchSlided[0] > this.touchSlided[1] && gSlide && indexCurrentCenter < imagensConst.length - 1) { // Avança um item no carrossel
-        this.initItem = this.initItem < imagens.carrossel_01.length - 1 ? this.initItem + 1 : this.initItem
-        if (event.type == 'touchend') this.slide('right')
-      }
-      if (this.touchSlided[0] < this.touchSlided[1] && gSlide && indexCurrentCenter != 0) { // Retrocede um item no carrossel
-        this.initItem = this.initItem != 0 ? this.initItem - 1 : this.initItem
-        if (event.type == 'touchend') this.slide('left')
-      };
+      
+      if (!gSlide && event.type != 'touchend') return
+      if (this.touchSlided[0] > this.touchSlided[1] && this.indexCenter() < this.img_defaults()?.length - 1) this.slide('right')
+      if (this.touchSlided[0] < this.touchSlided[1] && this.indexCenter() != 0) this.slide('left')
     },
     
-    littleAjustmentOnSpacing(handle) {
-      const spacing = document.querySelectorAll('[frame_size="img_b"]')
-      spacing.forEach((obj, index) => {
-        index == 0 && !handle ? obj.style.transform = 'translateX(calc(-50% - 26px))' : obj.style.transform = 'translatex(calc(-50% + 26px))'
-      })
+    indexCenter() {
+      return Number(document.querySelector('[frame_size="big"]')?.id)
+    },
+
+    img_defaults() {
+      return document.querySelectorAll('[img_default]')
+    },
+
+    littleAjustmentOnSpacing() {
+      const spacing = document.querySelectorAll('[frame_size="middle"]')
+      const operator = (i) => (i == 0 && this.initial != 0) ?  '-' : '+'
+      spacing.forEach((obj, i) => obj.style.transform = `translatex(calc(-50% ${operator(i)} 26px))`)
     },
     
     slideAutomatico() {
-      this.carrosselInterval = setInterval(() => {
-        const index = Number(document.querySelector('[frame_size="img_c"]').id.split('app-')[1])
-        if (this.imagens.length - 1 > index) this.slide('right')
-        else {
-          const imagens = document.querySelectorAll('[img_default]')
-          const getIndexValue = (obj) => {
-            const value = Number(obj.id.split('app-')[1]) + 2
-            return `${value * 25}%`
-          }
-          imagens.forEach(obj => obj.style.left = getIndexValue(obj))
-          document.querySelector('[frame_size="img_c"]').removeAttribute('frame_size')
-          document.getElementById('app-0').setAttribute('frame_size', 'img_c')
-          document.getElementById('app-1').setAttribute('frame_size', 'img_b')
-          this.littleAjustmentOnSpacing(true)
-        }
-      }, 1000)
+      let changeDirection = 'right'
+
+      this.slideAutomaticoTimer = setInterval(() => {
+        if (this.indexCenter() == this.img_defaults()?.length - 1) changeDirection = 'left'
+        else if (this.indexCenter() == 0) changeDirection = 'right'
+          
+        this.slide(changeDirection)
+      }, 2000);
     },
     
-    slideStop(indexCurrentCenter, imagensConst) {
+    slideStop() {
       const [l, r] = [document.getElementById('button__l'), document.getElementById('button__r')]
-      indexCurrentCenter == 0 ? l.style.display = 'none' : l.style.display = ''
-      indexCurrentCenter == imagensConst.length - 1 ? r.style.display = 'none' : r.style.display = ''
+      l.style.display = this.indexCenter() == 0 ? 'none' : ''
+      r.style.display = this.indexCenter() == this.img_defaults()?.length - 1 ? 'none' : ''
     },
     
     upPopup(obj, array) {
@@ -244,29 +205,14 @@ export default {
   object-position: top;
 }
 
-[img_default]::before {
-  content: '';
-  position: absolute;
-  margin: auto;
-  height: 3%;
-  background: black;
-  width: 32%;
-  border-radius: 0 0 10px 10px;
-  border-color: #a4a4a4;
-  border-width: 0 1px 1px 0;
-  border-style: solid;
-  z-index: 4;
-  top: 0;
-}
-
-[frame_size="img_b"] {
+[frame_size="middle"] {
   display: flex !important;
   width: 240px;
   height: 542px;
   z-index: 1;
 }
 
-[frame_size="img_c"] {
+[frame_size="big"] {
   display: flex !important;
   width: 296px;
   height: 638px;
@@ -274,7 +220,7 @@ export default {
   z-index: 3;
 }
 
-[frame_size="img_c"] img {
+[frame_size="big"] img {
   z-index: 3;
 }
 
@@ -340,6 +286,7 @@ export default {
   }
 
   [img_default] {
+    display: none;
     box-shadow: none;
     border: none;
     outline: none;

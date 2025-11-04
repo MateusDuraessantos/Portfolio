@@ -2,7 +2,7 @@
     <section class="section sobre" id="sobre">
 
         <div class="max__width">
-            <h3 class="sobre__title">A little about me:</h3>
+            <h3 class="sobre__title">A little about me</h3>
 
             <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1" alt="" loading="lazy">
             <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2" alt="" loading="lazy">

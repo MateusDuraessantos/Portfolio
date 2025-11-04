@@ -14,7 +14,7 @@
         <div class="popup__head">
           <h2 class="popup__title">{{ renderImg.name }}</h2>
           <div v-html="renderImg.description"></div>
-          <p v-if="renderImg.ano">{{ renderImg.ano }}</p>
+          <p v-if="renderImg.ano" class="popup__year">{{ renderImg.ano }}</p>
         </div>
         <div class="popup__container">
           <div class="popup__action--ctn" v-if="renderImg.link">
@@ -26,8 +26,12 @@
           </div>
           <div v-for="img in renderImg.paths" class="loading loading--on" :id="img.img">
             <p class="loading__loader">Carregando</p>
-            <img class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)"
-              height="500" width="600">
+
+            <img v-if="img.type == undefined" class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)" height="500" width="600">
+            
+            <video v-else autoplay muted width="850" loop class="popup__imgs popup__video" @canplaythrough="stopLoading(img.img)">
+              <source :src="`projetos/${img.img}`" :type="`video/${img.type}`">
+            </video>
           </div>
         </div>
       </div>
@@ -60,6 +64,8 @@ export default {
   },
   methods: {
     stopLoading(id) {
+      console.log(id);
+      
       document.getElementById(id).classList.remove('loading--on')
     },
     closeThisPopup(event) {
@@ -86,11 +92,9 @@ export default {
   }
 }
 </script>
-
 <style>
-.popup__b {
+.popup__head b {
   font-weight: 600;
-  font-size: 18px;
 }
 </style>
 
@@ -160,7 +164,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   max-width: 1200px;
-  height: 100%;
+  height: max-content;
   background: #1f1f1f;
   margin-top: 50px;
   animation: popup-6be7b2a8 .5s forwards;
@@ -169,6 +173,10 @@ export default {
 .popup__imgs {
   width: 100%;
   height: 100%;
+}
+
+.popup__video {
+  pointer-events: none;
 }
 
 .loading {
@@ -181,7 +189,6 @@ export default {
 
 .popup__container {
   height: max-content;
-  padding-bottom: 100px;
   width: 100%;
 }
 
@@ -342,6 +349,10 @@ export default {
   font-weight: 300;
 }
 
+.popup__year {
+  margin-top: 30px;  
+}
+
 .popup__action--ctn {
   position: sticky;
   width: 100%;
@@ -379,7 +390,7 @@ export default {
 .popup__title {
   width: 100%;
   font-size: 28px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1000px) {
