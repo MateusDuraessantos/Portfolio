@@ -1,11 +1,11 @@
 <template>
   <div class="carousel">
     <div class="carousel__buttons">
-      <button id="button__l" @click="slide('left')" class="carousel__button--left">
+      <button id="button__l" @click="slide('left', 'stop')" class="carousel__button--left">
         &#60;
       </button>
 
-      <button id="button__r" @click="slide('right')" class="carousel__button--right">
+      <button id="button__r" @click="slide('right', 'stop')" class="carousel__button--right">
         &#62;
       </button>
     </div>
@@ -38,17 +38,21 @@ export default {
       carrosselInterval: '',
       initItem: Number,
       touchSlided: [],
-      initial: 7,
+      initial: 2,
       slideAutomaticoTimer: null,
     }
   },
   mounted() {
     this.slide()
-    // this.slideAutomatico()
+    this.slideAutomatico()
   },
+
   methods: {
-    slide(param) {
-      clearInterval(this.slideAutomaticoTimer)
+    slide(param, stop) {
+      if (stop == 'stop') {
+        clearInterval(this.slideAutomaticoTimer)
+        setTimeout(() => this.slideAutomatico(), 5000);
+      }
       if(param != undefined) this.initial += param == 'left' ? -1 : 1
 
       let positions = (2 - this.initial) * 25
@@ -66,7 +70,7 @@ export default {
       })
       
       this.littleAjustmentOnSpacing()
-      this.slideStop()
+      this.hideButtons()
     },
     
     slideOnTouth(event) {
@@ -95,17 +99,17 @@ export default {
     },
     
     slideAutomatico() {
+      for (let i = 1; i < 1000; i++) { clearInterval(i) } // A little trick 
       let changeDirection = 'right'
-
+      
       this.slideAutomaticoTimer = setInterval(() => {
         if (this.indexCenter() == this.img_defaults()?.length - 1) changeDirection = 'left'
         else if (this.indexCenter() == 0) changeDirection = 'right'
-          
         this.slide(changeDirection)
       }, 2000);
     },
     
-    slideStop() {
+    hideButtons() {
       const [l, r] = [document.getElementById('button__l'), document.getElementById('button__r')]
       l.style.display = this.indexCenter() == 0 ? 'none' : ''
       r.style.display = this.indexCenter() == this.img_defaults()?.length - 1 ? 'none' : ''
