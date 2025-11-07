@@ -20,10 +20,23 @@
                         </a>
                     </div>
                     <div class="sobre__text">
-                        <p>&nbsp;Sou um designer graduado pela Universidade Presbiteriana Mackenzie, especializado em UX/UI.</p>
-                        <p>&nbsp;Tenho dois anos de experiência profissional utilizando tecnologias como CSS, JavaScript e Vue.js dentre outras.</p>
-                        <p>&nbsp;Atualmente, estou em uma jornada contínua de aprendizado e desenvolvimento profissional expandindo minhas habilidades para abranger o
-                        desenvolvimento Full Stack e me tornar um profissional mais completo para o desenvolvimento web.</p>
+                      <p>
+                        &nbsp;I'm a <strong>Brazilian Software Engineer</strong> with a background in <strong>UX/UI Design</strong>, graduated from <strong>Universidade Presbiteriana Mackenzie</strong> in 2023.
+                      </p>
+                      <p>
+                        &nbsp;I have solid experience with <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong>, <strong>Vue.js (versions 2 and 3)</strong>, and <strong>Element Plus</strong>. I've also worked with <strong>Next.js</strong>, <strong>TypeScript</strong>, and <strong>Bootstrap</strong>.
+                      </p>
+                      <p>
+                        &nbsp;Currently, I’m pursuing a <strong>postgraduate degree in Systems Analysis and Development</strong> at <strong>FIAP (Faculdade de Informática e Administração Paulista)</strong>.
+                      </p>
+                      <p>
+                        I'm continuously improving my <strong>English</strong> and looking forward to new <strong>professional challenges</strong> and <strong>international opportunities</strong>.
+                      </p>
+                      <p>
+                        I'm currently <strong>{{ calculateAge() }} years old</strong> and have been working professionally for
+                        <strong>{{ calculateWorkYears() }} years</strong>.
+                      </p>
+                      
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
@@ -113,6 +126,30 @@ export default {
     props: {
         whiteIcons: String
     },
+    methods: {
+      calculateAge() {
+        const birthDate = new Date(2000, 9, 10); // 09 Oct 2000
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        return age;
+      },
+      calculateWorkYears() {
+        const workStart = new Date(2021, 9, 1); // October 2021
+        const today = new Date();
+        let years = today.getFullYear() - workStart.getFullYear();
+        const monthDiff = today.getMonth() - workStart.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < workStart.getDate())) {
+          years--;
+        }
+        return years;
+      },
+    }
 }
 </script>
 

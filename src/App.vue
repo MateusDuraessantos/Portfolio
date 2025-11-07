@@ -78,6 +78,7 @@
 
       <div class="experiencia" id="portfolio">
         <h2>My portfolio</h2>
+        <p>just a few</p>
         <img v-for="i in 11" :class="`experiencia__rocha experiencia__rocha--${i}`" :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" alt="">
         
         <!-- CARROSSEL -->
