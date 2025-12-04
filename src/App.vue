@@ -213,8 +213,6 @@ export default {
     removeLinkVerFunc() {
       this.removeLinkVer = !this.removeLinkVer
     },
-   
-    /*  */
 
     isDay() {
       this.whatTimeIs = new Date().getHours()
@@ -284,14 +282,8 @@ export default {
     
     keepWhiteOnReload(timer) {
       setTimeout(() => {
-        //Altera o path das thumbs
-        if (this.booleanTheme == true) {
-          document.getElementById('main').setAttribute('class', 'whiteTheme')
-          this.whiteIcons = 'blackicons'
-        } else {
-          document.getElementById('main').removeAttribute('class')
-          this.whiteIcons = 'whiteicons'
-        }
+        document.body.classList.toggle('whiteTheme', this.booleanTheme)
+        this.whiteIcons = this.booleanTheme ? 'blackicons' : 'whiteicons' //Altera o path das thumbs
       }, timer);
     },
   },
@@ -470,6 +462,10 @@ p {
 .header {
   opacity: 1;
   transition: .5s;
+}
+
+.whiteTheme .header {
+  background: hsla(0, 0%, 100%, .4);
 }
 
 .header__show {

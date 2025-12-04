@@ -1,7 +1,7 @@
 export const imagens =
 {
   carrossel_01: [
-      /* MAPALYTICS */
+    /* MAPALYTICS */
     {
       id: 'hjtryjytrsw',
       name: 'Mapalytics',
@@ -110,6 +110,49 @@ export const imagens =
         <p><b>Development:</b> Vue.js 2, JavaScript, HTML, CSS, Firebase Hosting, GitHub and Element Plus.</p>
       `,
     },
+    /* Calculadora de KM */
+    {
+      id: 'usususuuss',
+      name: 'Mapalytics - Calculadora de KM',
+      paths: [
+        {
+          img: 'calculadora/origins_calculator.mp4',
+          type:'mp4',
+          alt: 'Mapalytics Data Machina'
+        },
+        {
+          img: 'calculadora/selected_alternatives.png',
+          alt: 'Mapalytics Data Machina'
+        },
+        {
+          img: 'calculadora/alternatives_selection.mp4',
+          type:'mp4',
+          alt: 'Mapalytics Data Machina'
+        },
+      ],
+      thumb: {
+        img: 'calculadora/thumb.png',
+        alt: 'Mapalytics Data Machina'
+      },
+      github: '',
+      ano: 'September, 2025',
+      link: 'https://mapalytics.com.br/',
+      description: `
+        <b>About project</b>
+        <br>
+        <p>Calculadora de Km is a tools from a Mapalytics product, by the startup <a href="https://datamachina.com.br/" target="_blank">Data Machina</a>, focused on helping companies analyze their own territorial reach. The tool can receive many inputs of origins and destinations from different types and calculate the distances between the selected points all at once.</p>
+        <p>A big other feature is the possibility to search new leads around your origin point using customisable radius size. It give the user insights on which options are better and which are too far away, based on the distance between points.</p>
+
+        <br>
+        <b>My Role</b>
+        <br>
+        <p>
+          <strong>Frontend</strong> - I created the entire frontend architecture of the tool using Vue.js 2, HTML, CSS, and JavaScript. I implemented the interactive map features with Mapbox GL and integrated all backend endpoints through Firebase’s httpsCallable functions.
+          <br>
+          <strong>Design</strong> - In addition to development, I actively contributed to the interface design and user experience. I applied Jesse James Garrett’s “Five Elements of User Experience” methodology to create a clear, efficient.
+        </p>
+      `,
+    },
     /* Design System */
     {
       id: '07665849',
@@ -186,49 +229,6 @@ export const imagens =
         </p>
         <p><strong>Development:</strong> I was responsible for the front-end development, responsive layout, domain implementation, and web content optimization (SEO).</p>
         `,
-    },
-    /* Calculadora de KM */
-    {
-      id: 'usususuuss',
-      name: 'Mapalytics - Calculadora de KM',
-      paths: [
-        {
-          img: 'calculadora/origins_calculator.mp4',
-          type:'mp4',
-          alt: 'Mapalytics Data Machina'
-        },
-        {
-          img: 'calculadora/selected_alternatives.png',
-          alt: 'Mapalytics Data Machina'
-        },
-        {
-          img: 'calculadora/alternatives_selection.mp4',
-          type:'mp4',
-          alt: 'Mapalytics Data Machina'
-        },
-      ],
-      thumb: {
-        img: 'calculadora/thumb.png',
-        alt: 'Mapalytics Data Machina'
-      },
-      github: '',
-      ano: 'September, 2025',
-      link: 'https://mapalytics.com.br/',
-      description: `
-        <b>About project</b>
-        <br>
-        <p>Calculadora de Km is a tools from a Mapalytics product, by the startup <a href="https://datamachina.com.br/" target="_blank">Data Machina</a>, focused on helping companies analyze their own territorial reach. The tool can receive many inputs of origins and destinations from different types and calculate the distances between the selected points all at once.</p>
-        <p>A big other feature is the possibility to search new leads around your origin point using customisable radius size. It give the user insights on which options are better and which are too far away, based on the distance between points.</p>
-
-        <br>
-        <b>My Role</b>
-        <br>
-        <p>
-          <strong>Frontend</strong> - I created the entire frontend architecture of the tool using Vue.js 2, HTML, CSS, and JavaScript. I implemented the interactive map features with Mapbox GL and integrated all backend endpoints through Firebase’s httpsCallable functions.
-          <br>
-          <strong>Design</strong> - In addition to development, I actively contributed to the interface design and user experience. I applied Jesse James Garrett’s “Five Elements of User Experience” methodology to create a clear, efficient.
-        </p>
-      `,
     },
     {
       id: 'gtrnieogvreoifg',

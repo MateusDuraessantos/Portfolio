@@ -94,6 +94,10 @@ export default {
 .popup__head b {
   font-weight: 600;
 }
+
+.popup__head * {
+  color: var(--creme) !important;
+}
 </style>
 
 <style scoped>
@@ -286,6 +290,7 @@ export default {
   transition: .2s;
   z-index: 2;
   text-shadow: 1px 1px 2px black;
+  color: var(--creme);
 }
 
 .popup__close:hover {

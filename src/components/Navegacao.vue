@@ -2,9 +2,10 @@
   <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
     <button class="turnWhite" @click="emitFunction">
-      <div class="turnWhite__swith" id="whiteThemeBtn">
-        <p class="claro"><div class="emoji">☀️</div> <text-btn>Theme</text-btn></p>
-        <p class="escuro"><text-btn>Theme</text-btn> <div class="emoji">🌙</div></p>
+      <div class="turnWhite__ctn turnWhite__ctn--transform">
+        <div class="turnWhite__emoji">☀️</div>
+        <div class="turnWhite__swith"></div>
+        <div class="turnWhite__emoji">🌙</div>
       </div>
     </button>
     <span></span>
@@ -52,7 +53,8 @@ export default {
     })
   },
   watch: {
-    booleanTheme() {
+    booleanTheme(newVal) {
+      document.querySelector('.turnWhite__ctn').classList.toggle('turnWhite__ctn--transform', newVal)
       this.turnWhite(1000)
     },
     removeLinkVer() {
@@ -78,24 +80,7 @@ export default {
       }
     },
     turnWhite(timer) {
-      const button = document.getElementById('whiteThemeBtn')
-      const white = document.querySelector('.turnWhite')
-
-      if (this.booleanTheme == true) {
-        button.classList.add('turnWhite__swith--transform') 
-        // Muda cor da navegação
-        setTimeout(() => {
-          this.colorNav = 'white'
-          white.classList.add('turnWhite--white')
-        }, timer);
-      } else {
-        button.classList.remove('turnWhite__swith--transform')
-        // Muda cor da navegação
-        setTimeout(() => {
-          this.colorNav = 'black'
-          white.classList.remove('turnWhite--white')
-        }, timer);
-      }
+      setTimeout(() =>  this.colorNav = this.booleanTheme ? 'white' : 'black', timer);
     },
     removeLink() {
       this.$emit('removeLink')
@@ -140,7 +125,7 @@ nav {
 /* */
 
 .hiddenHeader {
-  background: rgba(0, 0, 0, 0);
+  background: none !important;
   backdrop-filter: none !important;
   transition: .5s;
 }
@@ -195,31 +180,43 @@ button {
   display: flex;
   align-items: center;
   background: #2c2c2c;
-  border-radius: 10vw;
+  border-radius: 50px;
   border: none;
-  padding: 12px;
   transition: .4s;
   overflow: hidden;
-  width: 140px;
+  width: 80px;
   height: 40px;
   outline: none;
   box-shadow: 1px 1px 10px rgba(0,0,0,0.2)
 }
 
+.whiteTheme .turnWhite {
+  background: #ebebeb;
+}
+
+.turnWhite__ctn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100px;
+  transform: translateX(-34px);
+  transition: 1s;
+}
+
+.turnWhite__ctn--transform {
+  transform: translateX(0);
+  transition: 1s;
+}
+
 .turnWhite__swith {
-  position: absolute;
-  left: 4px;
   display: flex;
   align-items: center;
   background: gray;
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  box-shadow: -2px -2px 3px rgba(0, 0, 0, 0.2) inset, 2px 2px 3px rgba(255, 255, 255, 0.1) inset;
   transition: .2s;
-}
-
-.turnWhite__swith--transform {
-  transform: translateX(100px)
 }
 
 .turnWhite--white .turnWhite__swith {
@@ -231,34 +228,16 @@ button {
   transition: .4s;
 }
 
-.turnWhite--white text-btn {
-  color: black;
+.turnWhite--text {
+  position: absolute;
+  left: 35px;
 }
 
-text-btn {
-  width: 55px;
-  font-size: 1rem;
-}
 
-.emoji {
+.turnWhite__emoji {
   font-size: 22px;
 }
-.escuro, .claro {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
-  white-space: nowrap;
-}
 
-.escuro {
-  left: 42px;
-}
-
-.claro {
-  right: 42px;
-}
 /* Mobile version */
 
 @media screen and (max-width: 1100px) {
@@ -273,7 +252,7 @@ text-btn {
 }
 
 @media screen and (max-width: 1000px) {
- 
+
   #header {
     height: 60px;
   }
@@ -371,38 +350,9 @@ text-btn {
     color: #1f1f1f;
   }
 
-  /* */
-
-  .turnWhite {
-    width: 110px;
-    height: 30px;
-  }
-
-  .turnWhite__swith {
-    width: 24px;
-    height: 24px;
-  }
-
-  .escuro {
-    left: 25px;
-  }
-
-  .claro {
-    right: 25px;
-  }
-
-  .emoji {
-    font-size: 14px;
-  }
-
-  .turnWhite__swith--transform {
-    transform: translateX(79px)
-  }
-
 }
 
 @media screen and (max-width: 800px) {
-
   nav {
     padding: 0 20px;
   }

@@ -51,7 +51,7 @@ export default {
     slide(param, stop) {
       if (stop == 'stop') {
         clearInterval(this.slideAutomaticoTimer)
-        setTimeout(() => this.slideAutomatico(), 5000);
+        setTimeout(() => this.slideAutomatico(), 20000);
       }
       if(param != undefined) this.initial += param == 'left' ? -1 : 1
 
@@ -106,7 +106,7 @@ export default {
         if (this.indexCenter() == this.img_defaults()?.length - 1) changeDirection = 'left'
         else if (this.indexCenter() == 0) changeDirection = 'right'
         this.slide(changeDirection)
-      }, 2000);
+      }, 10000);
     },
     
     hideButtons() {
