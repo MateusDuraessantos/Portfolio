@@ -1,25 +1,31 @@
 <template>
-  <div id="background">
-    <div id="themeOverflow"></div>
-    <div id="overflow">
-      <div class="overflowPort">
-        <img :src="`inicio/${smile}/smile.svg`">
-      </div>
-    </div>
-
-    <Header
-      @tun-on="turnOn"
-      :removeLinkVer="removeLinkVer"
-      :booleanTheme="booleanTheme"
-      class="header"
-      id="header"
-      @remove-link="removeClass"
-      :dadoBol="hiddenHeader"
+  <div>
+    <!-- POPUP -->
+    <Popup
+      v-if="handleUpPopup"
+      :elemento="imageIndex"
+      @close-popup="handleUpPopup = false"
     />
 
-    <!-- Se booleanTheme for true o tema fica branco  -->
-    <main id="main">
+    <div id="background">
+      <div id="themeOverflow"></div>
+      <div id="overflow">
+        <div class="overflowPort">
+          <img :src="`inicio/${smile}/smile.svg`">
+        </div>
+      </div>
+      
+      <Header
+        @tun-on="turnOn"
+        :removeLinkVer="removeLinkVer"
+        :booleanTheme="booleanTheme"
+        class="header"
+        id="header"
+        @remove-link="removeClass"
+        :dadoBol="hiddenHeader"
+      />
 
+      <main id="main">
       <div class="banner" id="inicio">
         <p class="designed_by">
           Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
@@ -126,15 +132,7 @@
     
     <!-- FOOTER -->
     <Footer :whiteImages="whiteImages" :footerVisible="footerVisible" :blockClicked="blockClicked" />
-
-    <!-- POPUP -->
-
-    <Popup
-      v-if="handleUpPopup"
-      :elemento="imageIndex"
-      @close-popup="handleUpPopup = false"
-    />
-
+    </div>
   </div>
 </template>
 
