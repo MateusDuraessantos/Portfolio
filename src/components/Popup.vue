@@ -61,6 +61,9 @@ export default {
     this.indexImg = this.imagens[this.elemento.array].findIndex(elem => elem.id == this.elemento.obj.id) // Pega o index do objeto
     this.renderImg = this.imagens[this.elemento.array][this.indexImg]
     document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', (event) => {
+      if(event.key == 'Escape') this.closeThisPopup(true)
+    })
   },
   methods: {
     stopLoading(id) {
@@ -69,8 +72,8 @@ export default {
     closeThisPopup(event) {
       let clickable = ['popup__close', 'popup', 'popup__overlay']
       clickable.forEach(obj => {
-        if (obj == event.target.classList[0]) {
-          document.querySelector('.popup').classList.add('popup__closing')
+        if (event === true || obj == event.target.classList[0]) {
+          document.querySelector('.popup')?.classList.add('popup__closing')
           setTimeout(() => {
             this.$emit('closePopup')
             document.body.style.overflow = ''

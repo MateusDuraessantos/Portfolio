@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <Navegacao
+    <Header
       @tun-on="turnOn"
       :removeLinkVer="removeLinkVer"
       :booleanTheme="booleanTheme"
@@ -18,9 +18,9 @@
     />
 
     <!-- Se booleanTheme for true o tema fica branco  -->
-    <div id="main">
+    <main id="main">
 
-      <header class="banner" id="inicio">
+      <div class="banner" id="inicio">
         <p class="designed_by">
           Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
         </p>
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       <!-- ABORDO -->
 
@@ -122,12 +122,10 @@
           </button>
         </h5>
       </section>
-
-      <!-- FOOTER -->
-
-      <FooterElements :whiteImages="whiteImages" :footerVisible="footerVisible" :blockClicked="blockClicked" />
-
-    </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <Footer :whiteImages="whiteImages" :footerVisible="footerVisible" :blockClicked="blockClicked" />
 
     <!-- POPUP -->
 
@@ -141,8 +139,8 @@
 </template>
 
 <script>
-import Navegacao from './components/Navegacao'
-import FooterElements from './components/Footer.vue'
+import Header from './components/Header'
+import Footer from './components/Footer.vue'
 import Sobre from './components/Sobre.vue'
 import Popup from './components/Popup.vue'
 import Animation from './components/Animation.vue'
@@ -153,9 +151,9 @@ import { commons } from '@/utils/commons'
 export default {
   name: 'App',
   components: {
-    Navegacao,
+    Header,
     Popup,
-    FooterElements,
+    Footer,
     Sobre,
     Animation,
     Carrossel,
@@ -342,7 +340,7 @@ a {
 }
 
 p {
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 * {
@@ -1005,7 +1003,7 @@ p {
 
 .banner__content {
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .banner__ola {

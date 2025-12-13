@@ -1,5 +1,5 @@
 <template>
-  <nav :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
+  <header :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
 
     <button class="turnWhite" @click="emitFunction">
       <div class="turnWhite__ctn turnWhite__ctn--transform">
@@ -13,22 +13,22 @@
     <div class="links" @click="upDropdown">
       <div id="mobile">
         <div class="dropdown__inicio">Menu</div>
-        <div class="dropdown__container">
-          <div class="dropdown nav" @click="commons.scrollDown('inicio')">Welcome</div>
-          <div class="dropdown nav" @click="commons.scrollDown('portfolio')">Portfolio</div>
-          <div class="dropdown nav" @click="commons.scrollDown('sobre')">About</div>
-          <div class="dropdown nav" @click="commons.scrollDown('contato')">Contact</div>
-        </div>
+        <nav class="dropdown__container">
+          <button class="dropdown nav" @click="commons.scrollDown('inicio')">Welcome</button>
+          <button class="dropdown nav" @click="commons.scrollDown('portfolio')">Portfolio</button>
+          <button class="dropdown nav" @click="commons.scrollDown('sobre')">About</button>
+          <button class="dropdown nav" @click="commons.scrollDown('contato')">Contact</button>
+        </nav>
       </div>
     </div>
-  </nav>
+  </header>
 </template>
 
 <script>
 import { commons } from '@/utils/commons';
 
 export default {
-  name: 'Navegacao',
+  name: 'Header',
   props: {
     dadoBol: String,
     booleanTheme: Boolean,
@@ -92,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-nav {
+header {
   display: flex;
   align-items: center;
   position: fixed;
@@ -100,29 +100,19 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0 80px;
-  font-size: 1rem;
+  font-size: 16px;
   top: 0;
   backdrop-filter: blur(14px) !important;
+  background: rgba(0, 0, 0, 0.5);
+  color: #1f1f1f;
   width: 100vw;
   height: 80px;
   z-index: 8;
 }
 
-/* */
-
-[theme="black"] {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-[theme="white"] {
+.whiteTheme header {
   background: rgb(255 255 255 / 40%);
 }
-
-[theme="white"] .dropdown {
-  color: #1f1f1f;
-}
-
-/* */
 
 .hiddenHeader {
   background: none !important;
@@ -145,7 +135,7 @@ nav {
 
 button {
   color: var(--creme);
-  font-size: 1rem;
+  font-size: 16px;
   background: none;
   border: none;
 }
@@ -161,7 +151,6 @@ button {
   display: flex;
   gap: 28px;
 }
-
 
 .nav {
   cursor: pointer;
@@ -233,6 +222,14 @@ button {
   left: 35px;
 }
 
+.whiteTheme .dropdown {
+  color: black;
+}
+
+.dropdown {
+  color: var(--creme);
+}
+
 
 .turnWhite__emoji {
   font-size: 22px;
@@ -242,7 +239,7 @@ button {
 
 @media screen and (max-width: 1100px) {
 
-  nav {
+  header {
     padding: 0 40px;
   }
 }
@@ -341,19 +338,19 @@ button {
     background: rgb(71, 71, 71);
   }
 
-  [theme="white"] #mobile .dropdown,
-  [theme="white"] #mobile .dropdown__container {
+  .whiteTheme #mobile .dropdown,
+  .whiteTheme #mobile .dropdown__container {
     background: #F4F4F4 !important;
   }
 
-  [theme="white"] .dropdown__inicio {
+  .whiteTheme .dropdown__inicio {
     color: #1f1f1f;
   }
 
 }
 
 @media screen and (max-width: 800px) {
-  nav {
+  header {
     padding: 0 20px;
   }
 }
