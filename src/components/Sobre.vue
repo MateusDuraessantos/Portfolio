@@ -1,10 +1,7 @@
 <template>
-    <section class="section sobre" id="sobre">
+    <section class="section sobre" id="link_ancor__experience">
 
         <div class="max__width">
-          
-        
-          
           <div class="sobre__elements g-glass">
               <h3 class="sobre__title">A little about me</h3>
 
@@ -145,12 +142,8 @@ export default {
 <style>
 /* Sobre */
 .sobre {
-  position: relative;
-  display: flex;
-  align-items: center;
   width: 100%;
   padding: 200px 0;
-  padding-bottom: 200px;
 }
 
 .sobre__title {

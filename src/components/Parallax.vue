@@ -160,7 +160,7 @@ export default {
 
 .sobre__planet--1 {
   position: absolute;
-  bottom: 1000px;
+  top: 900px;
   left: -100px;
   width: 800px;
   height: 800px;
@@ -172,7 +172,7 @@ export default {
 .sobre__planet--2 {
   position: absolute;
   filter: blur(4px);
-  bottom: 600px;
+  top: 1700px;
   right: -3vw;
   width: 550px;
   height: 550px;

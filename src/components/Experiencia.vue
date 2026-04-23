@@ -1,6 +1,6 @@
 <template>
   <!-- Componente: Experiencia.vue -->
-  <div class="experiencia" id="portfolio">
+  <div class="experiencia" id="link_ancor__portfolio">
 
     <h2>My portfolio</h2>
     <p>just a few</p>

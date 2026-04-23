@@ -14,10 +14,10 @@
       <div id="mobile">
         <div class="dropdown__inicio">Menu</div>
         <nav class="dropdown__container">
-          <button class="dropdown nav" @click="commons.scrollDown('inicio')">Welcome</button>
-          <button class="dropdown nav" @click="commons.scrollDown('portfolio')">Portfolio</button>
-          <button class="dropdown nav" @click="commons.scrollDown('sobre')">Experiencia</button>
-          <button class="dropdown nav" @click="commons.scrollDown('contato')">Contact</button>
+          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__inicio')">Welcome</button>
+          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__portfolio')">Portfolio</button>
+          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__experience')">Experience</button>
+          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__contato')">Contact</button>
         </nav>
       </div>
     </div>

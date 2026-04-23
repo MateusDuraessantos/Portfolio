@@ -1,5 +1,5 @@
 <template>
-  <footer id="contato">
+  <footer id="link_ancor__contato">
     <div class="sky">
       <!-- Os céus proclamam a glória de Jesus -->
       <span class="sky__container" v-if="footerVisible">
