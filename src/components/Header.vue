@@ -16,7 +16,7 @@
         <nav class="dropdown__container">
           <button class="dropdown nav" @click="commons.scrollDown('inicio')">Welcome</button>
           <button class="dropdown nav" @click="commons.scrollDown('portfolio')">Portfolio</button>
-          <button class="dropdown nav" @click="commons.scrollDown('sobre')">About</button>
+          <button class="dropdown nav" @click="commons.scrollDown('sobre')">Experiencia</button>
           <button class="dropdown nav" @click="commons.scrollDown('contato')">Contact</button>
         </nav>
       </div>
@@ -111,7 +111,7 @@ header {
 }
 
 .whiteTheme header {
-  background: rgb(255 255 255 / 40%);
+  background: rgb(255 255 255 / 20%);
 }
 
 .hiddenHeader {

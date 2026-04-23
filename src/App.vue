@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <!-- POPUP -->
     <Popup
       v-if="handleUpPopup"
@@ -25,79 +25,27 @@
         :dadoBol="hiddenHeader"
       />
 
-      <main id="main">
-      <div class="banner" id="inicio">
-        <p class="designed_by">
-          Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
-        </p>
-        <div class="banner__ctn max__width">
-          <br>
-          <div class="banner__column--2">
-            <div class="banner__description">
-              <div class="banner__container">
-                <p class="banner__ola">{{ saldacao }}</p>
-                <h1 class="banner__nome">My name is Mateus,</h1>
-              </div>
-              <div class="banner__content">
-                <p>I'm a software engineer!</p>
-              </div>
-              <div class="banner__social">
-                <a class="banner__redes" href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-                  <img
-                    class="banner__redes--img" :src="`icons/${whiteIcons}/linkedin.svg`"
-                    width="58"
-                    height="34"
-                    alt="logo Linkedin"
-                    loading="lazy"
-                  >
-                </a>
-                <a class="banner__redes" href="https://github.com/MateusDuraessantos" target="_blank">
-                  <img
-                    class="banner__redes--img"
-                    :src="`icons/${whiteIcons}/github__fill.svg`"
-                    width="58"
-                    height="34"
-                    alt="logo Github" loading="lazy"
-                  >
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- BANNER -->
+      <Banner :saldacao="saldacao" :whiteIcons="whiteIcons" />
 
       <!-- ABORDO -->
+      <Abordo :whiteImages="whiteImages" />
 
-      <div class="abordo">
-        <div class="abordo__container max__width">
-          <p class="abordo__p">Fasten your seatbeals and come aboard</p>
-        </div>
-        <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" alt="">
-      </div>
+      <div class="container">
+        <Parallax
+          :booleanTheme="booleanTheme" 
+        />
 
-      <div class="container__background">
-        <img class="container__background--img" id="parallax_teste" v-if="this.widthSize > 1000" src="inicio/white/background__parallax.png" alt="">
-        <img class="container__background--img"  id="parallax_teste" v-else src="inicio/white/mobile-background__parallax.webp" alt="">
-      </div>
+        <!-- EXPERIÊNCIA -->
+        <Experiencia
+          :white-images="whiteImages"
+          @upPopup="upPopup"
+        />
 
-      <!-- SOBRE MIM -->
-
-      <div class="experiencia" id="portfolio">
-        <h2>My portfolio</h2>
-        <p>just a few</p>
-        <img v-for="i in 11" :class="`experiencia__rocha experiencia__rocha--${i}`" :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" alt="">
-        
-        <!-- CARROSSEL -->
-        
-        <Carrossel @upPopup="upPopup" />
-
-      </div>
-
-      <!-- OUTROS DESIGNS -->
-
-      <div class="outros">
-        <h2>Some hobbies</h2>
-        <div class="outros__grid max__width">
+        <!-- OUTROS -->
+        <div class="outros">
+          <h2>Some hobbies</h2>
+          <div class="outros__grid max__width">
             <img class="outros__shadow" src="/shadow.svg" alt="">
             <!-- Cards -->
             <div
@@ -112,50 +60,53 @@
               </div>
               <img class="outros__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
             </div>
+          </div>
         </div>
+        
+        <!-- SOBRE -->
+        <Sobre :whiteIcons="whiteIcons" />
+
+        <!-- CONTATO -->
+        <section>
+          <h5 class="mensagem">
+            <p class="mensagem__title"><b>Did you enjoyed the tour?</b></p>
+            <button class="mensagem__contact" @click="commons.scrollDown('contato')">
+              <p class="mensagem__me">Contact me!</p>
+              <p class="mensagem__arrow">></p>
+            </button>
+          </h5>
+        </section>
+
       </div>
-      
-      <!-- SOBRE -->
-      <Sobre :whiteIcons="whiteIcons" />
-      
-      <!-- CONTATO -->
-      <section>
-        <h5 class="mensagem">
-          <p class="mensagem__title"><b>Did you enjoyed the tour?</b></p>
-          <button class="mensagem__contact" @click="commons.scrollDown('contato')">
-            <p class="mensagem__me">Contact me!</p>
-            <p class="mensagem__arrow">></p>
-          </button>
-        </h5>
-      </section>
-    </main>
     
-    <!-- FOOTER -->
-    <Footer :whiteImages="whiteImages" :footerVisible="footerVisible" :blockClicked="blockClicked" />
+      <!-- FOOTER -->
+      <Footer
+        :whiteImages="whiteImages"
+        :footerVisible="footerVisible"
+        :blockClicked="blockClicked"
+      />
+
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
-import Header from './components/Header'
-import Footer from './components/Footer.vue'
-import Sobre from './components/Sobre.vue'
-import Popup from './components/Popup.vue'
-import Animation from './components/Animation.vue'
-import Carrossel from './components/Carrossel.vue'
-import { imagens } from './constants/destaque.js'
+import Header from '@/components/Header'
+import Banner from '@/components/Banner'
+import Footer from '@/components/Footer.vue'
+import Abordo from '@/components/Abordo.vue'
+import Sobre from '@/components/Sobre.vue'
+import Popup from '@/components/Popup.vue'
+import Parallax from '@/components/Parallax.vue'
+import Experiencia from '@/components/Experiencia.vue'
+import Animation from '@/components/Animation.vue'
+import Carrossel from '@/components/Carrossel.vue'
+import { imagens } from '@/constants/destaque.js'
 import { commons } from '@/utils/commons'
 
 export default {
   name: 'App',
-  components: {
-    Header,
-    Popup,
-    Footer,
-    Sobre,
-    Animation,
-    Carrossel,
-  },
+  components: { Header, Banner, Footer, Popup, Parallax, Abordo, Sobre, Animation, Carrossel, Experiencia },
   data() {
     return {
       commons,
@@ -189,23 +140,16 @@ export default {
     this.haveAGoodDay()
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
-    this.setParallaxHeight()
-    window.addEventListener('resize', this.setParallaxHeight)
+
+    
   },
   methods: {
-    setParallaxHeight() {
-      setTimeout(() => {
-        const altura = document.getElementById('main').clientHeight
-        document.getElementById('parallax_teste').style.height = `calc(${altura}px - 260vh)`
-      }, 1000)
-    },
-    upPopup(obj, array){
-      this.imageIndex = {
-        obj: obj,
-        array: array
-      }
+
+    upPopup(obj, array) {
+      this.imageIndex = { obj, array }
       this.handleUpPopup = !this.handleUpPopup
     },
+
     removeLinkVerFunc() {
       this.removeLinkVer = !this.removeLinkVer
     },
@@ -245,7 +189,7 @@ export default {
     
     turnBackgroundWhite(timer) {
       // Altera a cor do background global 
-      if (this.booleanTheme == true)  setTimeout(() => document.body.style.background = 'var(--body_color)', timer);
+      if (this.booleanTheme == true) setTimeout(() => document.body.style.background = 'var(--body_color)', timer);
       else setTimeout(() => document.body.removeAttribute('style'), timer);
     },
     
@@ -371,8 +315,29 @@ p {
   margin: auto;
 }
 
-/* white theme */
+.g-glass {
+  -webkit-backdrop-filter: blur(30px) !important;
+  backdrop-filter: blur(30px);
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
 
+.g-glass::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.2);
+  opacity: 0.3;
+  pointer-events: none;
+  background-image: url('../public/noise.png');
+}
+
+/* white theme */
 .blackOverflow {
   background: black;
 }
@@ -454,7 +419,6 @@ p {
 }
 
 /* Header */
-
 .header {
   opacity: 1;
   transition: .5s;
@@ -469,27 +433,14 @@ p {
   transition: .2s
 }
 
-/*  */
-.designed_by {
-  position: absolute;
-}
-
-.designed_by, .designed_by strong {
-  width: 100%;
-  text-align: center;
-  bottom: 10px;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.designed_by strong {
-  font-weight: 600;
-}
-
-#main {
+main {
   position: relative;
   transition: .2s;
   overflow: hidden;
+}
+
+.container {
+  position: relative;
 }
 
 /* Mensagem */
@@ -522,12 +473,15 @@ p {
   z-index: 2;
   transition: .2s;
 }
+
 .mensagem__me {
   font-weight: 400;
   font-size: 22px;
   transition: .4s !important;
 }
-.mensagem__contact:hover .mensagem__me, .mensagem__contact:hover .mensagem__arrow {
+
+.mensagem__contact:hover .mensagem__me,
+.mensagem__contact:hover .mensagem__arrow {
   color: gray;
   transition: .3s !important;
 }
@@ -552,50 +506,6 @@ p {
   color: #8f5245;
 }
 
-/* Abordo */
-
-.abordo {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  height: max-content;
-  z-index: 2;
-}
-
-.abordo__img {
-  width: 100%;
-  height: 100%;
-  min-height: 800px;
-  object-fit: cover;
-}
-
-.abordo__container {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  z-index: 3;
-}
-
-.abordo__p {
-  text-shadow: 4px 3px 5px rgba(0, 0, 0, 0.2) !important;
-  font-weight: 700;
-}
-
-.abordo__p, .abordo__p * {
-  color: var(--creme) !important;
-  font-size: 22px;
-}
-
-/* Expêriencia */
-.experiencia {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding: 200px 0 100px 0;
-}
-
 .title--line {
   position: relative;
   display: flex;
@@ -608,153 +518,6 @@ p {
   text-align: center;
   height: 100px;
   z-index: 5;
-}
-
-.experiencia__rocha {
-  position: absolute;
-  z-index: 4;
-  animation-duration: 12s;
-  animation-iteration-count: infinite;
-  pointer-events: none;
-}
-
-.experiencia__rocha--1 {
-  width: 20%;
-  max-width: 300px;
-  top: -29%;
-  right: 40vw;
-  animation-name: sky_04;
-}
-.experiencia__rocha--2 {
-  width: 10%;
-  max-width: 200px;
-  top: 34%;
-  right: 27vw;
-  animation-name: sky_01;
-}
-.experiencia__rocha--3 {
-  width: 15%;
-  max-width: 250px;
-  right: 19vw;
-  top: 10%;
-  animation-name: sky_02;
-}
-.experiencia__rocha--4 {
-  width: 16%;
-  max-width: 260px;
-  left: 4vw;
-  top: 4%;
-  animation-name: sky_02;
-}
-.experiencia__rocha--5 {
-  width: 30%;
-  max-width: 400px;
-  bottom: -30%;
-  left: 0;
-  animation-name: sky_08;
-  z-index: 6;
-}
-.experiencia__rocha--6 {
-  width: 30%;
-  max-width: 400px;
-  right: -130px;
-  top: 10%;
-  animation-name: sky_13;
-}
-.experiencia__rocha--7 {
-  width: 13%;
-  max-width: 230px;
-  bottom: 0;
-  left: 54vw;
-  animation-name: sky_11;
-}
-.experiencia__rocha--8 {
-  width: 30%;
-  max-width: 400px;
-  left: -150px;
-  top: -160%;
-  animation-name: sky_08;
-}
-.experiencia__rocha--9 {
-  width: 30%;
-  max-width: 400px;
-  left: -7vw;
-  bottom: 2%;
-  animation-name: sky_01;
-}
-.experiencia__rocha--10 {
-  width: 30%;
-  max-width: 400px;
-  left: 19vw;
-  top: -16%;
-  animation-name: sky_04;
-}
-.experiencia__rocha--11 {
-  width: 30%;
-  max-width: 400px;
-  bottom: 0;
-  right: -5vw;
-  animation-name: sky_06
-}
-.experiencia__rocha--12 {
-  width: 20%;
-  max-width: 300px;
-  top: 1656px;
-  right: 1vw;
-  animation-name: sky_08;
-}
-
-
-
-@keyframes sky_01 {
-  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  20% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  45% { transform: scale(var(--sky-scale)) translate(-30px, -40px) }
-  75% { transform: scale(var(--sky-scale)) translate(10px, -60px) }
-  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-}
-
-@keyframes sky_02 {
-  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  15% { transform: scale(var(--sky-scale)) translate(-60px, 0) }
-  35% { transform: scale(var(--sky-scale)) translate(-60px, -20px) }
-  75% { transform: scale(var(--sky-scale)) translate(-60px, 20px) }
-  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-}
-
-@keyframes sky_04 {
-  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  50% { transform: scale(var(--sky-scale)) translate(30px, 40px) }
-  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-}
-
-@keyframes sky_08 {
-  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  35% { transform: scale(var(--sky-scale)) translate(20px, 50px) }
-  70% { transform: scale(var(--sky-scale)) translate(-35px, 60px) }
-  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-}
-
-@keyframes sky_11 {
-  0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  50% { transform: scale(var(--sky-scale)) translate(20px, 0) }
-  75% { transform: scale(var(--sky-scale)) translate(0px, -30px) }
-  90% { transform: scale(var(--sky-scale)) translate(20px, 0) }
-  100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-}
-
-@keyframes sky_13 {
-  0% { transform: scale(var(--sky-scale)) translatey(0) }
-  10% { transform: scale(var(--sky-scale)) translatey(0) }
-  35% { transform: scale(var(--sky-scale)) translatey(60px) }
-  90% { transform: scale(var(--sky-scale)) translatey(0) }
-  100% { transform: scale(var(--sky-scale)) translatey(0) }
-}
-
-@keyframes sky_y {
-  0% { transform: translatey(0) }
-  50% { transform: translatey(60px) }
-  100% { transform: translatey(0) }
 }
 
 @media screen and (max-width: 1000px) {
@@ -830,12 +593,12 @@ p {
   font-size: 22px;
   color: var(--creme);
 }
- 
+
 .destaque__grid_1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  padding: 100px 100px 0 100px ;
+  padding: 100px 100px 0 100px;
 }
 
 .outros__grid {
@@ -854,8 +617,6 @@ p {
 
 .outros__card {
   position: relative;
-  border-radius: 30px;
-  overflow: hidden;
   width: 100%;
   height: 400px;
 }
@@ -921,37 +682,6 @@ p {
 
 /* Banner */
 
-.banner {
-  display: flex;
-  align-items: center;
-  min-height: 600px;
-  position: relative;
-  gap: 4vw;
-  background-image: url('../public/inicio/black/banner_sky.jpg');
-  background-size: cover;
-  min-height: 100vh;
-  z-index: 3;
-}
-
-.banner__column--2 {
-  display: flex;
-  align-items: center;
-  min-height: 600px;
-  position: relative;
-  margin-bottom: 100px;
-}
-
-.banner__ctn {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.banner__img {
-  position: absolute;  
-  left: -10vw;
-  width: 55vw;
-}
-
 .whiteTheme .banner::before {
   content: '';
   background-image: linear-gradient(transparent, var(--linear-after-1));
@@ -978,12 +708,10 @@ p {
 .whiteTheme .abordo::before {
   content: '';
   position: absolute;
-  height: 200px;
-  pointer-events: none;
+  bottom: 0;
   width: 100%;
-  top: 100%;
-  z-index: 2;
-  background-image: linear-gradient(var(--linear-after), transparent);
+  height: 100px;
+  background-image: linear-gradient(transparent, var(--linear-after));
 }
 
 .banner__description {
@@ -997,11 +725,6 @@ p {
   display: flex;
   flex-direction: column;
   font-size: 1.9rem;
-}
-
-.banner__content {
-  font-weight: 400;
-  font-size: 16px;
 }
 
 .banner__ola {
@@ -1018,6 +741,7 @@ p {
   display: flex;
   width: max-content;
   margin-top: 20px;
+  gap: 20px;
 }
 
 .banner__redes--img {
@@ -1032,7 +756,6 @@ p {
 }
 
 .banner__redes {
-  padding: 10px;
   transition: .2s;
 }
 
@@ -1077,6 +800,7 @@ p {
       align-items: center;
       gap: 20px;
   }
+
   .banner__social {
     align-items: center;
   }
@@ -1095,23 +819,6 @@ p {
     font-size: 28px;
   }
   
-  /* Abordo */
-
-  .abordo__p, .whiteTheme .abordo__p * {
-    color: black !important;
-  }
-
-  .abordo__container {
-    justify-content: center;
-    align-items: initial;
-  }
-
-  .abordo__p {
-    font-size: 18px;
-    margin-top: 60px;
-  }
-
-
   /* Destaque */
   
   .destaque__card {
@@ -1121,7 +828,8 @@ p {
 
   /* Outro */
 
-  .destaque__grid_1, .outros__grid {
+  .destaque__grid_1,
+  .outros__grid {
     padding: 0;
     padding-top: 60px;
     gap: 8px;
@@ -1182,29 +890,42 @@ p {
   color: #a87c7c !important;
 }
 
-.experiencia::before {
-  display: none;
-}
-
-.whiteTheme .experiencia::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(90deg,black, rgba(0,0,0,0.5), transparent, transparent, rgba(0,0,0,0.5), black);
-  z-index: 3;
-  pointer-events: none;
-}
-
-
-.whiteTheme .carrossel__background img  {
+.whiteTheme .carrossel__background img {
   box-shadow: none;
 }
 
 .container__background {
   position: relative;
-  /* overflow: hidden; */
+}
+
+.whiteTheme .container::before {
+  content: '';
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  top: 0;
+  background-image: linear-gradient(var(--linear-after), transparent);
+  z-index: 2;
+}
+
+.whiteTheme .container::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(transparent, var(--body_color));
+  bottom: 0;
+  z-index: 2;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(transparent, black);
+  bottom: 0;
+  z-index: 2;
 }
 
 .container__background--container {
@@ -1217,29 +938,6 @@ p {
   display: initial;
   width: 100%;
   height: 100%;
-}
-
-.container__background--img {
-  position: absolute;
-  display: none;
-  width: 100%;
-  object-fit: cover;
-  min-height: max-content;
-  min-width: 1200px;
-}
-
-.whiteTheme .container__background--img{
-  display: initial;
-}
-
-.grneowg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  height: 200px;
-  width: 100%;
-  background: yellow;
-  z-index: 2;
 }
 
 .whiteTheme .container__background::after {

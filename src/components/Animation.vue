@@ -89,7 +89,6 @@ export default {
 
     document.getElementById('pages').onmousemove = change3d
 
-
     const page__btn = document.querySelectorAll('[bubbleClick]')
     page__btn.forEach(obj => {
       obj.addEventListener('click', (e) => {
@@ -101,18 +100,20 @@ export default {
       })
 
       obj.addEventListener('mouseenter', (e) => {
+        const pagesBubble = document.querySelector(`.pages__bubble--${bubbleId}`)
         const bubbleId = e.currentTarget.getAttribute('bubble')
         if (bubbleId) {
-          document.querySelector(`.pages__bubble--${bubbleId}`).style.left = '-70px'
-          document.querySelector(`.pages__bubble--${bubbleId}`).style.filter = 'blur(0)'
+          pagesBubble.style.left = '-70px'
+          pagesBubble.style.filter = 'blur(0)'
         }
       })
 
       obj.addEventListener('mouseleave', (e) => {
         const bubbleId = e.currentTarget.getAttribute('bubble')
+        const pagesBubble = document.querySelector(`.pages__bubble--${bubbleId}`)
         if (bubbleId) {
-          document.querySelector(`.pages__bubble--${bubbleId}`).style.left = ''
-          document.querySelector(`.pages__bubble--${bubbleId}`).style.filter = ''
+          pagesBubble.style.left = ''
+          pagesBubble.style.filter = ''
         }
       })
     })

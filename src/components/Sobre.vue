@@ -2,12 +2,12 @@
     <section class="section sobre" id="sobre">
 
         <div class="max__width">
-            <h3 class="sobre__title">A little about me</h3>
+          
+        
+          
+          <div class="sobre__elements g-glass">
+              <h3 class="sobre__title">A little about me</h3>
 
-            <img src="inicio/black/red-planet.jpg" id="planets-red" class="sobre__planet--1" alt="" loading="lazy">
-            <img src="inicio/black/earth.png" id="planets-earth" class="sobre__planet--2" alt="" loading="lazy">
-
-            <div class="sobre__elements">
                 <div class="sobre__container">
                     <div class="sobre__redes">
                         <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
@@ -20,11 +20,11 @@
                         </a>
                     </div>
                     <div class="sobre__text">
-                      <p>I'm been a software engineer for over <strong>{{ calculateWorkYears() }} years</strong>, with a strong foundation in <strong>JavaScript</strong>, <strong>TypeScript</strong>, <strong>HTML</strong> and <strong>CSS</strong>, using frameworks like <strong>Vue.js</strong> (v2 & v3) and some libraries such as <strong>Element Plus</strong> and <strong>Bootstrap</strong>. I’ve also worked with Next.js, MapBox GL, and a few more.</p>
+                      <p>I'm a software engineer solving problems for over <strong>{{ calculateWorkYears() }} years</strong>, with a strong foundation in <strong>JavaScript</strong>, <strong>TypeScript</strong>, <strong>HTML</strong> and <strong>CSS</strong>, using frameworks like <strong>Vue.js</strong> (v2 & v3) and some libraries such as <strong>Element Plus</strong> and <strong>Bootstrap</strong>. I’ve also worked with Next.js, MapBox GL, and a few more.</p>
 
-                      <p>I have created <button class="sobre__button" @click="commons.scrollDown('portfolio')">several projects</button> that have been released into production. These range from projects focused on solving administrative problems related to product maintenance and warranty throughout Brazil to projects involving the detection of problems in railway lines using machine learning.</p>
+                      <p>I have solved <button class="sobre__button" @click="commons.scrollDown('portfolio')">several issues</button> creating new projects that have been released into production. These range from projects focused on solving administrative problems related to product maintenance and warranty throughout Brazil to projects involving the detection of problems in railway lines using machine learning.</p>
 
-                      <p>Currently, I’m pursuing a postgraduate degree in S<strong>ystems Analysis and Development</strong> at <strong>FIAP</strong> (Faculdade de Informática e Administração Paulista), while continuously improving my English and seeking new professional challenges opportunities!</p>
+                      <p>Currently, I’m pursuing a postgraduate degree in <strong>Systems Analysis and Development</strong> at <strong><a href="https://postech.fiap.com.br/" target="_blank">FIAP</a></strong> (Faculdade de Informática e Administração Paulista), while continuously improving my English and seeking new professional challenges opportunities!</p>
                     </div>
                 </div>
                 <div style="display: flex; justify-content: center;">
@@ -143,9 +143,7 @@ export default {
 </script>
 
 <style>
-
 /* Sobre */
-
 .sobre {
   position: relative;
   display: flex;
@@ -160,7 +158,6 @@ export default {
   font-size: 22px;
   font-weight: 700; 
   text-align: center;
-  margin-bottom: 40px;
   z-index: 5;
 }
 
@@ -173,58 +170,28 @@ export default {
 .sobre__text * {
   padding: 0;
   font-size: 16px;
+  font-weight: 400;
 }
 
 .sobre__button {
   text-decoration: underline;
 }
 
-.sobre__planet--1 {
-  position: absolute;
-  bottom: -400px;
-  left: -100px;
-  width: 800px;
-  height: 800px;
-  object-fit: contain;
-  z-index: 1;
-  filter: blur(4px);
-}
-
-.sobre__planet--2 {
-  position: absolute;
-  filter: blur(4px);
-  top: -400px;
-  right: -3vw;
-  width: 550px;
-  height: 550px;
-  object-fit: contain;
-  z-index: 4;
-}
 
 h4 {
 font-weight: 500;
-}
-
-.whiteTheme .sobre__planet--1,
-.whiteTheme .sobre__planet--2 {
-  display: none;
 }
 
 .sobre__elements {
   position: relative;
   display: flex;
   flex-direction: column;
-  -webkit-backdrop-filter: blur(10px) !important;
-  backdrop-filter: blur(10px);
-  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
   gap: 40px;
-  border-radius: 20px;
-  padding: 40px;
   padding-bottom: 80px;
   max-width: 1000px;
   margin: auto;
   z-index: 4;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 40px;
 }
 
 .sobre__container {
@@ -303,29 +270,6 @@ font-weight: 500;
 
   .sobre__ctn {
     width: 88px !important;
-  }
-
-  .sobre__planet--1 {
-    width: 500px;
-    transform: translateY(200px);
-  }
-
-  .sobre__planet--2 {
-    right: -8px;
-  }
-}
-
-
-@media only screen and (max-width: 500px) {
-
-  .sobre__planet--1 {
-    width: 400px;
-    bottom: -315px;
-  }
-  
-  .sobre__planet--2 {
-    width: 400px;
-    right: -70px;
   }
 
 }

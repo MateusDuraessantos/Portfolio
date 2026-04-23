@@ -16,12 +16,12 @@
       @touchstart="slideOnTouth"
       @touchend="slideOnTouth"
     >
-      <div class="carousel__thumb" v-for="(img, index) in imagens" @click="upPopup(img, 'carrossel_01')" img_default
+      <div
+        class="carousel__thumb" v-for="(img, index) in imagens"
+        @click="upPopup(img, 'carrossel_01')" img_default 
         :id="index"
       >
-        <div class="carousel__hover">
-          Open project
-        </div>
+        <div class="carousel__hover">Open project</div>
         <img :src="`projetos/${img.thumb.img}`" :alt="img.thumb.alt">
       </div>
     </div>
@@ -39,20 +39,14 @@ export default {
       initItem: Number,
       touchSlided: [],
       initial: 2,
-      slideAutomaticoTimer: null,
     }
   },
   mounted() {
     this.slide()
-    this.slideAutomatico()
   },
 
   methods: {
     slide(param, stop) {
-      if (stop == 'stop') {
-        clearInterval(this.slideAutomaticoTimer)
-        setTimeout(() => this.slideAutomatico(), 20000);
-      }
       if(param != undefined) this.initial += param == 'left' ? -1 : 1
 
       let positions = (2 - this.initial) * 25
@@ -96,17 +90,6 @@ export default {
       const spacing = document.querySelectorAll('[frame_size="middle"]')
       const operator = (i) => (i == 0 && this.initial != 0) ?  '-' : '+'
       spacing.forEach((obj, i) => obj.style.transform = `translatex(calc(-50% ${operator(i)} 26px))`)
-    },
-    
-    slideAutomatico() {
-      for (let i = 1; i < 1000; i++) { clearInterval(i) } // A little trick 
-      let changeDirection = 'right'
-      
-      this.slideAutomaticoTimer = setInterval(() => {
-        if (this.indexCenter() == this.img_defaults()?.length - 1) changeDirection = 'left'
-        else if (this.indexCenter() == 0) changeDirection = 'right'
-        this.slide(changeDirection)
-      }, 10000);
     },
     
     hideButtons() {

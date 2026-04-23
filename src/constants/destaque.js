@@ -19,7 +19,7 @@ export const imagens =
       link: 'https://mapalytics.com.br/',
       github: '',
       description: `
-        <b>About the project</b>
+        <b>Experiencia the project</b>
         <p>Mapalytics is a geomarketing web platform that combines data and public sources to help companies find new leads and sales opportunities anywhere in Brazil.</p>
         <br>
         <b>Development kit</b>
@@ -54,7 +54,7 @@ export const imagens =
       ano: 'February, 2023',
       link: 'https://tre.art.br/',
       description: `
-        <b>About the project</b>
+        <b>Experiencia the project</b>
         <p><a href="https://tre.art.br/" target="_blank">Tre Communication</a> is a design studio founded in 1990 by designer <a href="https://www.linkedin.com/in/kito-castanha-20b69a21/" target="_blank">Kito Castanha</a>. In 2023, Tre celebrated its 33rd anniversary, and a new website was launched to mark the occasion.</p>
         <br>
 
@@ -138,7 +138,7 @@ export const imagens =
       ano: 'September, 2025',
       link: 'https://mapalytics.com.br/',
       description: `
-        <b>About project</b>
+        <b>Experiencia project</b>
         <br>
         <p>Calculadora de Km is a tools from a Mapalytics product, by the startup <a href="https://datamachina.com.br/" target="_blank">Data Machina</a>, focused on helping companies analyze their own territorial reach. The tool can receive many inputs of origins and destinations from different types and calculate the distances between the selected points all at once.</p>
         <p>A big other feature is the possibility to search new leads around your origin point using customisable radius size. It give the user insights on which options are better and which are too far away, based on the distance between points.</p>
@@ -179,7 +179,7 @@ export const imagens =
       github: 'https://github.com/gustavoemmanoel/DM-Design-System/tree/main',
       ano: 'Aug, 2023',
       description: `
-        <b>About the project</b>
+        <b>Experiencia the project</b>
         <p>The <a href="https://datamachina.com.br/" target="_blank">Data Machina</a> Design System is a unified visual and functional framework that defines the foundations and components of the brand’s digital products. Built to ensure consistency, scalability, and efficiency, it brings together principles of design, color, typography, iconography, and interaction patterns into a cohesive ecosystem. This first version (v.01) establishes the visual identity and usability standards that guide the creation of all Data Machina interfaces.</p>
         <br>
 
@@ -220,7 +220,7 @@ export const imagens =
       link: 'https://tecla-key.web.app/',
       github: 'https://github.com/MateusDuraessantos/teclakeygit',
       description: `
-        <b>About the project</b>
+        <b>Experiencia the project</b>
         <br>
         <p>TeclaKey is a creative design studio focused on developing customized websites and digital identities. The website was built to clearly communicate the studio's values — transparency, innovation, and empowerment — while providing a simple user experience.</p>
         <br>
@@ -252,32 +252,13 @@ export const imagens =
       link: 'https://data-machina.web.app/',
       github: 'https://github.com/MateusDuraessantos/site-datamachina-portf',
       description: `
-        <b>About the project</b>
+        <b>Experiencia the project</b>
         <p>Nesse projeto, com o design (para desktop) e conteúdos já desenvolvido préviamente por outros colaboradores, fiquei encarregado de desenvolver toda a etapa de HTML e CSS e torná-lo responsivo para dispositivos mobile.</p>
         <br>
         <b>Development kit</b>
         <br>
         <p>Vue.js 2, JavaScript, HTML, CSS, GitHub and Element Plus.</p>
       `,
-    },
-    /* TRANCENDEMOS */
-    {
-      id: 'mjykjmyt5hj',
-      name: 'Transcendemos',
-      paths: [
-        {
-          img: 'transcendemos/transcendemos-consultorias-palestras.png',
-          alt: 'Transcendemos Consultorias'
-        },
-      ],
-      thumb: {
-        img: 'transcendemos/transcendemos-consultorias-palestras.png',
-        alt: 'Webiste da Transcendemos',
-      },
-      ano: '',
-      link: '',
-      github: '',
-      description: '<p>Nesse projeto, trabalhei no design do projeto. Após a finalização do desing, o projeto foi colocado online por meio da plataforma WordPress.</p>',
     },
     /* CAJUINA */
     {
@@ -311,33 +292,6 @@ export const imagens =
       `,
     },
     /* CAJU */
-    {
-      id: 'mvrgwpemgrpoklewgre',
-      name: 'Caju Multi Benefícios',
-      link: 'https://caju-multi-beneficios-visa.web.app/',
-      github: 'https://github.com/MateusDuraessantos/caju-multi-beneficios',
-      paths: [
-        {
-          img: 'caju/multibeneficios.svg',
-          alt: 'Website Caju Visa',
-        },
-      ],
-      thumb: {
-        img: 'caju/thumb-multibeneficios.jpg',
-        alt: 'Website Caju Visa'
-      },
-      ano: 'May, 2024',
-      description: `
-        <b>Project Overview</b>
-        <p>
-          <a href="https://caju.com.br/" target="_blank">Caju</a> Multi Benefícios is a promotional website for Caju's new multi-benefits card, designed to help HR teams simplify corporate benefit management and give employees more freedom and flexibility.
-        </p>
-        <br>
-        <b>My role</b>
-        <br>
-        <p>I was responsible for developing the entire front-end and ensuring responsive behavior across all devices. I also implemented performance optimizations, managed version control using GitHub, and handled the website deployment on Firebase Hosting.</p>
-      `,
-    },
   ],
 
   carrossel_02: [
@@ -446,7 +400,7 @@ export const imagens =
         alt: 'Arandela escamoteável'
       },
       description: `
-        <b>About the project</b>
+        <b>Experiencia the project</b>
         <p>Mun is a retractable wall lamp. The project was developed by me in collaboration with a three-person team. We sought inspiration from elements of Eastern culture and the phases of the moon. In this project, I was fully responsible for the prototyping of a physical model, 3D modeling, and renderings.</p>
         <br>
         <a href="https://www.behance.net/gallery/143187617/Luminaria-Mun-Redesign" target="_blank">Behance</a>
