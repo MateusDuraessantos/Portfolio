@@ -12,12 +12,12 @@
 
     <div class="links" @click="upDropdown">
       <div id="mobile">
-        <div class="dropdown__inicio">Menu</div>
+        <div class="dropdown__init">Menu</div>
         <nav class="dropdown__container">
-          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__inicio')">Welcome</button>
+          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__init')">Welcome</button>
           <button class="dropdown nav" @click="commons.scrollDown('link_ancor__portfolio')">Portfolio</button>
           <button class="dropdown nav" @click="commons.scrollDown('link_ancor__experience')">Experience</button>
-          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__contato')">Contact</button>
+          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__contact')">Contact</button>
         </nav>
       </div>
     </div>
@@ -45,8 +45,8 @@ export default {
   mounted() {
     setTimeout(this.turnWhite(0), 0);
 
-    document.body.addEventListener('click', (event) => { // Se o dropdown estiver aberto, ao clicar fora dele, ele será fechado
-      if(event.target.classList[0] != 'dropdown__inicio') {
+    document.body.addEventListener('click', (event) => { // If the dropdown is open, clicking outside will close it
+      if(event.target.classList[0] != 'dropdown__init') {
         document.querySelector('#mobile').classList.remove('openMenu')
         this.handle = true
       }
@@ -74,9 +74,9 @@ export default {
     },
     emitFunction() {
       if (this.blockClick) {
-        this.$emit('tunOn')
+        this.$emit('turnOn')
         this.blockClick = false
-        setTimeout(() => this.blockClick = true, 2000); //Bloqueia a troca de tema 2x seguidas antes de 2s
+        setTimeout(() => this.blockClick = true, 2000); // Prevents switching the theme twice within 2 seconds
       }
     },
     turnWhite(timer) {
@@ -149,7 +149,6 @@ button {
 
 .dropdown__container {
   display: flex;
-  gap: 28px;
 }
 
 .nav {
@@ -228,8 +227,8 @@ button {
 
 .dropdown {
   color: var(--creme);
+  padding: 0 18px;
 }
-
 
 .turnWhite__emoji {
   font-size: 22px;
@@ -244,7 +243,7 @@ button {
   }
 }
 
-.dropdown__inicio {
+.dropdown__init {
   display: none;
 }
 
@@ -256,13 +255,13 @@ button {
   
   /* */
 
-  #mobile .dropdown__inicio {
+  #mobile .dropdown__init {
     position: relative;
     align-items: center;
     display: flex;
   }
   
-  #mobile .dropdown__inicio::after {
+  #mobile .dropdown__init::after {
     position: absolute;
     content: '❯';
     right: -20px;
@@ -343,7 +342,7 @@ button {
     background: #F4F4F4 !important;
   }
 
-  .whiteTheme .dropdown__inicio {
+  .whiteTheme .dropdown__init {
     color: #1f1f1f;
   }
 

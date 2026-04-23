@@ -19,13 +19,13 @@
         <div class="popup__container">
           <div class="popup__action--ctn" v-if="renderImg.link">
             <div class="popup__action">
-              <a class="popup__action--button" :href="renderImg.link" target="_blank">Ver online</a>
+              <a class="popup__action--button" :href="renderImg.link" target="_blank">View online</a>
               <a class="popup__action--button" v-if="renderImg.github" :href="renderImg.github"
                 target="_blank">Github</a>
             </div>
           </div>
           <div v-for="img in renderImg.paths" class="loading loading--on" :id="img.img">
-            <p class="loading__loader">Carregando</p>
+            <p class="loading__loader">Loading</p>
 
             <img v-if="img.type == undefined" class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)" height="500" width="600">
             
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { imagens } from '../constants/destaque.js'
+import { images } from '../constants/myProjects.js'
 
 export default {
   name: 'popup',
@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      imagens: imagens,
+      images: images,
       imagensObj: null,
       indexImg: 0,
       renderImg: null,
@@ -57,9 +57,9 @@ export default {
     }
   },
   mounted() {
-    this.imagensObj = this.imagens[this.elemento.array]
-    this.indexImg = this.imagens[this.elemento.array].findIndex(elem => elem.id == this.elemento.obj.id) // Pega o index do objeto
-    this.renderImg = this.imagens[this.elemento.array][this.indexImg]
+    this.imagensObj = this.images[this.elemento.array]
+    this.indexImg = this.images[this.elemento.array].findIndex(elem => elem.id == this.elemento.obj.id) // Pega o index do objeto
+    this.renderImg = this.images[this.elemento.array][this.indexImg]
     document.body.style.overflow = 'hidden'
     document.addEventListener('keydown', (event) => {
       if(event.key == 'Escape') this.closeThisPopup(true)
@@ -85,10 +85,10 @@ export default {
       this.clearPopup = false
       setTimeout(() => this.clearPopup = true, 500)
 
-      if (param == 'next') this.indexImg = this.indexImg < this.imagens[this.elemento.array].length - 1 ? this.indexImg + 1 : 0
-      if (param == 'back') this.indexImg = this.indexImg == 0 ? this.imagens[this.elemento.array].length - 1 : this.indexImg - 1
+      if (param == 'next') this.indexImg = this.indexImg < this.images[this.elemento.array].length - 1 ? this.indexImg + 1 : 0
+      if (param == 'back') this.indexImg = this.indexImg == 0 ? this.images[this.elemento.array].length - 1 : this.indexImg - 1
 
-      this.renderImg = this.imagens[this.elemento.array][this.indexImg] // Re atribui os valores 
+      this.renderImg = this.images[this.elemento.array][this.indexImg] // Re atribui os valores 
     }
   }
 }

@@ -16,7 +16,7 @@
       </div>
       
       <Header
-        @tun-on="turnOn"
+        @turn-on="turnOn"
         :removeLinkVer="removeLinkVer"
         :booleanTheme="booleanTheme"
         class="header"
@@ -26,53 +26,55 @@
       />
 
       <!-- BANNER -->
-      <Banner :saldacao="saldacao" :whiteIcons="whiteIcons" />
+      <Banner :greeting="greeting" :whiteIcons="whiteIcons" />
 
-      <!-- ABORDO -->
-      <Abordo :whiteImages="whiteImages" />
+      <!-- ABOARD -->
+      <Aboard :whiteImages="whiteImages" />
 
       <div class="container">
         <Parallax
           :booleanTheme="booleanTheme" 
         />
 
-        <!-- EXPERIÊNCIA -->
-        <Experiencia
+        <!-- PORTIFOLIO -->
+        <Portfolio
           :white-images="whiteImages"
           @upPopup="upPopup"
         />
 
-        <!-- OUTROS -->
-        <div class="outros">
+        <!-- OTHERS -->
+        <div class="others">
           <h2>Some hobbies</h2>
-          <div class="outros__grid max__width">
-            <img class="outros__shadow" src="/shadow.svg" alt="">
+          <div class="others__grid max__width">
+            <img class="others__shadow" src="/shadow.svg" alt="">
             <!-- Cards -->
             <div
-              :class="`${item.class} outros__card`"
-              v-for="item in imagens.carrossel_02"
+              :class="`${item.class} others__card`"
+              v-for="item in images.carrossel_02"
             >
               <div
-                class="outros__clique"
+                class="others__click"
                 @click="upPopup(item, 'carrossel_02')"
               >
                 See project
               </div>
-              <img class="outros__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
+              <img class="others__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
             </div>
           </div>
         </div>
         
-        <!-- SOBRE -->
-        <Sobre :whiteIcons="whiteIcons" />
+        <Animation />
 
-        <!-- CONTATO -->
+        <!-- EXPERIENCE -->
+        <Experience :whiteIcons="whiteIcons" />
+
+        <!-- CONTACT -->
         <section>
-          <h5 class="mensagem">
-            <p class="mensagem__title"><b>Did you enjoyed the tour?</b></p>
-            <button class="mensagem__contact" @click="commons.scrollDown('contato')">
-              <p class="mensagem__me">Contact me!</p>
-              <p class="mensagem__arrow">></p>
+          <h5 class="message">
+            <p class="message__title"><b>Did you enjoy the tour?</b></p>
+            <button class="message__contact" @click="commons.scrollDown('link_ancor__contact')">
+              <p class="message__me">Contact me!</p>
+              <p class="message__arrow">></p>
             </button>
           </h5>
         </section>
@@ -94,23 +96,23 @@
 import Header from '@/components/Header'
 import Banner from '@/components/Banner'
 import Footer from '@/components/Footer.vue'
-import Abordo from '@/components/Abordo.vue'
-import Sobre from '@/components/Sobre.vue'
+import Aboard from '@/components/Aboard.vue'
+import Portfolio from '@/components/Portfolio.vue'
 import Popup from '@/components/Popup.vue'
 import Parallax from '@/components/Parallax.vue'
-import Experiencia from '@/components/Experiencia.vue'
 import Animation from '@/components/Animation.vue'
-import Carrossel from '@/components/Carrossel.vue'
-import { imagens } from '@/constants/destaque.js'
+import Carousel from '@/components/Carousel.vue'
+import { images } from '@/constants/myProjects.js'
 import { commons } from '@/utils/commons'
+import Experience from '@/components/Experience.vue';
 
 export default {
   name: 'App',
-  components: { Header, Banner, Footer, Popup, Parallax, Abordo, Sobre, Animation, Carrossel, Experiencia },
+  components: { Header, Banner, Footer, Popup, Parallax, Aboard, Experience, Animation, Carousel, Portfolio },
   data() {
     return {
       commons,
-      imagens: imagens,
+      images: images,
       removeLinkVer: true,
       imageIndex: Object,
       handleUpPopup: false,
@@ -122,7 +124,7 @@ export default {
       whiteIcons: 'whiteicons',
       whiteImages: 'black',
       footerVisible: true,
-      saldacao: null,
+      greeting: null,
       widthSize: undefined,
     }
   },
@@ -132,7 +134,7 @@ export default {
     },
   },
   mounted() {
-    this.isDay() // Verifica o horário para setar o tema dos elementos
+    this.isDay() // Checks the current time to set the theme of the elements
     this.turnBackgroundWhite(0)
     this.overflow(0)
     this.keepWhiteOnReload(0)
@@ -140,8 +142,6 @@ export default {
     this.haveAGoodDay()
     window.addEventListener('resize', this.widthScreen)
     this.widthSize = window.screen.availWidth
-
-    
   },
   methods: {
 
@@ -156,7 +156,7 @@ export default {
 
     isDay() {
       this.whatTimeIs = new Date().getHours()
-      this.booleanTheme = this.whatTimeIs < 6 || this.whatTimeIs >= 18 ? false : true // Se for true o tema fica branco
+      this.booleanTheme = this.whatTimeIs < 6 || this.whatTimeIs >= 18 ? false : true // If true, the theme will be light
       // this.booleanTheme = true
       const overflow = document.getElementById('overflow')
       if (this.booleanTheme == true) {
@@ -176,7 +176,7 @@ export default {
       this.overflow(2000)
     },
     
-    overflow(timer) { // Aciona o overflow para alteração do tema 
+    overflow(timer) { // Triggers the overflow to change the theme.
       const overflow = document.getElementById('themeOverflow')
       overflow.setAttribute('class', 'blackOverflow')
 
@@ -188,7 +188,7 @@ export default {
     },
     
     turnBackgroundWhite(timer) {
-      // Altera a cor do background global 
+      // Change the global background color
       if (this.booleanTheme == true) setTimeout(() => document.body.style.background = 'var(--body_color)', timer);
       else setTimeout(() => document.body.removeAttribute('style'), timer);
     },
@@ -199,10 +199,10 @@ export default {
     
     haveAGoodDay() {
       const date = new Date().getHours()
-      if (date >= 0 && date < 5) this.saldacao = 'Hello,'
-      else if (date >= 5 && date < 12) this.saldacao = 'Good morning!'
-      else if (date >= 12 && date < 18) this.saldacao = 'Good afternoon!'
-      else this.saldacao = 'Good evening!'
+      if (date >= 0 && date < 5) this.greeting = 'Hello,'
+      else if (date >= 5 && date < 12) this.greeting = 'Good morning!'
+      else if (date >= 12 && date < 18) this.greeting = 'Good afternoon!'
+      else this.greeting = 'Good evening!'
     },
     changeImagens(timer) {
       this.booleanTheme == true ? 
@@ -223,7 +223,7 @@ export default {
     keepWhiteOnReload(timer) {
       setTimeout(() => {
         document.body.classList.toggle('whiteTheme', this.booleanTheme)
-        this.whiteIcons = this.booleanTheme ? 'blackicons' : 'whiteicons' //Altera o path das thumbs
+        this.whiteIcons = this.booleanTheme ? 'blackicons' : 'whiteicons' // Change the thumbnail path
       }, timer);
     },
   },
@@ -445,7 +445,7 @@ main {
 
 /* Mensagem */
 
-.mensagem {
+.message {
   position: relative;
   height: 400px;
   display: flex;
@@ -456,7 +456,7 @@ main {
   z-index: 2;
 }
 
-.mensagem__title {
+.message__title {
   text-align: center;
   font-size: 20px;
   font-weight: 400;
@@ -465,7 +465,7 @@ main {
   font-size: 28px;
 }
 
-.mensagem__contact {
+.message__contact {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -474,19 +474,19 @@ main {
   transition: .2s;
 }
 
-.mensagem__me {
+.message__me {
   font-weight: 400;
   font-size: 22px;
   transition: .4s !important;
 }
 
-.mensagem__contact:hover .mensagem__me,
-.mensagem__contact:hover .mensagem__arrow {
+.message__contact:hover .message__me,
+.message__contact:hover .message__arrow {
   color: gray;
   transition: .3s !important;
 }
 
-.mensagem__arrow {
+.message__arrow {
   font-size: 30px;
   height: 40px;
   width: 40px;
@@ -501,7 +501,7 @@ main {
   100% { transform: translateY(-5px) rotate(90deg) }
 }
 
-.whiteTheme .mensagem h6 {
+.whiteTheme .message h6 {
   text-shadow: none;
   color: #8f5245;
 }
@@ -578,7 +578,7 @@ main {
 
 /* OUTROS */
 
-.outros {
+.others {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -587,7 +587,7 @@ main {
   z-index: 5;
 }
 
-.outros__alguns {
+.others__alguns {
   width: 100%;
   text-align: center;
   font-size: 22px;
@@ -601,7 +601,7 @@ main {
   padding: 100px 100px 0 100px;
 }
 
-.outros__grid {
+.others__grid {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -610,12 +610,12 @@ main {
   padding: 100px 0;
 }
 
-.outros__shadow {
+.others__shadow {
   display: none;
   pointer-events: none;
 } 
 
-.outros__card {
+.others__card {
   position: relative;
   width: 100%;
   height: 400px;
@@ -630,7 +630,7 @@ main {
   box-shadow: 5px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
-.whiteTheme .outros__shadow {
+.whiteTheme .others__shadow {
   display: block;
   position: absolute;
   top: 90px;
@@ -639,7 +639,7 @@ main {
   z-index: -1;
 }
 
-.whiteTheme .outros__card {
+.whiteTheme .others__card {
   box-shadow: 25px 24px 45px rgb(59 25 25 / 28%);
 }
 
@@ -647,7 +647,7 @@ main {
   grid-area: mesa;
 }
 
-.outros__clique {
+.others__click {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -664,17 +664,17 @@ main {
   cursor: pointer;
 }
 
-.outros__card:hover .outros__clique {
+.others__card:hover .others__click {
   transition: .2s;
   opacity: 1;
 }
 
-.destaque__card:hover .outros__clique {
+.destaque__card:hover .others__click {
   transition: .2s;
   opacity: 1;
 }
 
-.outros__img {
+.others__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -762,7 +762,7 @@ main {
     background: transparent;
   }
 
-  .whiteTheme .outros__shadow {
+  .whiteTheme .others__shadow {
     display: none;
   } 
   
@@ -776,17 +776,17 @@ main {
   /* Outro */
 
   .destaque__grid_1,
-  .outros__grid {
+  .others__grid {
     padding: 0;
     padding-top: 60px;
     gap: 8px;
   }
   
-  .outros__card {
+  .others__card {
     height: 260px;
   }
 
-  .outros__grid {
+  .others__grid {
     grid-template: initial;
   }
   
@@ -863,6 +863,7 @@ main {
   background-image: linear-gradient(transparent, var(--body_color));
   bottom: 0;
   z-index: 2;
+  pointer-events: none;
 }
 
 .container::after {
@@ -873,6 +874,7 @@ main {
   background-image: linear-gradient(transparent, black);
   bottom: 0;
   z-index: 2;
+  pointer-events: none;
 }
 
 .container__background--container {

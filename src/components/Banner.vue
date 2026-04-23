@@ -1,6 +1,6 @@
 <template>
   <!-- Componente: Banner.vue -->
-  <div class="banner" id="link_ancor__inicio">
+  <div class="banner" id="link_ancor__init">
     <p class="designed_by">
       Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
     </p>
@@ -26,7 +26,7 @@
       <div class="banner__column--2">
         <div class="banner__description">
           <div class="banner__container">
-            <p class="banner__ola">{{ saldacao }}</p>
+            <p class="banner__ola">{{ greeting }}</p>
             <h1 class="banner__nome">My name is Mateus,</h1>
           </div>
           <p class="banner__content">I'm a software engineer!</p>
@@ -58,7 +58,7 @@
 
 <script>
 export default {
-  props: ["saldacao", "whiteIcons"],
+  props: ["greeting", "whiteIcons"],
 }
 </script>
 
@@ -181,7 +181,7 @@ export default {
   width: 100%;
   text-align: center;
   bottom: 10px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
 }
 

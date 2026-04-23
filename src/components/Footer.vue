@@ -1,7 +1,7 @@
 <template>
-  <footer id="link_ancor__contato">
+  <footer id="link_ancor__contact">
     <div class="sky">
-      <!-- Os céus proclamam a glória de Jesus -->
+      <!-- The heavens declare the glory of Jesus -->
       <span class="sky__container" v-if="footerVisible">
         <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
         <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky" loading="lazy">
@@ -12,10 +12,10 @@
         <div class="sky__shadows--white" id="shadow"></div>
       </span>
       <!-- Infos -->
-      <div class="sky__informacoes" style="backdrop-filter: blur(0px);">
-        <div class="informacoes__container">
-          <address class="informacoes__content">
-            <div class="contatos__column">
+      <div class="sky__informations" style="backdrop-filter: blur(0px);">
+        <div class="information__container">
+          <address class="information__content">
+            <div class="contacts__column">
               <a
                 class="decoration"
                 @mouseenter="blurIn('enter')"
@@ -23,7 +23,7 @@
                 href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/"
                 target="_blank"
               >
-                <div class="informacoes__contato">
+                <div class="information__contato">
                   <img :src="`icons/${iconsTheme}/linkedin.svg`" alt="Logo LinkedIn" loading="lazy">
                   <p class=" contato__email">Linkedin</p>
                 </div>
@@ -41,9 +41,7 @@
                 bottom: 0;
             "
           >
-            <p class="frase">Quem disse que rodapés precisam ser chatos?
-              <br><br>
-            </p>
+            <p class="phrase">Who said footers have to be boring?</p>
           </div>
         </div>
       </div>
@@ -64,7 +62,7 @@ export default {
           error: false,
           nome: '',
           email: '',
-          mensagem: '',
+          message: '',
       }
   },
   props: {
@@ -86,7 +84,7 @@ export default {
   methods: {
     blurIn(enter) {
       clearTimeout(this.blurTimeout)
-      const footer = document.querySelector('.sky__informacoes')
+      const footer = document.querySelector('.sky__informations')
       let blur = Number(footer.style.backdropFilter.split('(')[1][0])
       let y = blur
       const addBlur = (increment) => {
@@ -99,22 +97,22 @@ export default {
       }
       addBlur(enter == 'enter' ? 1 : -1)
       
-      const open = document.getElementById('contato')
+      const open = document.getElementById('link_ancor__contact')
       open.classList[enter == 'enter' ? 'add': 'remove']('open')
     },
     
     copyText(content) {
-      // Só funciona quando está online, HTTPS precisa ser seguro            
+      // Only works when online, HTTPS is required for security        
       if (!navigator.clipboard) {
         console.error('Clipboard API not available');
         alert('Copying not supported in this browser');
         return;
       }
       navigator.clipboard.writeText(content)
-      .then(() => alert("Texto copiado: " + content))
+      .then(() => alert("Copied text: " + content))
     },
     
-    observador() { // Altear o estilo do header ao chegar no footer
+    observador() { // Change header style when user reaches the footer
       const header = document.getElementById('header')
       const observer = new IntersectionObserver(entries => {
         this.$emit('nomeEvento', entries[0].isIntersecting)
@@ -181,7 +179,7 @@ footer.open * {
   gap: 10px;
 }
 
-.whiteTheme .sky__informacoes::after {
+.whiteTheme .sky__informations::after {
   position: absolute;
   content: '';
   top: 0;
@@ -191,7 +189,7 @@ footer.open * {
   z-index: 2;
 }
 
-.sky__informacoes::before {
+.sky__informations::before {
   position: absolute;
   content: '';
   bottom: 100%;
@@ -241,7 +239,7 @@ footer.open * {
   object-fit: cover;
 }
 
-.sky__informacoes {
+.sky__informations {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -251,7 +249,7 @@ footer.open * {
   z-index: 4;
 }
 
-.informacoes__container {
+.information__container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -263,7 +261,7 @@ footer.open * {
   padding: 40px 0;
 }
 
-.contatos__column {
+.contacts__column {
   position: relative;
   display: flex;
   align-items: center;
@@ -319,7 +317,7 @@ footer.open * {
   transition: .2s;
 }
 
-.informacoes__contato {
+.information__contato {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -327,13 +325,13 @@ footer.open * {
   gap: 20px;
 }
 
-.informacoes__contato img {
+.information__contato img {
   width: 34px;
   height: 34px;
   margin-top: 3px;
 }
 
-.informacoes__content {
+.information__content {
   display: flex;
   justify-content: center;
   gap: 4vw;
@@ -341,10 +339,11 @@ footer.open * {
   margin: auto;
 }
 
-.frase {
+.phrase {
   color: #9aa3b2;
   font-weight: 400;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .smile_cont {
@@ -570,29 +569,29 @@ footer.open * {
     100% { transform: scale(var(--sky-scale)) translatey(0) }
   }
 
-  .informacoes__content {
+  .information__content {
     gap: 20px;
   }
 
-  .contatos__column {
+  .contacts__column {
     flex-direction: column;
   }
 
-  .informacoes__container {
+  .information__container {
     width: 100%;
     gap: 0;
     padding: 140px 0;
   }
 
-  .informacoes__contato img {
+  .information__contato img {
     width: 30px;
   }
 
-  .frase {
+  .phrase {
     font-size: 0.8rem;
   }
 
-  .informacoes__contato {
+  .information__contato {
     gap: 6px;
     font-size: 16px;
   }
@@ -608,7 +607,7 @@ footer.open * {
   }
 }
 
-.whiteTheme .sky__informacoes {
+.whiteTheme .sky__informations {
   mix-blend-mode: inherit;
 }
 
