@@ -32,9 +32,7 @@
       <Aboard :whiteImages="whiteImages" />
 
       <div class="container">
-        <Parallax
-          :booleanTheme="booleanTheme" 
-        />
+        <Parallax :booleanTheme="booleanTheme" />
 
         <!-- PORTIFOLIO -->
         <Portfolio
@@ -63,7 +61,6 @@
             </button>
           </h5>
         </section>
-
       </div>
     
       <!-- FOOTER -->
@@ -485,84 +482,95 @@ main {
   100% { transform: translateY(-5px) rotate(90deg) }
 }
 
+.container__background {
+  position: relative;
+}
+
+.container::before {
+  background-image: linear-gradient(black, transparent);
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(transparent, black);
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.container__background--container {
+  position: relative;
+  display: none;
+}
+
+/* White Theme */
+
+.whiteTheme * {
+  color: var(--text-color);
+  text-shadow: none;
+}
+
+.whiteTheme {
+  transition: .2s;
+}
+
+.whiteTheme .frase {
+  color: #a87c7c !important;
+}
+
+.whiteTheme .carrossel__background img {
+  box-shadow: none;
+}
+.whiteTheme .container::before, .container::before{
+  content: '';
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+}
+
+.whiteTheme .container::before {
+  background-image: linear-gradient(var(--linear-after), transparent);
+}
+
+.whiteTheme .container::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(transparent, var(--body_color));
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.whiteTheme .container__background--container {
+  position: absolute;
+  display: initial;
+  width: 100%;
+  height: 100%;
+}
+
+.whiteTheme .container__background::after {
+  content: '';
+  display: initial;
+  position: absolute;
+  height: 200px;
+  bottom: 100%;
+  width: 100%;
+  background-image: linear-gradient(transparent, var(--linear-after));
+  z-index: 2;
+}
+
 .whiteTheme .message h6 {
   text-shadow: none;
   color: #8f5245;
 }
 
-.title--line {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--creme);
-  font-size: 22px;
-  font-weight: 700;
-  width: 100%;
-  text-align: center;
-  height: 100px;
-  z-index: 5;
-}
-
-@media screen and (max-width: 1000px) {
-  
-  .experiencia__rocha--5 { 
-    display: none;
-  }
-
-  :root {
-      --sky-scale: 1.4
-  }
-
-  @keyframes sky_01 {
-    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-    20% { transform: scale(var(--sky-scale)) translate(0, 0) }
-    45% { transform: scale(var(--sky-scale)) translate(-30px, -40px) }
-    75% { transform: scale(var(--sky-scale)) translate(10px, -60px) }
-    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  }
-
-  @keyframes sky_02 {
-    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-    15% { transform: scale(var(--sky-scale)) translate(-60px, 0) }
-    35% { transform: scale(var(--sky-scale)) translate(-60px, -20px) }
-    75% { transform: scale(var(--sky-scale)) translate(-60px, 20px) }
-    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  }
-
-  @keyframes sky_04 {
-    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-    50% { transform: scale(var(--sky-scale)) translate(30px, 40px) }
-    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  }
-
-  @keyframes sky_08 {
-    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-    35% { transform: scale(var(--sky-scale)) translate(20px, 50px) }
-    70% { transform: scale(var(--sky-scale)) translate(-35px, 60px) }
-    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  }
-
-  @keyframes sky_11 {
-    0% { transform: scale(var(--sky-scale)) translate(0, 0) }
-    50% { transform: scale(var(--sky-scale)) translate(20px, 0) }
-    75% { transform: scale(var(--sky-scale)) translate(0px, -30px) }
-    90% { transform: scale(var(--sky-scale)) translate(20px, 0) }
-    100% { transform: scale(var(--sky-scale)) translate(0, 0) }
-  }
-
-  @keyframes sky_13 {
-    0% { transform: scale(var(--sky-scale)) translatey(0) }
-    10% { transform: scale(var(--sky-scale)) translatey(0) }
-    35% { transform: scale(var(--sky-scale)) translatey(60px) }
-    90% { transform: scale(var(--sky-scale)) translatey(0) }
-    100% { transform: scale(var(--sky-scale)) translatey(0) }
-  }
-}
-
-.mesa {
-  grid-area: mesa;
-}
 .whiteTheme .abordo::after {
   content: '';
   position: absolute;
@@ -600,7 +608,6 @@ main {
     background: transparent;
   }
 
-  
   /* Destaque */
   
   .destaque__card {
@@ -613,8 +620,6 @@ main {
   }
 }
 
-/* Mobile version */
-
 @media screen and (max-width: 700px) {
 
   .max__width {
@@ -622,96 +627,9 @@ main {
   }
 }
 
-
 @media only screen and (max-width: 400px) {
   html {
     font-size: 14px;
   }
-}
-
-/* White Theme */
-
-.whiteTheme * {
-  color: var(--text-color);
-  text-shadow: none;
-}
-
-.whiteTheme {
-  transition: .2s;
-}
-
-
-.whiteTheme .frase {
-  color: #a87c7c !important;
-}
-
-.whiteTheme .carrossel__background img {
-  box-shadow: none;
-}
-
-.container__background {
-  position: relative;
-}
-
-.whiteTheme .container::before, .container::before{
-  content: '';
-  position: absolute;
-  height: 100px;
-  width: 100%;
-  top: 0;
-  z-index: 2;
-}
-
-.whiteTheme .container::before {
-  background-image: linear-gradient(var(--linear-after), transparent);
-}
-
-.container::before {
-  background-image: linear-gradient(black, transparent);
-}
-
-.whiteTheme .container::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 200px;
-  background-image: linear-gradient(transparent, var(--body_color));
-  bottom: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.container::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 200px;
-  background-image: linear-gradient(transparent, black);
-  bottom: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.container__background--container {
-  position: relative;
-  display: none;
-}
-
-.whiteTheme .container__background--container {
-  position: absolute;
-  display: initial;
-  width: 100%;
-  height: 100%;
-}
-
-.whiteTheme .container__background::after {
-  content: '';
-  display: initial;
-  position: absolute;
-  height: 200px;
-  bottom: 100%;
-  width: 100%;
-  background-image: linear-gradient(transparent, var(--linear-after));
-  z-index: 2;
 }
 </style>

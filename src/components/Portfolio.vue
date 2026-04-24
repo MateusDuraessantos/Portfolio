@@ -158,7 +158,7 @@ export default {
   max-width: 400px;
   bottom: 0;
   right: -5vw;
-  animation-name: sky_06
+  animation-name: sky_04
 }
 
 .experiencia__rocha--12 {

@@ -46,7 +46,7 @@ export default {
   },
 
   methods: {
-    slide(param, stop) {
+    slide(param) {
       if(param != undefined) this.initial += param == 'left' ? -1 : 1
 
       let positions = (2 - this.initial) * 25
