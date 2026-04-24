@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { images } from '../constants/myProjects.js'
+import { myProjectsData } from '../constants/myProjectsData.js'
+import { myHobbiesData } from '../constants/myHobbiesData.js'
 
 export default {
   name: 'popup',
@@ -49,7 +50,7 @@ export default {
   },
   data() {
     return {
-      images: images,
+      myProjectsData: [...myProjectsData, ...myHobbiesData],
       imagensObj: null,
       indexImg: 0,
       renderImg: null,
@@ -57,9 +58,9 @@ export default {
     }
   },
   mounted() {
-    this.imagensObj = this.images[this.elemento.array]
-    this.indexImg = this.images[this.elemento.array].findIndex(elem => elem.id == this.elemento.obj.id) // Pega o index do objeto
-    this.renderImg = this.images[this.elemento.array][this.indexImg]
+    this.imagensObj = this.myProjectsData
+    this.indexImg = this.myProjectsData.findIndex(elem => elem.id == this.elemento.id)
+    this.renderImg = this.myProjectsData[this.indexImg]
     document.body.style.overflow = 'hidden'
     document.addEventListener('keydown', (event) => {
       if(event.key == 'Escape') this.closeThisPopup(true)
@@ -85,10 +86,10 @@ export default {
       this.clearPopup = false
       setTimeout(() => this.clearPopup = true, 500)
 
-      if (param == 'next') this.indexImg = this.indexImg < this.images[this.elemento.array].length - 1 ? this.indexImg + 1 : 0
-      if (param == 'back') this.indexImg = this.indexImg == 0 ? this.images[this.elemento.array].length - 1 : this.indexImg - 1
+      if (param == 'next') this.indexImg = this.indexImg < this.myProjectsData.length - 1 ? this.indexImg + 1 : 0
+      if (param == 'back') this.indexImg = this.indexImg == 0 ? this.myProjectsData.length - 1 : this.indexImg - 1
 
-      this.renderImg = this.images[this.elemento.array][this.indexImg] // Re atribui os valores 
+      this.renderImg = this.myProjectsData[this.indexImg] // Re atribui os valores 
     }
   }
 }

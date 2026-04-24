@@ -25,8 +25,8 @@ export default {
   components: { Carousel },
   props: ['whiteImages'],
   methods: {
-    emitpopupUp(obj, array) {
-      this.$emit('upPopup', obj, array)
+    emitpopupUp(obj) {
+      this.$emit('upPopup', obj)
     }
   }
 }

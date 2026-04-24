@@ -42,27 +42,12 @@
           @upPopup="upPopup"
         />
 
-        <!-- OTHERS -->
-        <div class="others">
-          <h2>Some hobbies</h2>
-          <div class="others__grid max__width">
-            <img class="others__shadow" src="/shadow.svg" alt="">
-            <!-- Cards -->
-            <div
-              :class="`${item.class} others__card`"
-              v-for="item in images.carrossel_02"
-            >
-              <div
-                class="others__click"
-                @click="upPopup(item, 'carrossel_02')"
-              >
-                See project
-              </div>
-              <img class="others__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
-            </div>
-          </div>
-        </div>
-        
+        <!-- Hobbies -->
+        <Hobbies
+          :white-images="whiteImages"
+          @upPopup="upPopup"
+        />
+
         <Animation />
 
         <!-- EXPERIENCE -->
@@ -94,6 +79,7 @@
 
 <script>
 import Header from '@/components/Header'
+import Hobbies from '@/components/Hobbies'
 import Banner from '@/components/Banner'
 import Footer from '@/components/Footer.vue'
 import Aboard from '@/components/Aboard.vue'
@@ -102,17 +88,15 @@ import Popup from '@/components/Popup.vue'
 import Parallax from '@/components/Parallax.vue'
 import Animation from '@/components/Animation.vue'
 import Carousel from '@/components/Carousel.vue'
-import { images } from '@/constants/myProjects.js'
 import { commons } from '@/utils/commons'
 import Experience from '@/components/Experience.vue';
 
 export default {
   name: 'App',
-  components: { Header, Banner, Footer, Popup, Parallax, Aboard, Experience, Animation, Carousel, Portfolio },
+  components: { Header, Hobbies, Banner, Footer, Popup, Parallax, Aboard, Experience, Animation, Carousel, Portfolio },
   data() {
     return {
       commons,
-      images: images,
       removeLinkVer: true,
       imageIndex: Object,
       handleUpPopup: false,
@@ -145,8 +129,8 @@ export default {
   },
   methods: {
 
-    upPopup(obj, array) {
-      this.imageIndex = { obj, array }
+    upPopup(obj) {
+      this.imageIndex = obj
       this.handleUpPopup = !this.handleUpPopup
     },
 
@@ -576,125 +560,9 @@ main {
   }
 }
 
-/* OUTROS */
-
-.others {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  z-index: 5;
-}
-
-.others__alguns {
-  width: 100%;
-  text-align: center;
-  font-size: 22px;
-  color: var(--creme);
-}
-
-.destaque__grid_1 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 100px 100px 0 100px;
-}
-
-.others__grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 1000px;
-  padding: 100px 0;
-}
-
-.others__shadow {
-  display: none;
-  pointer-events: none;
-} 
-
-.others__card {
-  position: relative;
-  width: 100%;
-  height: 400px;
-}
-
-.destaque__card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  width: 100%;
-  height: 800px;
-  box-shadow: 5px 3px 15px rgba(0, 0, 0, 0.2);
-}
-
-.whiteTheme .others__shadow {
-  display: block;
-  position: absolute;
-  top: 90px;
-  left: 40px;
-  width: 1520px;
-  z-index: -1;
-}
-
-.whiteTheme .others__card {
-  box-shadow: 25px 24px 45px rgb(59 25 25 / 28%);
-}
-
 .mesa {
   grid-area: mesa;
 }
-
-.others__click {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--creme) !important;
-  opacity: 0;
-  z-index: 1;
-  transition: .2s;
-  cursor: pointer;
-}
-
-.others__card:hover .others__click {
-  transition: .2s;
-  opacity: 1;
-}
-
-.destaque__card:hover .others__click {
-  transition: .2s;
-  opacity: 1;
-}
-
-.others__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Banner */
-
-.whiteTheme .banner::before {
-  content: '';
-  background-image: linear-gradient(transparent, var(--linear-after-1));
-  height: 200px;
-  bottom: 0;
-  width: 100%;
-  position: absolute;
-}
-
-.whiteTheme .banner::after {
-  background-image: linear-gradient(#e2e0e7, transparent);
-}
-
 .whiteTheme .abordo::after {
   content: '';
   position: absolute;
@@ -712,36 +580,6 @@ main {
   width: 100%;
   height: 100px;
   background-image: linear-gradient(transparent, var(--linear-after));
-}
-
-
-/*  */
-
-.banner__social {
-  display: flex;
-  width: max-content;
-  margin-top: 20px;
-  gap: 20px;
-}
-
-.banner__redes--img {
-  cursor: pointer;
-  transition: .2s;
-  width: 40px;
-  height: 40px;
-}
-
-.img--1 {
-  padding-left: 0;
-}
-
-.banner__redes {
-  transition: .2s;
-}
-
-.banner__social:hover .banner__redes:not(:hover) {
-  opacity: 0.2;
-  transition: .2s;
 }
 
 @media screen and (max-width: 1280px) {
@@ -762,9 +600,6 @@ main {
     background: transparent;
   }
 
-  .whiteTheme .others__shadow {
-    display: none;
-  } 
   
   /* Destaque */
   
@@ -773,23 +608,6 @@ main {
     border-radius: 20px;
   }
 
-  /* Outro */
-
-  .destaque__grid_1,
-  .others__grid {
-    padding: 0;
-    padding-top: 60px;
-    gap: 8px;
-  }
-  
-  .others__card {
-    height: 260px;
-  }
-
-  .others__grid {
-    grid-template: initial;
-  }
-  
   .mesa {
     grid-area: initial;
   }
@@ -822,9 +640,6 @@ main {
   transition: .2s;
 }
 
-.whiteTheme .banner {
-  background-image: url('../public/inicio/white/banner__white.jpg');
-}
 
 .whiteTheme .frase {
   color: #a87c7c !important;

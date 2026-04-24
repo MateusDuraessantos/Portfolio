@@ -17,7 +17,7 @@
       @touchend="slideOnTouth"
     >
       <div
-        class="carousel__thumb" v-for="(img, index) in images"
+        class="carousel__thumb" v-for="(img, index) in myProjectsData"
         @click="upPopup(img, 'carrossel_01')" img_default 
         :id="index"
       >
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import { images } from '../constants/myProjects.js'
+import { myProjectsData } from '../constants/myProjectsData.js'
 export default {
   name: 'Carousel',
   data() {
     return {
-      images: images.carrossel_01,
+      myProjectsData: myProjectsData,
       carrosselInterval: '',
       initItem: Number,
       touchSlided: [],

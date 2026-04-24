@@ -194,6 +194,46 @@ export default {
   line-height: 100%;
 }
 
+.banner__social {
+  display: flex;
+  width: max-content;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.banner__redes--img {
+  cursor: pointer;
+  transition: .2s;
+  width: 40px;
+  height: 40px;
+}
+
+.banner__redes {
+  transition: .2s;
+}
+
+.banner__social:hover .banner__redes:not(:hover) {
+  opacity: 0.2;
+  transition: .2s;
+}
+
+.whiteTheme .banner::before {
+  content: '';
+  background-image: linear-gradient(transparent, var(--linear-after-1));
+  height: 200px;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+}
+
+.whiteTheme .banner::after {
+  background-image: linear-gradient(#e2e0e7, transparent);
+}
+
+.whiteTheme .banner {
+  background-image: url('../../public/inicio/white/banner__white.jpg');
+}
+
 @media screen and (max-width: 1000px) {
   .banner__ctn {
     display: flex;
