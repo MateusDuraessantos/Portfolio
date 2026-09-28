@@ -20,7 +20,7 @@
                 class="decoration"
                 @mouseenter="blurIn('enter')"
                 @mouseleave="blurIn"
-                href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/"
+                href="https://www.linkedin.com/in/mateus-duraes-dos-santos/"
                 target="_blank"
               >
                 <div class="information__contato">

@@ -28,7 +28,7 @@
   position: relative;
   width: 100%;
   padding: 100px 0;
-  z-index: 12;
+  z-index: 7;
 }
 
 .animation__section * {
