@@ -1,6 +1,6 @@
 <template>
   <section class="section experience" id="link_ancor__experience">
-    <div class="max__width">
+    <div class="g-max__width">
       <div class="experience__elements g-glass">
         <h3 class="experience__title">A little about me</h3>
 
@@ -28,8 +28,8 @@
               to projects involving the detection of problems in railway lines using machine learning.</p>
 
             <p>Currently, I’m pursuing a postgraduate degree in <strong>Systems Analysis and Development</strong> at
-              <strong><a href="https://postech.fiap.com.br/" target="_blank">FIAP</a></strong> (Faculdade de Informática
-              e Administração Paulista), while continuously improving my English and seeking new professional challenges
+              <strong><a href="https://postech.fiap.com.br/" target="_blank">FIAP</a></strong> (São Paulo School of Information Technology
+              and Business Administration), while continuously improving my English and seeking new professional challenges
               opportunities!</p>
           </div>
         </div>
@@ -201,10 +201,6 @@ font-weight: 500;
   gap: 40px;
   border-radius: 20px;
   align-items: center;
-}
-
-.whiteTheme p, .whiteTheme h3 {
-  color: black;
 }
 
 .experience__redes {

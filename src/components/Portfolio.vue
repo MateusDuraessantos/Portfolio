@@ -9,11 +9,11 @@
           v-for="i in 11"
           :class="`experiencia__rocha experiencia__rocha--${i}`"
         >
-          <img :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" :alt="`Rocha ${i}`">
+          <img :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" :alt="`Rock ${i}`">
         </div>
     
     <!-- CARROSSEL -->
-    <Carousel @upPopup="emitpopupUp" />
+    <Carousel />
 
   </div>
 </template>
@@ -24,11 +24,6 @@ import Carousel from '@/components/Carousel.vue'
 export default {
   components: { Carousel },
   props: ['whiteImages'],
-  methods: {
-    emitpopupUp(obj) {
-      this.$emit('upPopup', obj)
-    }
-  }
 }
 </script>
 

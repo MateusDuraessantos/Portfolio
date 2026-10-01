@@ -1,23 +1,24 @@
 <template>
-  <header :theme="colorNav" id="nav" :class="{ 'hiddenHeader': !dadoBol }">
+  <header :theme="isProject ? 'black' : colorNav" :class="{ hiddenHeader: !isProject && !dadoBol, 'header--project': isProject }" @keydown.esc="menuOpen = false">
 
-    <button class="turnWhite" @click="emitFunction">
-      <div class="turnWhite__ctn turnWhite__ctn--transform">
+    <button v-if="!isProject" class="turnWhite" @click="emitFunction">
+      <div class="turnWhite__ctn" :class="{ 'turnWhite__ctn--transform': booleanTheme }">
         <div class="turnWhite__emoji">☀️</div>
         <div class="turnWhite__swith"></div>
         <div class="turnWhite__emoji">🌙</div>
       </div>
     </button>
+    <button v-else class="project-back" @click="navigateTo('link_ancor__portfolio')">← Home</button>
     <span></span>
 
-    <div class="links" @click="upDropdown">
-      <div id="mobile">
-        <div class="dropdown__init">Menu</div>
-        <nav class="dropdown__container">
-          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__init')">Welcome</button>
-          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__portfolio')">Portfolio</button>
-          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__experience')">Experience</button>
-          <button class="dropdown nav" @click="commons.scrollDown('link_ancor__contact')">Contact</button>
+    <div class="links" ref="links">
+      <div id="mobile" :class="{ openMenu: menuOpen }">
+        <button class="dropdown__init" :aria-expanded="menuOpen" aria-controls="header-navigation" @click="upDropdown">Menu</button>
+        <nav id="header-navigation" class="dropdown__container" :aria-label="isProject ? 'Project sections' : 'Main navigation'">
+          <button v-for="section in navigationSections" :key="section.id" class="dropdown nav"
+            :class="{ 'nav--active': activeSection === section.id }"
+            :aria-current="activeSection === section.id ? 'location' : undefined"
+            @click="isProject ? navigateProject(section.id) : navigateTo(section.id)">{{ section.label }}</button>
         </nav>
       </div>
     </div>
@@ -26,11 +27,13 @@
 
 <script>
 import { commons } from '@/utils/commons';
+import { datasProjects } from '@/projects-datas/datas.ts';
 
 export default {
   name: 'Header',
+  emits: ['turn-on', 'remove-link'],
   props: {
-    dadoBol: String,
+    dadoBol: { type: Boolean, default: true },
     booleanTheme: Boolean,
     removeLinkVer: Boolean
   },
@@ -39,22 +42,54 @@ export default {
       commons,
       blockClick: true,
       colorNav: '',
-      handle: true,
+      menuOpen: false,
+      activeSection: '',
     }
   },
-  mounted() {
-    setTimeout(this.turnWhite(0), 0);
-
-    document.body.addEventListener('click', (event) => { // If the dropdown is open, clicking outside will close it
-      if(event.target.classList[0] != 'dropdown__init') {
-        document.querySelector('#mobile').classList.remove('openMenu')
-        this.handle = true
+  computed: {
+    isProject() {
+      return this.$route.name === 'project'
+    },
+    navigationSections() {
+      if (this.isProject) return this.projectSections
+      return [
+        { id: 'link_ancor__init', label: 'Welcome' },
+        { id: 'link_ancor__portfolio', label: 'Portfolio' },
+        { id: 'link_ancor__experience', label: 'Experience' },
+        { id: 'link_ancor__contact', label: 'Contact' },
+      ]
+    },
+    projectSections() {
+      const sections = [{ id: 'project-overview', label: 'Overview' }]
+      if (datasProjects[this.$route.params.slug]?.gallery?.length) {
+        sections.push({ id: 'project-gallery', label: 'Gallery' })
       }
-    })
+      sections.push({ id: 'project-technologies', label: 'Technologies' })
+      return sections
+    },
+  },
+  mounted() {
+    this.turnWhite(0)
+    document.body.addEventListener('click', this.closeDropdownOutside)
+    window.addEventListener('scroll', this.scheduleSectionUpdate, { passive: true })
+    window.addEventListener('resize', this.scheduleSectionUpdate)
+    this.$nextTick(this.updateActiveSection)
+  },
+  beforeUnmount() {
+    document.body.removeEventListener('click', this.closeDropdownOutside)
+    clearTimeout(this.themeTimer)
+    clearTimeout(this.clickTimer)
+    window.removeEventListener('scroll', this.scheduleSectionUpdate)
+    window.removeEventListener('resize', this.scheduleSectionUpdate)
+    cancelAnimationFrame(this.scrollFrame)
   },
   watch: {
-    booleanTheme(newVal) {
-      document.querySelector('.turnWhite__ctn').classList.toggle('turnWhite__ctn--transform', newVal)
+    '$route.fullPath'() {
+      this.menuOpen = false
+      this.activeSection = ''
+      this.$nextTick(this.updateActiveSection)
+    },
+    booleanTheme() {
       this.turnWhite(1000)
     },
     removeLinkVer() {
@@ -62,28 +97,60 @@ export default {
     }
   },
   methods: {
-    upDropdown(event) {
-      const dropdown = document.querySelector('#mobile')
-      if(event.currentTarget.classList[0] == 'links' && this.handle) {
-        dropdown.classList.add('openMenu')
-        this.handle = false
-      } else {
-        dropdown.classList.remove('openMenu')
-        this.handle = true
+    navigateProject(anchor) {
+      this.menuOpen = false
+      const section = document.getElementById(anchor)
+      if (!section) return
+      const offset = this.$el.offsetHeight + 20
+      window.scrollTo({
+        top: section.getBoundingClientRect().top + window.scrollY - offset,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      })
+    },
+    scheduleSectionUpdate() {
+      if (this.scrollFrame) return
+      this.scrollFrame = requestAnimationFrame(() => {
+        this.scrollFrame = null
+        this.updateActiveSection()
+      })
+    },
+    updateActiveSection() {
+      const offset = this.$el.offsetHeight + 24
+      let active = ''
+      for (const section of this.navigationSections) {
+        const element = document.getElementById(section.id)
+        if (element && element.getBoundingClientRect().top <= offset) active = section.id
       }
+      this.activeSection = active
+    },
+    upDropdown() {
+      this.menuOpen = !this.menuOpen
+    },
+    closeDropdownOutside(event) {
+      if (!this.$refs.links.contains(event.target)) this.menuOpen = false
+    },
+    async navigateTo(anchor) {
+      this.menuOpen = false
+      if (this.$route.name !== 'home') {
+        await this.$router.push({ name: 'home' })
+        await this.$nextTick()
+      }
+      this.removeLink()
+      commons.scrollDown(anchor)
     },
     emitFunction() {
       if (this.blockClick) {
-        this.$emit('turnOn')
+        this.$emit('turn-on')
         this.blockClick = false
-        setTimeout(() => this.blockClick = true, 2000); // Prevents switching the theme twice within 2 seconds
+        this.clickTimer = setTimeout(() => this.blockClick = true, 2000); // Prevents switching the theme twice within 2 seconds
       }
     },
     turnWhite(timer) {
-      setTimeout(() =>  this.colorNav = this.booleanTheme ? 'white' : 'black', timer);
+      clearTimeout(this.themeTimer)
+      this.themeTimer = setTimeout(() => this.colorNav = this.booleanTheme ? 'white' : 'black', timer)
     },
     removeLink() {
-      this.$emit('removeLink')
+      this.$emit('remove-link')
       if (document.querySelector('[activeLink]') != null) document.querySelector('[activeLink]').removeAttribute('activeLink')
       if (document.querySelector('.hiddenHeader') != null) document.querySelector('.hiddenHeader').classList.remove('hiddenHeader')
     },
@@ -101,16 +168,18 @@ header {
   align-items: center;
   padding: 0 80px;
   font-size: 16px;
+  opacity: 1;
   top: 0;
   backdrop-filter: blur(14px) !important;
   background: rgba(0, 0, 0, 0.5);
   color: #1f1f1f;
   width: 100vw;
   height: 80px;
+  transition: .5s;
   z-index: 8;
 }
 
-.whiteTheme header {
+.whiteTheme header:not(.header--project) {
   background: rgb(255 255 255 / 20%);
 }
 
@@ -221,7 +290,7 @@ button {
   left: 35px;
 }
 
-.whiteTheme .dropdown {
+.whiteTheme header:not(.header--project) .dropdown {
   color: black;
 }
 
@@ -337,12 +406,12 @@ button {
     background: rgb(71, 71, 71);
   }
 
-  .whiteTheme #mobile .dropdown,
-  .whiteTheme #mobile .dropdown__container {
+  .whiteTheme header:not(.header--project) #mobile .dropdown,
+  .whiteTheme header:not(.header--project) #mobile .dropdown__container {
     background: #F4F4F4 !important;
   }
 
-  .whiteTheme .dropdown__init {
+  .whiteTheme header:not(.header--project) .dropdown__init {
     color: #1f1f1f;
   }
 
@@ -356,7 +425,7 @@ button {
 
 @media screen and (max-width: 500px) {
   .nome {
-    font-size: 0.8rem;
+    font-size: max(12px, 0.8rem);
   }
 
   .links {
@@ -364,4 +433,35 @@ button {
   }
 }
 
+.header--project {
+  background: rgba(20, 20, 20, 0.9);
+}
+
+.project-back {
+  color: var(--creme);
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.nav--active,
+.whiteTheme header:not(.header--project) .nav--active,
+.project-back:hover {
+  color: var(--vermelho);
+}
+
+
+.header--project button:focus-visible {
+  outline: 2px solid var(--creme);
+  outline-offset: 4px;
+}
+
+@media screen and (max-width: 1000px) {
+  .header--project .dropdown__container {
+    visibility: hidden;
+  }
+
+  .header--project .openMenu .dropdown__container {
+    visibility: visible;
+  }
+}
 </style>

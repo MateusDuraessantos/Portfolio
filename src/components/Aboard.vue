@@ -1,7 +1,7 @@
 <template>
   <!-- Componente: Aboard.vue -->
   <div class="abordo">
-    <div class="abordo__container max__width">
+    <div class="abordo__container g-max__width">
       <p class="abordo__p">Fasten your seatbeals and come aboard</p>
     </div>
     <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" width="1000" height="700" alt="">
@@ -58,17 +58,6 @@ export default {
   font-size: 22px;
 }
 
-/* .whiteTheme .abordo:after {
-  content: "";
-  display: initial;
-  bottom: 100%;
-  position: absolute;
-  height: 200px;
-  width: 100%;
-  background: red;
-  background-image: linear-gradient(transparent, var(--linear-after));
-  z-index: 20;
-} */
 
 @media screen and (max-width: 1000px) {
   .abordo__p, .whiteTheme .abordo__p * {

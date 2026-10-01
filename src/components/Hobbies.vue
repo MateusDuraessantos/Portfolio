@@ -2,7 +2,7 @@
   <!-- Component: Hobbies.vue -->
   <div class="others">
     <h2>Some hobbies</h2>
-    <div class="others__grid max__width">
+    <div class="others__grid g-max__width">
       <img class="others__shadow" src="/shadow.svg" alt="">
       <!-- Cards -->
       <div

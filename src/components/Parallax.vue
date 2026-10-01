@@ -1,7 +1,7 @@
 <template>
   <!-- Componente: Parallax.vue -->
   <div class="parallax">
-    <div class="parallax__contente" id="parallax__id">
+    <div class="parallax__contente" id="parallax__id" ref="parallaxLayer">
       <img v-if="awaitParallax" class="parallax__img" src="inicio/white/mobile-background__parallax.webp" alt="">
 
       <div class="parallax__dark" v-else>
@@ -26,17 +26,20 @@ export default {
 
   watch: {
     booleanTheme(newVal) {
-      setTimeout(() => this.awaitParallax = newVal, 1000);
+      clearTimeout(this.themeTimeout);
+      this.themeTimeout = setTimeout(() => this.awaitParallax = newVal, 1000);
     },
   },
 
   mounted() {
+    this.animationCleanups = [];
     this.awaitParallax = this.booleanTheme
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         this.stopParallax = entry.isIntersecting ? true : false 
       });
     });
+    this.parallaxObserver = observer;
 
     document.querySelectorAll('.experiencia__rocha').forEach((obj) => {
       const inner = obj.querySelector('img');
@@ -74,7 +77,7 @@ export default {
         if (!animationFrame) animationFrame = requestAnimationFrame(animate);
       };
 
-      obj.addEventListener('mousemove', (event) => {
+      const onMouseMove = (event) => {
         const rect = obj.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
@@ -92,27 +95,43 @@ export default {
         );
 
         startAnimation();
-      });
+      };
 
-      obj.addEventListener('mouseleave', () => {
+      const onMouseLeave = () => {
         targetX = 0;
         targetY = 0;
         targetRotate = 0;
         startAnimation();
+      };
+      obj.addEventListener('mousemove', onMouseMove);
+      obj.addEventListener('mouseleave', onMouseLeave);
+      this.animationCleanups.push(() => {
+        obj.removeEventListener('mousemove', onMouseMove);
+        obj.removeEventListener('mouseleave', onMouseLeave);
+        cancelAnimationFrame(animationFrame);
       });
     });
     
     const main = document.querySelector('.container')
+    if (!main) return;
     const y = main.getBoundingClientRect().top + window.scrollY;
     observer.observe(main)
-    window.addEventListener('scroll', () => {
+    this.scrollHandler = () => {
       if (this.stopParallax) {
-        this.parallaxEffect(document.getElementById('parallax__id'), y)
+        this.parallaxEffect(this.$refs.parallaxLayer, y)
       }
-    }) 
+    };
+    window.addEventListener('scroll', this.scrollHandler, { passive: true });
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.scrollHandler);
+    this.parallaxObserver?.disconnect();
+    clearTimeout(this.themeTimeout);
+    this.animationCleanups?.forEach(cleanup => cleanup());
   },
   methods: {
     parallaxEffect(element, positionY) {
+      if (!element) return;
       const topPosition = ((window.scrollY / 1.5) - positionY)
       element.style.transform = `translateY(${topPosition}px)`
     },

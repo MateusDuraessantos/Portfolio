@@ -28,7 +28,7 @@
                   <p class=" contato__email">Linkedin</p>
                 </div>
                 <div class="decoration__info">Mateus Durães dos Santos</div>
-                <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Icone de copiar" loading="lazy">
+                <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Copy icon" loading="lazy">
               </a>
             </div>
           </address>
@@ -76,6 +76,11 @@ export default {
       this.footerVideo = false
     }
   },
+  beforeUnmount() {
+    this.footerObserver?.disconnect()
+    clearTimeout(this.blurTimeout)
+    document.getElementById('header')?.classList.remove('hiddenHeader')
+  },
   watch: {
     blockClicked(){
       this.iconsTheme = this.blockClicked
@@ -121,6 +126,7 @@ export default {
         else header.classList.remove('hiddenHeader')
       
       })
+      this.footerObserver = observer
       observer.observe(document.getElementById('observador__footer'))
     },
   },
@@ -588,7 +594,7 @@ footer.open * {
   }
 
   .phrase {
-    font-size: 0.8rem;
+    font-size: max(12px, 0.8rem);
   }
 
   .information__contato {

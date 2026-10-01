@@ -4,7 +4,7 @@
     <p class="designed_by">
       Designed by <strong>Mateus Durães dos Santos</strong> - {{ new Date().getFullYear() }}
     </p>
-    <div class="banner__ctn g-glass max__width">
+    <div class="banner__ctn g-glass g-max__width">
 
       <p class="banner__name">Mateus Durães dos Santos</p>
 

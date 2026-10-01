@@ -16,25 +16,26 @@
       @touchstart="slideOnTouth"
       @touchend="slideOnTouth"
     >
-      <div
+      <router-link
         class="carousel__thumb" v-for="(img, index) in myProjectsData"
-        @click="upPopup(img, 'carrossel_01')" img_default 
+        :key="img.slug"
+        :to="{ name: 'project', params: { slug: img.slug } }" img_default
         :id="index"
       >
         <div class="carousel__hover">Open project</div>
         <img :src="`projetos/${img.thumb.img}`" :alt="img.thumb.alt">
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { myProjectsData } from '../constants/myProjectsData.js'
+import { datasProjects } from '@/projects-datas/datas.ts'
 export default {
   name: 'Carousel',
   data() {
     return {
-      myProjectsData: myProjectsData,
+      myProjectsData: Object.entries(datasProjects).map(([slug, project]) => ({ ...project, slug })),
       carrosselInterval: '',
       initItem: Number,
       touchSlided: [],
@@ -96,10 +97,6 @@ export default {
       const [l, r] = [document.getElementById('button__l'), document.getElementById('button__r')]
       l.style.display = this.indexCenter() == 0 ? 'none' : ''
       r.style.display = this.indexCenter() == this.img_defaults()?.length - 1 ? 'none' : ''
-    },
-    
-    upPopup(obj, array) {
-      this.$emit('upPopup', obj, array)
     }
   }
 }

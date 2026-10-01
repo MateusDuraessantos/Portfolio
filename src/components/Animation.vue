@@ -43,7 +43,6 @@
 
 .animation__container h2 {
   font-size: 70px;
-  font-family: "Playfair Display", serif;
   font-style: italic;;
   margin-bottom: 50px;
   color: white;
