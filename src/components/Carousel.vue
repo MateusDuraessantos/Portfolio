@@ -1,20 +1,25 @@
 <template>
   <div class="carousel">
-    <div class="carousel__buttons">
-      <button id="button__l" @click="slide('left', 'stop')" class="carousel__button--left">
+    <div ref="buttonsAnchor" class="carousel__buttons">
+      <div class="carousel__controls" :class="{ 'carousel__controls--visible': controlsVisible }" :style="controlsStyle">
+      <button id="button__l" aria-label="Projeto anterior" @click="slide('left', 'stop')" class="carousel__button--left">
         &#60;
       </button>
 
-      <button id="button__r" @click="slide('right', 'stop')" class="carousel__button--right">
+      <button id="button__r" aria-label="Próximo projeto" @click="slide('right', 'stop')" class="carousel__button--right">
         &#62;
       </button>
+      </div>
     </div>
 
     <div
       class="carousel__container"
       id="carousel__slide"
-      @touchstart="slideOnTouth"
-      @touchend="slideOnTouth"
+      @touchstart.passive="startTouch"
+      @touchmove.passive="moveTouch"
+      @touchend.passive="endTouch"
+      @touchcancel.passive="cancelTouch"
+      @click.capture="preventDragClick"
     >
       <router-link
         class="carousel__thumb" v-for="(img, index) in myProjectsData"
@@ -38,17 +43,65 @@ export default {
       myProjectsData: Object.entries(datasProjects).map(([slug, project]) => ({ ...project, slug })),
       carrosselInterval: '',
       initItem: Number,
-      touchSlided: [],
+      touchGesture: null,
+      suppressClickUntil: 0,
       initial: 2,
+      controlsVisible: false,
+      controlsStyle: {},
+      controlsFrame: null,
     }
   },
   mounted() {
     this.slide()
+    this.updateControlsPosition()
+    window.addEventListener('scroll', this.scheduleControlsPosition, { passive: true })
+    window.addEventListener('resize', this.scheduleControlsPosition)
+    this.controlsObserver = new ResizeObserver(this.scheduleControlsPosition)
+    this.controlsObserver.observe(this.$el)
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.scheduleControlsPosition)
+    window.removeEventListener('resize', this.scheduleControlsPosition)
+    this.controlsObserver?.disconnect()
+    cancelAnimationFrame(this.controlsFrame)
   },
 
   methods: {
+    scheduleControlsPosition() {
+      if (this.controlsFrame !== null) return
+      this.controlsFrame = requestAnimationFrame(() => {
+        this.controlsFrame = null
+        this.updateControlsPosition()
+      })
+    },
+
+    updateControlsPosition() {
+      const carousel = this.$el.getBoundingClientRect()
+      const anchor = this.$refs.buttonsAnchor.getBoundingClientRect()
+      const fixedCenter = window.innerHeight - 48
+      const naturalCenter = anchor.top + anchor.height / 2
+      const featuredCard = this.$el.querySelector('[frame_size="big"]')?.getBoundingClientRect()
+      // Reveal once the main card reaches the middle of the viewport.
+      const revealPoint = window.innerHeight * 0.55
+      this.controlsVisible = (featuredCard?.top ?? carousel.top) <= revealPoint && carousel.bottom > 0
+      this.controlsStyle = this.controlsVisible && naturalCenter > fixedCenter
+        ? {
+          position: 'fixed',
+          top: `${fixedCenter - 24}px`,
+          left: `${anchor.left}px`,
+          width: `${anchor.width}px`,
+          height: '48px',
+        }
+        : {}
+    },
+
     slide(param) {
-      if(param != undefined) this.initial += param == 'left' ? -1 : 1
+      if (param != undefined) {
+        this.initial = Math.max(0, Math.min(
+          this.myProjectsData.length - 1,
+          this.initial + (param == 'left' ? -1 : 1)
+        ))
+      }
 
       let positions = (2 - this.initial) * 25
       this.img_defaults()?.forEach(obj => {
@@ -68,17 +121,71 @@ export default {
       this.hideButtons()
     },
     
-    slideOnTouth(event) {
-      if (event.type == 'touchstart') this.touchSlided = []
-      this.touchSlided.push(event.changedTouches[0].clientX)
-      const limiteSlide = 50 // Define quantos pixeis o touch deve alcançar para poder ativar a animação 
-      let gSlide = this.touchSlided[0] - this.touchSlided[1] > limiteSlide || this.touchSlided[0] - this.touchSlided[1] < -limiteSlide
-      
-      if (!gSlide && event.type != 'touchend') return
-      if (this.touchSlided[0] > this.touchSlided[1] && this.indexCenter() < this.img_defaults()?.length - 1) this.slide('right')
-      if (this.touchSlided[0] < this.touchSlided[1] && this.indexCenter() != 0) this.slide('left')
+    startTouch(event) {
+      this.cancelTouch()
+      if (event.touches.length !== 1) return
+      const touch = event.touches[0]
+      this.touchGesture = {
+        id: touch.identifier,
+        startX: touch.clientX,
+        startY: touch.clientY,
+        axis: null,
+        moved: false,
+      }
     },
-    
+
+    moveTouch(event) {
+      if (event.touches.length !== 1) {
+        this.cancelTouch()
+        return
+      }
+      this.trackTouch(event.touches[0])
+    },
+
+    trackTouch(touch) {
+      const gesture = this.touchGesture
+      if (!gesture || touch.identifier !== gesture.id) return
+      const x = Math.abs(touch.clientX - gesture.startX)
+      const y = Math.abs(touch.clientY - gesture.startY)
+      if (Math.max(x, y) < 12) return
+      gesture.moved = true
+      // Lock the first clear direction so a vertical scroll cannot become a swipe.
+      if (!gesture.axis) {
+        if (y >= x) gesture.axis = 'vertical'
+        else if (x >= y * 1.5) gesture.axis = 'horizontal'
+      }
+    },
+
+    endTouch(event) {
+      const gesture = this.touchGesture
+      if (!gesture) return
+      const touch = Array.from(event.changedTouches).find(item => item.identifier === gesture.id)
+      if (!touch) {
+        this.cancelTouch()
+        return
+      }
+      this.trackTouch(touch)
+      const x = touch.clientX - gesture.startX
+      const y = touch.clientY - gesture.startY
+      if (gesture.moved) this.suppressClickUntil = Date.now() + 500
+      this.touchGesture = null
+      if (event.touches.length || gesture.axis !== 'horizontal') return
+      if (Math.abs(x) < 60 || Math.abs(x) < Math.abs(y) * 1.5) return
+      this.slide(x < 0 ? 'right' : 'left')
+    },
+
+    cancelTouch() {
+      if (this.touchGesture?.moved) this.suppressClickUntil = Date.now() + 500
+      this.touchGesture = null
+    },
+
+    preventDragClick(event) {
+      if (Date.now() < this.suppressClickUntil) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+    },
+
     indexCenter() {
       return Number(document.querySelector('[frame_size="big"]')?.id)
     },
@@ -157,9 +264,17 @@ export default {
   opacity: 0;
 }
 
-.carousel__hover:hover {
-  transition: .2s;
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .carousel__hover:hover {
+    transition: .2s;
+    opacity: 1;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .carousel__hover {
+    display: none;
+  }
 }
 
 [img_default] {
@@ -218,6 +333,34 @@ export default {
   height: 100%;
 }
 
+.carousel__controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.carousel__controls--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.carousel__controls--visible button {
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__controls {
+    transition: none;
+    transform: none;
+  }
+}
+
 .carousel__button--left,
 .carousel__button--right {
   position: absolute;
@@ -274,6 +417,22 @@ export default {
     box-shadow: none;
     border: none;
     outline: none;
+  }
+
+  .carousel__container {
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .carousel__hover {
+    display: none;
+  }
+
+  .carousel__thumb[frame_size="middle"] {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
+  }
+
+  .carousel__thumb[frame_size="big"] {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, .6), 0 0 16px rgba(0, 0, 0, .35);
   }
 }
 

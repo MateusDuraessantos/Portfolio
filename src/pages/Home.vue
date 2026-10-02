@@ -455,3 +455,274 @@ main {
 }
 
 </style>
+
+<style scoped>
+/* Home-only adjustments: keep the desktop composition intact. */
+@media screen and (max-width: 700px) {
+  #background {
+    --home-gutter: clamp(16px, 5vw, 24px);
+  }
+
+  #background :deep(.g-max__width) {
+    width: calc(100% - var(--home-gutter) * 2) !important;
+  }
+
+  #background :deep([id^="link_ancor__"]) {
+    scroll-margin-top: 80px;
+  }
+
+  #background :deep(.banner) {
+    min-height: 100svh;
+    padding: 92px 0 24px;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  #background :deep(.banner__ctn) {
+    position: relative;
+    inset: auto;
+    margin: auto;
+    padding: 36px 20px 24px;
+    gap: 12px;
+    border-radius: 24px;
+  }
+
+  #background :deep(.banner__column--2) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #background :deep(.banner__description) {
+    gap: 12px;
+  }
+
+  #background :deep(.banner__container) {
+    gap: 10px;
+  }
+
+  #background :deep(.banner__ola) {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  #background :deep(.banner__nome) {
+    font-size: clamp(26px, 7vw, 34px);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  #background :deep(.banner__content) {
+    font-size: clamp(16px, 4.5vw, 19px);
+    line-height: 1.5;
+  }
+
+  #background :deep(.banner__social) {
+    margin-top: 4px;
+    gap: 20px;
+  }
+
+  #background :deep(.banner__redes) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+  }
+
+  #background :deep(.banner__camadas) {
+    width: min(100%, 240px);
+    padding: 100px 0;
+  }
+
+  #background :deep(.designed_by) {
+    position: relative;
+    bottom: auto;
+    order: 1;
+    padding: 0 var(--home-gutter);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  #background :deep(.designed_by strong) {
+    font-size: inherit;
+  }
+
+  #background :deep(.abordo__img) {
+    min-height: 0;
+    height: clamp(360px, 110vw, 560px);
+    object-position: center;
+  }
+
+  #background :deep(.abordo__p) {
+    margin-top: 40px;
+    max-width: 280px;
+    text-align: center;
+    text-wrap: balance;
+    line-height: 1.6;
+    color: var(--creme) !important;
+  }
+
+  .whiteTheme #background :deep(.abordo__p) {
+    color: black !important;
+  }
+
+  #background :deep(.experiencia) {
+    padding: 64px 0;
+  }
+
+  #background :deep(.experiencia > h2),
+  #background :deep(.others > h2) {
+    font-size: clamp(24px, 6vw, 30px);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  #background :deep(.experiencia > p) {
+    margin-top: 8px;
+  }
+
+  #background :deep(.experiencia__rocha) {
+    z-index: 0;
+    pointer-events: none;
+    --sky-scale: 0.65;
+  }
+
+  #background :deep(.experiencia > h2),
+  #background :deep(.experiencia > p) {
+    position: relative;
+    z-index: 1;
+  }
+
+  #background :deep(.carousel) {
+    height: auto;
+    padding: 28px 0 64px;
+  }
+
+  #background :deep(.carousel__container) {
+    width: calc(100% - var(--home-gutter) * 2);
+    height: clamp(380px, 120vw, 520px);
+  }
+
+  #background :deep(.carousel__thumb) {
+    width: min(64vw, 260px);
+    height: 82%;
+    border-radius: 24px;
+  }
+
+  #background :deep(.carousel__thumb[frame_size="big"]) {
+    width: min(72vw, 280px);
+    height: 100%;
+    border-radius: 28px;
+  }
+
+  #background :deep(.carousel__buttons) {
+    inset: auto 0 0;
+    width: 112px;
+    height: 48px;
+    margin: auto;
+    z-index: 5;
+  }
+
+  #background :deep(.carousel__button--left),
+  #background :deep(.carousel__button--right) {
+    width: 48px;
+    height: 48px;
+  }
+
+  #background :deep(.others) {
+    padding: 24px 0 0;
+  }
+
+  #background :deep(.others__grid) {
+    padding-top: 28px;
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #background :deep(.others__card) {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  #background :deep(.others__img) {
+    display: block;
+  }
+
+  #background :deep(.experience) {
+    padding: 72px 0 0;
+  }
+
+  #background :deep(.experience__elements) {
+    padding: 28px 20px;
+    gap: 28px;
+  }
+
+  #background :deep(.experience__container) {
+    gap: 20px;
+  }
+
+  #background :deep(.experience__redes) {
+    padding: 0;
+    gap: 24px;
+  }
+
+  #background :deep(.experience__redes a) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #background :deep(.experience__text) {
+    gap: 20px;
+    overflow-wrap: break-word;
+  }
+
+  #background :deep(.experience__text p) {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  #background :deep(.experience__text p *) {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  #background :deep(.experience__experiencia) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 8px;
+  }
+
+  #background :deep(.experience__ctn) {
+    width: auto !important;
+    height: auto;
+    min-width: 0;
+  }
+
+  #background :deep(.experience__ctn p) {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+
+  #background .message {
+    height: auto;
+    padding: 88px var(--home-gutter) 72px;
+    gap: 16px;
+  }
+
+  #background .message__title {
+    font-size: 24px;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  #background .message__me {
+    font-size: 20px;
+  }
+
+}
+</style>

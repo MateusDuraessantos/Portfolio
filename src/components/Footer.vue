@@ -32,15 +32,7 @@
               </a>
             </div>
           </address>
-          <div id="observador__footer"
-            style="
-                height: 200px;
-                display: flex;
-                align-items: flex-end;
-                position: absolute;
-                bottom: 0;
-            "
-          >
+          <div id="observador__footer" style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
             <p class="phrase">Who said footers have to be boring?</p>
           </div>
           <div class="sky__footer-details">
@@ -50,7 +42,7 @@
         </div>
       </div>
 
-      <img v-for="i in 14" :class="`sky__planet_${i} sky__planet`" :src="`/inicio/${whiteImages}/planet_${i}.webp`" alt="" loading="lazy">
+      <img v-for="i in 14" :key="i" :class="`sky__planet_${i} sky__planet`" :src="`/inicio/${whiteImages}/planet_${i}.webp`" alt="" loading="lazy">
       <img class="sky__smile sky__planet" :src="`/inicio/${whiteImages}/smile.svg`" alt="" loading="lazy">
     </div>
   </footer>
@@ -359,6 +351,7 @@ footer.open * {
 .sky__footer-details {
   position: absolute;
   bottom: 20px;
+  padding: 0 30px;
   left: 0;
   width: 100%;
   display: flex;
@@ -707,5 +700,157 @@ footer.open * {
 .open .sky__planet_14 {
   right: 0;
   bottom: 45%;
+}
+
+@media screen and (max-width: 700px) {
+  .sky {
+    height: 100svh;
+    min-height: 640px;
+    width: 100%;
+  }
+
+  .sky__background--white {
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .information__container {
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto;
+    justify-content: stretch;
+    justify-items: center;
+    gap: 24px;
+    padding: 100px 24px max(36px, env(safe-area-inset-bottom));
+  }
+
+  .information__content {
+    position: absolute;
+    align-self: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  .decoration {
+    min-height: 64px;
+  }
+
+  .information__contato {
+    gap: 12px;
+  }
+
+  .information__contato img {
+    width: 36px;
+    height: 36px;
+    margin: 0;
+  }
+
+  .contato__email {
+    font-size: clamp(26px, 7vw, 34px);
+    padding: 0;
+  }
+
+  .decoration__info,
+  .decoration__copy {
+    display: none;
+  }
+
+  #observador__footer {
+    grid-row: 2;
+    position: static !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    gap: 20px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .sky__mobile-smile {
+    display: block;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .phrase {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    text-wrap: balance;
+  }
+
+  .sky__footer-details {
+    grid-row: 3;
+    position: static;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .sky__planet {
+    display: none;
+    pointer-events: none;
+    animation-name: sky_mobile_float;
+    animation-duration: 14s;
+  }
+
+  .sky .sky__planet_3 {
+    display: block;
+    width: clamp(110px, 32vw, 180px);
+    top: 12%;
+    left: 3%;
+    bottom: auto;
+  }
+
+  .sky .sky__planet_7 {
+    display: block;
+    width: clamp(110px, 32vw, 180px);
+    right: -6%;
+    top: initial;
+    bottom: 20%;
+  }
+
+  .sky .sky__planet_11 {
+    display: block;
+    width: clamp(110px, 32vw, 180px);
+    left: -6%;
+  }
+
+  .sky .sky__planet_6 {
+    display: block;
+    width: clamp(130px, 38vw, 210px);
+    top: 24%;
+    right: -8%;
+    bottom: auto;
+    animation-delay: -5s;
+  }
+
+  .sky .sky__planet_13 {
+    display: block;
+    width: clamp(90px, 26vw, 150px);
+    left: -12%;
+    bottom: 35%;
+    animation-delay: -9s;
+  }
+
+}
+
+@keyframes sky_mobile_float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@media screen and (max-width: 700px) and (prefers-reduced-motion: reduce) {
+  .sky__planet {
+    animation: none;
+  }
 }
 </style>

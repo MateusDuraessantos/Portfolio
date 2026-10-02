@@ -8,13 +8,13 @@
       <div
         v-for="item in myHobbiesData"
         :class="`others__card`"
+        role="button"
+        tabindex="0"
+        aria-label="See project"
+        @click="emitUpPopup(item)"
+        @keydown.enter.prevent="emitUpPopup(item)"
+        @keydown.space.prevent="emitUpPopup(item)"
       >
-        <div
-          class="others__click"
-          @click="emitUpPopup(item)"
-        >
-          See project
-        </div>
         <img class="others__img" :src="`/projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
       </div>
     </div>
@@ -53,23 +53,6 @@ export default {
   z-index: 5;
 }
 
-.others__click {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--creme) !important;
-  opacity: 0;
-  z-index: 1;
-  transition: .2s;
-  cursor: pointer;
-}
-
 .others__alguns {
   width: 100%;
   text-align: center;
@@ -93,6 +76,7 @@ export default {
 
 .others__card {
   position: relative;
+  cursor: pointer;
   width: 100%;
   height: 400px;
 }
