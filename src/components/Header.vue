@@ -463,6 +463,34 @@ button {
 }
 
 @media screen and (max-width: 1000px) {
+  #header.header--project {
+    gap: 12px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .header--project .project-name {
+    min-width: 0;
+    white-space: normal;
+    font-size: clamp(12px, 3vw, 16px);
+    line-height: 1.4;
+  }
+
+  .header--project .links {
+    flex-shrink: 0;
+    margin-right: 0;
+  }
+
+  .header--project #mobile {
+    width: auto;
+    min-height: 44px;
+  }
+
+  .header--project #mobile .dropdown__container {
+    top: 100%;
+    max-width: calc(100vw - 32px);
+  }
+
   .header--project .dropdown__container {
     visibility: hidden;
   }

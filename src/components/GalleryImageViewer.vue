@@ -181,8 +181,8 @@ export default {
 }
 .image-viewer::backdrop { background: #090909; }
 .image-viewer__toolbar {
-  height: 60px;
-  padding: 0 16px;
+  min-height: 60px;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -191,9 +191,9 @@ export default {
   color: #bdbdbd;
 }
 .image-viewer__toolbar button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
   background: none;
   font-size: 22px;
   font-weight: 300;
@@ -207,7 +207,10 @@ export default {
 .image-viewer__viewport {
   display: flex;
   width: 100%;
-  height: calc(100% - 60px);
+  height: 0;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   overflow: auto;
   overscroll-behavior: contain;
 }
@@ -226,4 +229,16 @@ export default {
 .image-viewer__viewport img.is-zoomed { cursor: grab; }
 .image-viewer__viewport img.is-dragging { cursor: grabbing; }
 .image-viewer :focus-visible { outline: 2px solid #ef3e46; outline-offset: -2px; }
+
+.image-viewer[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 560px) {
+  .image-viewer__toolbar {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
 </style>

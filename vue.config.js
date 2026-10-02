@@ -4,7 +4,13 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/',
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: {
+      index: '/index.html',
+      htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
+      rewrites: [
+        { from: /^\/projetos\/[^/]+\/?$/, to: '/index.html' }
+      ]
+    }
   },
   assetsDir: 'static'
 })

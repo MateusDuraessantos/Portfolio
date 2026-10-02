@@ -728,7 +728,8 @@ footer.open * {
   }
 
   .information__content {
-    position: absolute;
+    position: static;
+    grid-row: 1;
     align-self: center;
     width: 100%;
     margin: 0;
