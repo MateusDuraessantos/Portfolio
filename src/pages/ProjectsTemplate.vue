@@ -5,7 +5,7 @@
 		<main>
 
 			<!-- HERO -->
-			<section class="hero">
+			<section ref="hero" class="hero">
 				<div class="hero__content">
 
 					<div class="hero__info">
@@ -17,24 +17,6 @@
 						<h1>
 							{{ project.title }}
 						</h1>
-
-						<p class="hero__description">
-							{{ project.description }}
-						</p>
-
-						<div class="hero__meta">
-
-							<div v-for="item in project.meta" :key="item.label" class="hero__meta-item">
-								<span class="hero__meta-icon">
-									{{ item.icon }}
-								</span>
-
-								<span>
-									{{ item.label }}
-								</span>
-							</div>
-
-						</div>
 
 						<div class="hero__actions">
 
@@ -63,7 +45,7 @@
 
 					<div class="hero__image-wrapper">
 
-						<img :src="`projetos/${project.cover}`" :alt="project.title" class="hero__image" />
+						<img :src="`/projetos/${project.cover}`" :alt="project.title" class="hero__image" />
 
 					</div>
 
@@ -71,7 +53,7 @@
 			</section>
 
 			<!-- PROJECT INFO -->
-			<section id="project-overview" class="project-info">
+			<section ref="overview" id="project-overview" class="project-info" tabindex="-1">
 
 				<div class="container project-info__grid g-glass">
 
@@ -82,33 +64,21 @@
 						</span>
 
 						<h2>
-							{{ project.overview.title }}
+							{{ project.title }}
 						</h2>
 
 						<p class="project-info__lead">
-							{{ project.overview.description }}
+							{{ project.description }}
 						</p>
 
-						<div class="project-info__section">
+						<div v-if="projectRole" class="project-info__section">
 
 							<span class="section-label section-label--dark">
-								The challenge
+								My role
 							</span>
 
-							<p>
-								{{ project.challenge }}
-							</p>
-
-						</div>
-
-						<div class="project-info__section">
-
-							<span class="section-label section-label--dark">
-								The solution
-							</span>
-
-							<p>
-								{{ project.solution }}
+							<p v-for="value in projectRole.values" :key="value">
+								{{ value }}
 							</p>
 
 						</div>
@@ -117,7 +87,7 @@
 
 					<aside class="project-info__sidebar">
 
-						<div v-for="item in project.details" :key="item.title" class="project-detail">
+						<div v-for="item in sidebarDetails" :key="item.title" class="project-detail">
 
 							<span class="project-detail__title">
 								{{ item.title }}
@@ -139,63 +109,31 @@
 			</section>
 
 			<!-- GALLERY -->
-			<section v-if="project.gallery.length" id="project-gallery" class="gallery">
-
-				<div class="container">
-
-					<div class="gallery__grid">
-
-						<button v-for="(image, index) in project.gallery" :key="index" class="gallery__item"
-							@click="openGallery(index)">
-
-							<img :src="`projetos/${image}`" :alt="project.title + ' - image ' + (index + 1)" />
-
-							<div class="gallery__overlay">
-								<span>
-									View image
-								</span>
-							</div>
-
+			<section v-if="project.gallery.length" ref="gallery" id="project-gallery" class="gallery">
+				<div class="gallery__content">
+					<figure v-for="(media, index) in project.gallery" :key="media.src" class="gallery__media">
+						<button v-if="media.type === 'image'" type="button" class="gallery__image-button" :aria-label="'Enlarge ' + (media.alt || project.title + ' - image ' + (index + 1))"
+							@keyup.tab="$event.currentTarget.setAttribute('data-keyboard-focus', '')"
+							@pointerdown="$event.currentTarget.removeAttribute('data-keyboard-focus')"
+							@blur="$event.currentTarget.removeAttribute('data-keyboard-focus')"
+							@click="galleryImage = { src: `/projetos/${media.src}`, alt: media.alt || project.title + ' - image ' + (index + 1) }"
+							@dblclick="galleryImage = null">
+							<img :src="`/projetos/${media.src}`" :alt="media.alt || project.title + ' - image ' + (index + 1)" loading="lazy" decoding="async" />
 						</button>
-
-					</div>
-
+						<video v-else-if="media.type === 'video'" autoplay loop muted playsinline preload="metadata" :aria-label="media.alt || project.title">
+							<source :src="`/projetos/${media.src}`" :type="media.mimeType" />
+							Your browser does not support video playback.
+						</video>
+					</figure>
 				</div>
-
-			</section>
-
-			<!-- TECHNOLOGIES -->
-			<section id="project-technologies" class="technologies">
-
-				<div class="container">
-
-					<div class="technologies__card g-glass">
-
-						<div class="technologies__intro">
-
-							<span class="technologies__line"></span>
-
-							<span>
-								Technologies used<br>
-								in this project
-							</span>
-
-						</div>
-
-						<TechnologyIcons :technologies="project.technologies" />
-
-					</div>
-
-				</div>
-
 			</section>
 
 			<!-- PROJECT NAVIGATION -->
-			<section class="project-navigation">
+			<section ref="projectNavigation" class="project-navigation" :class="{ 'project-navigation--compact': !navigationVisible, 'project-navigation--hidden': !navigationVisible && !bannerPassed }" aria-label="Project navigation">
 
 				<div class="container project-navigation__content">
 
-					<a v-if="project.previous" :href="project.previous.url"
+					<router-link v-if="previousProject" :to="previousProject.url"
 						class="project-navigation__item project-navigation__item--previous">
 
 						<span class="project-navigation__label">
@@ -204,23 +142,20 @@
 
 						<div class="project-navigation__project">
 
-							<img :src="`projetos/${project.previous.image}`" :alt="project.previous.title" />
+							<img :src="`/projetos/${previousProject.image}`" :alt="previousProject.title" />
 
 							<div>
 								<strong>
-									{{ project.previous.title }}
+									{{ previousProject.title }}
 								</strong>
 
-								<span>
-									{{ project.previous.description }}
-								</span>
 							</div>
 
 						</div>
 
-					</a>
+					</router-link>
 
-					<a v-if="project.next" :href="project.next.url"
+					<router-link v-if="nextProject" :to="nextProject.url"
 						class="project-navigation__item project-navigation__item--next">
 
 						<span class="project-navigation__label">
@@ -231,100 +166,43 @@
 
 							<div>
 								<strong>
-									{{ project.next.title }}
+									{{ nextProject.title }}
 								</strong>
 
-								<span>
-									{{ project.next.description }}
-								</span>
 							</div>
 
-							<img :src="`projetos/${project.next.image}`" :alt="project.next.title" />
+							<img :src="`/projetos/${nextProject.image}`" :alt="nextProject.title" />
 
 						</div>
 
-					</a>
+					</router-link>
 
 				</div>
 
 			</section>
 
 		</main>
+		<Teleport to="body">
+			<Transition name="gallery-return" appear>
+			<button v-if="galleryVisible && !returningToOverview && !galleryImage" type="button"
+				class="gallery-return" aria-label="Back to overview" @click="returnToOverview">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<path d="M12 19V5M5 12l7-7 7 7" />
+				</svg>
+			</button>
+			</Transition>
+		</Teleport>
+		<GalleryImageViewer v-if="galleryImage" :src="galleryImage.src" :alt="galleryImage.alt" @close="galleryImage = null" />
 
 		<!-- FOOTER -->
 		<footer class="footer">
 
 			<div class="container">
 
-				<a href="/projetos" class="footer__back">
-					← Back to all projects
-				</a>
-
-				<div class="footer__content">
-
-					<div class="footer__about">
-
-						<div class="footer__name">
-							Mateus Durães
-						</div>
-
-						<p>
-							Designer and developer creating digital experiences
-							that are functional, intuitive, and visually consistent.
-						</p>
-
-					</div>
-
-					<div class="footer__column">
-
-						<span class="footer__title">
-							NAVIGATION
-						</span>
-
-						<a href="/">
-							Home
-						</a>
-
-						<a href="/projetos">
-							Projects
-						</a>
-
-						<a href="/sobre">
-							About
-						</a>
-
-						<a href="/contato">
-							Contact
-						</a>
-
-					</div>
-
-					<div class="footer__column">
-
-						<span class="footer__title">
-							CONNECT
-						</span>
-
-						<a href="#" target="_blank">
-							LinkedIn
-						</a>
-
-						<a href="#" target="_blank">
-							GitHub
-						</a>
-
-						<a href="mailto:email@email.com">
-							Email
-						</a>
-
-					</div>
-
-				</div>
-
 				<div class="footer__bottom">
 
 					<span>
-						© {{ currentYear }} Mateus Durães. All rights reserved.
+						© {{ currentYear }}
 					</span>
 
 					<span>
@@ -337,36 +215,6 @@
 
 		</footer>
 
-		<!-- GALLERY MODAL -->
-		<transition name="gallery-modal">
-
-			<div v-if="galleryOpen" class="gallery-modal" @click.self="closeGallery">
-
-				<button class="gallery-modal__close" @click="closeGallery">
-					×
-				</button>
-
-				<button v-if="project.gallery.length > 1" class="gallery-modal__navigation gallery-modal__navigation--previous"
-					@click="previousGalleryImage">
-					←
-				</button>
-
-				<img :src="`projetos/${project.gallery[activeGalleryImage]}`" :alt="project.title" class="gallery-modal__image" />
-
-				<button v-if="project.gallery.length > 1" class="gallery-modal__navigation gallery-modal__navigation--next"
-					@click="nextGalleryImage">
-					→
-				</button>
-
-				<div class="gallery-modal__counter">
-					{{ activeGalleryImage + 1 }}
-					/
-					{{ project.gallery.length }}
-				</div>
-
-			</div>
-
-		</transition>
 
 	</div>
 </template>
@@ -374,17 +222,20 @@
 <script>
 import { datasProjects } from '@/projects-datas/datas.ts'
 import ProjectParallax from '@/components/ProjectParallax.vue'
-import TechnologyIcons from '@/components/TechnologyIcons.vue'
+import GalleryImageViewer from '@/components/GalleryImageViewer.vue'
 
 export default {
 	name: 'ProjectPage',
-	components: { ProjectParallax, TechnologyIcons },
+	components: { ProjectParallax, GalleryImageViewer },
 
 	data() {
 		return {
-			galleryOpen: false,
-			activeGalleryImage: 0,
-			projects: datasProjects
+			projects: datasProjects,
+			galleryImage: null,
+			galleryVisible: false,
+			returningToOverview: false,
+			navigationVisible: false,
+			bannerPassed: false
 		}
 	},
 
@@ -397,83 +248,165 @@ export default {
 			return this.projects[this.slug]
 		},
 
+		previousProject() {
+			return this.resolveProjectNavigation(this.project.previous)
+		},
+
+		nextProject() {
+			return this.resolveProjectNavigation(this.project.next)
+		},
+
+		projectRole() {
+			return this.project.details.find(item => item.title.toUpperCase() === 'MY ROLE')
+		},
+
+		sidebarDetails() {
+			return this.project.details.filter(item => item !== this.projectRole)
+		},
+
 		currentYear() {
 			return new Date().getFullYear()
 		}
 	},
 
-	methods: {
-
-		openGallery(index) {
-			this.activeGalleryImage = index
-			this.galleryOpen = true
-
-			document.body.style.overflow = 'hidden'
-		},
-
-		closeGallery() {
-			this.galleryOpen = false
-
-			document.body.style.overflow = ''
-		},
-
-		nextGalleryImage() {
-			this.activeGalleryImage =
-				(this.activeGalleryImage + 1) %
-				this.project.gallery.length
-		},
-
-		previousGalleryImage() {
-			this.activeGalleryImage =
-				(
-					this.activeGalleryImage -
-					1 +
-					this.project.gallery.length
-				) %
-				this.project.gallery.length
-		},
-
-		handleKeydown(event) {
-
-			if (!this.galleryOpen) {
-				return
-			}
-
-			if (event.key === 'Escape') {
-				this.closeGallery()
-			}
-
-			if (event.key === 'ArrowRight') {
-				this.nextGalleryImage()
-			}
-
-			if (event.key === 'ArrowLeft') {
-				this.previousGalleryImage()
-			}
-
+	watch: {
+		slug() {
+			this.galleryImage = null
+			this.galleryVisible = false
+			this.returningToOverview = false
+			this.navigationVisible = false
+			this.bannerPassed = false
+			this.$nextTick(this.observeGallery)
+			this.$nextTick(this.observeNavigation)
 		}
-
 	},
 
 	mounted() {
-		window.addEventListener('keydown', this.handleKeydown)
+		this.observeGallery()
+		this.observeNavigation()
 	},
 
 	beforeUnmount() {
-		window.removeEventListener('keydown', this.handleKeydown)
+		this.galleryObserver?.disconnect()
+		this.navigationObserver?.disconnect()
+		this.bannerObserver?.disconnect()
+	},
 
-		document.body.style.overflow = ''
+	methods: {
+		observeNavigation() {
+			this.navigationObserver?.disconnect()
+			this.bannerObserver?.disconnect()
+			if (this.$refs.hero) {
+				this.bannerObserver = new IntersectionObserver(([entry]) => {
+					this.bannerPassed = entry.boundingClientRect.bottom <= 100
+				}, { rootMargin: '-100px 0px 0px 0px', threshold: 0 })
+				this.bannerObserver.observe(this.$refs.hero)
+			}
+			if (!this.$refs.projectNavigation) return
+			this.navigationObserver = new IntersectionObserver(([entry]) => {
+				this.navigationVisible = entry.isIntersecting
+			}, { threshold: 0.1 })
+			this.navigationObserver.observe(this.$refs.projectNavigation)
+		},
+
+		observeGallery() {
+			this.galleryObserver?.disconnect()
+			if (!this.$refs.gallery) return
+			this.galleryObserver = new IntersectionObserver(([entry]) => {
+				this.galleryVisible = entry.isIntersecting
+				if (!entry.isIntersecting) this.returningToOverview = false
+			}, { rootMargin: '-100px 0px 0px 0px' })
+			this.galleryObserver.observe(this.$refs.gallery)
+		},
+
+		returnToOverview() {
+			this.returningToOverview = true
+			const overview = this.$refs.overview
+			overview.focus({ preventScroll: true })
+			overview.scrollIntoView({
+				behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+				block: 'start'
+			})
+		},
+
+		resolveProjectNavigation(slug) {
+			const project = this.projects[slug]
+			if (!project) return null
+
+			return {
+				title: project.title,
+				image: project.thumb.img,
+				url: this.$router.resolve({ name: 'project', params: { slug } }).href
+			}
+		}
+
 	}
 
 }
 </script>
 
 <style scoped>
+.gallery-return {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  top: calc(100px + env(safe-area-inset-top, 0px));
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: #181818;
+  color: #f7f6f3;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.gallery-return:hover { background: #303030; }
+.gallery-return:focus-visible { outline: 2px solid #f7f6f3; outline-offset: 4px; }
+
+.gallery-return-enter-active {
+  transition: opacity 280ms ease, transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.gallery-return-leave-active {
+  transition: opacity 200ms ease, transform 200ms ease;
+  pointer-events: none;
+}
+
+.gallery-return-enter-from,
+.gallery-return-leave-to {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-return-enter-active,
+  .gallery-return-leave-active {
+    transition: none;
+  }
+
+  .gallery-return-enter-from,
+  .gallery-return-leave-to {
+    transform: none;
+  }
+}
+
+.project-info:focus { outline: none; }
+
 section[id] {
   scroll-margin-top: 100px;
 }
 
 @media (max-width: 1000px) {
+  .gallery-return {
+    top: calc(80px + env(safe-area-inset-top, 0px));
+  }
+
   section[id] {
     scroll-margin-top: 80px;
   }
@@ -516,11 +449,6 @@ section[id] {
   color: var(--white);
   overflow-x: hidden;
   animation: pageFadeIn 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.project-page ::selection {
-  background: var(--accent);
-  color: white;
 }
 
 .project-page > main,
@@ -659,7 +587,8 @@ section[id] {
 }
 
 .hero__content {
-  min-height: calc(100vh - 78px);
+  /* min-height: calc(100vh - 78px); */
+  height: 100vh;
   display: grid;
   grid-template-columns:
     minmax(450px, 44%)
@@ -685,9 +614,8 @@ section[id] {
   align-items: center;
   gap: 12px;
   color: #8c8c8c;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
@@ -704,58 +632,8 @@ section[id] {
   color: #f5f4f1;
   font-size: clamp(42px, 4.3vw, 68px);
   line-height: 0.99;
-  letter-spacing: -0.045em;
   font-weight: 500;
   text-wrap: balance;
-}
-
-.hero__description {
-  max-width: 560px;
-  margin: 0;
-  color: #969696;
-  font-size: 15px;
-  line-height: 1.8;
-}
-
-.hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  margin-top: 42px;
-}
-
-.hero__meta-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: #9a9a9a;
-  font-size: 12px;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.hero__meta-item:hover {
-  color: #d0d0d0;
-  transform: translateY(-1px);
-}
-
-.hero__meta-item:not(:last-child)::after {
-  content: '';
-  width: 1px;
-  height: 14px;
-  margin: 0 18px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.hero__meta-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 21px;
-  height: 21px;
-  color: #bdbdbd;
-  font-size: 12px;
 }
 
 .hero__actions {
@@ -807,7 +685,7 @@ section[id] {
   transform: translateY(-3px);
 }
 
-.button--primary {
+.button--primary, .button--primary * {
   background: #f6f5f2;
   color: #101010;
   box-shadow:
@@ -924,10 +802,9 @@ section[id] {
   max-width: 720px;
   margin: 18px 0 30px;
   color: white;
-  font-size: clamp(48px, 5vw, 72px);
-  line-height: 0.95;
-  font-weight: 400;
-  letter-spacing: -0.05em;
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 600;
 }
 
 .project-info__lead {
@@ -959,7 +836,7 @@ section[id] {
 
 .project-info__section p {
   margin: 17px 0 0;
-  color: #626262;
+  color: var(--gray-light);
   font-size: 15px;
   line-height: 1.8;
 }
@@ -988,9 +865,8 @@ section[id] {
   align-items: center;
   gap: 10px;
   color: #8a8a8a;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
-  letter-spacing: 0.19em;
 }
 
 .project-detail__title::before {
@@ -1010,7 +886,7 @@ section[id] {
 
 .project-detail__values span {
   color: #bdbdbd;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -1021,156 +897,52 @@ section[id] {
   padding: 105px 0;
 }
 
-.gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+.gallery__content {
+  width: min(1200px, calc(100% - 200px));
+  margin: 0 auto;
+  background: #1f1f1f;
 }
 
-.gallery__item {
-  position: relative;
-  aspect-ratio: 1.45 / 1;
-  padding: 0;
-  overflow: hidden;
-  background: #111;
-  cursor: pointer;
-  box-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.2);
-  transition:
-    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.45s ease;
+.gallery__media {
+  margin: 0;
 }
 
-.gallery__item:nth-child(3n + 1) {
-  grid-column: span 1;
-}
-
-.gallery__item img {
-  width: 100%;
-  height: 100%;
+.gallery__image-button {
   display: block;
-  object-fit: cover;
-  transform: scale(1.005);
-  transition:
-    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
-    filter 0.6s ease;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
 }
 
-.gallery__overlay {
-  position: absolute;
-  inset: 0;
-  padding: 25px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  opacity: 0;
-  background:
-    linear-gradient(
-      180deg,
-      transparent 35%,
-      rgba(0, 0, 0, 0.75) 100%
-    );
-  transition: opacity 0.35s ease;
+.gallery__image-button:focus-visible {
+  outline: none;
 }
 
-.gallery__overlay span {
-  padding: 8px 13px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  color: white;
-  font-size: 12px;
-  backdrop-filter: blur(10px);
-  transform: translateY(8px);
-  transition: transform 0.35s ease;
+.gallery__image-button[data-keyboard-focus]:focus-visible {
+  outline: 3px solid #ef3e46;
+  outline-offset: -3px;
 }
 
-.gallery__item:hover img {
-  filter:
-    brightness(1.1)
-    saturate(1.2);
+.gallery__media img,
+.gallery__media video {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-/* TECHNOLOGIES */
-
-.technologies {
-  position: relative;
-  padding: 65px 0 110px;
-  overflow: hidden;
-}
-
-.technologies::before {
-  content: '';
-  position: absolute;
-  width: 370px;
-  height: 370px;
-  left: 3%;
-  bottom: -180px;
-  border-radius: 50%;
-  background: rgba(215, 55, 35, 0.16);
-  filter: blur(95px);
-  pointer-events: none;
-}
-
-.technologies__card {
-  position: relative;
-  min-height: 220px;
-  padding: 50px 55px;
-  overflow: hidden;
-  border-radius: 26px;
- 
-  display: grid;
-  grid-template-columns: 235px 1fr;
-  gap: 50px;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  transition:
-    border-color 0.4s ease,
-    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.45s ease;
-}
-
-.technologies__card::after {
-  content: '';
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  top: -170px;
-  left: -120px;
-  border-radius: 50%;
-  background: rgba(239, 62, 70, 0.11);
-  filter: blur(50px);
-  pointer-events: none;
-}
-
-.technologies__intro {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: 15px;
-  align-items: flex-start;
-  color: #a6a6a6;
-  font-size: 12px;
-  line-height: 1.65;
-  text-transform: uppercase;
-  letter-spacing: 0.095em;
-}
-
-.technologies__line {
-  width: 24px;
-  height: 1px;
-  margin-top: 7px;
-  background: var(--accent);
-  flex-shrink: 0;
+@media (max-width: 1000px) {
+  .gallery__content {
+    width: calc(100% - 32px);
+  }
 }
 
 /* PROJECT NAVIGATION */
 
 .project-navigation {
   padding: 0;
-  background: rgba(10, 11, 11, 0.7);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  min-height: 125px;
 }
 
 .project-navigation__content {
@@ -1213,8 +985,7 @@ section[id] {
   display: block;
   margin-bottom: 10px;
   color: #777;
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  font-size: 15px;
 }
 
 .project-navigation__project {
@@ -1231,6 +1002,7 @@ section[id] {
   width: 75px;
   height: 48px;
   object-fit: cover;
+  object-position: top center;
   border-radius: 6px;
   filter: brightness(0.83);
   transition:
@@ -1251,14 +1023,74 @@ section[id] {
 
 .project-navigation__project strong {
   color: #ececec;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 550;
 }
 
-.project-navigation__project div span {
-  color: #707070;
-  font-size: 12px;
+.project-navigation--compact .project-navigation__content {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translate(-50%, 0) scale(1);
+  z-index: 90;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  min-height: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 16px;
+  gap: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 30px;
+  background: rgba(20, 20, 20, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 360ms ease,
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s;
 }
+
+.project-navigation--compact .project-navigation__item {
+  min-height: 44px;
+  padding: 0;
+}
+
+.project-navigation--hidden .project-navigation__content {
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, 28px) scale(0.96);
+  pointer-events: none;
+  transition:
+    opacity 280ms ease,
+    transform 280ms cubic-bezier(0.4, 0, 1, 1),
+    visibility 0s 280ms;
+}
+
+.project-navigation--compact .project-navigation__label {
+  margin: 0;
+  color: #ececec;
+  font-size: 13px;
+}
+
+.project-navigation--compact .project-navigation__project {
+  display: none;
+}
+
+.project-navigation__item:focus-visible {
+  outline: 2px solid #ececec;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-navigation--compact .project-navigation__content {
+    transition: none;
+  }
+}
+
 
 /* FOOTER */
 
@@ -1286,14 +1118,7 @@ section[id] {
 }
 
 .footer__content {
-  padding: 55px 0 70px;
-  border-top: 1px solid #d8d6d1;
-  display: grid;
-  grid-template-columns:
-    minmax(300px, 1fr)
-    150px
-    150px;
-  gap: 100px;
+  padding: 24px 0;
 }
 
 .footer__about {
@@ -1323,7 +1148,6 @@ section[id] {
   color: #969696;
   font-size: 12px;
   font-weight: 650;
-  letter-spacing: 0.2em;
 }
 
 .footer__column a {
@@ -1343,150 +1167,10 @@ section[id] {
 
 .footer__bottom {
   padding-top: 22px;
-  border-top: 1px solid #d8d6d1;
   display: flex;
   justify-content: space-between;
   color: #999;
   font-size: 12px;
-}
-
-/* GALLERY MODAL */
-
-.gallery-modal {
-  position: fixed;
-  z-index: 9999;
-  inset: 0;
-  padding: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(4, 5, 5, 0.92);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-}
-
-.gallery-modal::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(255, 255, 255, 0.025),
-      transparent 45%
-    );
-  pointer-events: none;
-}
-
-.gallery-modal__image {
-  position: relative;
-  z-index: 2;
-  max-width: min(1350px, 87vw);
-  max-height: 84vh;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow:
-    0 45px 130px rgba(0, 0, 0, 0.55);
-  animation:
-    galleryImageOpen 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.gallery-modal__close {
-  position: absolute;
-  z-index: 5;
-  top: 27px;
-  right: 35px;
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.045);
-  color: white;
-  font-size: 25px;
-  font-weight: 200;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition:
-    background 0.3s ease,
-    transform 0.35s ease,
-    border-color 0.3s ease;
-}
-
-.gallery-modal__close:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.1);
-  transform: rotate(90deg);
-}
-
-.gallery-modal__navigation {
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  width: 52px;
-  height: 52px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.055);
-  color: white;
-  font-size: 17px;
-  cursor: pointer;
-  backdrop-filter: blur(12px);
-  transform: translateY(-50%);
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.gallery-modal__navigation:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.11);
-}
-
-.gallery-modal__navigation--previous {
-  left: 35px;
-}
-
-.gallery-modal__navigation--previous:hover {
-  transform:
-    translateY(-50%)
-    translateX(-4px);
-}
-
-.gallery-modal__navigation--next {
-  right: 35px;
-}
-
-.gallery-modal__navigation--next:hover {
-  transform:
-    translateY(-50%)
-    translateX(4px);
-}
-
-.gallery-modal__counter {
-  position: absolute;
-  z-index: 5;
-  bottom: 26px;
-  padding: 7px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  color: #929292;
-  font-size: 12px;
-  backdrop-filter: blur(10px);
-}
-
-.gallery-modal-enter-active,
-.gallery-modal-leave-active {
-  transition:
-    opacity 0.35s ease,
-    backdrop-filter 0.35s ease;
-}
-
-.gallery-modal-enter-from,
-.gallery-modal-leave-to {
-  opacity: 0;
-  backdrop-filter: blur(0);
 }
 
 /* ANIMATIONS */
@@ -1525,29 +1209,13 @@ section[id] {
   }
 }
 
-@keyframes galleryImageOpen {
-  from {
-    opacity: 0;
-    transform:
-      scale(0.965)
-      translateY(8px);
-  }
 
-  to {
-    opacity: 1;
-    transform:
-      scale(1)
-      translateY(0);
-  }
-}
 
 /* SCROLL ANIMATIONS */
 
 @supports (animation-timeline: view()) {
   .project-info__main,
-  .project-info__sidebar,
-  .gallery__item,
-  .technologies__card {
+  .project-info__sidebar {
     animation:
       revealOnScroll linear both;
     animation-timeline: view();
@@ -1556,23 +1224,8 @@ section[id] {
       entry 28%;
   }
 
-  .gallery__item:nth-child(2) {
-    animation-range:
-      entry 3%
-      entry 31%;
-  }
 
-  .gallery__item:nth-child(3) {
-    animation-range:
-      entry 6%
-      entry 34%;
-  }
 
-  .gallery__item:nth-child(4) {
-    animation-range:
-      entry 9%
-      entry 37%;
-  }
 
   @keyframes revealOnScroll {
     from {
@@ -1606,7 +1259,19 @@ section[id] {
       80px;
   }
 
-  .hero__image-wrapper,
+  .hero__image-wrapper {
+    display: none;
+  }
+
+  .hero__content {
+    padding-top: 50px;
+    height: max-content;  
+  }
+
+  .project-info__grid{
+    padding: 30px;
+  }
+
   .hero__image {
     min-height: 520px;
   }
@@ -1615,10 +1280,6 @@ section[id] {
     gap: 75px;
   }
 
-  .technologies__card {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
 }
 
 @media (max-width: 800px) {
@@ -1691,17 +1352,10 @@ section[id] {
     padding: 70px 0;
   }
 
-  .gallery__grid {
-    grid-template-columns: 1fr;
-  }
 
-  .technologies {
-    padding: 35px 0 75px;
-  }
 
-  .technologies__card {
-    padding: 38px 30px;
-  }
+
+
 
 
   .footer__content {
@@ -1720,7 +1374,7 @@ section[id] {
   }
 
   .header__logo {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .header__nav a:not(.active) {
@@ -1746,22 +1400,6 @@ section[id] {
     margin-top: 20px;
     font-size: 37px;
     line-height: 1.02;
-  }
-
-  .hero__description {
-    font-size: 14px;
-  }
-
-  .hero__meta {
-    margin-top: 33px;
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-content: flex-start;
-    gap: 14px 24px;
-  }
-
-  .hero__meta-item:not(:last-child)::after {
-    display: none;
   }
 
   .hero__actions {
@@ -1803,18 +1441,8 @@ section[id] {
     padding: 55px 0;
   }
 
-  .gallery__grid {
-    gap: 13px;
-  }
 
-  .gallery__item {
-    border-radius: 10px;
-  }
 
-  .technologies__card {
-    padding: 32px 22px;
-    border-radius: 19px;
-  }
 
 
 
@@ -1837,37 +1465,8 @@ section[id] {
   }
 
   .footer__bottom {
-    gap: 13px;
+    gap: 14px;
     flex-direction: column;
-  }
-
-  .gallery-modal {
-    padding: 18px;
-  }
-
-  .gallery-modal__image {
-    max-width: 95vw;
-    border-radius: 6px;
-  }
-
-  .gallery-modal__navigation {
-    width: 42px;
-    height: 42px;
-  }
-
-  .gallery-modal__navigation--previous {
-    left: 12px;
-  }
-
-  .gallery-modal__navigation--next {
-    right: 12px;
-  }
-
-  .gallery-modal__close {
-    top: 14px;
-    right: 14px;
-    width: 40px;
-    height: 40px;
   }
 }
 

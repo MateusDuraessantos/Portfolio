@@ -7,11 +7,11 @@
         <div class="experience__container">
           <div class="experience__redes">
             <a href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
-              <img class="experience__icon--redes" :src="`icons/${whiteIcons}/linkedin.svg`" width="40" height="40"
+              <img class="experience__icon--redes" :src="`/icons/${whiteIcons}/linkedin.svg`" width="40" height="40"
                 alt="logo Linkedin" loading="lazy">
             </a>
             <a href="https://github.com/MateusDuraessantos" target="_blank">
-              <img class="experience__icon--redes" :src="`icons/${whiteIcons}/github__fill.svg`" width="40" height="40"
+              <img class="experience__icon--redes" :src="`/icons/${whiteIcons}/github__fill.svg`" width="40" height="40"
                 alt="logo Github" loading="lazy">
             </a>
           </div>
@@ -38,11 +38,11 @@
         </div>
         <div class="experience__experiencia">
           <div class="experience__ctn" v-for="icons in experienciaIcons[0]">
-            <img class="experience__icon" :src="`${icons.img}`" :alt="icons.alt" loading="lazy">
+            <img class="experience__icon" :src="`/${icons.img}`" :alt="icons.alt" loading="lazy">
             <p>{{ icons.skill }}</p>
           </div>
           <div class="experience__ctn" v-for="icons in experienciaIcons[1]">
-            <img class="experience__icon" :src="`${icons.img}`" :alt="icons.alt" loading="lazy">
+            <img class="experience__icon" :src="`/${icons.img}`" :alt="icons.alt" loading="lazy">
             <p>{{ icons.skill }}</p>
           </div>
         </div>

@@ -15,7 +15,7 @@
         >
           See project
         </div>
-        <img class="others__img" :src="`projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
+        <img class="others__img" :src="`/projetos/${item.thumb.white}-${whiteImages}.jpg`" alt="">
       </div>
     </div>
   </div>

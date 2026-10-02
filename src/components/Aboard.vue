@@ -4,7 +4,7 @@
     <div class="abordo__container g-max__width">
       <p class="abordo__p">Fasten your seatbeals and come aboard</p>
     </div>
-    <img class="abordo__img" :src="`inicio/${whiteImages}/abordo.webp`" width="1000" height="700" alt="">
+    <img class="abordo__img" :src="`/inicio/${whiteImages}/abordo.webp`" width="1000" height="700" alt="">
   </div>
 </template>
 

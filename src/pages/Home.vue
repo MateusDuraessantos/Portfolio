@@ -10,7 +10,7 @@
       <div id="themeOverflow"></div>
       <div id="overflow">
         <div class="overflowPort">
-          <img :src="`inicio/${smile}/smile.svg`">
+          <img :src="`/inicio/${smile}/smile.svg`">
         </div>
       </div>
       

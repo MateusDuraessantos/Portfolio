@@ -23,7 +23,7 @@
         :id="index"
       >
         <div class="carousel__hover">Open project</div>
-        <img :src="`projetos/${img.thumb.img}`" :alt="img.thumb.alt">
+        <img :src="`/projetos/${img.thumb.img}`" :alt="img.thumb.alt">
       </router-link>
     </div>
   </div>

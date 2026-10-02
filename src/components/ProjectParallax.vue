@@ -1,8 +1,8 @@
 <template>
   <div class="project-parallax" aria-hidden="true">
     <div ref="layer" class="project-parallax__layer">
-      <img class="project-parallax__planet project-parallax__planet--red" src="inicio/black/red-planet.jpg" alt="" width="600" height="600" decoding="async">
-      <img class="project-parallax__planet project-parallax__planet--earth" src="inicio/black/earth.png" alt="" width="600" height="600" decoding="async">
+      <img class="project-parallax__planet project-parallax__planet--red" src="/inicio/black/red-planet.jpg" alt="" width="600" height="600" decoding="async">
+      <img class="project-parallax__planet project-parallax__planet--earth" src="/inicio/black/earth.png" alt="" width="600" height="600" decoding="async">
     </div>
   </div>
 </template>

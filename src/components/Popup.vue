@@ -1,42 +1,54 @@
 <template>
-  <div class="popup" @click="closeThisPopup" v-if="renderImg">
-    <button class="popup__close">✕</button>
-    <div class="popup__pass--container">
-      <button @click="passImg('next')" class="popup__pass popup__right">&#62;</button>
-      <button @click="passImg('back')" class="popup__pass popup__left">&#60;</button>
+  <Teleport to="body">
+  <div ref="dialog" class="popup" :class="{ 'popup__closing': closing }" @click.self="closeThisPopup" v-if="renderImg" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+    <button ref="closeButton" class="popup__close" aria-label="Close popup" @click="closeThisPopup">&#10005;</button>
+    <div v-if="navigationCount > 1 && !zoomImage" class="popup__pass--container">
+      <button :aria-label="galleryProject ? 'Next media' : 'Next project'" @click="passImg('next')" class="popup__pass popup__right">&#62;</button>
+      <button :aria-label="galleryProject ? 'Previous media' : 'Previous project'" @click="passImg('back')" class="popup__pass popup__left">&#60;</button>
     </div>
 
-    <div class="popup__overlay" id="overlay" v-if="clearPopup">
+    <div v-show="!zoomImage || zoomReturning" ref="overlay" class="popup__overlay" @click.self="closeThisPopup">
 
       <!-- Imagens -->
 
-      <div class="popup__content">
+      <div class="popup__content" :key="contentKey">
         <div class="popup__head">
-          <h2 class="popup__title">{{ renderImg.name }}</h2>
-          <div v-html="renderImg.description"></div>
+          <h2 id="popup-title" class="popup__title">{{ renderImg.name }}</h2>
+          <div v-if="renderImg.description" v-html="renderImg.description"></div>
+          <p v-if="galleryProject" class="popup__counter" aria-live="polite">{{ indexImg + 1 }} / {{ navigationCount }}</p>
           <p v-if="renderImg.ano" class="popup__year">{{ renderImg.ano }}</p>
         </div>
         <div class="popup__container">
-          <div class="popup__action--ctn" v-if="renderImg.link">
+          <div class="popup__action--ctn" v-if="renderImg.link || renderImg.github">
             <div class="popup__action">
-              <a class="popup__action--button" :href="renderImg.link" target="_blank">View online</a>
+              <a v-if="renderImg.link" class="popup__action--button" :href="renderImg.link" target="_blank" rel="noopener noreferrer">View online</a>
               <a class="popup__action--button" v-if="renderImg.github" :href="renderImg.github"
-                target="_blank">Github</a>
+                target="_blank" rel="noopener noreferrer">Github</a>
             </div>
           </div>
-          <div v-for="img in renderImg.paths" class="loading loading--on" :id="img.img">
+          <div v-for="img in renderImg.paths" :key="img.img" class="loading" :class="{ 'loading--on': !loadedMedia[img.img] }">
             <p class="loading__loader">Loading</p>
 
-            <img v-if="img.type == undefined" class="popup__imgs" :src="`projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)" height="500" width="600">
+            <button v-if="img.type == undefined" class="popup__image-button" aria-label="Zoom in on image" @click="openZoom($event, img)">
+              <img class="popup__imgs" :src="`/projetos/${img.img}`" :alt="img.alt" @load="stopLoading(img.img)" @error="stopLoading(img.img)" height="500" width="600">
+            </button>
             
-            <video v-else autoplay muted width="850" loop class="popup__imgs popup__video" @canplaythrough="stopLoading(img.img)">
-              <source :src="`projetos/${img.img}`" :type="`video/${img.type}`">
+            <video v-else autoplay muted playsinline width="850" loop class="popup__imgs popup__video" @loadeddata="stopLoading(img.img)" @error="stopLoading(img.img)">
+              <source :src="`/projetos/${img.img}`" :type="`video/${img.type}`">
             </video>
           </div>
         </div>
       </div>
     </div>
+    <template v-if="zoomImage">
+      <div ref="zoomViewport" class="popup__zoom-viewport" :class="{ 'popup__zoom-viewport--dragging': zoomDrag }"
+        tabindex="0" aria-label="Zoomed image. Click to return to normal size" @click.stop="handleZoomClick" @keydown.enter.prevent="closeZoom" @keydown.space.prevent="closeZoom"
+        @pointerdown="startZoomDrag" @pointermove="moveZoomDrag" @pointerup="endZoomDrag" @pointercancel="endZoomDrag" @lostpointercapture="endZoomDrag">
+        <img ref="zoomedImage" class="popup__zoom-image" :src="`/projetos/${zoomImage.img}`" :alt="zoomImage.alt" :style="{ width: zoomWidth + 'px' }" draggable="false">
+      </div>
+    </template>
   </div>
+  </Teleport>
 </template>
 
 <script>
@@ -44,52 +56,179 @@ import { myProjectsData } from '../constants/myProjectsData.js'
 import { myHobbiesData } from '../constants/myHobbiesData.js'
 
 export default {
-  name: 'popup',
+  name: 'Popup',
+  emits: ['closePopup'],
   props: {
-    elemento: Object
+    elemento: Object,
+    galleryProject: Object,
+    initialIndex: { type: Number, default: 0 }
   },
   data() {
     return {
-      myProjectsData: [...myProjectsData, ...myHobbiesData],
-      imagensObj: null,
+      items: [...myProjectsData, ...myHobbiesData],
       indexImg: 0,
-      renderImg: null,
-      clearPopup: true
+      loadedMedia: {},
+      closing: false,
+      zoomImage: null,
+      zoomReturning: false,
+      zoomWidth: 0,
+      zoomDrag: null
+    }
+  },
+  computed: {
+    navigationCount() {
+      return this.galleryProject ? this.galleryProject.gallery.length : this.items.length
+    },
+    contentKey() {
+      return this.galleryProject ? this.galleryProject.gallery[this.indexImg]?.src : this.renderImg?.id
+    },
+    renderImg() {
+      if (!this.galleryProject) return this.items[this.indexImg]
+      const project = this.galleryProject
+      const media = project.gallery[this.indexImg]
+      if (!media) return null
+      return {
+        name: project.title,
+        link: project.links?.online,
+        github: project.links?.github,
+        paths: [{ img: media.src, alt: media.alt || project.title, type: media.type === 'video' ? media.mimeType?.replace(/^video\//, '') || 'mp4' : undefined }]
+      }
     }
   },
   mounted() {
-    this.imagensObj = this.myProjectsData
-    this.indexImg = this.myProjectsData.findIndex(elem => elem.id == this.elemento.id)
-    this.renderImg = this.myProjectsData[this.indexImg]
+    this.indexImg = this.galleryProject
+      ? Math.max(0, Math.min(this.initialIndex, this.navigationCount - 1))
+      : Math.max(0, this.items.findIndex(item => item.id === this.elemento?.id))
+    this.previousOverflow = document.body.style.overflow
+    this.previousFocus = document.activeElement
     document.body.style.overflow = 'hidden'
-    document.addEventListener('keydown', (event) => {
-      if(event.key == 'Escape') this.closeThisPopup(true)
-    })
+    document.addEventListener('keydown', this.handleKeydown)
+    this.$nextTick(() => this.$refs.closeButton?.focus())
+  },
+  beforeUnmount() {
+    clearTimeout(this.closeTimer)
+    this.zoomAnimation?.cancel()
+    document.removeEventListener('keydown', this.handleKeydown)
+    document.body.style.overflow = this.previousOverflow
+    this.previousFocus?.focus()
   },
   methods: {
-    stopLoading(id) {
-      document.getElementById(id).classList.remove('loading--on')
-    },
-    closeThisPopup(event) {
-      let clickable = ['popup__close', 'popup', 'popup__overlay']
-      clickable.forEach(obj => {
-        if (event === true || obj == event.target.classList[0]) {
-          document.querySelector('.popup')?.classList.add('popup__closing')
-          setTimeout(() => {
-            this.$emit('closePopup')
-            document.body.style.overflow = ''
-          }, 1000)
-        }
+    openZoom(event, image) {
+      if (this.closing || this.zoomImage) return
+      const source = event.currentTarget.querySelector('img')
+      if (!source.naturalWidth) return
+      const bounds = source.getBoundingClientRect()
+      const keyboard = event.detail === 0
+      const x = keyboard ? 0.5 : (event.clientX - bounds.left) / bounds.width
+      const y = keyboard ? 0.5 : (event.clientY - bounds.top) / bounds.height
+      this.zoomTrigger = event.currentTarget
+      this.zoomWidth = Math.max(source.naturalWidth, bounds.width * 2)
+      this.zoomImage = image
+      this.$nextTick(() => {
+        const viewport = this.$refs.zoomViewport
+        viewport.scrollLeft = x * this.zoomWidth - viewport.clientWidth / 2
+        viewport.scrollTop = y * this.zoomWidth * source.naturalHeight / source.naturalWidth - viewport.clientHeight / 2
+        viewport.focus({ preventScroll: true })
+        this.animateZoom(this.$refs.zoomedImage, bounds)
       })
     },
-    passImg(param) {
-      this.clearPopup = false
-      setTimeout(() => this.clearPopup = true, 500)
-
-      if (param == 'next') this.indexImg = this.indexImg < this.myProjectsData.length - 1 ? this.indexImg + 1 : 0
-      if (param == 'back') this.indexImg = this.indexImg == 0 ? this.myProjectsData.length - 1 : this.indexImg - 1
-
-      this.renderImg = this.myProjectsData[this.indexImg] // Re atribui os valores 
+    animateZoom(image, bounds, returning = false) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+      const rect = image.getBoundingClientRect()
+      this.zoomAnimation?.cancel()
+      const fitted = { transform: `translate(${bounds.left - rect.left}px, ${bounds.top - rect.top}px) scale(${bounds.width / rect.width})` }
+      const enlarged = { transform: 'translate(0, 0) scale(1)' }
+      this.zoomAnimation = image.animate(returning ? [enlarged, fitted] : [fitted, enlarged], {
+        duration: 320,
+        easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+        fill: returning ? 'forwards' : 'none'
+      })
+      return this.zoomAnimation
+    },
+    async closeZoom() {
+      if (!this.zoomImage || this.zoomReturning || this.closing) return
+      this.zoomAnimation?.finish()
+      this.zoomReturning = true
+      this.zoomDrag = null
+      await this.$nextTick()
+      const source = this.zoomTrigger?.querySelector('img')
+      const image = this.$refs.zoomedImage
+      if (source && image) {
+        const animation = this.animateZoom(image, source.getBoundingClientRect(), true)
+        if (animation) {
+          try { await animation.finished } catch { return }
+        }
+      }
+      this.zoomImage = null
+      this.zoomReturning = false
+      this.zoomDrag = null
+      this.$nextTick(() => this.zoomTrigger?.focus())
+    },
+    startZoomDrag(event) {
+      if (!event.isPrimary || event.button !== 0 || this.zoomReturning || this.closing) return
+      this.zoomAnimation?.finish()
+      this.zoomDragged = false
+      const viewport = event.currentTarget
+      this.zoomDrag = { x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop }
+      viewport.setPointerCapture(event.pointerId)
+    },
+    moveZoomDrag(event) {
+      if (!this.zoomDrag) return
+      if (Math.hypot(event.clientX - this.zoomDrag.x, event.clientY - this.zoomDrag.y) > 5) this.zoomDragged = true
+      event.currentTarget.scrollLeft = this.zoomDrag.left - (event.clientX - this.zoomDrag.x)
+      event.currentTarget.scrollTop = this.zoomDrag.top - (event.clientY - this.zoomDrag.y)
+    },
+    endZoomDrag() {
+      this.zoomDrag = null
+    },
+    handleZoomClick() {
+      if (this.zoomDragged) {
+        this.zoomDragged = false
+        return
+      }
+      this.closeZoom()
+    },
+    stopLoading(id) {
+      this.loadedMedia[id] = true
+    },
+    closeThisPopup() {
+      if (this.closing) return
+      this.closing = true
+      this.closeTimer = setTimeout(() => this.$emit('closePopup'), 300)
+    },
+    passImg(direction) {
+      if (this.closing || this.navigationCount < 2) return
+      this.zoomImage = null
+      this.zoomDrag = null
+      const step = direction === 'next' ? 1 : -1
+      this.indexImg = (this.indexImg + step + this.navigationCount) % this.navigationCount
+      this.$nextTick(() => this.$refs.overlay?.scrollTo({ top: 0 }))
+    },
+    handleKeydown(event) {
+      if (event.key === 'Escape') {
+        if (this.zoomImage) this.closeZoom()
+        else this.closeThisPopup()
+      }
+      if (this.zoomImage && event.key.startsWith('Arrow')) {
+        event.preventDefault()
+        const movement = { ArrowRight: [100, 0], ArrowLeft: [-100, 0], ArrowDown: [0, 100], ArrowUp: [0, -100] }[event.key]
+        if (movement) this.$refs.zoomViewport.scrollBy(...movement)
+      } else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        event.preventDefault()
+        this.passImg(event.key === 'ArrowRight' ? 'next' : 'back')
+      }
+      if (event.key === 'Tab') {
+        const buttons = [...this.$refs.dialog.querySelectorAll('button, a[href]')].filter(button => button.getClientRects().length)
+        const first = buttons[0]
+        const last = buttons[buttons.length - 1]
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last?.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first?.focus()
+        }
+      }
     }
   }
 }
@@ -112,13 +251,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
-  z-index: 10;
-  animation: openPopup forwards 1s;
+  z-index: 9999;
+  animation: openPopup forwards .3s;
 }
 
 @keyframes openPopup {
@@ -132,7 +271,8 @@ export default {
 }
 
 .popup__closing {
-  animation: closingPopup forwards 1s;
+  animation: closingPopup forwards .3s;
+  pointer-events: none;
 }
 
 @keyframes closingPopup {
@@ -169,16 +309,48 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 1200px;
+  width: min(1200px, calc(100% - 200px));
+  min-height: 86vh;
   height: max-content;
   background: #1f1f1f;
-  margin-top: 50px;
-  animation: popup-6be7b2a8 .5s forwards;
+  margin: 50px 0;
+  animation: popup .3s forwards;
 }
 
 .popup__imgs {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
+}
+
+.popup__image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.popup__zoom-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  cursor: grab;
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+.popup__zoom-viewport--dragging { cursor: grabbing; }
+
+.popup__zoom-image {
+  display: block;
+  max-width: none;
+  height: auto;
+  margin: 0 auto;
+  user-select: none;
+  transform-origin: top left;
 }
 
 .popup__video {
@@ -294,6 +466,7 @@ export default {
   transition: .2s;
   z-index: 2;
   text-shadow: 1px 1px 2px black;
+  cursor: pointer;
   color: var(--creme);
 }
 
@@ -303,6 +476,8 @@ export default {
 }
 
 .popup__pass--container {
+  z-index: 3;
+  pointer-events: none;
   position: fixed;
   display: flex;
   align-items: center;
@@ -310,6 +485,7 @@ export default {
 }
 
 .popup__pass {
+  pointer-events: auto;
   position: absolute;
   display: flex;
   align-items: center;
@@ -411,11 +587,13 @@ export default {
   }
 
   .popup__content {
-    margin: 0;
+    margin: 60px 0 100px;
+    width: calc(100% - 32px);
   }
 
   .popup__pass--container {
-    display: none;
+    top: auto;
+    bottom: 45px;
   }
 }
 
@@ -432,5 +610,10 @@ export default {
     padding: 20px;
   }
 
+}
+.popup__counter { color: var(--creme); font-size: 14px; }
+.popup button:focus-visible, .popup a:focus-visible { outline: 2px solid var(--creme); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .popup, .popup__content, .loading::before, .loading::after, .loading__loader::before { animation: none; }
 }
 </style>

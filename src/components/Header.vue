@@ -8,17 +8,25 @@
         <div class="turnWhite__emoji">🌙</div>
       </div>
     </button>
-    <button v-else class="project-back" @click="navigateTo('link_ancor__portfolio')">← Home</button>
+    <p v-else class="project-name">Mateus Durães dos Santos</p>
     <span></span>
 
     <div class="links" ref="links">
       <div id="mobile" :class="{ openMenu: menuOpen }">
         <button class="dropdown__init" :aria-expanded="menuOpen" aria-controls="header-navigation" @click="upDropdown">Menu</button>
+        
         <nav id="header-navigation" class="dropdown__container" :aria-label="isProject ? 'Project sections' : 'Main navigation'">
-          <button v-for="section in navigationSections" :key="section.id" class="dropdown nav"
+          <button class="dropdown nav" v-if="isProject" @click="navigateTo('link_ancor__portfolio')">← Home</button>
+
+          <button
+            v-for="section in navigationSections"
+            :key="section.id" class="dropdown nav"
             :class="{ 'nav--active': activeSection === section.id }"
             :aria-current="activeSection === section.id ? 'location' : undefined"
-            @click="isProject ? navigateProject(section.id) : navigateTo(section.id)">{{ section.label }}</button>
+            @click="isProject ? navigateProject(section.id) : navigateTo(section.id)"
+          >
+            {{ section.label }}
+          </button>
         </nav>
       </div>
     </div>
@@ -64,7 +72,6 @@ export default {
       if (datasProjects[this.$route.params.slug]?.gallery?.length) {
         sections.push({ id: 'project-gallery', label: 'Gallery' })
       }
-      sections.push({ id: 'project-technologies', label: 'Technologies' })
       return sections
     },
   },
@@ -437,7 +444,7 @@ button {
   background: rgba(20, 20, 20, 0.9);
 }
 
-.project-back {
+.project-name, .project-back {
   color: var(--creme);
   white-space: nowrap;
   padding: 10px 0;

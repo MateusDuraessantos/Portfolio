@@ -123,6 +123,10 @@ export const myProjectsData = [
         alt: 'Mapalytics Data Machina'
       },
       {
+        img: 'calculadora/calculadora.png',
+        alt: 'Mapalytics Distance Calculator interface'
+      },
+      {
         img: 'calculadora/alternatives_selection.mp4',
         type:'mp4',
         alt: 'Mapalytics Data Machina'

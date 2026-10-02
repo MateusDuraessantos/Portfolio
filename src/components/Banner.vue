@@ -10,15 +10,15 @@
 
       <div class="banner__camadas">
         <div class="banner__el banner__camada--1">
-          <img class="banner__camada--img" src="camada_1.svg" height="100" width="100" alt="">
+          <img class="banner__camada--img" src="/camada_1.svg" height="100" width="100" alt="">
         </div>
 
         <div class="banner__el banner__camada--2">
-          <img class="banner__camada--img" src="camada_2.svg" height="100" width="100" alt="">
+          <img class="banner__camada--img" src="/camada_2.svg" height="100" width="100" alt="">
         </div>
 
         <div class="banner__el banner__camada--3">
-          <img class="banner__camada--img" src="camada_3.svg" height="100" width="100" alt="">
+          <img class="banner__camada--img" src="/camada_3.svg" height="100" width="100" alt="">
         </div>
 
       </div>
@@ -33,7 +33,7 @@
           <div class="banner__social">
             <a class="banner__redes" href="https://www.linkedin.com/in/mateus-dur%C3%A3es-dos-santos/" target="_blank">
               <img
-                class="banner__redes--img" :src="`icons/${whiteIcons}/linkedin.svg`"
+                class="banner__redes--img" :src="`/icons/${whiteIcons}/linkedin.svg`"
                 width="58"
                 height="34"
                 alt="logo Linkedin"
@@ -43,7 +43,7 @@
             <a class="banner__redes" href="https://github.com/MateusDuraessantos" target="_blank">
               <img
                 class="banner__redes--img"
-                :src="`icons/${whiteIcons}/github__fill.svg`"
+                :src="`/icons/${whiteIcons}/github__fill.svg`"
                 width="58"
                 height="34"
                 alt="logo Github" loading="lazy"

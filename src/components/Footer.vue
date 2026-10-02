@@ -3,12 +3,12 @@
     <div class="sky">
       <!-- The heavens declare the glory of Jesus -->
       <span class="sky__container" v-if="footerVisible">
-        <video class="sky__background" v-if="footerVideo" src="inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted></video>
-        <img class="sky__background--white" v-else src="inicio/black/footer__mobile.jpg" alt="sky" loading="lazy">
+        <video class="sky__background" v-if="footerVideo" src="/inicio/black/bluesky_2.mp4" width="500px" height="500px" autoplay loop muted playsinline></video>
+        <img class="sky__background--white" v-else src="/inicio/black/footer__mobile.jpg" alt="sky" loading="lazy">
         <div class="sky__shadows" id="shadow"></div>
       </span>
       <span class="sky__container" v-else>
-        <img class="sky__background--white" src="inicio/white/footer.jpg" alt="sky" loading="lazy">
+        <img class="sky__background--white" src="/inicio/white/footer.jpg" alt="sky" loading="lazy">
         <div class="sky__shadows--white" id="shadow"></div>
       </span>
       <!-- Infos -->
@@ -24,11 +24,11 @@
                 target="_blank"
               >
                 <div class="information__contato">
-                  <img :src="`icons/${iconsTheme}/linkedin.svg`" alt="Logo LinkedIn" loading="lazy">
+                  <img :src="`/icons/${iconsTheme}/linkedin.svg`" alt="Logo LinkedIn" loading="lazy">
                   <p class=" contato__email">Linkedin</p>
                 </div>
                 <div class="decoration__info">Mateus Durães dos Santos</div>
-                <img class="decoration__copy" :src="`icons/${iconsTheme}/link.svg`" alt="Copy icon" loading="lazy">
+                <img class="decoration__copy" :src="`/icons/${iconsTheme}/link.svg`" alt="Copy icon" loading="lazy">
               </a>
             </div>
           </address>
@@ -43,11 +43,15 @@
           >
             <p class="phrase">Who said footers have to be boring?</p>
           </div>
+          <div class="sky__footer-details">
+            <span>© {{ new Date().getFullYear() }}</span>
+            <span>São Paulo, Brazil</span>
+          </div>
         </div>
       </div>
 
-      <img v-for="i in 14" :class="`sky__planet_${i} sky__planet`" :src="`inicio/${whiteImages}/planet_${i}.webp`" alt="" loading="lazy">
-      <img class="sky__smile sky__planet" :src="`inicio/${whiteImages}/smile.svg`" alt="" loading="lazy">
+      <img v-for="i in 14" :class="`sky__planet_${i} sky__planet`" :src="`/inicio/${whiteImages}/planet_${i}.webp`" alt="" loading="lazy">
+      <img class="sky__smile sky__planet" :src="`/inicio/${whiteImages}/smile.svg`" alt="" loading="lazy">
     </div>
   </footer>
 </template>
@@ -350,6 +354,25 @@ footer.open * {
   font-weight: 400;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.sky__footer-details {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #999;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 700px) {
+  .sky__footer-details {
+    bottom: 60px;
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
 }
 
 .smile_cont {

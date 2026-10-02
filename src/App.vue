@@ -67,6 +67,11 @@ html {
   overflow-x: hidden;
 }
 
+*::selection {
+  background: #ff2f3a;
+  color: white;
+}
+
 body {
   position: relative;
   overflow: overlay;

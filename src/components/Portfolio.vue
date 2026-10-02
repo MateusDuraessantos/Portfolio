@@ -9,7 +9,7 @@
           v-for="i in 11"
           :class="`experiencia__rocha experiencia__rocha--${i}`"
         >
-          <img :src="`inicio/${whiteImages}/rochas/intersect_${i}.png`" :alt="`Rock ${i}`">
+          <img :src="`/inicio/${whiteImages}/rochas/intersect_${i}.png`" :alt="`Rock ${i}`">
         </div>
     
     <!-- CARROSSEL -->
@@ -33,7 +33,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 200px 0 100px 0;
+  padding: 100px 0 100px 0;
 }
 
 .experiencia__container {

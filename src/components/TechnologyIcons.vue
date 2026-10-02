@@ -9,19 +9,19 @@
 
 <script>
 const icons = {
-  css: 'css.png',
-  html: 'html.png',
-  javascript: 'javascript.png',
-  typescript: 'typescript.png',
-  vue: 'vuejs.png',
-  element: 'element_plus.png',
-  mapbox: 'mapbox.png',
-  nvm: 'nvm.png',
-  firebase: 'firebase.png',
-  bootstrap: 'bootstrap.png',
-  figma: 'figma.png',
-  github: 'icons/whiteicons/github__fill.svg',
-  next: 'icons/next.svg',
+  css: '/css.png',
+  html: '/html.png',
+  javascript: '/javascript.png',
+  typescript: '/typescript.png',
+  vue: '/vuejs.png',
+  element: '/element_plus.png',
+  mapbox: '/mapbox.png',
+  nvm: '/nvm.png',
+  firebase: '/firebase.png',
+  bootstrap: '/bootstrap.png',
+  figma: '/figma.png',
+  github: '/icons/whiteicons/github__fill.svg',
+  next: '/icons/next.svg',
 }
 
 export default {
@@ -48,6 +48,11 @@ export default {
 }
 
 .technology-icons__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   text-align: center;
   width: 144px;
   height: 120px;

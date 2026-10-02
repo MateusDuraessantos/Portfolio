@@ -2,11 +2,11 @@
   <!-- Componente: Parallax.vue -->
   <div class="parallax">
     <div class="parallax__contente" id="parallax__id" ref="parallaxLayer">
-      <img v-if="awaitParallax" class="parallax__img" src="inicio/white/mobile-background__parallax.webp" alt="">
+      <img v-if="awaitParallax" class="parallax__img" src="/inicio/white/mobile-background__parallax.webp" alt="">
 
       <div class="parallax__dark" v-else>
-        <img src="inicio/black/red-planet.jpg" class="sobre__planet--1" alt="" width="600" height="600" loading="lazy">
-        <img src="inicio/black/earth.png" class="sobre__planet--2" alt="" width="600" height="600" loading="lazy">
+        <img src="/inicio/black/red-planet.jpg" class="sobre__planet--1" alt="" width="600" height="600" loading="lazy">
+        <img src="/inicio/black/earth.png" class="sobre__planet--2" alt="" width="600" height="600" loading="lazy">
       </div>
       
     </div>
