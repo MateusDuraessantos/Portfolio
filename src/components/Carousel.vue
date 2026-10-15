@@ -103,21 +103,29 @@ export default {
         ))
       }
 
-      let positions = (2 - this.initial) * 25
-      this.img_defaults()?.forEach(obj => {
+      const cards = Array.from(this.img_defaults())
+      cards.forEach(obj => {
         obj.removeAttribute('frame_size')
-        obj.style.transform = ''
         const index = Number(obj.id)
         let classTag = ''
         if (index == this.initial) classTag = 'big'
         if (index == this.initial - 1 || index == this.initial + 1) classTag = 'middle'
 
-        obj.style.left = `${positions}%`
-        positions += 25
         obj?.setAttribute('frame_size', classTag)
       })
-      
-      this.littleAjustmentOnSpacing()
+
+      // Read target widths, rather than the intermediate animated widths.
+      const widths = cards.map(card => Number.parseFloat(
+        getComputedStyle(card).getPropertyValue('--card-width')
+      ))
+      const gap = Number.parseFloat(getComputedStyle(this.$el).getPropertyValue('--card-gap'))
+      const centers = [0]
+      for (let i = 1; i < cards.length; i++) {
+        centers[i] = centers[i - 1] + widths[i - 1] / 2 + gap + widths[i] / 2
+      }
+      cards.forEach((card, index) => {
+        card.style.left = `calc(50% + ${centers[index] - centers[this.initial]}px)`
+      })
       this.hideButtons()
     },
     
@@ -194,12 +202,6 @@ export default {
       return document.querySelectorAll('[img_default]')
     },
 
-    littleAjustmentOnSpacing() {
-      const spacing = document.querySelectorAll('[frame_size="middle"]')
-      const operator = (i) => (i == 0 && this.initial != 0) ?  '-' : '+'
-      spacing.forEach((obj, i) => obj.style.transform = `translatex(calc(-50% ${operator(i)} 26px))`)
-    },
-    
     hideButtons() {
       const [l, r] = [document.getElementById('button__l'), document.getElementById('button__r')]
       l.style.display = this.indexCenter() == 0 ? 'none' : ''
@@ -215,6 +217,7 @@ export default {
 /* CARROSSEL */
 
 .carousel {
+  --card-gap: 20px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -278,14 +281,14 @@ export default {
 }
 
 [img_default] {
+  --card-width: 200px;
+  box-sizing: border-box;
   position: absolute;
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 200px;
-  height: 438px;
   border-radius: 30px;
-  width: 200px;
+  width: var(--card-width);
   height: 438px;
   transform: translatex(-50%);
   box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.4);
@@ -305,15 +308,15 @@ export default {
 }
 
 [frame_size="middle"] {
+  --card-width: 240px;
   display: flex !important;
-  width: 240px;
   height: 542px;
   z-index: 1;
 }
 
 [frame_size="big"] {
+  --card-width: 296px;
   display: flex !important;
-  width: 296px;
   height: 638px;
   border-radius: 36px;
   z-index: 3;
