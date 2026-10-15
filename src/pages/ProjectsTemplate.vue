@@ -194,26 +194,6 @@
 		</Teleport>
 		<GalleryImageViewer v-if="galleryImage" :src="galleryImage.src" :alt="galleryImage.alt" @close="galleryImage = null" />
 
-		<!-- FOOTER -->
-		<footer class="footer">
-
-			<div class="container">
-
-				<div class="footer__bottom">
-
-					<span>
-						© {{ currentYear }}
-					</span>
-
-					<span>
-						São Paulo, Brazil
-					</span>
-
-				</div>
-
-			</div>
-
-		</footer>
 
 
 	</div>
@@ -262,10 +242,6 @@ export default {
 
 		sidebarDetails() {
 			return this.project.details.filter(item => item !== this.projectRole)
-		},
-
-		currentYear() {
-			return new Date().getFullYear()
 		}
 	},
 
