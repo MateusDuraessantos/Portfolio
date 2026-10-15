@@ -35,10 +35,6 @@
           <div id="observador__footer" style="height: 200px; display: flex; align-items: flex-end; position: absolute; bottom: 0;">
             <p class="phrase">Who said footers have to be boring?</p>
           </div>
-          <div class="sky__footer-details">
-            <span>© {{ new Date().getFullYear() }}</span>
-            <span>São Paulo, Brazil</span>
-          </div>
         </div>
       </div>
 
@@ -346,26 +342,6 @@ footer.open * {
   font-weight: 400;
   text-align: center;
   margin-bottom: 20px;
-}
-
-.sky__footer-details {
-  position: absolute;
-  bottom: 20px;
-  padding: 0 30px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  color: #999;
-  font-size: 12px;
-}
-
-@media screen and (max-width: 700px) {
-  .sky__footer-details {
-    bottom: 60px;
-    padding: 0 24px;
-    box-sizing: border-box;
-  }
 }
 
 .smile_cont {
@@ -720,7 +696,7 @@ footer.open * {
     width: 100%;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 1fr auto auto;
+    grid-template-rows: 1fr auto;
     justify-content: stretch;
     justify-items: center;
     gap: 24px;
@@ -783,17 +759,6 @@ footer.open * {
     font-size: 15px;
     line-height: 1.6;
     text-wrap: balance;
-  }
-
-  .sky__footer-details {
-    grid-row: 3;
-    position: static;
-    padding: 0;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    line-height: 1.5;
   }
 
   .sky__planet {
