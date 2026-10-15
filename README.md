@@ -27,3 +27,32 @@
 
 * npm install
 * npm run serve
+
+## Deploy automático no Firebase
+
+O workflow `.github/workflows/firebase-hosting.yml` executa a cada push na
+branch `main`, incluindo merges. Ele usa Node.js 22, instala as dependências
+com `npm ci`, executa `npm run build` e, se o build passar, publica `dist`
+no Firebase Hosting de produção do projeto `mateus-duraes-dev`.
+Também pode ser iniciado manualmente pela aba Actions, selecionando `main`.
+
+### Configuração inicial da credencial
+
+1. No [Google Cloud IAM](https://console.cloud.google.com/iam-admin/serviceaccounts?project=mateus-duraes-dev),
+   crie uma conta de serviço exclusiva para os deploys. Conceda os papéis
+   **Firebase Hosting Admin** (`roles/firebasehosting.admin`) e
+   **API Keys Viewer** (`roles/serviceusage.apiKeysViewer`).
+2. Na conta de serviço, abra **Keys > Add key > Create new key > JSON**.
+3. Nos [secrets do repositório](https://github.com/MateusDuraessantos/Portfolio/settings/secrets/actions),
+   crie um **New repository secret** chamado
+   `FIREBASE_SERVICE_ACCOUNT_MATEUS_DURAES_DEV`, com o conteúdo completo do JSON.
+   Não adicione esse arquivo ao repositório.
+4. Envie o workflow, `firebase.json` e `.firebaserc` para a `main`.
+   Acompanhe o build e a publicação na
+   [aba Actions](https://github.com/MateusDuraessantos/Portfolio/actions).
+
+O deploy atualiza o canal `live`, incluindo os domínios personalizados
+conectados ao site. Commits locais disparam a automação quando são enviados
+ao GitHub com `git push`.
+
+Referência: [GitHub Action oficial do Firebase Hosting](https://github.com/FirebaseExtended/action-hosting-deploy).
