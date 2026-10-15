@@ -1094,6 +1094,11 @@ section[id] {
 
 /* FOOTER */
 
+.project-page > .footer::before {
+  content: none;
+  display: none;
+}
+
 .footer {
   padding: 55px 0 30px;
   background: black;
@@ -1267,6 +1272,10 @@ section[id] {
 }
 
 @media (max-width: 800px) {
+  .gallery-return {
+    top: auto;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  }
   .project-page { --page-gutter: clamp(16px, 4vw, 28px); }
   .container, .gallery__content { width: calc(100% - var(--page-gutter) * 2); }
   .hero__info { padding: 56px var(--page-gutter) 48px; }

@@ -1,4 +1,52 @@
 export const datasProjects = {
+  /* DM VISION */
+  'dm-vision': {
+    id: 'dm-vision',
+    type: 'PROJECT PORTFOLIO',
+    title: 'DM Vision — Plataforma de análise de imagens',
+    description: 'Plataforma web para explorar resultados de processamento de imagens, reunindo detecções, classes, alertas e medições em uma interface interativa. O sistema permite organizar imagens por projeto, inspecionar elementos diretamente na imagem e consultar os dados associados a cada análise.',
+    cover: 'dm-vision/cover.svg',
+    thumb: {
+      img: 'dm-vision/cover.svg',
+      alt: 'Capa gráfica do DM Vision — Plataforma de análise de imagens'
+    },
+    links: { online: '', github: '' },
+    meta: [
+      { icon: '▣', label: 'A informar' },
+      { icon: '◇', label: 'Nuxt 3 / Vue.js 3' },
+      { icon: '▰', label: 'TypeScript' },
+      { icon: '◎', label: 'Interface e experiência de uso' }
+    ],
+    details: [
+      { title: 'YEAR', values: ['A informar'] },
+      {
+        title: 'MY ROLE',
+        values: [
+          'Interface e experiência de uso: Trabalhei na organização das telas e dos fluxos de navegação, buscando tornar a consulta dos resultados mais clara. Na área de análise, a interface conecta a visualização da imagem aos controles de camadas, filtros e informações dos processamentos.',
+          'Desenvolvimento: Desenvolvi a aplicação com Nuxt, Vue.js e TypeScript, utilizando Pinia para gerenciar o estado e Element Plus para os componentes de interface. Implementei a integração com os serviços de processamento e a visualização interativa das imagens, com zoom, navegação e sobreposição dos resultados.'
+        ]
+      },
+      {
+        title: 'DEVELOPMENT',
+        values: ['Nuxt 3', 'Vue.js 3', 'TypeScript', 'HTML e CSS', 'Pinia', 'Element Plus', 'Firebase', 'Chart.js', 'Panzoom']
+      }
+    ],
+    gallery: [
+      { type: 'video', src: 'dm-vision/dm-vision-classes.mp4', mimeType: 'video/mp4', alt: 'DM Vision — visualização de classes' },
+      { type: 'video', src: 'dm-vision/dm-vision-classes-1.mp4', mimeType: 'video/mp4', alt: 'DM Vision — visualização de classes, segunda demonstração' },
+      { type: 'video', src: 'dm-vision/dm-vision-medicoes.mp4', mimeType: 'video/mp4', alt: 'DM Vision — medições na imagem' }
+    ],
+    technologies: [
+      { name: 'Vue.js 3', short: 'V', type: 'vue' },
+      { name: 'TypeScript', short: 'TS', type: 'typescript' },
+      { name: 'HTML', short: '5', type: 'html' },
+      { name: 'CSS', short: '3', type: 'css' },
+      { name: 'Element Plus', short: 'EP', type: 'element' },
+      { name: 'Firebase', short: 'F', type: 'firebase' }
+    ],
+    previous: 'data-machina',
+    next: 'mapalytics'
+  },
   /* MAPALYTICS */
   'mapalytics': {
     id: 'hjtryjytrsw',
@@ -91,7 +139,7 @@ export const datasProjects = {
       }
     ],
 
-    previous: 'data-machina',
+    previous: 'dm-vision',
 
     next: 'tre-communication'
   },
@@ -772,6 +820,6 @@ export const datasProjects = {
 
     previous: 'teclakey',
 
-    next: 'mapalytics'
+    next: 'dm-vision'
   }
 }

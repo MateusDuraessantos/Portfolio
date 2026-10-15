@@ -122,7 +122,10 @@ export default {
       const x = keyboard ? 0.5 : (event.clientX - bounds.left) / bounds.width
       const y = keyboard ? 0.5 : (event.clientY - bounds.top) / bounds.height
       this.zoomTrigger = event.currentTarget
-      this.zoomWidth = Math.max(source.naturalWidth, bounds.width * 2)
+      const mobile = window.matchMedia('(max-width: 700px)').matches
+      this.zoomWidth = mobile
+        ? bounds.width * 1.5
+        : Math.max(source.naturalWidth, bounds.width * 2)
       this.zoomImage = image
       this.$nextTick(() => {
         const viewport = this.$refs.zoomViewport

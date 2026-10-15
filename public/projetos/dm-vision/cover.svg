@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101d33"/><stop offset="1" stop-color="#080f1d"/></linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#96c4df" stroke-opacity=".08"/></pattern>
+    <linearGradient id="accent"><stop stop-color="#70e2d0"/><stop offset="1" stop-color="#6caaff"/></linearGradient>
+  </defs>
+  <rect width="1440" height="960" fill="url(#bg)"/>
+  <rect width="1440" height="960" fill="url(#grid)"/>
+  <g fill="none" stroke="url(#accent)" stroke-width="3">
+    <rect x="880" y="230" width="340" height="440" rx="24" opacity=".25"/>
+    <rect x="820" y="300" width="280" height="280" rx="8"/>
+    <rect x="1020" y="470" width="220" height="240" rx="8"/>
+    <path d="M780 260v-50h50m400 0h50v50M780 700v50h50m400 0h50v-50" stroke-width="6"/>
+    <circle cx="960" cy="440" r="55"/>
+    <path d="M940 440h40m-20-20v40M1100 590h60m-30-30v60"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="110" y="330" fill="#70e2d0" font-size="22" letter-spacing="5">PROJECT PORTFOLIO</text>
+    <text x="104" y="448" fill="#f4f8ff" font-size="94" font-weight="700">DM Vision</text>
+    <text x="110" y="515" fill="#b7c9df" font-size="28">Plataforma de análise de imagens</text>
+    <path d="M110 570h100" stroke="#70e2d0" stroke-width="4"/>
+    <text x="110" y="637" fill="#b7c9df" font-size="21">Detecções · Classes · Alertas · Medições</text>
+    <text x="110" y="830" fill="#7b91ad" font-size="20">Nuxt 3 / Vue.js 3 / TypeScript</text>
+  </g>
+</svg>
